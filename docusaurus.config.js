@@ -1,5 +1,4 @@
 module.exports = {
-  plugins: ['@docusaurus/plugin-google-gtag'],
   title: 'SaintMalik',
   tagline: 'Penetration Tester and Aspiring Security Engineer.',
   url: 'https://blog.saintmalik.me',
