@@ -1,4 +1,5 @@
 module.exports = {
+  plugins: ['@docusaurus/plugin-google-gtag'],
   title: 'SaintMalik',
   tagline: 'Penetration Tester and Aspiring Security Engineer.',
   url: 'https://blog.saintmalik.me',
@@ -9,6 +10,12 @@ module.exports = {
   organizationName: 'blog.saintmalik.me', // Usually your GitHub org/user name.
   projectName: 'blog.saintmalik.me', // Usually your repo name.
   themeConfig: {
+    gtag: {
+      // You can also use your "G-" Measurement ID here.
+      trackingID: 'UA-123518521-4',
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
     colorMode: {
       defaultMode: "dark",
       disableSwitch: true,
@@ -104,6 +111,8 @@ module.exports = {
         //     'https://github.com/facebook/docusaurus/edit/master/website/',
         // },
         blog: {
+          blogTitle: 'Saintmalik Blog !',
+          blogDescription: 'My New Blog!',
           // showReadingTime: true,
           path: "./blog",
           routeBasePath: "/"

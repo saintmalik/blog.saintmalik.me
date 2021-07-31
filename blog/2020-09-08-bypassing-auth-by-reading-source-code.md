@@ -1,9 +1,9 @@
 ---
 slug: bypassing-auth-by-reading-source-code
 title: Bypassing Auth By Reading Source Code(JS files)
-author: Yangshun Tay
-author_title: Front End Engineer @ Facebook
-author_url: https://github.com/yangshun
+author: Saintmalik
+author_title: Pentester
+author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 tags: [websec, infosec]
 ---
