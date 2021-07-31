@@ -5,7 +5,7 @@ author: Saintmalik
 author_title: Pentester
 author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /img/what-makes-a-good-developer.jpg
+image: /static/img/what-makes-a-good-developer.jpg
 tags: [websec, infosec]
 ---
 
@@ -32,7 +32,7 @@ Definitely the whole Auth process was done from the client side(Frontend). Aweso
 
 Now I started reading the source code, knowing that only JavaScript can do this stuff on the Frontend. I went straight to reading the JS files.
 
-![Source Code Auth](/sourcecodeauth.webp)
+![Source Code Auth](/img/sourcecodeauth.webp)
 
 Reading the JS files, I saw this endpoint **/home** 🤗, then I read the function which this endpoint was appended too.
 
@@ -40,7 +40,7 @@ So I got to know that when the whole Auth process is done. Users are redirected 
 
 Then let me just try the endpoint out and see if I get a **401**,**403** or **500** errors but to my surprise I got a **200(OK)** response and the page loaded up.
 
-![Awesome](/img/saintmalik.jpg))
+![Awesome](/img/awesome.gif)
 
 And yeah I can see all the internal members pictures and some other data's of employees without being an employee of the company.
 
