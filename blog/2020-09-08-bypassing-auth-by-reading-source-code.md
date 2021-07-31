@@ -5,6 +5,7 @@ author: Saintmalik
 author_title: Pentester
 author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
+image: img/what-makes-a-good-developer.jpg
 tags: [websec, infosec]
 ---
 

@@ -83,15 +83,15 @@ module.exports = {
           items: [
             {
               label: 'About',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://saintmalik.me/about',
             },
             {
               label: 'Work',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://saintmalik.me/work',
             },
             {
               label: 'Resume',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://saintmalik.me/resume',
             },
           ],
         },
