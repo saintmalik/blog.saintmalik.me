@@ -6,8 +6,8 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/saintmalik.jpg',
-  organizationName: 'Saintmalik', // Usually your GitHub org/user name.
-  projectName: 'Saintmalik', // Usually your repo name.
+  organizationName: 'blog.saintmalik.me', // Usually your GitHub org/user name.
+  projectName: 'blog.saintmalik.me', // Usually your repo name.
   themeConfig: {
     colorMode: {
       defaultMode: "dark",
