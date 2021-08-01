@@ -5,11 +5,11 @@ author: Saintmalik
 author_title: Pentester
 author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
+image: /img/bypassauth.png
 tags: [websec, infosec]
 ---
 
-![Image](https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg)
+![Bypass Auth](/static/img/bypassauth.png)
 
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 
