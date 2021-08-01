@@ -1,4 +1,5 @@
 ---
+title: Contents
 sidebar_position: 1
 slug: /
 ---
