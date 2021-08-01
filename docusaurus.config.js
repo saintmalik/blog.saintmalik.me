@@ -32,7 +32,7 @@ module.exports = {
       items: [
         { to: "/", label: "Blog", position: "left" },
         {
-          to: "/docs/intro",
+          to: "docs/",
           activeBasePath: "docs",
           label: "Docs",
           position: "left",
