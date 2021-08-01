@@ -8,6 +8,7 @@ author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/mas
 image: /img/bypassauth.png
 tags: [infosec, websec]
 ---
+![Bypass Auth](/static/img/bypassauth.png)
 
 So I started participating in bug bounty not so long and after alot of readups and web app practice, I found a stored XSS on quite a big education platform which i was using for learnig web development last year.
 <!--truncate-->
