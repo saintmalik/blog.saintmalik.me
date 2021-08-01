@@ -30,13 +30,13 @@ module.exports = {
         target: "_self",
       },
       items: [
-         {
-           type: 'doc',
-           docId: 'intro',
-           position: 'left',
-           label: 'Tutorial',
-         },
         { to: "/", label: "Blog", position: "left" },
+        {
+          to: "docs/",
+          activeBasePath: "docs",
+          label: "Docs",
+          position: "left",
+        },
         {
           href: 'https://saintmalik.me/about',
           label: 'About',
