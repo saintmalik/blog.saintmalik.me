@@ -7,7 +7,7 @@ slug: /
 
 ## Documentation
 
-Here, you will find a collection of concise notes on things I have learnt. These notes are filed under their respective topic, with related topics are categorised under the same chapter.
+Here, you will find a collection of notes on things I have learnt.
 
 ### Zumaroc’s Red Team Baseline 30-day training
 
