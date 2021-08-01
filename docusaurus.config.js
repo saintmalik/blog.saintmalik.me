@@ -87,7 +87,7 @@ module.exports = {
             },
             {
               label: 'Work',
-              href: 'https://saintmalik.me/work',
+              href: 'https://saintmalik.me/works',
             },
             {
               label: 'Resume',
