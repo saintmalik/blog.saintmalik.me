@@ -9,6 +9,8 @@ image: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/
 tags: [websec, infosec]
 ---
 
+![Image](https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg)
+
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 
 Let's jump right in,
