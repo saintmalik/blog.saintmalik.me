@@ -9,7 +9,7 @@ image: /img/bypassauth.png
 tags: [websec, infosec]
 ---
 
-![Bypass Auth](/static/img/bypassauth.png)
+![Bypass Auth](/img/bypassauth.png)
 
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 
