@@ -30,12 +30,12 @@ module.exports = {
         target: "_self",
       },
       items: [
-        // {
-        //   type: 'doc',
-        //   docId: 'intro',
-        //   position: 'left',
-        //   label: 'Tutorial',
-        // },
+         {
+           type: 'doc',
+           docId: 'intro',
+           position: 'left',
+           label: 'Tutorial',
+         },
         { to: "/", label: "Blog", position: "left" },
         {
           href: 'https://saintmalik.me/about',
@@ -103,12 +103,11 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
-        // docs: {
-        // sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // editUrl:
-            // 'https://github.com/facebook/docusaurus/edit/master/website/',
-        // },
+        docs: {
+          sidebarPath: require.resolve("./sidebars.js"),
+          disableVersioning: false,
+          editCurrentVersion: false,
+        },
         blog: {
           blogTitle: 'Saintmalik Blog !',
           blogDescription: 'My New Blog!',
