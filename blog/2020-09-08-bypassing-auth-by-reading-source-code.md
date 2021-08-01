@@ -9,12 +9,12 @@ image: /img/bypassauth.png
 tags: [websec, infosec]
 ---
 
+Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
+<!--truncate-->
+
 ![Bypass Auth](/img/bypassauth.png)
 
-Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
-
 Let's jump right in,
-<!--truncate-->
 
 Will be naming the target **redacted.com**, so just like everyone I digged into all the accessible assests(subdomains, cloud buckets etc.)that this target might own through my recon process.
 
