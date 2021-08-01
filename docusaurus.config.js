@@ -27,7 +27,7 @@ module.exports = {
         alt: "SaintMalik",
         src: "img/saintmalik.jpg",
         href: "https://saintmalik.me",
-        target: "_self",
+        target: "_blank",
       },
       items: [
         { to: "/", label: "Blog", position: "left" },
