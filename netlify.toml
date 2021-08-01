@@ -1,0 +1,5 @@
+[[redirects]]
+from = "www.blog.saintmalik.me"
+to = "https://blog.saintmalik.me"
+status = 301
+force = true
