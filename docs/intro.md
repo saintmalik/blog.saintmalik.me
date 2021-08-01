@@ -4,34 +4,18 @@ sidebar_position: 1
 slug: /
 ---
 
-# Tutorial Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## Documentation
 
-## Getting Started
+Here, you will find a collection of concise notes on things I have learnt and cloud operations. These notes are filed under their respective topic, with related topics are categorised under the same chapter.
 
-Get started by **creating a new site**.
+### Zumaroc’s Red Team Baseline 30-day training
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+<div class="contentTableContainer">
 
-## Generate a new site
+|     | Topic                          | Date Last Updated |
+| --- | ------------------------------ | ----------------- |
+| 1   | [Linux Command Cheat Sheet](Zumarocs-30day-Training/ZB101)    | August 01, 2021 |
+| 2   | [Basic Unix/Linux Command Reference](Zumarocs-30day-Training/ZB101)    | August 01, 2021 |
 
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npx @docusaurus/init@latest init my-website classic
-```
-
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+</div>
