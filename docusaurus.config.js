@@ -3,6 +3,7 @@ module.exports = {
   tagline: 'Penetration Tester and Aspiring Security Engineer.',
   url: 'https://blog.saintmalik.me',
   baseUrl: '/',
+  trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/saintmalik.jpg',
