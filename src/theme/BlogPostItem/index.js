@@ -92,6 +92,7 @@ function BlogPostItem(props) {
   };
 
   return (
+
     <article
       className={!isBlogPostPage ? 'margin-bottom--xl' : undefined}
       itemProp="blogPost"
