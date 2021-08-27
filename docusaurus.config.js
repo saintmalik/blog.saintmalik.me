@@ -27,7 +27,7 @@ module.exports = {
       logo: {
         alt: "SaintMalik",
         src: "img/saintmalik.jpg",
-        href: "https://blog.saintmalik.me",
+        href: "https://saintmalik.me",
         target: "_blank",
       },
       items: [
