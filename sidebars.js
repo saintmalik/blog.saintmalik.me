@@ -10,7 +10,7 @@ module.exports = {
       },
       {
         type: "category",
-        label: "Error & Solution Log",
+        label: "Error & Solun Log",
         items: ["debug-crontab-tasks"],
       },
     ],
