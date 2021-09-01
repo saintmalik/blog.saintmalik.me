@@ -1,3 +1,8 @@
+---
+id: cron-scripting-issues
+title: Debug cron script
+---
+
 ## Debug cron script
 
 Cron Job showing different results from what the results shown on terminal when you run the shell script.
