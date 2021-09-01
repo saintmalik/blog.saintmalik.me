@@ -23,7 +23,7 @@ jobs:
         with:
           urls: |
             https://deploy-preview-$PR_NUMBER--saintmalikblog.netlify.app/
-          configPath: ..github/workflows/lighthousesrc.json
+          configPath: /.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
         env:
