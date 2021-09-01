@@ -2,8 +2,6 @@
 title: Debug cron script
 ---
 
-## Debug cron script
-
 Cron Job showing different results from what the results shown on terminal when you run the shell script.
 
 Reasons: Cron tasks run in a shell that is started without your login scripts being run, which set up paths, environment variables etc.
