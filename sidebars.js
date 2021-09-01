@@ -13,5 +13,10 @@ module.exports = {
         label: "Error & Solution Log",
         items: ["debug-crontab-tasks"],
       },
+      {
+        type: "category",
+        label: "Golang Diary",
+        items: ["debug-crontab-tasks"],
+      },
     ],
   };
