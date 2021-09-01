@@ -1,5 +1,4 @@
 ---
-id: cron-scripting-issues
 title: Debug cron script
 ---
 
@@ -16,5 +15,5 @@ When building cron tasks, prefer things like absolute paths and explicit options
 
 `trap "set +x; sleep 5; set -x" DEBUG`
 
-///making sure, each scripts runs one after the other, good for debug
+making sure, each scripts runs one after the other, good for debug
 
