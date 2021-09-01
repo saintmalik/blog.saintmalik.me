@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         type: "category",
-        label: "Golang Diary",
+        label: "My Golang Diary",
         items: ["debug-crontab-tasks"],
       },
     ],
