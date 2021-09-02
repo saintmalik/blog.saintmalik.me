@@ -1,13 +1,13 @@
 module.exports = {
   title: 'SaintMalik',
-  tagline: 'Penetration Tester and Aspiring Security Engineer.',
+  tagline: 'Penetration Tester and Aspiring AppSec Engineer.',
   url: 'https://blog.saintmalik.me',
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/saintmalik.jpg',
-  organizationName: 'blog.saintmalik.me', // Usually your GitHub org/user name.
+  organizationName: 'saintmalik', // Usually your GitHub org/user name.
   projectName: 'blog.saintmalik.me', // Usually your repo name.
   themeConfig: {
     gtag: {
@@ -110,8 +110,8 @@ module.exports = {
           editCurrentVersion: false,
         },
         blog: {
-          blogTitle: 'Saintmalik Blog !',
-          blogDescription: 'My New Blog!',
+          blogTitle: 'Blog',
+          blogDescription: 'My Blog For Application Security, Open Source, Golang, Web app performanc optimization and more.!',
           // showReadingTime: true,
           path: "./blog",
           routeBasePath: "/"
