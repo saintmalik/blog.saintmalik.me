@@ -12,7 +12,7 @@ tags: [open source, oss]
 
 import Figure from '../src/components/Figure';
 
-I joined the OSCA Africa Open Source Challenge 2021 which Kick-Started on 16th of August 2021.
+I joined the OSCA Africa Open Source Challenge 2021 which Started on 16th of August 2021.
 
 <!--truncate-->
 
