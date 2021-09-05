@@ -38,6 +38,7 @@ function useReadingTimePlural() {
   };
 }
 
+
 function BlogPostItem(props) {
   const readingTimePlural = useReadingTimePlural();
   const {withBaseUrl} = useBaseUrlUtils();
