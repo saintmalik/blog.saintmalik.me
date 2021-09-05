@@ -23,15 +23,15 @@ I joined the OSCA Africa Open Source Challenge 2021 which Kick-Started on 16th o
 </picture>
 
 
-Yeah the challenge is great way to learn and contribute to Open Source, there was collaborations within with other colleagues from the OSCA Ado Ekiti who are also participating in the challenge.
+I see the challenge has a great way to learn and contribute to Open Source, so there was collaborations within with other colleagues from the OSCA Ado Ekiti who are also participating in the challenge.
 
-I meet with new individuals and we shared ideas also.
+I met with new individuals and we shared ideas also.
 
-So i revisted Open source projects that i have made attempts to get a pull request of mine merged into the OSS Project before in 2020.
+Starting with the challenge, i decided to revisit those Open source projects that i have made attempts to get a pull request of mine merged into their OSS Project in 2020.
 
-And this time around, i got it, its really awesome knowing you are also a contributor of an OSS project that is used by alot of people.
+And this time around, i got my PRs merged, you know its really awesome having your name listed as a contributor of an OSS project that is used by alot of people.
 
-I made my first contribution to [GitHub Docs](https://docs.github.com/) Last Year during the hacktoberfest program.
+In 2020 I made my first contribution to [GitHub Docs](https://docs.github.com/) during the hacktoberfest program.
 
 Although my PR was valid and it adds value, but it wasn't merged because the fix can't be applied in the public repo.
 
@@ -44,7 +44,7 @@ Although my PR was valid and it adds value, but it wasn't merged because the fix
   <a href="https://github.com/github/docs/pull/637">https://github.com/github/docs/pull/637</a>
   </Figure>
 
-But not withstanding, it was awarded the hackertofest-accepted label, so i moved on, before coming back again to the GitHub Docs in this Challenge and i finally got a merged PR in GitHub Docs.
+Anyway, it was awarded the hackertofest-accepted label, so i moved on, before coming back again to the GitHub Docs in this Challenge and i finally got a merged PR into GitHub Docs.
 
 <picture>
   <source type="image/webp" srcset="/bgimg/github-merged.webp"/>
@@ -54,9 +54,9 @@ But not withstanding, it was awarded the hackertofest-accepted label, so i moved
 
 This time around i was making corrections to typos which i found in the GitHub Docs, and yeah it was accepted and it got merged.
 
-Moving to the next OSS Project which is [gohugo](https://gohugo.io/), i used Hugo Site Generator for building my folio page, so i have been to their docs page almost everytime to find solutions to error or how i can implement something.
+Moving to the next OSS Project which is [gohugo](https://gohugo.io/), i used Hugo Static Site Generator for building my folio page, so i have been to their docs page almost everytime to find solutions to error or how i can implement somethings.
 
-So you know how it feels like to contribute to a project used by yourself and many people, i looked for something to contribute, but it wasnt merged, so i left it.
+So you know how it feels like to contribute to a project used by yourself and many people, i looked for something to contribute, but it wasnt merged, so i left it then.
 
 <picture>
   <source type="image/webp" srcset="/bgimg/gohugo-notmerged.webp"/>
@@ -64,7 +64,7 @@ So you know how it feels like to contribute to a project used by yourself and ma
   <img src="/bgimg/gohugo-notmerged.jpg"/>
 </picture>
 
-So now i came back to it in this challenge and i finally got a merged PR into [gohugo docs](https://github.com/gohugoio/hugoDocs).
+I came back to the OSS project again in this Challenge and i finally got a merged PR into [gohugo docs](https://github.com/gohugoio/hugoDocs).
 
 <picture>
   <source type="image/webp" srcset="/bgimg/gohugo-merged.webp"/>
@@ -91,16 +91,18 @@ Something awesome also happened to me in this challenge, i got mentioned and tha
   <a href="https://github.com/prisma/prisma/discussions/8892">https://github.com/prisma/prisma/discussions/8892</a>
   </Figure>
 
-Moving forward, i crossed path with docker in the process of creating a DockerFile for a GoLang Cli based project, so i learnt about docker containers, docker images.
+Moving forward, i crossed path with docker in the process of creating a DockerFile for a GoLang Cli based project, so i learnt about docker, docker containers, docker images.
 
-So i wrote my first Dockerfile and submited the PR, but its yet to be merged, will update this post, if it gets merged.
+So i wrote my first Dockerfile and submited the PR, but it's yet to be merged, i will update this post, if the PR gets merged.
 
-I also learnt how to implement github workflows so well, it saves maintainers alot of stress, so they can implement checks for any PR submitted.
+I also learnt how to implement github workflows so well, it saves maintainers from too much stress, so with github workflow, you can implement checks for any PR submitted.
 
-In my own case i implemented the awesome linting and broken Links check for this [Awesome OSS Docs](https://github.com/saintmalik/awesome-oss-docs)(📚 A curated list of awesome open source documentations for people whole love contributing to docs.)
+In my own case, i implemented the awesome linting and broken links check for this [Awesome OSS Docs Repo](https://github.com/saintmalik/awesome-oss-docs)(📚 A curated list of awesome open source documentations for people whole love contributing to docs.)
 
 The workflow saves my time of running `npx awesome-lint` everytime i merge a contribution, so if the changes that is been submitted isnt abiding by the awesome-lint rules.
 
 It will raise the red X for the pull request, also the broken linke workflow rules will test those urls for inaccessible urls or dead links, to avoid adding docs links that isnt accessible.
 
 So i learnt more about the workflows process and i implemented workflows for some other repo i own.
+
+Okay, thanks for reading, that will be all.
