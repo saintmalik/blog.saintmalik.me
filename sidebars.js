@@ -11,7 +11,10 @@ module.exports = {
       {
         type: "category",
         label: "Error & Solution Log",
-        items: ["debug-crontab-tasks"],
+        items: [
+          "debug-crontab-tasks",
+          "fix-docusaurus-solutions",
+        ],
       },
     ],
   };
