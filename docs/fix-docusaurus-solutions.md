@@ -4,7 +4,7 @@ title: Solutions to Docusaurus Issues i experienced
 
 ## Autoreload while in localhost
 
-Auto reload docusaurus in loaclhoste using `yarn start`
+Auto reload docusaurus in loaclhost using `yarn start` and `npm start`
 
 ## Add captions to blog images
 

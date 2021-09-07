@@ -2,8 +2,6 @@
 title: Variables in GoLang
 ---
 
-## Creating variables in GoLang
-
 The `var` keyword is what we use in declaring variables in GoLang
 
 ```go title="main.go"
