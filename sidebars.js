@@ -18,7 +18,7 @@
       },
       {
         type: "category",
-        label: "My GoLang Diary",
+        label: "Learning GoLang",
         items: [
           "variables-in-golang",
           "arrays-in-golang",
