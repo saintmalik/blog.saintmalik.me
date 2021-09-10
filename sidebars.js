@@ -21,6 +21,7 @@
         label: "My GoLang Diary",
         items: [
           "variables-in-golang",
+          "arrays-in-golang",
         ],
       },
     ],
