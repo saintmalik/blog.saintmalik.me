@@ -76,9 +76,9 @@ Something awesome also happened to me in this challenge, i got mentioned and tha
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset="/bgimg/cli mentionwebp"/>
-  <source type="image/jpg" srcset="/bgimg/cli mentionjpg"/>
-  <img src="/bgimg/cli mentionjpg"/>
+  <source type="image/webp" srcset="/bgimg/cli mention.webp"/>
+  <source type="image/jpg" srcset="/bgimg/cli mention.jpg"/>
+  <img src="/bgimg/cli mention.jpg"/>
 </picture>
   <a href="https://github.com/cli/cli/discussions/4183">https://github.com/cli/cli/discussions/4183</a>
   </Figure>
