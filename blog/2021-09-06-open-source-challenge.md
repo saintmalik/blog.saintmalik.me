@@ -6,7 +6,7 @@ author: Saintmalik
 author_title: OSS Contributor
 author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /bgimg/open-source-challenge-2021.jpg
+image: /bgimg/open-source-challenge-2021.jpeg
 tags: [open source, oss]
 ---
 
@@ -19,7 +19,7 @@ I joined the OSCA Africa Open Source Challenge 2021 which Started on 16th of Aug
 <picture>
   <source type="image/webp" srcset="/bgimg/open-source-challenge-2021.webp"/>
   <source type="image/jpeg" srcset="/bgimg/open-source-challenge-2021.jpeg"/>
-  <img src="/bgimg/open-source-challenge-2021.jpg"/>
+  <img src="/bgimg/open-source-challenge-2021.jpeg"/>
 </picture>
 
 
