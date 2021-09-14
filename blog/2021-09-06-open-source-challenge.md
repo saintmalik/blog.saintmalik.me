@@ -6,7 +6,7 @@ author: Saintmalik
 author_title: OSS Contributor
 author_url: https://github.com/saintmalik
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /bgimg//bgimg/open-source-challenge-2021.jpg
+image: /bgimg/open-source-challenge-2021.jpg
 tags: [open source, oss]
 ---
 
