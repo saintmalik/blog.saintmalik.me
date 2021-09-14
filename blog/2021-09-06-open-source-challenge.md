@@ -76,9 +76,9 @@ Something awesome also happened to me in this challenge, i got mentioned and tha
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset="/bgimg/cli mention.webp"/>
-  <source type="image/jpg" srcset="/bgimg/cli mention.jpg"/>
-  <img src="/bgimg/cli mention.jpg"/>
+  <source type="image/webp" srcset="/bgimg/prisma 3.0.2.webp"/>
+  <source type="image/jpg" srcset="/bgimg/prisma 3.0.2.jpg"/>
+  <img src="/bgimg/prisma 3.0.2.jpg"/>
 </picture>
   <a href="https://github.com/cli/cli/discussions/4183">https://github.com/cli/cli/discussions/4183</a>
   </Figure>
@@ -89,6 +89,14 @@ Something awesome also happened to me in this challenge, i got mentioned and tha
   <img src="/bgimg/prisma-mention.jpg"/>
 </picture>
   <a href="https://github.com/prisma/prisma/discussions/8892">https://github.com/prisma/prisma/discussions/8892</a>
+  </Figure>
+  <Figure>
+<picture>
+  <source type="image/webp" srcset="/bgimg/prisma-mention.webp"/>
+  <source type="image/jpg" srcset="/bgimg/prisma-mention.jpg"/>
+  <img src="/bgimg/prisma-mention.jpg"/>
+</picture>
+  <a href="https://github.com/prisma/prisma/discussions/9161">https://github.com/prisma/prisma/discussions/9161</a>
   </Figure>
 
 Moving forward, i crossed path with docker in the process of creating a DockerFile for a GoLang Cli based project, so i learnt about docker, docker containers, docker images.
