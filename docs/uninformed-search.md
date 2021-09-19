@@ -11,3 +11,5 @@ It is just like a child being told to go to the kitchen to bring a white place f
 So the child would come back telling his/her parent that he couldn't find the white plate.
 
 The child wasn't provided with enough information to to look fo the white plate.
+
+Still writing 👀.....
