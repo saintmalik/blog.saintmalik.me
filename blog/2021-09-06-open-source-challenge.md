@@ -114,3 +114,13 @@ It will raise the red X for the pull request, also the broken linke workflow rul
 So i learnt more about the workflows process and i implemented workflows for some other repo i own.
 
 Okay, thanks for reading, that will be all.
+
+Back to updating you all, that I am one of the 20 Successful Open Source Challenge 2021 Finalists.
+
+<Figure>
+<picture>
+  <source type="image/webp" srcset="/bgimg/Open-Source-Challenge-2021-Finalist.webp"/>
+  <source type="image/jpg" srcset="/bgimg/Open-Source-Challenge-2021-Finalist.jpg"/>
+  <img src="/bgimg/Open-Source-Challenge-2021-Finalist.jpg"/>
+</picture>
+</Figure>
