@@ -92,7 +92,7 @@ module.exports = {
             },
             {
               label: 'Resume',
-              href: 'https://saintmalik.me/resume',
+              href: 'https://docs.google.com/document/d/1q0NQV-D_HZPc92cVaLe3ojAZCm_1l6Eb6duu6l7ddpE/edit?usp=sharing',
             },
           ],
         },
