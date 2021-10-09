@@ -1,5 +1,6 @@
 ---
 title: Uninformed Search
+draft: true
 ---
 
 # Uninformed Search: Learning about Search Algorithms[BFS,DFS(DLS,IDS)]
