@@ -23,7 +23,7 @@ I joined the OSCA Africa Open Source Challenge 2021 which Started on 16th of Aug
 </picture>
 
 
-I see the challenge has a great way to learn and contribute to Open Source, so there was collaborations within with other colleagues from the OSCA Ado Ekiti who are also participating in the challenge.
+I saw the challenge has a great way to learn and contribute to Open Source, so there was collaborations within with other colleagues from the OSCA Ado Ekiti who are also participating in the challenge.
 
 I met with new individuals and we shared ideas also.
 
