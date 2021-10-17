@@ -24,12 +24,5 @@
           "arrays-in-golang",
         ],
       },
-      {
-        type: "category",
-        label: "Learning Algorithms & Data Structure",
-        items: [
-          "uninformed-search",
-        ],
-      },
     ],
   };
