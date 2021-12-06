@@ -14,6 +14,7 @@
         items: [
           "debug-crontab-tasks",
           "fix-docusaurus-solutions",
+          "setting-up-ghost-blog-on-linode",
         ],
       },
       {
