@@ -1,6 +1,6 @@
 ---
 slug: open-source-internships-program
-title: Open Source Interships and Programs in 2022
+title: Open Source Internships and Programs in 2022
 author: Saintmalik
 author_title: OSS Contributor
 author_url: https://github.com/saintmalik
@@ -23,7 +23,13 @@ So there is more to Open Source than just sending PR's and submitting issues, yo
 
 So yeah, Lets jump to it;
 
-# # 1. Microsoft Reinforcement Learning Open Source Fest
+# # 1. Reinforcement Learning Open Source Fest
+
+<picture>
+  <source type="image/webp" srcset="/bgimg/Reinforcement Learning Open Source Fest.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/Reinforcement Learning Open Source Fest.jpg"/>
+  <img src="/bgimg/Reinforcement Learning Open Source Fest.jpg"/>
+</picture>
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
 
@@ -53,6 +59,12 @@ Apply on their official page: [Microsoft Reinforcement Learning Open Source Fest
 
 ## 2. MLH Open Source Fellowship 
 
+<picture>
+  <source type="image/webp" srcset="/bgimg/MLH Open Source Fellowship.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/MLH Open Source Fellowship.jpg"/>
+  <img src="/bgimg/MLH Open Source Fellowship.jpg"/>
+</picture>
+
 Major League Hacking is a well known platform amidst devs and hackers, so apart from thier regular fellowhips.
 
 They also have Open Source Focused Fellowship also, the fellowhsip is a 12 week Internship for aspiring software engineers.
@@ -65,13 +77,19 @@ That way you will be able to get first hand software engineering experience from
 - *Region:* Worldwide
 - *Stipend:* The amount of the stipend is determined by your track and the country you are residing in during the program.
 - *Upcoming Batches* 
- - Spring 2022 Batch (Jan 31 – Apr 22, 2022)
- - Summer 2022 Batch (May 30 – Aug 19, 2022)
- - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
+     - Spring 2022 Batch (Jan 31 – Apr 22, 2022)
+     - Summer 2022 Batch (May 30 – Aug 19, 2022)
+     - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
 
  Apply on their official page: [MLH Open Source Track](https://fellowship.mlh.io/programs/open-source)
 
- ## 3. Google Summer of Docs
+ ## 3. Google Season of Docs
+
+ <picture>
+  <source type="image/webp" srcset="/bgimg/google season of docs open source.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/google season of docs open source.jpg"/>
+  <img src="/bgimg/google season of docs open source.jpg"/>
+</picture>
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation,.
  
@@ -91,6 +109,12 @@ Apply on their official page: [Google Season of Docs](https://developers.google.
 
 ## 4. Season of KDE
 
+<picture>
+  <source type="image/webp" srcset="/bgimg/season of kde open source.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/season of kde open source.jpg"/>
+  <img src="/bgimg/season of kde open source.jpg"/>
+</picture>
+
 Okay Season of KDE is open to everyone to apply, student or not, everybody can apply, it is similar to Google Season of Code.
 
 You can participate in both code and non-code projects that benefits the KDE ecosystem.
@@ -107,7 +131,13 @@ Application form has been open since December.
 
 Apply on their official page: [Season of KDE](https://season.kde.org/)
 
-## 5. Google Season of Code(GSoC)
+## 5. Google Summer of Code(GSoC)
+
+<picture>
+  <source type="image/webp" srcset="/bgimg/google summer of code open source.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/google summer of code open source.jpg"/>
+  <img src="/bgimg/google summer of code open source.jpg"/>
+</picture>
 
 Well, GSoC is known to be for students, but recently google annouced that other people apart from students can also participate in GSoC.
 
@@ -120,9 +150,15 @@ Stipend is paid to you by those organizations, it might vary based on your perfo
 - *Stipend:* $1000 above
 - *Timeline:* Application opens in April, 2022 for contributors
 
-Apply on their official page: [Google Season of Code](https://summerofcode.withgoogle.com/)
+Apply on their official page: [Google Summer of Code](https://summerofcode.withgoogle.com/)
 
 ## 6. Hacktobefest 
+
+<picture>
+  <source type="image/webp" srcset="/bgimg/hacktoberfest open source internships.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/hacktoberfest open source internships.jpg"/>
+  <img src="/bgimg/hacktoberfest open source internships.jpg"/>
+</picture>
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.
 
@@ -157,6 +193,6 @@ Outreachy Internship focuses on both documentation, programming and project mark
 
 Apply on their official page: [Outreachy](https://www.outreachy.org/)
 
-Will still keep this list updated, thats all for now.
+That's all for now.
 
-Peace out . ✌️
+Peace out  ✌️.
