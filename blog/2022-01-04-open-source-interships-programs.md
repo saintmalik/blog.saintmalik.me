@@ -77,13 +77,13 @@ That way you will be able to get first hand software engineering experience from
 - *Region:* Worldwide
 - *Stipend:* The amount of the stipend is determined by your track and the country you are residing in during the program.
 - *Upcoming Batches* 
-     - Spring 2022 Batch (Jan 31 – Apr 22, 2022)
-     - Summer 2022 Batch (May 30 – Aug 19, 2022)
-     - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
+    - Spring 2022 Batch (Jan 31 – Apr 22, 2022)
+    - Summer 2022 Batch (May 30 – Aug 19, 2022)
+    - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
 
- Apply on their official page: [MLH Open Source Track](https://fellowship.mlh.io/programs/open-source)
+Apply on their official page: [MLH Open Source Track](https://fellowship.mlh.io/programs/open-source)
 
- ## 3. Google Season of Docs
+## 3. Google Season of Docs
 
  <picture>
   <source type="image/webp" srcset="/bgimg/google season of docs open source.webp"/>
@@ -156,8 +156,8 @@ Apply on their official page: [Google Summer of Code](https://summerofcode.withg
 
 <picture>
   <source type="image/webp" srcset="/bgimg/hacktoberfest open source internships.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/hacktoberfest open source internships.jpg"/>
-  <img src="/bgimg/hacktoberfest open source internships.jpg"/>
+  <source type="image/png" srcset="/bgimg/hacktoberfest open source internships.png"/>
+  <img src="/bgimg/hacktoberfest open source internships.png"/>
 </picture>
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.
