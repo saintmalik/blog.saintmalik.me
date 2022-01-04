@@ -26,9 +26,9 @@ So yeah, Lets jump to it;
 # # 1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/Reinforcement Learning Open Source Fest.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/Reinforcement Learning Open Source Fest.jpg"/>
-  <img src="/bgimg/Reinforcement Learning Open Source Fest.jpg"/>
+  <source type="image/webp" srcset="/bgimg/Reinforcement-Learning-Open-Source.webp"/>
+  <source type="image/jpeg" srcset="/bgimg/Reinforcement-Learning-Open-Source.jpg"/>
+  <img src="/bgimg/Reinforcement-Learning-Open-Source.jpg"/>
 </picture>
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
