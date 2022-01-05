@@ -10,12 +10,12 @@ module.exports = {
   organizationName: 'saintmalik', // Usually your GitHub org/user name.
   projectName: 'blog.saintmalik.me', // Usually your repo name.
   themeConfig: {
-    gtag: {
-      // You can also use your "G-" Measurement ID here.
-      trackingID: 'UA-123518521-4',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
-    },
+    // googleAnalytics: {
+    //   // You can also use your "G-" Measurement ID here.
+    //   trackingID: 'UA-123518521-4',
+    //   // Optional fields.
+    //   anonymizeIP: true, // Should IPs be anonymized?
+    // },
     colorMode: {
       defaultMode: "dark",
       disableSwitch: true,
@@ -103,6 +103,14 @@ module.exports = {
   presets: [
     [
       '@docusaurus/preset-classic',
+      {
+        // Will be passed to @docusaurus/plugin-google-analytics.
+        googleAnalytics: {
+          trackingID: 'UA-123518521-4',
+          // Optional fields.
+          anonymizeIP: true, // Should IPs be anonymized?
+        },
+      },
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
