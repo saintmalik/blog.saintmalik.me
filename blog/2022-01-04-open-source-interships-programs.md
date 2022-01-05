@@ -21,9 +21,9 @@ See how the [Founder of Ghost made $63,000/mo building an Open Source Publishing
 
 So there is more to Open Source than just sending PR's and submitting issues, you can also start your own open source projects.
 
-So yeah, Lets jump to it;
+Let’s jump in.
 
-# # 1. Reinforcement Learning Open Source Fest
+## 1. Reinforcement Learning Open Source Fest
 
 <picture>
   <source type="image/webp" srcset="/bgimg/Reinforcement-Learning-Open-Source.webp"/>
