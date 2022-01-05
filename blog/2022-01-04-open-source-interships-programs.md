@@ -190,10 +190,23 @@ Outreachy Internship focuses on both documentation, programming and project mark
 - *Region:* Worldwide
 - *Stipend:* $7000
 - *Timeline:* Application opens February 1, 2022
-- *Program dates:* May, 2021 - August, 2022 or December, 2022 to March, 2022
+- *Program dates:* May, 2022 - August, 2022
 
 Apply on their official page: <a href="https://www.outreachy.org" target="_blank">Outreachy</a>
 
+## 8. Summer of Bitcoin
+
+Summer of Bitcoin is a global summer internship program focused on introducing university students to bitcoin and open-source development.
+
+You will learn how bitcoin works, contribute to bitcoin projects, get a return offer for next summer, receive a full-time open-source development grant, get placed in the most reputed bitcoin companies and earn bitcoin as stipend.
+
+### Program details
+- *Region:* Worldwide
+- *Stipend:* $3000
+- *Timeline:* Application starts from January 1, 2022 - March 15, 2022
+- *Program dates:* May 9, 2022 - August 29, 2022
+
+Apply on their official page: <a href="https://www.summerofbitcoin.org/apply" target="_blank">Summer of Bitcoin</a>
 That's all for now.
 
 Peace out  ✌️.
