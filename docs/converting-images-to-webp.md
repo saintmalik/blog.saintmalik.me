@@ -8,9 +8,9 @@ And as you know images is one of the assets that drags down your webpage loading
 
 So knowing we need to adopt webp images, how do we deal with those much images that we've uploaded or we will be uploading to your blog posts next?
 
-That brings us to [Google WebP images Project](https://developers.google.com/speed/webp/docs/cwebp), this tools helps us compress an image file to a WebP file.
+That brings us to <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">Google WebP images Project</a>, this tools helps us compress an image file to a WebP file.
 
-So you need to install the [Webp Tool](https://developers.google.com/speed/webp/download) first, the tool comes along with both
+So you need to install the <a href="https://developers.google.com/speed/webp/download" target="_blank">Webp Tool</a> first, the tool comes along with both
 
 - cwebp -- WebP encoder tool
 - dwebp -- WebP decoder tool
@@ -57,6 +57,6 @@ At the end of the day the directory path will look like this
 /Users/abdulmalik//DevProjects/blog.saintmalik.me/static/bgimg/IMAGES-GETTING-COMPRESSED
 ```
 
-Also you can read the documentation to see some tweaks you can add to it, or which flag options can be useful to you [cwebp Encoder Docs](https://developers.google.com/speed/webp/docs/cwebp).
+Also you can read the documentation to see some tweaks you can add to it, or which flag options can be useful to you <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">cwebp Encoder Docs</a>.
 
 Thats all.

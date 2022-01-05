@@ -51,4 +51,4 @@ func main() {
 ```
 
 
-Also it is said that arrays can not be resized in golang, but at the same time Go gives us a way to do this, here is an article that helped me understand [how to resize an array](https://medium.com/gojekengineering/grab-a-slice-on-the-go-c606344186c1)
+Also it is said that arrays can not be resized in golang, but at the same time Go gives us a way to do this, here is an article that helped me understand ,a <a href="https://medium.com/gojekengineering/grab-a-slice-on-the-go-c606344186c1" target="_blank"> how to resize an array</a>

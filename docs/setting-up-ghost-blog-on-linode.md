@@ -212,7 +212,7 @@ SELECT * from users;
 
 to see all the users that are available in your database, give a closeer look and see the email of the user you want to change thier password is present there.
 
-after that, goto https://passwordhashing.com/BCrypt and enter your new password that will be hashed back into the BCrypt format, because ghost stores passwords in Bcrypt format.
+after that, goto <a href="https://passwordhashing.com/BCrypt" target="_blank"> https://passwordhashing.com/BCrypt</a> and enter your new password that will be hashed back into the BCrypt format, because ghost stores passwords in Bcrypt format.
 
 after generating the Bcypt hash, your will be in this format 
 
