@@ -1,6 +1,7 @@
 ---
 slug: open-source-internships-program
 title: Open Source Internships and Programs in 2022
+description: List Of Best Open Source Programs and Internships For Students to Participate in 2022
 author: Saintmalik
 author_title: OSS Contributor
 author_url: https://github.com/saintmalik
@@ -9,7 +10,7 @@ image: /bgimg/open-source-internship-programs-2022.jpg
 tags: [Open Source, OSS]
 ---
 
-Before we start, i will like to say, All this programs listed are not mandatorry for you to contribute to open source.
+Before we start, i will like to say, All this programs listed are not mandatory for you to contribute to open source.
 
 But you can contribute to open source even if you don't get selected for this programs, you can always contribute to open source programs anytime you want.
 
@@ -26,9 +27,9 @@ Let’s jump in.
 ## 1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/Reinforcement-Learning-Open-Source.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/Reinforcement-Learning-Open-Source.jpg"/>
-  <img src="/bgimg/Reinforcement-Learning-Open-Source.jpg"/>
+  <source type="image/webp" srcset="/bgimg/Reinforcement-Learning-Open-Source.webp" alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/jpeg" srcset="/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
+  <img src="/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
 </picture>
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
@@ -60,9 +61,9 @@ Apply on their official page: [Microsoft Reinforcement Learning Open Source Fest
 ## 2. MLH Open Source Fellowship 
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/MLH Open Source Fellowship.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/MLH Open Source Fellowship.jpg"/>
-  <img src="/bgimg/MLH Open Source Fellowship.jpg"/>
+  <source type="image/webp" srcset="/bgimg/MLH Open Source Fellowship.webp" alt="MLH Open Source Fellowship"/>
+  <source type="image/jpeg" srcset="/bgimg/MLH Open Source Fellowship.jpg" alt="MLH Open Source Fellowship"/>
+  <img src="/bgimg/MLH Open Source Fellowship.jpg" alt="MLH Open Source Fellowship"/>
 </picture>
 
 Major League Hacking is a well known platform amidst devs and hackers, so apart from thier regular fellowhips.
@@ -86,9 +87,9 @@ Apply on their official page: [MLH Open Source Track](https://fellowship.mlh.io/
 ## 3. Google Season of Docs
 
  <picture>
-  <source type="image/webp" srcset="/bgimg/google season of docs open source.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/google season of docs open source.jpg"/>
-  <img src="/bgimg/google season of docs open source.jpg"/>
+  <source type="image/webp" srcset="/bgimg/google season of docs open source.webp" alt="google season of docs open source"/>
+  <source type="image/jpeg" srcset="/bgimg/google season of docs open source.jpg" alt="google season of docs open source"/>
+  <img src="/bgimg/google season of docs open source.jpg" alt="google season of docs open source"/>
 </picture>
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation,.
@@ -110,9 +111,9 @@ Apply on their official page: [Google Season of Docs](https://developers.google.
 ## 4. Season of KDE
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/season of kde open source.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/season of kde open source.jpg"/>
-  <img src="/bgimg/season of kde open source.jpg"/>
+  <source type="image/webp" srcset="/bgimg/season of kde open source.webp" alt="season of kde open source"/>
+  <source type="image/jpeg" srcset="/bgimg/season of kde open source.jpg" alt="season of kde open source"/>
+  <img src="/bgimg/season of kde open source.jpg" alt="season of kde open source"/>
 </picture>
 
 Okay Season of KDE is open to everyone to apply, student or not, everybody can apply, it is similar to Google Season of Code.
@@ -134,9 +135,9 @@ Apply on their official page: [Season of KDE](https://season.kde.org/)
 ## 5. Google Summer of Code(GSoC)
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/google summer of code open source.webp"/>
-  <source type="image/jpeg" srcset="/bgimg/google summer of code open source.jpg"/>
-  <img src="/bgimg/google summer of code open source.jpg"/>
+  <source type="image/webp" srcset="/bgimg/google summer of code open source.webp" alt="google summer of code open source"/>
+  <source type="image/jpeg" srcset="/bgimg/google summer of code open source.jpg" alt="google summer of code open source"/>
+  <img src="/bgimg/google summer of code open source.jpg" alt="google summer of code open source"/>
 </picture>
 
 Well, GSoC is known to be for students, but recently google annouced that other people apart from students can also participate in GSoC.
@@ -155,9 +156,9 @@ Apply on their official page: [Google Summer of Code](https://summerofcode.withg
 ## 6. Hacktobefest 
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/hacktoberfest open source internships.webp"/>
-  <source type="image/png" srcset="/bgimg/hacktoberfest open source internships.png"/>
-  <img src="/bgimg/hacktoberfest open source internships.png"/>
+  <source type="image/webp" srcset="/bgimg/hacktoberfest open source internships.webp" alt="hacktoberfest open source internships"/>
+  <source type="image/png" srcset="/bgimg/hacktoberfest open source internships.png" alt="hacktoberfest open source internships"/>
+  <img src="/bgimg/hacktoberfest open source internships.png" alt="hacktoberfest open source internships"/>
 </picture>
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.

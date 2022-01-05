@@ -1,6 +1,7 @@
 ---
 slug: find-subdomain
 title: How i do my subdomain emuneration
+draft: true
 author: Saintmalik
 author_title: Pentester
 author_url: https://github.com/saintmalik

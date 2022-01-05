@@ -10,10 +10,11 @@
       },
       {
         type: "category",
-        label: "Error & Solution Log",
+        label: "Solutions to Bugs from Day to Day Activities",
         items: [
           "debug-crontab-tasks",
           "fix-docusaurus-solutions",
+          "converting-images-to-webp",
           "setting-up-ghost-blog-on-linode",
         ],
       },
