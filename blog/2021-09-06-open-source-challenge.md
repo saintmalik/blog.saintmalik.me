@@ -4,7 +4,7 @@ title: My Open Source Challenge 2021 Experince
 description: "Here is my OSCA Africa Open Source Challenge 2021."
 author: Saintmalik
 author_title: OSS Contributor
-author_url: https://github.com/saintmalik
+author_url: https://twitter.com/saintmalik_
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 image: /bgimg/open-source-challenge-2021.jpeg
 tags: [open source, oss]

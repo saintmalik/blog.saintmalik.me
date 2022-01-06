@@ -4,7 +4,7 @@ title: How i do my subdomain emuneration
 draft: true
 author: Saintmalik
 author_title: Pentester
-author_url: https://github.com/saintmalik
+author_url: https://twitter.com/saintmalik_
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 image: /bgimg/open-source-internship-programs-2022.jpg
 tags: [Pentesting, Bug Bounty]

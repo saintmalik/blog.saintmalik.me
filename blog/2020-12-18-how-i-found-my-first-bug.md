@@ -3,7 +3,7 @@ slug: how-i-found-my-first-bug
 title: Stored XSS on Private Bounty Program (My First Bug)
 author: Saintmalik
 author_title: Pentester
-author_url: https://github.com/saintmalik
+author_url: https://twitter.com/saintmalik_
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 image: /img/bypassauth.png
 tags: [infosec, websec]

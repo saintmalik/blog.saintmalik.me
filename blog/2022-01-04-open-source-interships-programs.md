@@ -4,7 +4,7 @@ title: Open Source Internships and Programs in 2022
 description: List Of Best Open Source Programs and Internships For Students to Participate in 2022
 author: Saintmalik
 author_title: OSS Contributor
-author_url: https://github.com/saintmalik
+author_url: https://twitter.com/saintmalik_
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 image: /bgimg/open-source-internship-programs-2022.jpg
 tags: [Open Source, OSS]

@@ -3,7 +3,7 @@ slug: bypassing-auth-by-reading-source-code
 title: Bypassing Auth By Reading Source Code(JS files)
 author: Saintmalik
 author_title: Pentester
-author_url: https://github.com/saintmalik
+author_url: https://twitter.com/saintmalik_
 author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
 image: /img/bypassauth.png
 tags: [websec, infosec]
