@@ -51,7 +51,9 @@ e.g
 bash webpbulk.sh DevProjects/blog.saintmalik.me/static/bgimg
 ```
 
+:::info
 At the end of the day the directory path will look like this 
+:::
 
 ```bash
 /Users/abdulmalik//DevProjects/blog.saintmalik.me/static/bgimg/IMAGES-GETTING-COMPRESSED
