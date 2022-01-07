@@ -56,7 +56,9 @@ Students who are in any acrredited university, colleges doing their Masters, phD
 - *Deadline to apply:* NILL for 2022
 - *Program dates:* May - August Redacted (2022 application not opened yet)
 
+:::info
 Apply on their official page: <a href="https://www.microsoft.com/en-us/research/academic-program/rl-open-source-fest/" target="_blank">Microsoft Reinforcement Learning Open Source Fest</a>
+:::
 
 ## 2. MLH Open Source Fellowship 
 
@@ -82,7 +84,9 @@ That way you will be able to get first hand software engineering experience from
     - Summer 2022 Batch (May 30 – Aug 19, 2022)
     - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
 
+:::info
 Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-source" target="_blank">MLH Open Source Track</a>
+:::
 
 ## 3. Google Season of Docs
 
@@ -106,7 +110,9 @@ Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-s
 - *Deadline to apply:* NILL for 2022 yet
 - *Program dates:* July (2022 application not opened yet)
 
+:::info
 Apply on their official page: <a href="https://developers.google.com/season-of-docs" target="_blank">Google Season of Docs</a>
+:::
 
 ## 4. Season of KDE
 
@@ -130,7 +136,9 @@ Application form has been open since December.
 - *Deadline to apply:* January 15, 2022
 - *Program dates:* December 15, 2021 - May 20, 2022.
 
+:::info
 Apply on their official page: <a href="https://season.kde.org/" target="_blank">Season of KDE</a>
+:::
 
 ## 5. Google Summer of Code(GSoC)
 
@@ -151,7 +159,9 @@ Stipend is paid to you by those organizations, it might vary based on your perfo
 - *Stipend:* $1000 above
 - *Timeline:* Application opens in April, 2022 for contributors
 
+:::info
 Apply on their official page: <a href="https://summerofcode.withgoogle.com/" target="_blank">Google Summer of Code</a>
+:::
 
 ## 6. Hacktobefest 
 
@@ -175,8 +185,9 @@ You can check this <a href="https://hacktoberfest-ekiti.web.app/documentation/ha
 - *Timeline:* Application opons in October, 2022
 - *Program dates:* October 01, 2021 - October 31, 2022.
 
+:::info
 Apply on their official page: <a href="https://hacktoberfest.digitalocean.com" target="_blank">Hacktoberfest</a>
-
+:::
 
 ## 7. Outreachy
 
@@ -192,7 +203,9 @@ Outreachy Internship focuses on both documentation, programming and project mark
 - *Timeline:* Application opens February 1, 2022
 - *Program dates:* May, 2022 - August, 2022
 
+:::info
 Apply on their official page: <a href="https://www.outreachy.org" target="_blank">Outreachy</a>
+:::
 
 ## 8. Summer of Bitcoin
 
@@ -206,7 +219,10 @@ You will learn how bitcoin works, contribute to bitcoin projects, get a return o
 - *Timeline:* Application starts from January 1, 2022 - March 15, 2022
 - *Program dates:* May 9, 2022 - August 29, 2022
 
+:::info
 Apply on their official page: <a href="https://www.summerofbitcoin.org/apply" target="_blank">Summer of Bitcoin</a>
+:::
+
 That's all for now.
 
 Peace out  ✌️.
