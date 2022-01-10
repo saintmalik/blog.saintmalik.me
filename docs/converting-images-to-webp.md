@@ -2,15 +2,15 @@
 title: How to bulk convert images to webp
 ---
 
-So webp is the new thing in content creation world, because they render fast and they are not heavy, so your websites loads up fast.
+So webp images is the new thing in the content creation world, because they render fast and they are not heavy, making your websites load up fast.
 
 And as you know images is one of the assets that drags down your webpage loading speeds.
 
-So knowing we need to adopt webp images, how do we deal with those much images that we've uploaded or we will be uploading to your blog posts next?
+So knowing we need to adopt webp images, how do we deal with those many images that we've uploaded or we will be uploading to our next blog posts?
 
-That brings us to <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">Google WebP images Project</a>, this tools helps us compress an image file to a WebP file.
+That brings us to <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">Google WebP images Project</a>, this tool helps us compress any image files to WebP image.
 
-So you need to install the <a href="https://developers.google.com/speed/webp/download" target="_blank">Webp Tool</a> first, the tool comes along with both
+So you need to install the <a href="https://developers.google.com/speed/webp/download" target="_blank">Webp Tool</a> NOTE: The tool comes along with both
 
 - cwebp -- WebP encoder tool
 - dwebp -- WebP decoder tool
@@ -18,29 +18,29 @@ So you need to install the <a href="https://developers.google.com/speed/webp/dow
 - webpmux -- WebP muxing tool
 - gif2webp -- Tool for converting GIF images to WebP
 
-So after installing it for your specified OS, now its time to write a bash script to automate the process.
+So after installing Webp Tool for your specified OS, now it's time to write a bash script to automate the conversion process.
 
-1. create bash file
+1. Create bash file
 
 ```bash
 touch webpbulk.sh
 ```
 
-2. open the file you just created
+2. Open the file you just created
 
 ```bash
 nano webpbulk.sh
 ```
-3. then paste the below script there, where you will be replacing the "/Users/yourusername/" with your Directory paths, like, /Users/saintmalik/, just the way it is on your system.
+3. Then paste the below script there, where you will be replacing the "/Users/yourusername/" with your Directory paths, like, /Users/saintmalik/, just the way it is on your system.
 
 ```bash
 for file in /Users/yourusername/$1/*; 
     do cwebp -q 80 "$file" -o "${file%.*}.webp"; 
 done
 ```
-4. save the file and get all your images ready in your images folders
+4. Save the file and get all your images ready in your images folders
 
-5. now run this below command and it will bulk convert the files to webp
+5. Now run command below and it will bulk convert the image files to Webp format
 
 ```bash
 bash webpbulk.sh /FOLDER-WHERE YOUR IMAGES ARE.
@@ -52,7 +52,7 @@ bash webpbulk.sh DevProjects/blog.saintmalik.me/static/bgimg
 ```
 
 :::info
-At the end of the day the directory path will look like this 
+So at the end of the day, the directory path will look like this 
 :::
 
 ```bash
