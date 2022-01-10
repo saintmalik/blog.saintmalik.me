@@ -18,7 +18,7 @@ But you can contribute to open source even if you don't get selected for this pr
 
 And also contributing to open source doesn't mean free, many companies have their open source projects and yeah they make money from it. 
 
-See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" targget="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>
+See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" targget="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>.
 
 So there is more to Open Source than just sending PR's and submitting issues, you can also start your own open source projects.
 
@@ -209,9 +209,9 @@ Apply on their official page: <a href="https://www.outreachy.org" target="_blank
 
 ## 8. Summer of Bitcoin
 
-Summer of Bitcoin is a global summer internship program focused on introducing university students to bitcoin and open-source development.
+Summer of Bitcoin is a summer internship program aimed at introducing university students to bitcoin and open-source development all over the world.
 
-You will learn how bitcoin works, contribute to bitcoin projects, get a return offer for next summer, receive a full-time open-source development grant, get placed in the most reputed bitcoin companies and earn bitcoin as stipend.
+You will learn how bitcoin works, contribute to bitcoin projects, Get a summer job offer, a full-time open-source development grant, or a position with one of the most reputable bitcoin companies and earn bitcoin as stipend.
 
 ### Program details
 - *Region:* Worldwide
