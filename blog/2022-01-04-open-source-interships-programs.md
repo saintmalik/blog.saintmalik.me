@@ -1,6 +1,6 @@
 ---
 slug: open-source-internships-program
-title: Open Source Internships and Programs in 2022
+title: Open Source Internships Program in 2022
 description: List Of Best Open Source Programs and Internships For Students to Participate in 2022
 author: Saintmalik
 author_title: OSS Contributor
