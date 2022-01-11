@@ -5,18 +5,18 @@ description: List Of Best Open Source Programs and Internships For Students to P
 author: Saintmalik
 author_title: OSS Contributor
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /bgimg/open-source-internship-programs-2022.jpg
+author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
+image: https://saintmalikme.mo.cloudinary.net/bgimg/open-source-internship-programs-2022.jpg
 tags: [Open Source, OSS]
 ---
 
-Before we start, i will like to say, All this programs listed are not mandatory for you to contribute to open source.
+Before we start, i will like to say, All these programs listed are not mandatory for you to contribute to open source.
 
-But you can contribute to open source even if you don't get selected for this programs, you can always contribute to open source programs anytime you want.
+But you can contribute to open source even if you don't get selected for these program, you can always contribute to open source programs anytime you want.
 
 <!--truncate-->
 
-And also contributing to open source doesn't mean free, many companies have their open source projects and yeah they make money from it. 
+And also contributing to open source doesn't mean free, many companies have their open source projects, and yeah they make money from it. 
 
 See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" target="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>.
 
@@ -27,9 +27,9 @@ Let’s jump in.
 ## 1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/Reinforcement-Learning-Open-Source.webp" alt="Reinforcement Learning Open Source Fest"/>
-  <source type="image/jpeg" srcset="/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
-  <img src="/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.webp" alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
 </picture>
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
@@ -63,9 +63,9 @@ Apply on their official page: <a href="https://www.microsoft.com/en-us/research/
 ## 2. MLH Open Source Fellowship 
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/MLH Open Source Fellowship.webp" alt="MLH Open Source Fellowship"/>
-  <source type="image/jpeg" srcset="/bgimg/MLH Open Source Fellowship.jpg" alt="MLH Open Source Fellowship"/>
-  <img src="/bgimg/MLH Open Source Fellowship.jpg" alt="MLH Open Source Fellowship"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.webp" alt="MLH Open Source Fellowship"/>
+  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.jpg" alt="MLH Open Source Fellowship"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.jpg" alt="MLH Open Source Fellowship"/>
 </picture>
 
 Major League Hacking is a well-known platform amidst devs and hackers, so apart from their regular fellowships.
@@ -91,9 +91,9 @@ Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-s
 ## 3. Google Season of Docs
 
  <picture>
-  <source type="image/webp" srcset="/bgimg/google season of docs open source.webp" alt="google season of docs open source"/>
-  <source type="image/jpeg" srcset="/bgimg/google season of docs open source.jpg" alt="google season of docs open source"/>
-  <img src="/bgimg/google season of docs open source.jpg" alt="google season of docs open source"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.webp" alt="google season of docs open source"/>
+  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.jpg" alt="google season of docs open source"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.jpg" alt="google season of docs open source"/>
 </picture>
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation,.
@@ -117,9 +117,9 @@ Apply on their official page: <a href="https://developers.google.com/season-of-d
 ## 4. Season of KDE
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/season of kde open source.webp" alt="season of kde open source"/>
-  <source type="image/jpeg" srcset="/bgimg/season of kde open source.jpg" alt="season of kde open source"/>
-  <img src="/bgimg/season of kde open source.jpg" alt="season of kde open source"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.webp" alt="season of kde open source"/>
+  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.jpg" alt="season of kde open source"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.jpg" alt="season of kde open source"/>
 </picture>
 
 Okay Season of KDE is open to everyone to apply, student or not, everybody can apply, it is similar to Google Season of Code.
@@ -143,9 +143,9 @@ Apply on their official page: <a href="https://season.kde.org/" target="_blank">
 ## 5. Google Summer of Code(GSoC)
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/google summer of code open source.webp" alt="google summer of code open source"/>
-  <source type="image/jpeg" srcset="/bgimg/google summer of code open source.jpg" alt="google summer of code open source"/>
-  <img src="/bgimg/google summer of code open source.jpg" alt="google summer of code open source"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.webp" alt="google summer of code open source"/>
+  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.jpg" alt="google summer of code open source"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.jpg" alt="google summer of code open source"/>
 </picture>
 
 Well, GSoC is known to be for students, but recently google annouced that other people apart from students can also participate in GSoC.
@@ -166,9 +166,9 @@ Apply on their official page: <a href="https://summerofcode.withgoogle.com/" tar
 ## 6. Hacktobefest 
 
 <picture>
-  <source type="image/webp" srcset="/bgimg/hacktoberfest open source internships.webp" alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset="/bgimg/hacktoberfest open source internships.png" alt="hacktoberfest open source internships"/>
-  <img src="/bgimg/hacktoberfest open source internships.png" alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.webp" alt="hacktoberfest open source internships"/>
+  <source type="image/png" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.png" alt="hacktoberfest open source internships"/>
+  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.png" alt="hacktoberfest open source internships"/>
 </picture>
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.

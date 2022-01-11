@@ -4,17 +4,17 @@ title: Stored XSS on Private Bounty Program (My First Bug)
 author: Saintmalik
 author_title: Pentester
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /img/bypassauth.png
+author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
+image: https://saintmalikme.mo.cloudinary.net/img/bypassauth.png
 tags: [infosec, websec]
 ---
 
-So I started participating in bug bounty not so long and after alot of readups and web app practice, I found a stored XSS on quite a big education platform which i was using for learnig web development last year.
+So I started participating in bug bounty not so long and after a lot of read ups and web app practice, I found a stored XSS on quite a big education platform which i was using for learning web development last year.
 <!--truncate-->
 
 They have many users and also some big firms as their partner, this platform help users to learn how to code.
 
-They joined Hackerone this year and i was invited to their private program, well i found nothing till they closed their bounty program off hackerone, sent in two reports though, one N/A the other got me a negative signal😭😀.
+They joined Hackerone this year and i was invited to their private program, well i found nothing till they closed their bounty program off HackerOne, sent in two reports though, one N/A the other got me a negative signal😭😀.
 
 ## How I Discovered The Stored XSS
 
@@ -34,6 +34,6 @@ Not that the payload isn't there but the website functionality made it looks lik
 
 The stored XSS triggered, Damm I was so happy, you know that feeling when you get your first bug😩😭😊✌️.
 
-So whenever another user visits my profile page the xxs payload triggers on their browser also, meaning i could have done or chain the stored xss probably to an account tackover or somethng else.
+So whenever another user visits my profile page the XXS payload triggers on their browser also, meaning i could have done or chained the stored XSS probably to an account takeover or something else.
 
-But the anxiety in me made me report without thinking of some ways to make the bug more complex and critical, so I was rewarded with $$$ and atleast I was happy i got my first bug.
+But the anxiety in me made me report without thinking of some ways to make the bug more complex and critical, so I was rewarded with $$$, and at least I was happy i got my first bug.

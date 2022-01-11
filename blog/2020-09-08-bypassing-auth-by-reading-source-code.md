@@ -4,15 +4,15 @@ title: Bypassing Auth By Reading Source Code(JS files)
 author: Saintmalik
 author_title: Pentester
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
-image: /img/bypassauth.png
+author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
+image: https://saintmalikme.mo.cloudinary.net/img/bypassauth.png
 tags: [websec, infosec]
 ---
 
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 <!--truncate-->
 
-![Bypass Auth](/img/bypassauth.png)
+<img src="https://saintmalikme.mo.cloudinary.net/img/bypassauth.png" alt="Bypass Auth"/>
 
 Let's jump right in,
 
@@ -34,7 +34,7 @@ Definitely the whole Auth process was done from the client side(Frontend). Aweso
 
 Now I started reading the source code, knowing that only JavaScript can do this stuff on the Frontend. I went straight to reading the JS files.
 
-![Source Code Auth](/img/sourcecodeauth.webp)
+<img src="https://saintmalikme.mo.cloudinary.net/img/sourcecodeauth.webp" alt="Source Code Auth"/>
 
 Reading the JS files, I saw this endpoint **/home** 🤗, then I read the function which this endpoint was appended too.
 
@@ -42,9 +42,9 @@ So I got to know that when the whole Auth process is done. Users are redirected 
 
 Then let me just try the endpoint out and see if I get a **401**,**403** or **500** errors but to my surprise I got a **200(OK)** response and the page loaded up.
 
-![Awesome](/img/awesome.gif)
+<img src="https://saintmalikme.mo.cloudinary.net/img/awesome.gif" alt="Awesome"/>
 
-And yeah I can see all the internal members pictures and some other data's of employees without being an employee of the company.
+And yeah I can see all the internal members pictures and some data's of employees without being an employee of the company.
 
 So guys that's how reading Source Code(JS files) got me an awesome Auth bypass. Learn to read JS files, understanding how the application work.
 

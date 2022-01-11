@@ -5,7 +5,7 @@ draft: true
 author: Saintmalik
 author_title: Pentester
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://raw.githubusercontent.com/saintmalik/saintmalik.me/master/static/images/saintmalik2.jpeg
+author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
 image: /bgimg/open-source-internship-programs-2022.jpg
 tags: [Pentesting, Bug Bounty]
 ---
