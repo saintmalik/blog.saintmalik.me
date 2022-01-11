@@ -18,7 +18,7 @@ But you can contribute to open source even if you don't get selected for this pr
 
 And also contributing to open source doesn't mean free, many companies have their open source projects and yeah they make money from it. 
 
-See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" targget="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>.
+See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" target="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>.
 
 So there is more to Open Source than just sending PR's and submitting issues, you can also start your own open source projects.
 
@@ -68,9 +68,9 @@ Apply on their official page: <a href="https://www.microsoft.com/en-us/research/
   <img src="/bgimg/MLH Open Source Fellowship.jpg" alt="MLH Open Source Fellowship"/>
 </picture>
 
-Major League Hacking is a well known platform amidst devs and hackers, so apart from thier regular fellowhips.
+Major League Hacking is a well-known platform amidst devs and hackers, so apart from their regular fellowships.
 
-They also have Open Source Focused Fellowship also, the fellowhsip is a 12 week Internship for aspiring software engineers.
+They also have Open Source Focused Fellowship also, the fellowship is a 12-week Internship for aspiring software engineers.
 
 What you will be doing on the MLH Open Source Internships is contributing to any Open Source projects that most companies depends on,.
 
@@ -98,15 +98,15 @@ Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-s
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation,.
  
- So in this program you collaborate with other technical writer and open source organizations to write thier documentations for them.
+ So in this program, you collaborate with other technical writer and open source organizations to write their documentation for them.
  
- Well they just wrapped up the 2021 Program and the 2022 Application form is yet to be out, keep on the look out during the period of July.
+ Well, they just wrapped up the 2021 Program and the 2022 Application form is yet to be out, keep on the look out during the period of July.
 
- Also note you must be aged  18 above to participate in Google Season of Docs.
+ Also, note you must be aged  18 above to participate in Google Season of Docs.
 
 ### Program details
 - *Region:* Worldwide
-- *Stipend:* Payment varies based on the Open Source organisation you are working with, but yeah it starts from $3000 above.
+- *Stipend:* Payment varies based on the Open Source organization you are working with, but yeah it starts from $3000 above.
 - *Deadline to apply:* NILL for 2022 yet
 - *Program dates:* July (2022 application not opened yet)
 
@@ -128,7 +128,7 @@ You can participate in both code and non-code projects that benefits the KDE eco
 
 The 2022 application is out already and yeah it will last for 2 - 3 months, deadline for application for both students and mentor is January 15, 2022.
 
-Application form has been open since December.
+The application form has been open since December.
 
 ### Program details
 - *Region:* Worldwide
@@ -152,7 +152,7 @@ Well, GSoC is known to be for students, but recently google annouced that other 
 
 Bear in mind that you are not an employee of Google neither as an intern at Google. You’re working with Open Source organizations that you applied to or got selected in. 
 
-Stipend is paid to you by those organizations, it might vary based on your performance and the work youve done.
+Stipend is paid to you by those organizations, it might vary based on your performance and the work you've done.
 
 ### Program details
 - *Region:* Worldwide
@@ -173,15 +173,15 @@ Apply on their official page: <a href="https://summerofcode.withgoogle.com/" tar
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.
 
-The program is seasonal, also i will like to clear out somwthing, HAcktoberfest isnt just hosted by Digital Ocean alone.
+The program is seasonal, also I will like to clear out something, Hacktoberfest isn't just hosted by Digital Ocean alone.
 
-Alot of organizations do host thier own Hacktoberfest event and reward contributors either through giftcards, coupons, keyboard, T-shirts, bottles, bags and stickers.
+Alot of organizations do host their own Hacktoberfest event and reward contributors either through giftcards, coupons, keyboard, T-shirts, bottles, bags and stickers.
 
-You can check this <a href="https://hacktoberfest-ekiti.web.app/documentation/hacktoberfest-company-list" target="_blank"> list for companies that also hosted hacktoberfest in 2021</a>, it will be updated with 2022 when hacktoberfest starts in October, 2022 also, do well and bookmark the page down.
+You can check this <a href="https://hacktoberfest-ekiti.web.app/documentation/hacktoberfest-company-list" target="_blank"> list for companies that also hosted hacktoberfest in 2021</a>, it will be updated with companies who will be taking part in 2022 hacktoberfest, so do well and bookmark the page down.
 
 ### Program details
 - *Region:* Worldwide
-- *Stipend:* Swags, Stickers.
+- *Stipend:* Maybe, Swags and Stickers are sure.
 - *Timeline:* Application opons in October, 2022
 - *Program dates:* October 01, 2021 - October 31, 2022.
 
@@ -191,11 +191,11 @@ Apply on their official page: <a href="https://hacktoberfest.digitalocean.com" t
 
 ## 7. Outreachy
 
-When it comes to diversification in Open Source, Outreachy ranks number 1,  its totally a romote internship that lasts for 3 months.
+When it comes to diversification in Open Source, Outreachy ranks number one, it's totally a remote internship that lasts for 3 months.
 
 Only few students are always selected and majority are women, physically impared individuals around the world.
 
-Outreachy Internship focuses on both documentation, programming and project marketing and more tech paths, its a paid internship, so you will get some funds for balling when you are done.
+Outreachy Internship focuses on both documentation, programming, project marketing and more tech paths, its a paid internship, so you will get some funds for balling when you are done.
 
 ### Program details
 - *Region:* Worldwide
