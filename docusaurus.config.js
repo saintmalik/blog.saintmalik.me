@@ -77,8 +77,8 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'About',
-              href: 'https://saintmalik.me/about',
+              label: 'Blog Archive',
+              href: 'https://blog.saintmalik.me/archive',
             },
             {
               label: 'Work',
