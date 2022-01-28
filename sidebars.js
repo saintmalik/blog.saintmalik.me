@@ -16,6 +16,7 @@
           "fix-docusaurus-solutions",
           "converting-images-to-webp",
           "setting-up-ghost-blog-on-linode",
+          "osint",
         ],
       },
       {
