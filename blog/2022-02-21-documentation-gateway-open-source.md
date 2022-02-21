@@ -7,7 +7,7 @@ author_title: Open Sourcerer
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
 image: /bgimg/open-source-internship-programs-2022.jpg
-tags: [Open Source, OSS]]
+tags: [Open Source, OSS]
 ---
 
 Documentation is a vital part of any open source project or software, Documentation is the entry point of a fall back option for most users of a software or open source project.
