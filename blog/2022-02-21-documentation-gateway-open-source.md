@@ -1,5 +1,5 @@
 ---
-slug: find-subdomain
+slug: documentation-gateway-to-open-source
 title: Documentation as a gateway to Open Source
 draft: true
 author: Saintmalik
