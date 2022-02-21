@@ -1,7 +1,6 @@
 ---
 slug: documentation-gateway-to-open-source
 title: Documentation as a gateway to Open Source
-draft: true
 author: Saintmalik
 author_title: Open Sourcerer
 author_url: https://twitter.com/saintmalik_
