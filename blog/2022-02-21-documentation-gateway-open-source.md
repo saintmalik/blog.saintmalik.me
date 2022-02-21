@@ -33,7 +33,7 @@ A nice example of projects that are still finding it hard to keep up with their 
 > they won’t use it.”
 
 > — Write The Docs
-
+ <br/>
 Lets jump in;
 
 ## 1. FInd a project: Projects that you understand
@@ -144,4 +144,6 @@ well, we are done with that, but wait, what if you were given the opportunity to
 That brings us to Documentation Toolkit for those awesome documentation lovers, here are the list of things you will need to get those task done
  
 - Documentation Site or Page Generator: Docusaurus, StoryBook
+- Technical Skills: Git and GitHub
+- Grammarly(Grammar and sentense spellings)
  
