@@ -116,12 +116,14 @@ See their old installation guide, which doesn't work well for others and the upd
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.webp" alt="Knock-Subdomain-Scan-README"/>
   <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.jpg" alt="Knock-Subdomain-Scan-README"/>
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.jpg" alt="Knock-Subdomain-Scan-README"/>
+   <p>Old ReadME</p>
 </picture>
 
 <picture>
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.webp" alt="Knock-Subdomain-Scan-new-README"/>
   <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.jpg" alt="Knock-Subdomain-Scan-new-README"/>
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.jpg" alt="Knock-Subdomain-Scan-new-README"/>
+     <p>New ReadME</p>
 </picture>
  
 You see making a correcting Improvement to the installation guide and instructions will help any new user of the tool.
@@ -144,8 +146,7 @@ You can also work hand in hand with the backend developer or maintainer of the p
  
 Various contribution opportunities like versioning of the API, so the project maintainers are already working on the V3(version 3) of their API.
 
-You can always reach out to them, to see ways to help them with the documentation.
-
+You can always reach out to them, to see ways to help them with the documentation, you can also check this guide for more <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b"> technical documentation list </a>
  
 - ### Commands, Error Message, Code Strings, Language Translation
  
@@ -157,10 +158,10 @@ Error messages, Code strings are the most important part of a project interface,
  
 A very poor Error message or code string will give a bad user experience, so picking this up and fixing it is also a nice way of contributing.
  
-well, we are done with that, but wait, what if you were given the opportunity to pull up a documentation page for any open source project that doesn't have one,
+Well, we are done with that, but wait, what if you were given the opportunity to pull up a documentation page for any open source project that doesn't have one,
  
 That brings us to Documentation Toolkit for those awesome documentation lovers, here are the list of things you will need to get those task done
  
-- Documentation Site or Page Generator: Docusaurus, StoryBook
+- Documentation Site or Page Generator: Docusaurus, StoryBook (Here is a guide on <a href="https://medium.com/swlh/build-beautiful-documentation-websites-with-docusaurus-cc51730ed932">how to spin up a documentation page easily with docusaurus</a>)
 - Technical Skills: Git and GitHub, Markdown
-- Grammarly(Grammar and sentense spellings)
+- Grammarly(Grammar spelling checker)
