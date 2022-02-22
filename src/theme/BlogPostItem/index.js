@@ -11,6 +11,7 @@ import Translate, {translate} from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
 import {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
 import {usePluralForm} from '@docusaurus/theme-common';
+import {blogPostContainerID} from '@docusaurus/utils-common';
 import MDXComponents from '@theme/MDXComponents';
 import EditThisPage from '@theme/EditThisPage';
 import styles from './styles.module.css';
@@ -38,7 +39,6 @@ function useReadingTimePlural() {
   };
 }
 
-
 function BlogPostItem(props) {
   const readingTimePlural = useReadingTimePlural();
   const {withBaseUrl} = useBaseUrlUtils();
@@ -61,10 +61,15 @@ function BlogPostItem(props) {
     authors,
   } = metadata;
   const image = assets.image ?? frontMatter.image;
-
-  const renderPostHeader = () => {
-    const TitleHeading = isBlogPostPage ? 'h1' : 'h2';
-    return (
+  const truncatedPost = !isBlogPostPage && truncated;
+  const tagsExists = tags.length > 0;
+  const TitleHeading = isBlogPostPage ? 'h1' : 'h2';
+  return (
+    <article
+      className={!isBlogPostPage ? 'margin-bottom--xl' : undefined}
+      itemProp="blogPost"
+      itemScope
+      itemType="http://schema.org/BlogPosting">
       <header>
         <TitleHeading className={styles.blogPostTitle} itemProp="headline">
           {isBlogPostPage ? (
@@ -89,17 +94,6 @@ function BlogPostItem(props) {
         </div>
         <BlogPostAuthors authors={authors} assets={assets} />
       </header>
-    );
-  };
-
-  return (
-
-    <article
-      className={!isBlogPostPage ? 'margin-bottom--xl' : undefined}
-      itemProp="blogPost"
-      itemScope
-      itemType="http://schema.org/BlogPosting">
-      {renderPostHeader()}
 
       {image && (
         <meta
@@ -110,19 +104,22 @@ function BlogPostItem(props) {
         />
       )}
 
-      <div className="markdown" itemProp="articleBody">
+      <div // This ID is used for the feed generation to locate the main content
+        id={isBlogPostPage ? blogPostContainerID : undefined}
+        className="markdown"
+        itemProp="articleBody">
         <MDXProvider components={MDXComponents}>{children}</MDXProvider>
       </div>
 
-      {(tags.length > 0 || truncated) && (
+      {(tagsExists || truncated) && (
         <footer
           className={clsx('row docusaurus-mt-lg', {
             [styles.blogPostDetailsFull]: isBlogPostPage,
           })}>
-          {tags.length > 0 && (
+          {tagsExists && (
             <div
               className={clsx('col', {
-                'col--9': !isBlogPostPage,
+                'col--9': truncatedPost,
               })}>
               <TagsListInline tags={tags} />
             </div>
@@ -134,8 +131,11 @@ function BlogPostItem(props) {
             </div>
           )}
 
-          {!isBlogPostPage && truncated && (
-            <div className="col col--3 text--right">
+          {truncatedPost && (
+            <div
+              className={clsx('col text--right', {
+                'col--3': tagsExists,
+              })}>
               <Link
                 to={metadata.permalink}
                 aria-label={`Read more about ${title}`}>
