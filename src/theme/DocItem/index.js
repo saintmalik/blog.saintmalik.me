@@ -7,7 +7,7 @@
  import React from 'react';
  import clsx from 'clsx';
  import {
-  useWindowSize,
+  useWindowSize
 } from '@docusaurus/theme-common';
  import DocPaginator from '@theme/DocPaginator';
  import DocVersionBanner from '@theme/DocVersionBanner';
