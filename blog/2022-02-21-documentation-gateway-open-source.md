@@ -50,7 +50,9 @@ The next thing you should do is hit google or github to look for the project, to
 
 If it's cool to you, then you can proceed to see what you want to improve in their documentation .
 
-Better still to see how you can make life easier for the next person, a very good scenario of this is when I got successful with the deployment of Docusaurus with Firebase.
+Better still to see how you can make life easier for the next person.
+
+A very good scenario of this that i can share is when I got successful with the deployment of Docusaurus with Firebase.
 
 <picture>
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/docusaurus-firebase-deployment.webp" alt="docusaurus-firebase-deployment"/>
@@ -66,9 +68,9 @@ You can find some active documentation of open source  projects by alot of organ
 
 You can  find other excellent resources  and <a href="https://jobs.writethedocs.org/">Jobs/Documentation/Writing gigs</a> at the <a href="https://www.writethedocs.org/">Write the Docs community</a>.
 
-Another  great way of looking for projects is through the use of GitHub’s “Topic” page.
+Another  great way of looking for projects is through the use of **GitHub’s Topic** page.
 
-Go to “Explore” and then “Topic”.
+Go to **“Explore”** and then **“Topic”**.
 
 <picture>
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/github-topic-pages-documentation.webp" alt="github-topic-pages-documentation"/>
@@ -76,7 +78,9 @@ Go to “Explore” and then “Topic”.
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/github-topic-pages-documentation.jpg" alt="github-topic-pages-documentation"/>
 </picture>
 
-Here you will be able to explore a lot of topic based projects, there is also a "Documentation" Topic which contains a lot of documentation projects.
+Here you will be able to explore a lot of topic based projects.
+
+There is also a **"Documentation"** Topic which contains a lot of documentation projects.
  
 Once you’ve found a project, you’ll want to keep in mind some basic contribution etiquette as you get started, let's move to that.
  
@@ -84,7 +88,7 @@ Once you’ve found a project, you’ll want to keep in mind some basic contribu
  
 Now that you have found a great project to contribute to, before getting ready to contribute, you need to do a little work, which is understanding the Open-Source project contribution guide.
  
-It's always named  ‘CONTRIBUTING.md’. Read this file carefully to learn how to contribute to the project. 
+It's always named  **‘CONTRIBUTING.md’**. Read this file carefully to learn how to contribute to the project. 
 
 It typically includes guidelines on what to branch, test, how to format your commit messages and clear step-by-step instructions on how to make a contribution.
  
@@ -101,8 +105,8 @@ Give the maintainers time to respond to it before beginning your work, remember 
 Also many repositories will have an issue template prefilled when you create a new issue. Stick to this template!
  
 When you are done digesting the guides, it's time to then look for where on the projects to contribute too.
- 
-- ### READMEs
+
+ - ### READMEs
  
 Not all open source projects do have a documentation repo or a dedicated documentation folder,.
 
@@ -128,9 +132,7 @@ See their old installation guide, which doesn't work well for others and the upd
      <p>New ReadME</p>
 </picture>
  
-You see making a correcting Improvement to the installation guide and instructions will help any new user of the tool.
-
-<br/> 
+You see making a correcting Improvement to the installation guide and instructions will help any new user of the tool. <br/> <br/> 
 
 You can also move on to fixing any Grammar, Spelling and formatting issues you find in the README file.
 
