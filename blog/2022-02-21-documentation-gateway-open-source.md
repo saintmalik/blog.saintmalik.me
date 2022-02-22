@@ -33,7 +33,9 @@ A nice example of projects that are still finding it hard to keep up with their 
 > they won’t use it.”
 
 > — Write The Docs
+
  <br/>
+ 
 Lets jump in;
 
 ## 1. FInd a project: Projects that you understand
