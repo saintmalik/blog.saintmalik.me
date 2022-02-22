@@ -136,32 +136,48 @@ You can also move on to fixing any Grammar, Spelling and formatting issues you f
  
 People tend to leave out API Documentation when they are talking about documentations.
 
-You can always contribute to the API documentation of any projects you find interesting and they have an API implementation, you can help improve the documentation.
+You can always contribute to the API documentation of any project you find interesting and if they have an API implementation, you can help improve the documentation.
  
-API Documentation is a technical design document that explains guides developers on how to consume, use and interact with an API.
+API Documentation is simply a technical design document that guides developers on how to consume, use and interact with an API.
 
 The API Documentation is made up of code snippets, references, methods, tutorials and formatting rules.
  
 You can also work hand in hand with the backend developer or maintainer of the project to get guidance on what some API endpoint does and so on.
  
-Various contribution opportunities like versioning of the API, so the project maintainers are already working on the V3(version 3) of their API.
+Various contribution opportunities like versioning of the API, So if the project maintainers are already working on the V2, V3(version 3)... of their API.
 
-You can always reach out to them, to see ways to help them with the documentation, you can also check this guide for more <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b"> technical documentation list </a>
+You can always reach out to them, to see how you can help them with the documentation, you can also check this guide to learn more about <a href="https://idratherbewriting.com/learnapidoc/">API Documentation</a>
  
 - ### Commands, Error Message, Code Strings, Language Translation
  
-Here is another nice way of contributing, Error Messages, Code strings and commands, most documentation are formatted in English, and we know, people with other languages might make use of our project, and might find it hard to read the English version of that project documentation.
+Here is another nice way of contributing to open source projects, Error Messages, Code strings and commands.
+
+Most documentation are formatted in English, and we know, people with other languages might make use of our project.
+
+If they dont understand English, they might find it hard to use the Open Source project, so its' always nice to have documentations in different languages.
  
-That creates an opportunity for an individual that understands multiple languages to contribute and help translate the documentation into other languages, you can always reach out to the project maintainer to request for a go ahead.
+That creates an opportunity for an individual that understands multiple languages to contribute and help translate the documentation into other languages.
+
+So if you understand other popular langauge like chinese etc., you can always reach out to the project maintainer to request for a go ahead to help translate the documentation.
  
-Error messages, Code strings are the most important part of a project interface, this is what users see, this message is what guides users, and gives them direction on how to debug issues.
+Error messages, Code strings are also important part of any project, Yeah the nice interface messages, this is what users see, this message is what guides users, and gives them direction on how to debug issues, navigate in your project.
+
+If you have a very poor Error message or Code strings messages, this will give a bad experience to the users of the project.
+
+So here is an opportunity for you to pick the errors, typos messages and fix, this is also very nice way of contributing.
+
+Yeah, thats all, so to the no code people, this are the ways you can start contributing to open source projects easily, you can also futher your learning about other <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b">types of documentation</a> that are available
+
+This will provide you with a large scope of different ways of contributing to open source project via Documentation.
  
-A very poor Error message or code string will give a bad user experience, so picking this up and fixing it is also a nice way of contributing.
+Well, we are done with that, but wait, what if you were given the opportunity to pull up a documentation page for any open source project that doesn't have one yet?
  
-Well, we are done with that, but wait, what if you were given the opportunity to pull up a documentation page for any open source project that doesn't have one,
+That brings us to the Documentation Toolkit for those awesome documentation lovers, here are the list of things you will need to get the task done;
+
+## Documentation Toolkits
  
-That brings us to Documentation Toolkit for those awesome documentation lovers, here are the list of things you will need to get those task done
- 
-- Documentation Site or Page Generator: Docusaurus, StoryBook (Here is a guide on <a href="https://medium.com/swlh/build-beautiful-documentation-websites-with-docusaurus-cc51730ed932">how to spin up a documentation page easily with docusaurus</a>)
-- Technical Skills: Git and GitHub, Markdown
-- Grammarly(Grammar spelling checker)
+* Documentation Site/Page Generator: 
+  - Docusaurus — (Here is a guide on <a href="https://medium.com/swlh/build-beautiful-documentation-websites-with-docusaurus-cc51730ed932">how to spin up a documentation page easily with docusaurus</a>)
+  - StoryBook 
+* Technical Skills: Git and GitHub, Markdown
+* Grammarly(Grammar spelling checker)
