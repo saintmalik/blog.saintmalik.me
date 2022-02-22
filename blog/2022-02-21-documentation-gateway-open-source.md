@@ -5,7 +5,7 @@ author: Saintmalik
 author_title: Open Sourcerer
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://res.cloudinary.com/saintmalik/image/upload/e_sharpen:2000,q_74,r_0/v1641922078/saintmalik.webp
-image: /bgimg/
+image: /bgimg/documentation-as-a-into-open-source.jpeg
 tags: [Open Source, OSS]
 ---
 
