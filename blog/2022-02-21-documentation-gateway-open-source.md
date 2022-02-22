@@ -9,15 +9,17 @@ image: /bgimg/
 tags: [Open Source, OSS]
 ---
 
-Documentation is a vital part of any open source project or software, Documentation is the entry point of a fall back option for most users of a software or open source project.
+Documentation is a vital part of any open source project or software.
+
+It is the entry point or a fall back option for users of any open source project or software to read usage, installation instructions, to fix issues and learn more about the project.
 
 <!--truncate-->
 
-Poor documentation will lead to nothing else but limitation of the reach on an open source project. 
+So a poor documentation will lead to nothing else but limitation of the reach on that open source project or software.
 
 Me as a person, I don't stay long on poor documentation page of any project, I will rather find an easy and detailed alternative to such a project.
 
-A nice example of projects that are still finding it hard to keep up with their documentation updates are JQuery, SQLite, a nice quote from Write The Docs says it all.
+A nice example of projects that are still finding it hard to keep up with their documentation updates are JQuery, SQLite.... and a nice quote from Write The Docs says it all.
 
 
 > “If people don’t know why your project exists,
