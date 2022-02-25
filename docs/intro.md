@@ -19,6 +19,7 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 | 2  | [Solution to fix some docusaurus bugs](fix-docusaurus-solutions) | Sep 7, 2021    |
 | 3  | [Lazy way of setting up a ghost blog on linode/digital ocean](setting-up-ghost-blog-on-linode) | Dec 6, 2021    |
 | 4  | [How to bulk convert images to webp](converting-images-to-webp) | Jan 5, 2021    |
+| 4  | [Easy Access to Pentesting VPS with via VS Code](vps-workspace-accessibility) | Feb 25, 2022    |
 
 </div>
 
