@@ -1,5 +1,5 @@
 ---
-title: Fixing typos in large scale documentation 
+title: Automate FInding and Fixing typos in large scale documentation
 ---
 
 Good day guys, so i decided to write a  bash script to automate, find  and fix typos in large documentations either as a contributor or as a project maintainer.
