@@ -50,7 +50,7 @@ func main() {
 }
 ```
 
-You can't declare global variables using shorthand form of declaring variables, short hand variables can only be declared inside a fucntion which makes them a local variable.
+You can't declare global variables using shorthand form of declaring variables, short hand variables can only be declared inside a function which makes them a local variable.
 
 ## Shadowing in GoLang Variables
 

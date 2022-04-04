@@ -4,7 +4,7 @@ title: Lazy way of setting up a ghost blog on linode/digital ocean
 
 Well,  a week ago i couldnt pay up my DO bill and my droplets got deleted, meaning all the service i have on the droplet got cleaned out.
 
-And now that i got back on my feet financially, i paid up the DO bills and then messaged their support for help with my droplets if it can still be recovered back, but unfortunately the answer was NO, it cant be retrived.
+And now that i got back on my feet financially, i paid up the DO bills and then messaged their support for help with my droplets if it can still be recovered back, but unfortunately the answer was NO, it cant be retrieved.
 
 Which means i have start every project afresh, that got me angry actially and i have moved to the linode platform as at the time of wrting.
 
@@ -210,7 +210,7 @@ to switch to your database, after that, run
 SELECT * from users;
 ```
 
-to see all the users that are available in your database, give a closeer look and see the email of the user you want to change thier password is present there.
+to see all the users that are available in your database, give a closeer look and see the email of the user you want to change their password is present there.
 
 after that, goto <a href="https://passwordhashing.com/BCrypt" target="_blank"> https://passwordhashing.com/BCrypt</a> and enter your new password that will be hashed back into the BCrypt format, because ghost stores passwords in Bcrypt format.
 
@@ -235,7 +235,7 @@ and lastly enter this command also
 where email = myownmail@gmail.com;
 ```
 
-//Replace the email with the email of the user you want to chnage thier password
+//Replace the email with the email of the user you want to chnage their password
 
 if the operation gets successful, you should see a response like this
 

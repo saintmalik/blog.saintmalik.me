@@ -39,3 +39,19 @@ and wrap your image with this
   Your Caption
 </Figure>
 ```
+
+Module not found : Error after updating Docusaurus everytime, 
+
+
+Just run 
+
+```
+yarn run swizzle theme component
+```
+
+e.g 
+
+```
+yarn run swizzle @docusaurus/theme-classic DocItem --danger
+```
+

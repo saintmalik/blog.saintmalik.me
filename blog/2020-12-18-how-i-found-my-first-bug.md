@@ -28,7 +28,7 @@ After digging well, Soon I found out that I can leave something on the profile d
 
 Because the user profile dashboard has an option to edit, add your bio, add some texts, so I wrote somethings, and I started with ></" to see if they get sanitized, I inspected the text, i noticed it was not sanitized or filtered out. Then i gave the dashboard a good attention.
 
-I got the common payload which is the "&lt;script&gt;alert(1)&lt;/script&gt;", you know thats the most common payload anyway. I typed this payload into the bio box and I saved it, to my suprise the bio box went blank😳, but on highlighting the text, it was showing.
+I got the common payload which is the "&lt;script&gt;alert(1)&lt;/script&gt;", you know thats the most common payload anyway. I typed this payload into the bio box and I saved it, to my surprise the bio box went blank😳, but on highlighting the text, it was showing.
 
 Not that the payload isn't there but the website functionality made it looks like a white text, so i refreshed the page immediately to see if anything comes up, Well the Alert PoPup triggered.
 

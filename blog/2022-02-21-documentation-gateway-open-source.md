@@ -162,7 +162,7 @@ If they dont understand English, they might find it hard to use the Open Source 
  
 That creates an opportunity for an individual that understands multiple languages to contribute and help translate the documentation into other languages.
 
-So if you understand other popular langauge like chinese etc., you can always reach out to the project maintainer to request for a go ahead to help translate the documentation.
+So if you understand other popular language like chinese etc., you can always reach out to the project maintainer to request for a go ahead to help translate the documentation.
  
 Error messages, Code strings are also important part of any project, Yeah the nice interface messages, this is what users see, this message is what guides users, and gives them direction on how to debug issues, navigate in your project.
 
@@ -170,7 +170,7 @@ If you have a very poor Error message or Code strings messages, this will give a
 
 So here is an opportunity for you to pick the errors, typos messages and fix, this is also very nice way of contributing.
 
-Yeah, thats all, so to the no code people, this are the ways you can start contributing to open source projects easily, you can also futher your learning about other <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b">types of documentation</a> that are available
+Yeah, thats all, so to the no code people, this are the ways you can start contributing to open source projects easily, you can also further your learning about other <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b">types of documentation</a> that are available
 
 This will provide you with a large scope of different ways of contributing to open source project via Documentation.
  

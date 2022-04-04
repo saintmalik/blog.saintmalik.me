@@ -34,7 +34,7 @@ Let’s jump in.
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
 
-You will recieve payment of $10,000 stipend if you get in, well this program is yet to be known by many, due to the fact that they just started the program in 2020.
+You will receive payment of $10,000 stipend if you get in, well this program is yet to be known by many, due to the fact that they just started the program in 2020.
 
 The program is focused on introducing students to open source reinforcement learning programs and software development and yet working alongside with researchers, data scientists, and engineers on the Real World Reinforcement Learning team at Microsoft Research NYC. 
 
@@ -48,7 +48,7 @@ Students who are in any acrredited university, colleges doing their Masters, phD
 
 - Submitting quality works, i.e writing codes that compile, doing unit tests and documentations, passing code reviews
 - Regular standup with mentor /collaboartor
-- Communicating and working with collegues
+- Communicating and working with colleagues
 
 ### Program details
 - *Region:* Worldwide
@@ -148,7 +148,7 @@ Apply on their official page: <a href="https://season.kde.org/" target="_blank">
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.jpg" alt="google summer of code open source"/>
 </picture>
 
-Well, GSoC is known to be for students, but recently google annouced that other people apart from students can also participate in GSoC.
+Well, GSoC is known to be for students, but recently google announced that other people apart from students can also participate in GSoC.
 
 Bear in mind that you are not an employee of Google neither as an intern at Google. You’re working with Open Source organizations that you applied to or got selected in. 
 

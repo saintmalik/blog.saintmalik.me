@@ -13,7 +13,7 @@ Everything with an advantage will also have a disadvantage, and some of the disa
 
 Although i do find my way around this issues via Terminal, but having a nice way to access this thing can be helpful and speed up work rate.
 
-That brings us to the VS Code Software and its awesome Extention named <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh"> Remote -SSH  </a>
+That brings us to the VS Code Software and its awesome Extension named <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh"> Remote -SSH  </a>
 
 With this you can access your VPS environment through a nice Interface good for navigation, can be handy when doing Android App Pentest.
 
@@ -22,7 +22,7 @@ Where you decompile Apks and grep through th files or looking through manually.
 Creating files and editing files easily, so when you are done with installation, here is how to get your things up and running.
 
 
-1. Enable the Remote - SSH Extention afteer installation, you might also be prompted to install another Extension name Remote - SSH Editing Configuration Files, install and enable it also.
+1. Enable the Remote - SSH Extension after installation, you might also be prompted to install another Extension name Remote - SSH Editing Configuration Files, install and enable it also.
 
 <picture>
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh.webp" alt="Remote SSH Extensiont"/>

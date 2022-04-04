@@ -18,6 +18,7 @@
           "setting-up-ghost-blog-on-linode",
           "osint",
           "vps-workspace-accessibility",
+          "bulk-typo-fixing",
         ],
       },
       {
