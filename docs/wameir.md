@@ -1,5 +1,5 @@
 ---
-title: Wameir - 
+title: Wameir -  Reach out to whatsapp users without saving numbers
 ---
 
 Language used: Golang 😌
@@ -22,7 +22,6 @@ All you have to do is select the country that the number belongs to and paste th
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/wameir.jpg" alt="Wameir"/>
 </picture>
 
-
 <picture>
   <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir-output.webp" alt="Wameir output"/>
   <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir-output.jpg" alt="Wameir output"/>
@@ -35,4 +34,19 @@ Check it out: https://wame.saintmalik.me/
 
 If you wish to improve the UI or contribute here is the source code: https://github.com/saintmalik/wame
 
+---
+---
 
+So the things i learnt about Go from this project?
+
+How to work with golang template, taking data from users via html form 
+
+Splitting datas taken into newlines
+
+Tried the golang switch 
+
+Got to know more about strings, structs, declaration of global variable to access them in other part of the program in the go file 
+
+Also understand how to get golang web app up on Heroku by modifying the port inside the main function 
+
+Deployment to heroku needs a Procfile and other tiny tiny instructions and guide that i came across in toward building.
