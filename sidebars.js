@@ -19,6 +19,9 @@
           "osint",
           "vps-workspace-accessibility",
           "bulk-typo-fixing",
+          "subdomain-checks",
+          "vps-issues",
+          "hackthebox-invite",
         ],
       },
       {
