@@ -22,6 +22,8 @@
           "subdomain-checks",
           "vps-issues",
           "hackthebox-invite",
+          "wameir",
+          "ifihadinvested",
         ],
       },
       {
