@@ -15,3 +15,4 @@ When building cron tasks, prefer things like absolute paths and explicit options
 
 making sure, each scripts runs one after the other, good for debug
 
+Notion Split screen shift + command + n, navigate page command + ~

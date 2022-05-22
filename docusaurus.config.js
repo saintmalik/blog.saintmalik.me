@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'SaintMalik',
+  title: 'Docusaurus',
   tagline: 'Penetration Tester and Aspiring AppSec Engineer.',
   url: 'https://blog.saintmalik.me',
   baseUrl: '/',
