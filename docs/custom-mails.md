@@ -22,7 +22,7 @@ That led me to creating another private mail and subscribing another 14/year.
 
 Yes, i later discovered i can increase the mailboxes but it was too late. so i no have two mail operating on $14/year each.
 
-Now i registered another domain for an open source project that i am working on with some collegues, (<a href="https://github.com/flipify">Flipify, Simple, fast, and fun switch between hosting providers, third party integrations, and more</a>)
+Now i registered another domain for an open source project that i am working on with some collegues, (<a href="https://github.com/flipify" target="_blank">Flipify, Simple, fast, and fun switch between hosting providers, third party integrations, and more</a>)
 
 And for a founding team more than 5, namecheap isnt an option, we dont have the bills.
 
@@ -34,4 +34,4 @@ That led to the digging of ZohoMail, their free plan grants you access to the fo
 * Email hosting for a single domain
 * Two factor authentication
 
-You get yours up to, follow <a href="https://www.zoho.com/mail/how-to/create-business-email-address.html">ZohoMail setup guide</a>.
+You get yours up to, follow <a href="https://www.zoho.com/mail/how-to/create-business-email-address.html" target="_blank">ZohoMail setup guide</a>.
