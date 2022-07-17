@@ -35,7 +35,7 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 
 </div>
 
-### Could Be Helpfull
+### Could Be Helpful
 
 <div class="contentTableContainer">
 
