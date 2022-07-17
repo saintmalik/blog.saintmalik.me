@@ -22,7 +22,7 @@ That led me to creating another private mail and subscribing another 14/year.
 
 Yes, i later discovered i can increase the mailboxes but it was too late. so i no have two mail operating on $14/year each.
 
-Now i registered another domain for an open source project that i am working on with some collegues, (<a href="https://flipify.dev">Flipify, Simple, fast, and fun switch between hosting providers, third party integrations, and more</a>)
+Now i registered another domain for an open source project that i am working on with some collegues, (<a href="https://github.com/flipify">Flipify, Simple, fast, and fun switch between hosting providers, third party integrations, and more</a>)
 
 And for a founding team more than 5, namecheap isnt an option, we dont have the bills.
 
