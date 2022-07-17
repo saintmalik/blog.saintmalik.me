@@ -112,7 +112,7 @@ module.exports = {
           editCurrentVersion: false,
         },
         blog: {
-          blogTitle: 'Blog',
+          blogTitle: 'Saintmalik Security Blog',
           blogDescription: 'My Blog For Application Security, Open Source, Golang, Web app performanc optimization and more.!',
           // showReadingTime: true,
           path: "./blog",

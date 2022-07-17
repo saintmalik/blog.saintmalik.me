@@ -34,5 +34,12 @@
           "arrays-in-golang",
         ],
       },
+      {
+        type: "category",
+        label: "Could Help You",
+        items: [
+          "custom-mails",
+        ],
+      },
     ],
   };
