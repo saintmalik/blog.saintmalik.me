@@ -34,3 +34,13 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 | 2  | [Arrays in GoLang](arrays-in-golang)          | September 10, 2021      |
 
 </div>
+
+### Could Be Helpfull
+
+<div class="contentTableContainer">
+
+|     | Title                                                                   | Date Last Updated |
+| --- | ----------------------------------------------------------------------- | ----------------- |
+| 1   | [Setting up free custom mails for your startup](custom-mails) | July 17, 2022   |
+
+</div>
