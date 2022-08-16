@@ -12,7 +12,7 @@ tags: [websec, infosec]
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 <!--truncate-->
 
-<img src="./bypassauth.png" alt="Bypass Auth"/>
+<img src="https://saintmalikme.mo.cloudinary.net/img/bypassauth.png" alt="Bypass Auth"/>
 
 Let's jump right in,
 
