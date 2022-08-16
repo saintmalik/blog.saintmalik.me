@@ -40,18 +40,19 @@ and wrap your image with this
 </Figure>
 ```
 
-Module not found : Error after updating Docusaurus everytime, 
+Module not found : Error after updating Docusaurus everytime, Module not found: Error: Can't resolve '@theme/BlogPostAuthors' in '/blog.saintmalik.me/src/theme/BlogPostItem'
 
 
-Just run 
+Just run
 
 ```
 yarn run swizzle theme component
 ```
 
-e.g 
+e.g
 
 ```
-yarn run swizzle @docusaurus/theme-classic DocItem --danger
+yarn run swizzle @docusaurus/theme-classic BlogPostItem --danger
 ```
 
+since i use @docusaurus/theme-classic, thats why i used this example, if you use something else like @docusaurus/preset-classic, change yours to that.

@@ -67,7 +67,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 h3 {

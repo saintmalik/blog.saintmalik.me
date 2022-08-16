@@ -24,6 +24,7 @@
           "hackthebox-invite",
           "wameir",
           "ifihadinvested",
+          "hussein-d-talk-series",
         ],
       },
       {
