@@ -9,15 +9,12 @@ image: https://saintmalikme.mo.cloudinary.net/img/bypassauth.png
 tags: [websec, infosec]
 ---
 
-
-import siteConfig from '/docusaurus.config.js';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 <!--truncate-->
 
-<img src="${siteConfig.customFields.imgurl}/blog/2020-09-08-bypassing-auth-by-reading-source-code/bypassauth.png" alt="Bypass Auth"/>
-
-The website is called = {siteConfig.title}
+<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/blog/2020-09-08-bypassing-auth-by-reading-source-code/bypassauth.png`} alt="Bypass Auth"/>
 
 Let's jump right in,
 

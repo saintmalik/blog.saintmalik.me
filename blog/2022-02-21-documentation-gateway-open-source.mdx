@@ -9,6 +9,8 @@ image: /bgimg/documentation-as-a-into-open-source.jpeg
 tags: [Open Source, OSS]
 ---
 
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
 Documentation is a vital part of any open source project or software.
 
 It is the entry point or a fall back option for users of any open source project or software to read usage, installation instructions, to fix issues and learn more about the project.
@@ -55,9 +57,9 @@ Better still to see how you can make life easier for the next person.
 A very good scenario of this that i can share is when I got successful with the deployment of Docusaurus with Firebase.
 
 <picture>
-  <source type="image/webp" srcset="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.webp" alt="docusaurus-firebase-deployment"/>
-  <source type="image/jpeg" srcset="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
-  <img src="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.webp`} alt="docusaurus-firebase-deployment"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
 </picture>
 
 So you see, I used the project and I was able to find something to contribute to.

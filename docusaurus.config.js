@@ -54,9 +54,6 @@ module.exports = {
         },
       ],
     },
-    customFields: {
-      imgurl: 'https://saintmalikme.mo.cloudinary.net',
-    },
     footer: {
       links: [
         {
@@ -96,6 +93,9 @@ module.exports = {
       ],
       copyright: `Last updated on ${new Date().toDateString()}`,
     },
+  },
+  customFields: {
+    imgurl: 'https://saintmalikme.mo.cloudinary.net',
   },
   presets: [
     [
