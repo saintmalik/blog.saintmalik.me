@@ -54,6 +54,9 @@ module.exports = {
         },
       ],
     },
+    customFields: {
+      imgurl: 'https://saintmalikme.mo.cloudinary.net',
+    },
     footer: {
       links: [
         {

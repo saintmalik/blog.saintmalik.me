@@ -37,7 +37,7 @@ A nice example of projects that are still finding it hard to keep up with their 
 > — Write The Docs
 
  <br/>
- 
+
 Lets jump in;
 
 ## 1. FInd a project: Projects that you understand
@@ -55,9 +55,9 @@ Better still to see how you can make life easier for the next person.
 A very good scenario of this that i can share is when I got successful with the deployment of Docusaurus with Firebase.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/docusaurus-firebase-deployment.webp" alt="docusaurus-firebase-deployment"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
+  <source type="image/webp" srcset="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.webp" alt="docusaurus-firebase-deployment"/>
+  <source type="image/jpeg" srcset="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
+  <img src="{siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg" alt="docusaurus-firebase-deployment"/>
 </picture>
 
 So you see, I used the project and I was able to find something to contribute to.
@@ -81,39 +81,39 @@ Go to **“Explore”** and then **“Topic”**.
 Here you will be able to explore a lot of topic based projects.
 
 There is also a **"Documentation"** Topic which contains a lot of documentation projects.
- 
+
 Once you’ve found a project, you’ll want to keep in mind some basic contribution etiquette as you get started, let's move to that.
- 
+
 ## 2. Digest the Project guidelines and rules
- 
+
 Now that you have found a great project to contribute to, before getting ready to contribute, you need to do a little work, which is understanding the Open-Source project contribution guide.
- 
-It's always named  **‘CONTRIBUTING.md’**. Read this file carefully to learn how to contribute to the project. 
+
+It's always named  **‘CONTRIBUTING.md’**. Read this file carefully to learn how to contribute to the project.
 
 It typically includes guidelines on what to branch, test, how to format your commit messages and clear step-by-step instructions on how to make a contribution.
- 
+
 Most projects have some prerequisites that you need to follow to set up the project properly.
- 
-Ask the maintainers where they need help around their documentation. 
+
+Ask the maintainers where they need help around their documentation.
 
 If you found an issue that you want to tackle, comment about it, and let everyone know that you wish to work on that issue.
- 
+
 Explain what problem you wish to solve or which new feature you wish to introduce.
- 
+
 Give the maintainers time to respond to it before beginning your work, remember that many maintainers have day jobs or limited time and may not respond immediately.
- 
+
 Also many repositories will have an issue template prefilled when you create a new issue. Stick to this template!
- 
+
 When you are done digesting the guides, it's time to then look for where on the projects to contribute too.
 
  - ### READMEs
- 
+
 Not all open source projects do have a documentation repo or a dedicated documentation folder,.
 
 Some projects always leave their documentation in the README.md file and it is always located at the root of the repository.
- 
+
 The readme file does contain installation guides, how to use guides and in some projects it can be much more than that.
- 
+
 So you can try out the installation guide to see what works and what doesnt work, an example is a Subdomain Recon tool.
 
 See their old installation guide, which doesn't work well for others and the update of the new installation guide that works.
@@ -131,39 +131,39 @@ See their old installation guide, which doesn't work well for others and the upd
   <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.jpg" alt="Knock-Subdomain-Scan-new-README"/>
      <p>New ReadME</p>
 </picture>
- 
-You see making a correcting Improvement to the installation guide and instructions will help any new user of the tool. <br/> <br/> 
+
+You see making a correcting Improvement to the installation guide and instructions will help any new user of the tool. <br/> <br/>
 
 You can also move on to fixing any Grammar, Spelling and formatting issues you find in the README file.
 
 - ### API Documentation
- 
+
 People tend to leave out API Documentation when they are talking about documentations.
 
 You can always contribute to the API documentation of any project you find interesting and if they have an API implementation, you can help improve the documentation.
- 
+
 API Documentation is simply a technical design document that guides developers on how to consume, use and interact with an API.
 
 The API Documentation is made up of code snippets, references, methods, tutorials and formatting rules.
- 
+
 You can also work hand in hand with the backend developer or maintainer of the project to get guidance on what some API endpoint does and so on.
- 
+
 Various contribution opportunities like versioning of the API, So if the project maintainers are already working on the V2, V3(version 3)... of their API.
 
 You can always reach out to them, to see how you can help them with the documentation, you can also check this guide to learn more about <a href="https://idratherbewriting.com/learnapidoc/">API Documentation</a>
- 
+
 - ### Commands, Error Message, Code Strings, Language Translation
- 
+
 Here is another nice way of contributing to open source projects, Error Messages, Code strings and commands.
 
 Most documentation are formatted in English, and we know, people with other languages might make use of our project.
 
 If they dont understand English, they might find it hard to use the Open Source project, so its' always nice to have documentations in different languages.
- 
+
 That creates an opportunity for an individual that understands multiple languages to contribute and help translate the documentation into other languages.
 
 So if you understand other popular language like chinese etc., you can always reach out to the project maintainer to request for a go ahead to help translate the documentation.
- 
+
 Error messages, Code strings are also important part of any project, Yeah the nice interface messages, this is what users see, this message is what guides users, and gives them direction on how to debug issues, navigate in your project.
 
 If you have a very poor Error message or Code strings messages, this will give a bad experience to the users of the project.
@@ -173,15 +173,15 @@ So here is an opportunity for you to pick the errors, typos messages and fix, th
 Yeah, thats all, so to the no code people, this are the ways you can start contributing to open source projects easily, you can also further your learning about other <a href="https://medium.com/@anyebeblessing737/technical-documentations-simplified-7a9d9a38840b">types of documentation</a> that are available
 
 This will provide you with a large scope of different ways of contributing to open source project via Documentation.
- 
+
 Well, we are done with that, but wait, what if you were given the opportunity to pull up a documentation page for any open source project that doesn't have one yet?
- 
+
 That brings us to the Documentation Toolkit for those awesome documentation lovers, here are the list of things you will need to get the task done;
 
 ## Documentation Toolkits
- 
-* Documentation Site/Page Generator: 
+
+* Documentation Site/Page Generator:
   - Docusaurus — (Here is a guide on <a href="https://medium.com/swlh/build-beautiful-documentation-websites-with-docusaurus-cc51730ed932">how to spin up a documentation page easily with docusaurus</a>)
-  - StoryBook 
+  - StoryBook
 * Technical Skills: Git and GitHub, Markdown
 * Grammarly(Grammar spelling checker)
