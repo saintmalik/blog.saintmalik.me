@@ -2,6 +2,8 @@
 title: Wameir -  Reach out to whatsapp users without saving numbers
 ---
 
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
 Language used: Golang 😌
 
 Wameir was built out of repeated task that is common with Community builders or any individual that takes users WhatApp details via either through forms or survey.
@@ -17,15 +19,15 @@ Here comes the time saver and the stress reducer WAMEIR 😂
 All you have to do is select the country that the number belongs to and paste those bulky WhatsApp numbers and hit submit.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir.webp" alt="Wameir"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir.jpg" alt="Wameir"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/wameir.jpg" alt="Wameir"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.webp`} alt="Wameir"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir-output.webp" alt="Wameir output"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/wameir-output.jpg" alt="Wameir output"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/wameir-output.jpg" alt="Wameir output"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.webp`} alt="Wameir output"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
 </picture>
 
 Dont mind the UI please, Lol, i suck at that Frontend thing
@@ -39,14 +41,14 @@ If you wish to improve the UI or contribute here is the source code: https://git
 
 So the things i learnt about Go from this project?
 
-How to work with golang template, taking data from users via html form 
+How to work with golang template, taking data from users via html form
 
 Splitting datas taken into newlines
 
-Tried the golang switch 
+Tried the golang switch
 
-Got to know more about strings, structs, declaration of global variable to access them in other part of the program in the go file 
+Got to know more about strings, structs, declaration of global variable to access them in other part of the program in the go file
 
-Also understand how to get golang web app up on Heroku by modifying the port inside the main function 
+Also understand how to get golang web app up on Heroku by modifying the port inside the main function
 
 Deployment to heroku needs a Procfile and other tiny tiny instructions and guide that i came across in toward building.

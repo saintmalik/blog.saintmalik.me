@@ -2,6 +2,8 @@
 title: Easy Access to Pentesting VPS with via VS Code
 ---
 
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
 Am a big fan of using VPS as my workspace (pentesting/development/and basic tasks) and have been using it for a long period of time now,.
 
 If you dont know how to setup a VPS for Pentesting or Development sake, feel free to check this <a href="https://blog.saintmalik.me/linux-vps-for-offensive-security-pentesting/" target="_blank">step by step guide on Setting Up Ubuntu Linux VPS For Offensive Security and Pentesting</a>
@@ -25,86 +27,86 @@ Creating files and editing files easily, so when you are done with installation,
 1. Enable the Remote - SSH Extension after installation, you might also be prompted to install another Extension name Remote - SSH Editing Configuration Files, install and enable it also.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh.webp" alt="Remote SSH Extensiont"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh.jpg" alt="Remote SSH Extension"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh.jpg" alt="Remote SSH Extension"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.webp`} alt="Remote SSH Extensiont"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.jpg`} alt="Remote SSH Extension"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.jpg`} alt="Remote SSH Extension"/>
 </picture>
 
-2. If you are on Windows, press F1 button to spin up a command box on VS Code For Mac users, press, Shift + Comand + P 
+2. If you are on Windows, press F1 button to spin up a command box on VS Code For Mac users, press, Shift + Comand + P
 
 Then  enter the "remote-ssh" in the box, it will show you all the Remote SSH options.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh-box-vscode.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh-box-vscode.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/remote-ssh-box-vscode.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 Then you pick the "Remote-SSH: Connect to Host..." Option, that should spin up another box, asking you to input your VPS username and host, in this format username@host, e.g saintmalik@209.97.157.7.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/enter-username-host.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/enter-username-host.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/enter-username-host.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 3. It's time to input your VPS Password
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/enter-your-password.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/enter-your-password.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/enter-your-password.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.jpg`} alt="Remote SSH Box"/>
 </picture>
 
-4. Now that we are in, let's play inside our VPS environment 
+4. Now that we are in, let's play inside our VPS environment
 
 ## Creating folders inside our Ubuntu VPS
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-remote-vps.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-remote-vps.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-remote-vps.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 ## Seeing the folder realtime on our VPS environment via our Terminal
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-terminal-vps.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-terminal-vps.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/create-folder-terminal-vps.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 
 - Creating files inside our Ubuntu VPS via VS Code and seeing it realtime on our VPS environment via our Terminal.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/vps-check-terminal-file..webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/vps-check-terminal-file..jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/vps-check-terminal-file..jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..jpg`} alt="Remote SSH Box"/>
 </picture>
 
 - Writing inside our created file in VPS via VS Code and seeing it real time via terminal
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/write-file-terminal-vps.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/write-file-terminal-vps.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/write-file-terminal-vps.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 - Drag and dropping files from my local system into my Ubuntu VPS Environment
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/moving-files-in-vps-to-local-system.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/moving-files-in-vps-to-local-system.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/moving-files-in-vps-to-local-system.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 - Deleting files on our VPS Environment Easily
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/delete-files-vps-remote.webp" alt="Remote SSH Box"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/delete-files-vps-remote.jpg" alt="Remote SSH Box"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/delete-files-vps-remote.jpg" alt="Remote SSH Box"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.jpg`} alt="Remote SSH Box"/>
 </picture>
 
 :::info

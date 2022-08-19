@@ -6,6 +6,16 @@ Disallow: /js/
 
 Disallow: /css/
 
+Disallow: /tags/*
+
+Disallow: /atom.xml
+
+Disallow: /archive
+
+Disallow: /rss.xml
+
+Disallow: /series/
+
 User-agent: MJ12bot
 
 Disallow: /
@@ -92,7 +102,7 @@ User-agent: ZoominfoBot
 
 Disallow: /
 
- 
+
 
 User-agent: serpstatbot
 
@@ -154,7 +164,7 @@ User-agent: GigaBlast Spider
 
 Disallow: /
 
-User-agent: ia_archiver-web.archive.org 
+User-agent: ia_archiver-web.archive.org
 
 Disallow: /
 

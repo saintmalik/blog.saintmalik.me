@@ -1,6 +1,7 @@
 ---
 title: Automate FInding and Fixing typos in large scale documentation
 ---
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 Good day guys, so i decided to write a  bash script to automate, find  and fix typos in large documentations either as a contributor or as a project maintainer.
 
@@ -21,7 +22,7 @@ cd bulk-typo
 ls
 ```
 
-Next give the scriopt an executing right using the below command 
+Next give the scriopt an executing right using the below command
 
 ```bash
 chmod +x bulk-typo-check.sh
@@ -40,12 +41,12 @@ nano urls.txt
 ```
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/edit-github-urls.webp" alt="Add Github URLs"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/edit-github-urls.jpg" alt="Add Github URLs"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/edit-github-urls.jpg" alt="Add Github URLs"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.webp`} alt="Add Github URLs"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
 </picture>
 
-After adding the links, press CNTRL + x, and then enter Y, and click enter. 
+After adding the links, press CNTRL + x, and then enter Y, and click enter.
 
 When you are done, run the script and add the file where you want the output of your typos and the file that contains the github url of the documentation repos.
 
@@ -53,20 +54,20 @@ When you are done, run the script and add the file where you want the output of 
 ./bulk-typo-check.sh OUTPUTFILE.txt urls.txt
 ```
 
-e.g 
+e.g
 
 ```bash
 ./bulk-typo-check.sh mytypos.txt urls.txt
 ```
 
-When the script is done running, you can find all the typos in the mytypos.txt file, just run 
+When the script is done running, you can find all the typos in the mytypos.txt file, just run
 
 ```bash
 cat mytypos.txt
 ```
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/bulk-typo.webp" alt="Bulk Typo Result"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/bulk-typo.jpg" alt="Bulk Typo Result"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/bulk-typo.jpg" alt="Bulk Typo Result"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.webp`} alt="Bulk Typo Result"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
 </picture>

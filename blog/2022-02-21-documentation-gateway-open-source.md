@@ -75,9 +75,9 @@ Another  great way of looking for projects is through the use of **GitHub’s To
 Go to **“Explore”** and then **“Topic”**.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/github-topic-pages-documentation.webp" alt="github-topic-pages-documentation"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/github-topic-pages-documentation.jpg" alt="github-topic-pages-documentation"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/github-topic-pages-documentation.jpg" alt="github-topic-pages-documentation"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.webp`} alt="github-topic-pages-documentation"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
 </picture>
 
 Here you will be able to explore a lot of topic based projects.
@@ -121,16 +121,16 @@ So you can try out the installation guide to see what works and what doesnt work
 See their old installation guide, which doesn't work well for others and the update of the new installation guide that works.
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.webp" alt="Knock-Subdomain-Scan-README"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.jpg" alt="Knock-Subdomain-Scan-README"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-README.jpg" alt="Knock-Subdomain-Scan-README"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.webp`} alt="Knock-Subdomain-Scan-README"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
    <p>Old ReadME</p>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.webp" alt="Knock-Subdomain-Scan-new-README"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.jpg" alt="Knock-Subdomain-Scan-new-README"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Knock-Subdomain-Scan-new-README.jpg" alt="Knock-Subdomain-Scan-new-README"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.webp`} alt="Knock-Subdomain-Scan-new-README"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
      <p>New ReadME</p>
 </picture>
 

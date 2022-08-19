@@ -1,5 +1,5 @@
 ---
-title: How i went about my Subdomain Gathering
+title: How i go about my Subdomain Gathering
 ---
 
 Gather subdomain from GitHub
@@ -22,9 +22,9 @@ assetfinder -subs-only target.com > assetfinderdom.txt 
 
 subl -d target.com  -o subl.txt 
 
-subfinder -d target.com  -o subf.txt 
+subfinder -d target.com  -o subf.txt
 
-github-subdomains.py -t GITHUB TOKEN -d $1 > domainfromgit.txt 
+github-subdomains.py -t GITHUB TOKEN -d $1 > domainfromgit.txt
 
 gau -subs target.com | awk -F[/:] '{print $4}' | sort -u > gaudomains.txt
 
@@ -32,13 +32,13 @@ findomain -t target.com
 
 Amass enum -d target.com
 
-amass enum -passive -d target.com-o na.txt -config /home/saintmalik/config.ini -o np.txt 
+amass enum -passive -d target.com-o na.txt -config /home/saintmalik/config.ini -o np.txt
 
-amass enum -passive -d target.com-o na.txt 
+amass enum -passive -d target.com-o na.txt
 
 amass enum -active -d target.com
 
-amass enum -passive -d target.com-config /home/saintmalik/config.ini -o np.txt 
+amass enum -passive -d target.com-config /home/saintmalik/config.ini -o np.txt
 
 #checking for alive domains
 

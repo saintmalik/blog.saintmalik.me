@@ -10,13 +10,15 @@ image: https://saintmalikme.mo.cloudinary.net/bgimg/open-source-internship-progr
 tags: [Open Source, OSS]
 ---
 
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
 Before we start, i will like to say, All these programs listed are not mandatory for you to contribute to open source.
 
 But you can contribute to open source even if you don't get selected for these program, you can always contribute to open source programs anytime you want.
 
 <!--truncate-->
 
-And also contributing to open source doesn't mean free, many companies have their open source projects, and yeah they make money from it. 
+And also contributing to open source doesn't mean free, many companies have their open source projects, and yeah they make money from it.
 
 See how the <a href="https://www.indiehackers.com/podcast/007-john-onolan-of-ghost" target="_blank">Founder of Ghost made $63,000/mo building an Open Source Publishing Platform</a>.
 
@@ -27,16 +29,16 @@ Let’s jump in.
 ## 1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.webp" alt="Reinforcement Learning Open Source Fest"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/Reinforcement-Learning-Open-Source.jpg" alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.web`} alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
 </picture>
 
 The Open Source Reinforcement Learning programs has the largest pay out in the list open source internships.
 
 You will receive payment of $10,000 stipend if you get in, well this program is yet to be known by many, due to the fact that they just started the program in 2020.
 
-The program is focused on introducing students to open source reinforcement learning programs and software development and yet working alongside with researchers, data scientists, and engineers on the Real World Reinforcement Learning team at Microsoft Research NYC. 
+The program is focused on introducing students to open source reinforcement learning programs and software development and yet working alongside with researchers, data scientists, and engineers on the Real World Reinforcement Learning team at Microsoft Research NYC.
 
 The program is a four-month research programming project during academic breaks in universities from May-August, its fully remote annd online.
 
@@ -60,12 +62,12 @@ Students who are in any acrredited university, colleges doing their Masters, phD
 Apply on their official page: <a href="https://www.microsoft.com/en-us/research/academic-program/rl-open-source-fest/" target="_blank">Microsoft Reinforcement Learning Open Source Fest</a>
 :::
 
-## 2. MLH Open Source Fellowship 
+## 2. MLH Open Source Fellowship
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.webp" alt="MLH Open Source Fellowship"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.jpg" alt="MLH Open Source Fellowship"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/MLH-Open-Source-Fellowship.jpg" alt="MLH Open Source Fellowship"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.webp`} alt="MLH Open Source Fellowship"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
 </picture>
 
 Major League Hacking is a well-known platform amidst devs and hackers, so apart from their regular fellowships.
@@ -79,7 +81,7 @@ That way you will be able to get first hand software engineering experience from
 ### Program details
 - *Region:* Worldwide
 - *Stipend:* The amount of the stipend is determined by your track and the country you are residing in during the program.
-- *Upcoming Batches* 
+- *Upcoming Batches*
     - Spring 2022 Batch (Jan 31 – Apr 22, 2022)
     - Summer 2022 Batch (May 30 – Aug 19, 2022)
     - Fall 2022 Batch (Sept 19 – Dec 9, 2022)
@@ -91,15 +93,15 @@ Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-s
 ## 3. Google Season of Docs
 
  <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.webp" alt="google season of docs open source"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.jpg" alt="google season of docs open source"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/google-season-of-docs-open-source.jpg" alt="google season of docs open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.webp`} alt="google season of docs open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
 </picture>
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation,.
- 
+
  So in this program, you collaborate with other technical writer and open source organizations to write their documentation for them.
- 
+
  Well, they just wrapped up the 2021 Program and the 2022 Application form is yet to be out, keep on the look out during the period of July.
 
  Also, note you must be aged  18 above to participate in Google Season of Docs.
@@ -117,9 +119,9 @@ Apply on their official page: <a href="https://developers.google.com/season-of-d
 ## 4. Season of KDE
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.webp" alt="season of kde open source"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.jpg" alt="season of kde open source"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/season-of-kde-open-source.jpg" alt="season of kde open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.webp`} alt="season of kde open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
 </picture>
 
 Okay Season of KDE is open to everyone to apply, student or not, everybody can apply, it is similar to Google Season of Code.
@@ -143,14 +145,14 @@ Apply on their official page: <a href="https://season.kde.org/" target="_blank">
 ## 5. Google Summer of Code(GSoC)
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.webp" alt="google summer of code open source"/>
-  <source type="image/jpeg" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.jpg" alt="google summer of code open source"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/google-summer-of-code-open-source.jpg" alt="google summer of code open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.webp`} alt="google summer of code open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
 </picture>
 
 Well, GSoC is known to be for students, but recently google announced that other people apart from students can also participate in GSoC.
 
-Bear in mind that you are not an employee of Google neither as an intern at Google. You’re working with Open Source organizations that you applied to or got selected in. 
+Bear in mind that you are not an employee of Google neither as an intern at Google. You’re working with Open Source organizations that you applied to or got selected in.
 
 Stipend is paid to you by those organizations, it might vary based on your performance and the work you've done.
 
@@ -163,12 +165,12 @@ Stipend is paid to you by those organizations, it might vary based on your perfo
 Apply on their official page: <a href="https://summerofcode.withgoogle.com/" target="_blank">Google Summer of Code</a>
 :::
 
-## 6. Hacktobefest 
+## 6. Hacktobefest
 
 <picture>
-  <source type="image/webp" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.webp" alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.png" alt="hacktoberfest open source internships"/>
-  <img src="https://saintmalikme.mo.cloudinary.net/bgimg/hacktoberfest-open-source-internships.png" alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.webp`} alt="hacktoberfest open source internships"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
 </picture>
 
 You all wont want to miss Hacktoberfest, its full of fun activities, collaboration, working with different Open Source Organisations in the month of October.
