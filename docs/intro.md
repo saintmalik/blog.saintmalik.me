@@ -1,5 +1,5 @@
 ---
-title: Learning Documentation
+title: Learning Diary
 sidebar_position: 1
 slug: /
 ---
@@ -13,7 +13,7 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 
 <div class="contentTableContainer">
 
-|     | Topic                                                                    | Date Last Updated |
+|     | Topic                                                                    | Date Posted |
 | --- | ------------------------------------------------------------------------ | ----------------- |
 | 1   | [Debug Crontab Tasks](debug-crontab-tasks) | Sep 1, 2021    |
 | 2  | [Solution to fix some docusaurus bugs](fix-docusaurus-solutions) | Sep 7, 2021    |
@@ -28,7 +28,7 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 
 <div class="contentTableContainer">
 
-|     | Title                                                                   | Date Last Updated |
+|     | Title                                                                   | Date Posted |
 | --- | ----------------------------------------------------------------------- | ----------------- |
 | 1   | [Variables in GoLang](variables-in-golang) | September 7, 2021   |
 | 2  | [Arrays in GoLang](arrays-in-golang)          | September 10, 2021      |
@@ -39,7 +39,7 @@ Here, you will find a collection of notes on things I learn and bug i get to fix
 
 <div class="contentTableContainer">
 
-|     | Title                                                                   | Date Last Updated |
+|     | Title                                                                   | Date Posted |
 | --- | ----------------------------------------------------------------------- | ----------------- |
 | 1   | [Setting up free custom mails for your startup](custom-mails) | July 17, 2022   |
 
