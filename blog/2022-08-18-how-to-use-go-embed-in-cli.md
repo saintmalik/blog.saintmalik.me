@@ -1,6 +1,7 @@
 ---
 slug: embedding-static-files-in-go-cli
 title: How to Use //go:embed to embed static files in CLI
+description: Here's how to use //go:embed to embed static files into Go programs or Go binaries
 author: Saintmalik
 author_title: Pentester
 author_url: https://twitter.com/saintmalik_
