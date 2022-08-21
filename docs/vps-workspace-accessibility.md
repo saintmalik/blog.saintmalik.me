@@ -1,6 +1,7 @@
 ---
 title: Easy Access to Pentesting VPS with via VS Code
 ---
+import Giscus from "@giscus/react";
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -113,3 +114,22 @@ Then you pick the "Remote-SSH: Connect to Host..." Option, that should spin up a
 Before i knew about this, i do use the  ``` scp -P 22 username@127.0.0.1 ``` to upload and download files between my local system and VPS Environent
 :::
 ✌️.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

@@ -1,6 +1,7 @@
 ---
 title: How i go about my Subdomain Gathering
 ---
+import Giscus from "@giscus/react";
 
 Gather subdomain from GitHub
 
@@ -51,3 +52,22 @@ amass enum -passive -d target.com-config /home/saintmalik/config.ini -o np.txt
 200 > 225
 
 amass passives With subsister 225 > 232 >242 > 336 > 327
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

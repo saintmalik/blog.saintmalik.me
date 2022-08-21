@@ -1,6 +1,7 @@
 ---
 title: Wameir -  Reach out to whatsapp users without saving numbers
 ---
+import Giscus from "@giscus/react";
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -52,3 +53,22 @@ Got to know more about strings, structs, declaration of global variable to acces
 Also understand how to get golang web app up on Heroku by modifying the port inside the main function
 
 Deployment to heroku needs a Procfile and other tiny tiny instructions and guide that i came across in toward building.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

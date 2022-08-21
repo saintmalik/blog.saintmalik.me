@@ -1,5 +1,5 @@
 ---
-title: Contents
+title: Learning Documentation
 sidebar_position: 1
 slug: /
 ---

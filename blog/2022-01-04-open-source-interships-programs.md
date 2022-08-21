@@ -11,6 +11,7 @@ tags: [Open Source, OSS]
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
 
 Before we start, i will like to say, All these programs listed are not mandatory for you to contribute to open source.
 
@@ -228,3 +229,22 @@ Apply on their official page: <a href="https://www.summerofbitcoin.org/apply" ta
 That's all for now.
 
 Peace out  ✌️.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

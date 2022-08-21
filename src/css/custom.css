@@ -78,6 +78,10 @@ p {
   font-size: 1rem !important;
 }
 
+img {
+  border-radius: 20px;
+}
+
 .textUpper {
   text-transform: uppercase;
 }

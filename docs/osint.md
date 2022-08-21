@@ -1,6 +1,7 @@
 ---
 title: Open Source Intelligence
 ---
+import Giscus from "@giscus/react";
 
 **### Hunt Email OSINT**
 
@@ -162,7 +163,7 @@ Wayback Machine - [https://web.archive.org/](https://web.archive.org/)
 
 **Hunting Business Information**
 
- 
+
 
 Open Corporates - [https://opencorporates.com/](https://opencorporates.com/)
 
@@ -174,7 +175,7 @@ WiGLE - [https://wigle.net/](https://wigle.net/)
 
 **Introduction to Sock Puppets**
 
-We can think it as an online identity of something you are not, not draw attention back to your self, not be used on a device thats linked to you, use the internet, 
+We can think it as an online identity of something you are not, not draw attention back to your self, not be used on a device thats linked to you, use the internet,
 
 Creating an Effective Sock Puppet for OSINT Investigations – Introduction - [https://jakecreps.com/sock-puppets/](https://jakecreps.com/sock-puppets/)
 
@@ -216,7 +217,7 @@ Yandex - [https://yandex.com](https://yandex.com/)
 
 TinEye - [https://tineye.com](https://tineye.com/)
 
-LabNol: 
+LabNol:
 
 **Viewing EXIF Data**
 
@@ -248,3 +249,22 @@ Social Media Osint
 
 pip3 install --upgrade -e git+https://github.com/twintproject/twint.git@origin/master#egg=twint
 pip3 install --upgrade aiohttp_socks
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

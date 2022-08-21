@@ -34,8 +34,8 @@ nano webpbulk.sh
 3. Then paste the below script there, where you will be replacing the "/Users/yourusername/" with your Directory paths, like, /Users/saintmalik/, just the way it is on your system.
 
 ```bash
-for file in /Users/yourusername/$1/*; 
-    do cwebp -q 80 "$file" -o "${file%.*}.webp"; 
+for file in /Users/yourusername/$1/*;
+    do cwebp -q 80 "$file" -o "${file%.*}.webp";
 done
 ```
 4. Save the file and get all your images ready in your images folders
@@ -45,14 +45,14 @@ done
 ```bash
 bash webpbulk.sh /FOLDER-WHERE YOUR IMAGES ARE.
 ```
-e.g 
+e.g
 
 ```bash
 bash webpbulk.sh DevProjects/blog.saintmalik.me/static/bgimg
 ```
 
 :::info
-So at the end of the day, the directory path will look like this 
+So at the end of the day, the directory path will look like this
 :::
 
 ```bash
@@ -62,3 +62,22 @@ So at the end of the day, the directory path will look like this
 Also you can read the documentation to see some tweaks you can add to it, or which flag options can be useful to you <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">cwebp Encoder Docs</a>.
 
 Thats all.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

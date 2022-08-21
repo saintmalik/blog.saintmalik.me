@@ -2,6 +2,8 @@
 title: Arrays in GoLang
 ---
 
+import Giscus from "@giscus/react";
+
 Declaring arrays in GoLang, we need to declare the variable name first, the size of the array and the type of the array, see below
 
 ```go title="main.go"
@@ -52,3 +54,22 @@ func main() {
 
 
 Also it is said that arrays can not be resized in golang, but at the same time Go gives us a way to do this, here is an article that helped me understand ,a <a href="https://medium.com/gojekengineering/grab-a-slice-on-the-go-c606344186c1" target="_blank"> how to resize an array</a>
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

@@ -1,6 +1,7 @@
 ---
 title: Solutions to Docusaurus Issues i experienced
 ---
+import Giscus from "@giscus/react";
 
 ## Autoreload while in localhost
 
@@ -56,3 +57,22 @@ yarn run swizzle @docusaurus/theme-classic BlogPostItem --danger
 ```
 
 since i use @docusaurus/theme-classic, thats why i used this example, if you use something else like @docusaurus/preset-classic, change yours to that.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

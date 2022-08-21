@@ -9,6 +9,8 @@ image: https://saintmalikme.mo.cloudinary.net/img/bypassauth.png
 tags: [infosec, websec]
 ---
 
+import Giscus from "@giscus/react";
+
 So I started participating in bug bounty not so long and after a lot of read ups and web app practice, I found a stored XSS on quite a big education platform which i was using for learning web development last year.
 <!--truncate-->
 
@@ -37,3 +39,22 @@ The stored XSS triggered, Damm I was so happy, you know that feeling when you ge
 So whenever another user visits my profile page the XXS payload triggers on their browser also, meaning i could have done or chained the stored XSS probably to an account takeover or something else.
 
 But the anxiety in me made me report without thinking of some ways to make the bug more complex and critical, so I was rewarded with $$$, and at least I was happy i got my first bug.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

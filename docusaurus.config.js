@@ -17,7 +17,7 @@ module.exports = {
     },
     navbar: {
       hideOnScroll: true,
-      title: "SaintMalik",
+      title: "SaintMalik🌟",
       logo: {
         alt: "SaintMalik",
         src: "img/saintmalik.jpg",
@@ -108,15 +108,18 @@ module.exports = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
+          ignorePatterns: ['/tags/**'],
         },
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           disableVersioning: false,
           editCurrentVersion: false,
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         blog: {
           blogTitle: 'Saintmalik Security Blog',
-          blogDescription: 'My Blog For Application Security, Open Source, Golang, Web app performanc optimization and more.!',
+          blogDescription: 'Blog For Application Security, Open Source, Golang, Web app performanc optimization and more.!',
           // showReadingTime: true,
           path: "./blog",
           routeBasePath: "/"

@@ -10,6 +10,8 @@ image: /bgimg/go-embed.jpeg
 tags: [golang, cli]
 ---
 
+import Giscus from "@giscus/react";
+
 For someone who just started writing Go, i have no idea about //go:embed feature which came with the released version: 1.16.
 
 A project i was working on recently led to the discoveries.
@@ -116,3 +118,21 @@ func myTempl(w http.ResponseWriter, _ *http.Request) {
 
 And that's all, If you want to learn more about //go:embed read over here <a href="https://pkg.go.dev/embed">here</a>.
 
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

@@ -1,6 +1,7 @@
 ---
 title: Lazy way of setting up a ghost blog on linode/digital ocean
 ---
+import Giscus from "@giscus/react";
 
 Well,  a week ago i couldnt pay up my DO bill and my droplets got deleted, meaning all the service i have on the droplet got cleaned out.
 
@@ -24,7 +25,7 @@ and then  run the below commands
 adduser <user>
 ```
 
-e.g 
+e.g
 ```bash
 adduser saintmalik
 ```
@@ -38,7 +39,7 @@ usermod -aG sudo ghost-user
 ## Now login as the user
 
 ```bash
-su - ghost-user      
+su - ghost-user
 ```
 
 ## Next is to update the dependencies and other packages
@@ -130,7 +131,7 @@ Leave the hostname as 'localhost", just press the enter button and proceed to th
 
 Enter "root" as the MySQL username
 
-###  Enter your MySQL password: 
+###  Enter your MySQL password:
 
 Enter your MySQL password here.
 
@@ -154,7 +155,7 @@ You will notice this one is being skipped, dont worry, we will solve it just hol
 
 Enter "yes" or hit the ENTER buttopn to proceed.
 
-### Do you want to start Ghost? 
+### Do you want to start Ghost?
 
 Enter "yes" or hit the ENTER buttopn to proceed.
 
@@ -178,13 +179,13 @@ So goto your user that control ghost, the user, we added earlier, use the comman
 su - user
 ```
 
-e.g 
+e.g
 
 ```bash
 su - saintmalik
 ```
 
-Then navigate to the directory where the ghost is installed, 
+Then navigate to the directory where the ghost is installed,
 
 ```bash
 cd /var/www/sitename
@@ -198,13 +199,13 @@ mysql -u root -p
 
 You will be promted to enter your MySQL password, which set earlier at the top.
 
-now run 
+now run
 
 ```bash
 use YOUR DATABASE NAME
 ```
 
-to switch to your database, after that, run 
+to switch to your database, after that, run
 
 ```bash
 SELECT * from users;
@@ -214,7 +215,7 @@ to see all the users that are available in your database, give a closeer look an
 
 after that, goto <a href="https://passwordhashing.com/BCrypt" target="_blank"> https://passwordhashing.com/BCrypt</a> and enter your new password that will be hashed back into the BCrypt format, because ghost stores passwords in Bcrypt format.
 
-after generating the Bcypt hash, your will be in this format 
+after generating the Bcypt hash, your will be in this format
 
 "$2b$10$ZEzovaKWYtzBWNy7AQuYgefGVlpxn/nrovC3Er/gv6/E6CrALoOe."
 
@@ -243,3 +244,22 @@ if the operation gets successful, you should see a response like this
 > Rows matched: 1  Changed: 1  Warnings: 0
 
 Thats all for now, will update the guide soon also, this is just to pour out the process before i forget. ✌️
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

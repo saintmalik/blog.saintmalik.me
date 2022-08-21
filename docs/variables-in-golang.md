@@ -1,6 +1,7 @@
 ---
 title: Variables in GoLang
 ---
+import Giscus from "@giscus/react";
 
 The `var` keyword is what we use in declaring variables in GoLang
 
@@ -10,8 +11,8 @@ package main
 import "fmt"
 
 func main() {
-    var name = "SaintMalik" 
-    var name string = "Saintmalik" // type declaration for string 
+    var name = "SaintMalik"
+    var name string = "Saintmalik" // type declaration for string
     var myNumIs int  = 3 // type declaration for integers
     fmt.Println(myNumIs)
 }
@@ -27,7 +28,7 @@ package main
 import "fmt"
 
 func main() {
-    name := "SaintMalik" 
+    name := "SaintMalik"
     fmt.Println(name)
 }
 ```
@@ -86,3 +87,22 @@ func main() {
     fmt.Println(name) // no new variables on left side of :=
 }
 ```
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

@@ -12,6 +12,7 @@ tags: [open source, oss]
 
 import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
 
 I joined the OSCA Africa Open Source Challenge 2021 which Started on 16th of August 2021.
 
@@ -125,3 +126,22 @@ Back to updating you all, that I am one of the 20 Successful Open Source Challen
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Open-Source-Challenge-2021-Finalist.jpg`} alt="Open Source Challenge 2021 Finalist"/>
 </picture>
 </Figure>
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

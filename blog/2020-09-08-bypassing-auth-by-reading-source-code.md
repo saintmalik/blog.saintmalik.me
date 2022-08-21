@@ -10,6 +10,7 @@ tags: [websec, infosec]
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
 
 Yeah, just wanna share to a little story about the bypass of an authentication through source code reading.
 <!--truncate-->
@@ -51,3 +52,22 @@ And yeah I can see all the internal members pictures and some data's of employee
 So guys that's how reading Source Code(JS files) got me an awesome Auth bypass. Learn to read JS files, understanding how the application work.
 
 Take care guys ✌️.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

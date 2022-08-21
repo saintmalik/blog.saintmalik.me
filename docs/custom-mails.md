@@ -1,6 +1,7 @@
 ---
 title: Setting up free custom mails for your startup
 ---
+import Giscus from "@giscus/react";
 
 Sharing my experience on what i could have done better.
 
@@ -35,3 +36,22 @@ That led to the digging of ZohoMail, their free plan grants you access to the fo
 * Two factor authentication
 
 You get yours up to, follow <a href="https://www.zoho.com/mail/how-to/create-business-email-address.html" target="_blank">ZohoMail setup guide</a>.
+
+<br></br>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
