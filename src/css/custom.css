@@ -6,24 +6,24 @@
  */
 
  @font-face {
-  font-family: Rubik;
-  src: url(/static/fonts/Rubik-Regular.woff2) format("woff2");
+  font-family: apercu;
+  src: url(/static/fonts/apercu-regular.woff2) format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap
 }
 
 @font-face {
-  font-family: Rubik;
-  src: url(/static/fonts/Rubik-Bold.woff2) format("woff2");
+  font-family: apercu;
+  src: url(/static/fonts/apercu-bold.woff2) format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap
 }
 
 @font-face {
-  font-family: Rubik;
-  src: url(/static/fonts/Rubik-Medium.woff2) format("woff2");
+  font-family: apercu;
+  src: url(/static/fonts/apercu-medium.woff2) format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap
@@ -31,7 +31,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-font-family-base: "Rubik",-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
+  --ifm-font-family-base: "apercu",-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
   --ifm-color-primary: #0f9d58;
   --ifm-color-primary-dark: #0d8d4f;
   --ifm-color-primary-darker: #0d854b;
@@ -67,7 +67,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem !important;
+  font-size: 1.9rem !important;
 }
 
 h3 {
