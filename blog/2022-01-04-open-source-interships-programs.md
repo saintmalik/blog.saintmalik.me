@@ -30,7 +30,7 @@ Let’s jump in.
 ## 1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.web`} alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.webp`} alt="Reinforcement Learning Open Source Fest"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
 </picture>
