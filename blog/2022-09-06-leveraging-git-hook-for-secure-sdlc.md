@@ -28,9 +28,9 @@ That brings us to Git Hooks
 
 discovered git hook recently also, been a git user for a while and i am just discovering git hook this month, haha
 
-## So what is git hook?
+## So what is Git Hook?
 
-git hook are script or program that are placed in the hooks directory to trigger at certain point's in the git's execution process.
+Git hook are scripts or program that are placed in the hooks directory to trigger at certain point's in the git's execution process.
 
 ## Types of git hooks
 
@@ -38,9 +38,9 @@ There are many types of git hooks but here i will only be discussing about two w
 
 ## What's the pre-commit hook?
 
-The pre-commit hook is the script that runs immediately you enter the "git commit -m "Commiting my chnages", meaning that whatever instruction that is given to the pre-commit hook would initiate first before the commit.
+The pre-commit hook is the script that runs immediately you enter the ```git commit -m "Commiting my changes"```, meaning that whatever instruction that is given to the pre-commit hook would initiate first before the commit.
 
-So if the instructions fails, the commit would not take place and if the instructions is successful the commit will proceed.
+So if the instructions fails, the commit would not take place and if the instructions are successful the commit will proceed.
 
 ### Pros:
    - Your secret/api/hardcoded keys would never make it into the commit history
@@ -50,21 +50,21 @@ So if the instructions fails, the commit would not take place and if the instruc
 
 ## What's the pre-push hook?
 
-The pre-push hook is the script that runs right after you enter "git push", what ever instruction that is in the pre-push hook get executed first before the git push command, so if the instructions fails, the git push command wont get executed
+The pre-push hook is the script that runs right after you enter ```git push``` command, whatever instruction that is given to the pre-push hook get executed first before the git push command execution,
 
-But if the pre-push hook instructions is successful, the git push command will also execute.
+So if the instructions fails, the ```git push``` command won't get executed, but if the pre-push hook instructions are successful, the git push command will also execute.
 
 ### Pros:
- - Your secret/api/hardcoded keys wont make it to the remote repository
+ - Your secret/api/hardcoded keys won't make it to the remote repository
  - Scanning collections of commit in one go
 
 ### Cons:
   - The secret/api/hardcoded keys still remains in your git history
 
-well, you can always clean your git history and rebase, <a href="https://hackernoon.com/how-to-clean-your-git-history-ryzb3ydv" target="_blank">here</a> is a detailed guide on that.
+Well, you can always clean your git history and rebase, <a href="https://hackernoon.com/how-to-clean-your-git-history-ryzb3ydv" target="_blank">here</a> is a detailed guide on that.
 
 
-Let's jump into the implementation;
+So now let's jump into the implementation;
 
 ## Implementing secrets scan via pre-push hook
 
@@ -76,7 +76,7 @@ I would be using <a href="https://github.com/Yelp/detect-secrets" target="_blank
 pip install pre-commit
 ```
 
-2. Navigate into your project folder and create and open .pre-commit-config.yaml in the root of your folder in your terminal.
+2. Navigate into your project folder, create and open .pre-commit-config.yaml file in the root of your folder via your terminal.
 
 ```yaml
 touch .pre-commit-config.yaml
@@ -103,11 +103,11 @@ repos:
 </picture>
 
 
-This hook mppaing tells pre-commit where to get the code for the hook from, so we would be using detect-secrets tool for our secret scanning, there are many other that you can use.
+This hook mapping tells pre-commit the repo where it will get the code for the hook, here i am using detect-secrets tool for the secret scanning, but there are many other tools that you can use.
 
 We have ggshield, gitleaks and <a href="https://github.com/sottlmarek/DevSecOps#secrets-management" target="_blank">more</a>.
 
-4. Now lets install the pre-push hook.
+4. Now let's install the pre-push hook.
 
 By default if you run ```pre-commit install``` in your project folder, it will install the default hook which is "pre-commit hook", so to install the pre-push hook, here is the command to use
 
@@ -120,15 +120,15 @@ pre-commit install --hook-type pre-push
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="pre push"/>
 </picture>
 
-So now that we have the pre-push hook install, lets test it out.
+So now that we have the pre-push hook installed, let's test it out.
 
-5. Lets create config.js, config.yaml, config.json, .env, config.py files for the testing.
+5. You can create config.js, config.yaml, config.json, .env, config.py files for the testing.
 
 ```sh
 touch config.js config.yaml config.json .env config.py
 ```
 
-6. Now open those files and paste this dummy creds/secret in them.
+6. Now open those files you just created and paste this dummy creds/secret in them.
 
 ```sh
 kred_herring = 'DEADBEEF'
@@ -142,7 +142,7 @@ aws_access_key = 'AKIAIOSFODNN7EXAMPLE'
 aws_secret_access_key = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 ```
 
-7. When you are done with adding that dummy keys into those files, add the file to git tracking and commit also
+7. When you are done with adding that dummy keys into those files, add the file to git tracking and commit to save your changes.
 
 ```sh
 git add . && git commit -m "Git secret scanning using pre-commit hooks"
@@ -153,9 +153,9 @@ git add . && git commit -m "Git secret scanning using pre-commit hooks"
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
 </picture>
 
-8. After the commit, you can then push to remote repo using ```git push``` and as you can see in the below screenshot.
+8. After the commit, you can then push to you remote repository using ```git push``` and as you can see in the screenshot  below.
 
-The push failed and the secrets/hardcoded apis are being pointed out.
+Yeah, the push failed and the secrets/hardcoded apis are being pointed out.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.webp`} alt="failed pre push hook"/>
@@ -169,9 +169,11 @@ The push failed and the secrets/hardcoded apis are being pointed out.
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
 </picture>
 
+:::tip
 Whenever you are fixing the pointed creds/api if they aren't false positive(keys you delibrately add and are not real keys).
 
-You will need to clean your commit history else, the pointed creds/api will still show up in your remote repository if you later push to remote repo.
+You will need to clean your commit history else, the pointed creds/api will still show up in your remote repository if you later push to the remote repository.
+:::
 
 And thats all 😁.
 
