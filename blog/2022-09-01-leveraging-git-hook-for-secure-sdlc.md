@@ -64,17 +64,19 @@ But if the pre-push hook instructions is successful, the git push command will a
 well, you can always clean your git history and rebase, <a href="https://hackernoon.com/how-to-clean-your-git-history-ryzb3ydv" target="_blank">here</a> is a detailed guide on that.
 
 
-Now lets jump into the implementation;
+Let's jump into the implementation;
+
+## Implementing secrets scan via pre-push hook
 
 I would be using <a href="https://github.com/Yelp/detect-secrets" target="_blank">detect-secrets</a> as my secret scanning tool in this guide.
 
-Firstly, you need to install <a href="https://pre-commit.com/#install" target="_blank">pre-commit</a> tool
+1.  Firstly, you need to install <a href="https://pre-commit.com/#install" target="_blank">pre-commit</a> tool
 
 ```toml
 pip install pre-commit
 ```
 
-then navigate into your project folder and create and .pre-commit-config.yaml in the root of your folder in your terminal
+2. Navigate into your project folder and create and .pre-commit-config.yaml in the root of your folder in your terminal
 
 ```yaml
 touch .pre-commit-config.yaml
@@ -84,7 +86,7 @@ touch .pre-commit-config.yaml
 open .pre-commit-config.yaml
 ```
 
-then paste the following hook mapping inside the file you just created above
+3. copy and paste the following hook mapping inside the file you just created above
 
 ```yaml
 repos:
@@ -105,7 +107,7 @@ This hook mppaing tells pre-commit where to get the code for the hook from, so w
 
 We have ggshield, gitleaks and <a href="https://github.com/sottlmarek/DevSecOps#secrets-management" target="_blank">more</a>.
 
-Now lets install the pre-push hook
+4. Now lets install the pre-push hook
 
 By default if you run "pre-commit install" in your project folder, it will install the default hook which is "pre-commit hook", so to install the pre-push hook, here is the command to use
 
@@ -120,13 +122,13 @@ pre-commit install --hook-type pre-push
 
 So now that we have the pre-push hook install, lets test it out.
 
-you can create config.js, config.yaml, config.json, .en, config.py
+5. Lets create config.js, config.yaml, config.json, .en, config.py files for the testing
 
 ```sh
 touch onfig.js config.yaml config.json .env config.py
 ```
 
-now open those files and paste this dummy creds/secret in them
+6. Now open those files and paste this dummy creds/secret in them
 
 ```sh
 kred_herring = 'DEADBEEF'
@@ -140,10 +142,12 @@ aws_access_key = 'AKIAIOSFODNN7EXAMPLE'
 aws_secret_access_key = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 ```
 
-When you are done, add the file to git tracking and commit also
+7. When you are done with adding that dummy keys into those files.
+
+Add the file to git tracking and commit also
 
 ```sh
-git add . && git commit -m " Git secret scanning using pre-commit hooks"
+git add . && git commit -m "Git secret scanning using pre-commit hooks"
 ```
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.webp`} alt="commit pre push"/>
@@ -151,7 +155,9 @@ git add . && git commit -m " Git secret scanning using pre-commit hooks"
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
 </picture>
 
-after the commit, then you can push using "git push" and yes the push failed and the secrets/hardcoded apis are being pomited out.
+8. After the commit, you can then push to remote repo using ```git push``` and as you can see in the below screenshot.
+
+The push failed and the secrets/hardcoded apis are being pointed out.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.webp`} alt="failed pre push hook"/>
@@ -165,13 +171,21 @@ after the commit, then you can push using "git push" and yes the push failed and
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
 </picture>
 
-So now when you fix the pointed creds/api if they are not false postivie(keys you delibrstely add and are not real keys), you will need to clen your commit history else, the pointed creds/api will still show up in your remote repository if you later push.
+Whenever you are fixing the pointed creds/api if they aren't false positive(keys you delibrately add and are not real keys).
 
-So thats all, but what if some hardcoded api or keys excape the pre-push hook, then you can set github workflow of gguard or gitleak.
+You will need to clean your commit history else, the pointed creds/api will still show up in your remote repository if you later push to remote repo.
+
+And thats all 😁
+
+In addition, if some hardcoded api or keys excape the pre-push hook.
+
+You can then proceed to setting up github workflow of gguard or gitleak, so you can catch them there 😁
 
 Layering do help when doing shiftleft in SDLC.
 
-What else can you do with git hooks? i think you can also do some SAST testing, like the Golang security checker, they have a pre-commit hook, see <a href="https://github.com/TekWizely/pre-commit-golang" target="_blank">here</a>
+What else can you do with git hooks?
+
+I think you can also do some SAST testing, like the Golang security checker, they have a pre-commit hook, see <a href="https://github.com/TekWizely/pre-commit-golang" target="_blank">here</a>
 
 
 
