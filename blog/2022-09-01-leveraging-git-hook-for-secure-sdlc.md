@@ -38,9 +38,9 @@ There are many types of git hooks but here i will only be discussing about two w
 
 ## What's the pre-commit hook?
 
-The pre-commit hook is the script that runs immediately you enter the "git commit -m "Commiting my chnages", meaning that what every instruction that is given to the pre-commit hook would initiate first before the commit.
+The pre-commit hook is the script that runs immediately you enter the "git commit -m "Commiting my chnages", meaning that whatever instruction that is given to the pre-commit hook would initiate first before the commit.
 
-So if the instructions fails, the commit would not take place and it the instructions is successful the commit will proceed.
+So if the instructions fails, the commit would not take place and if the instructions is successful the commit will proceed.
 
 ### Pros:
    - Your secret/api/hardcoded keys would never make it into the commit history
@@ -76,11 +76,11 @@ pip install pre-commit
 
 then navigate into your project folder and create and .pre-commit-config.yaml in the root of your folder in your terminal
 
-````yaml
+```yaml
 touch .pre-commit-config.yaml
 ```
 
-````yaml
+```yaml
 open .pre-commit-config.yaml
 ```
 
@@ -92,12 +92,12 @@ repos:
     rev: v1.3.0
     hooks:
       - id: detect-secrets
-````
+```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-coomit-config.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-coomit-config.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-coomit-config.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.webp`} alt="pre commit config"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
 </picture>
 
 
@@ -113,14 +113,14 @@ By default if you run "pre-commit install" in your project folder, it will insta
 pre-commit install --hook-type pre-push
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.webp`} alt="pre push"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="pre push"/>
 </picture>
 
 So now that we have the pre-push hook install, lets test it out.
 
-you can create config.js, config.go, config.json, .en, config.py
+you can create config.js, config.yaml, config.json, .en, config.py
 
 ```sh
 touch onfig.js config.yaml config.json .env config.py
@@ -146,23 +146,23 @@ When you are done, add the file to git tracking and commit also
 git add . && git commit -m " Git secret scanning using pre-commit hooks"
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.webp`} alt="commit pre push"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
 </picture>
 
 after the commit, then you can push using "git push" and yes the push failed and the secrets/hardcoded apis are being pomited out.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.webp`} alt="failed pre push hook"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.webp`} alt="push failed pre push"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
 </picture>
 
 So now when you fix the pointed creds/api if they are not false postivie(keys you delibrstely add and are not real keys), you will need to clen your commit history else, the pointed creds/api will still show up in your remote repository if you later push.
