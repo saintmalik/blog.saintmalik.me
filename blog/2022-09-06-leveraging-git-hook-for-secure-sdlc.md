@@ -70,13 +70,13 @@ Let's jump into the implementation;
 
 I would be using <a href="https://github.com/Yelp/detect-secrets" target="_blank">detect-secrets</a> as my secret scanning tool in this guide.
 
-1.  Firstly, you need to install <a href="https://pre-commit.com/#install" target="_blank">pre-commit</a> tool
+1.  Firstly, you need to install <a href="https://pre-commit.com/#install" target="_blank">pre-commit</a> tool.
 
 ```toml
 pip install pre-commit
 ```
 
-2. Navigate into your project folder and create and .pre-commit-config.yaml in the root of your folder in your terminal
+2. Navigate into your project folder and create and open .pre-commit-config.yaml in the root of your folder in your terminal.
 
 ```yaml
 touch .pre-commit-config.yaml
@@ -86,7 +86,7 @@ touch .pre-commit-config.yaml
 open .pre-commit-config.yaml
 ```
 
-3. copy and paste the following hook mapping inside the file you just created above
+3. copy and paste the following hook mapping inside the file you just created above.
 
 ```yaml
 repos:
@@ -107,9 +107,9 @@ This hook mppaing tells pre-commit where to get the code for the hook from, so w
 
 We have ggshield, gitleaks and <a href="https://github.com/sottlmarek/DevSecOps#secrets-management" target="_blank">more</a>.
 
-4. Now lets install the pre-push hook
+4. Now lets install the pre-push hook.
 
-By default if you run "pre-commit install" in your project folder, it will install the default hook which is "pre-commit hook", so to install the pre-push hook, here is the command to use
+By default if you run ```pre-commit install``` in your project folder, it will install the default hook which is "pre-commit hook", so to install the pre-push hook, here is the command to use
 
 ```sh
 pre-commit install --hook-type pre-push
@@ -122,13 +122,13 @@ pre-commit install --hook-type pre-push
 
 So now that we have the pre-push hook install, lets test it out.
 
-5. Lets create config.js, config.yaml, config.json, .en, config.py files for the testing
+5. Lets create config.js, config.yaml, config.json, .env, config.py files for the testing.
 
 ```sh
-touch onfig.js config.yaml config.json .env config.py
+touch config.js config.yaml config.json .env config.py
 ```
 
-6. Now open those files and paste this dummy creds/secret in them
+6. Now open those files and paste this dummy creds/secret in them.
 
 ```sh
 kred_herring = 'DEADBEEF'
@@ -142,9 +142,7 @@ aws_access_key = 'AKIAIOSFODNN7EXAMPLE'
 aws_secret_access_key = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 ```
 
-7. When you are done with adding that dummy keys into those files.
-
-Add the file to git tracking and commit also
+7. When you are done with adding that dummy keys into those files, add the file to git tracking and commit also
 
 ```sh
 git add . && git commit -m "Git secret scanning using pre-commit hooks"
@@ -175,21 +173,19 @@ Whenever you are fixing the pointed creds/api if they aren't false positive(keys
 
 You will need to clean your commit history else, the pointed creds/api will still show up in your remote repository if you later push to remote repo.
 
-And thats all 😁
+And thats all 😁.
 
 In addition, if some hardcoded api or keys excape the pre-push hook.
 
-You can then proceed to setting up github workflow of gguard or gitleak, so you can catch them there 😁
+You can then proceed to setting up github workflow of gguard or gitleak, so you can catch them there 😁.
 
 Layering do help when doing shiftleft in SDLC.
 
-What else can you do with git hooks?
+## What else can you do with git hooks?
 
-I think you can also do some SAST testing, like the Golang security checker, they have a pre-commit hook, see <a href="https://github.com/TekWizely/pre-commit-golang" target="_blank">here</a>
+I think you can also do some SAST testing, like the Golang security checker, they have a pre-commit hook, see <a href="https://github.com/TekWizely/pre-commit-golang" target="_blank">here</a>.
 
-
-
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

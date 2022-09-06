@@ -127,7 +127,7 @@ Back to updating you all, that I am one of the 20 Successful Open Source Challen
 </picture>
 </Figure>
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

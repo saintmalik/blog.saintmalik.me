@@ -189,7 +189,7 @@ That brings us to the Documentation Toolkit for those awesome documentation love
 * Technical Skills: Git and GitHub, Markdown
 * Grammarly(Grammar spelling checker)
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

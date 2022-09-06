@@ -40,7 +40,7 @@ So whenever another user visits my profile page the XXS payload triggers on thei
 
 But the anxiety in me made me report without thinking of some ways to make the bug more complex and critical, so I was rewarded with $$$, and at least I was happy i got my first bug.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

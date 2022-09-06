@@ -118,7 +118,7 @@ func myTempl(w http.ResponseWriter, _ *http.Request) {
 
 And that's all, If you want to learn more about //go:embed read over here <a href="https://pkg.go.dev/embed">here</a>.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

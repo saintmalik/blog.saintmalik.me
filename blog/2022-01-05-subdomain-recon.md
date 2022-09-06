@@ -20,7 +20,7 @@ Will be sharing with you how i am trying my best not to miss out of any subdomai
 
 So the Subdomain recon Tools i am using are Amass, Sublister,
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

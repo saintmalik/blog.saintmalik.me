@@ -53,7 +53,7 @@ So guys that's how reading Source Code(JS files) got me an awesome Auth bypass. 
 
 Take care guys ✌️.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

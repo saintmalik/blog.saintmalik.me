@@ -230,7 +230,7 @@ That's all for now.
 
 Peace out  ✌️.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"
