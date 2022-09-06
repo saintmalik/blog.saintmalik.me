@@ -64,9 +64,9 @@ But if the pre-push hook instructions is successful, the git push command will a
 well, you can always clean your git history and rebase, <a href="https://hackernoon.com/how-to-clean-your-git-history-ryzb3ydv" target="_blank">here</a> is a detailed guide on that.
 
 
-Now lets jump into the implementation
+Now lets jump into the implementation;
 
-We would be using
+I would be using <a href="https://github.com/Yelp/detect-secrets" target="_blank">detect-secrets</a> as my secret scanning tool in this guide.
 
 Firstly, you need to install <a href="https://pre-commit.com/#install" target="_blank">pre-commit</a> tool
 
