@@ -58,7 +58,7 @@ yarn run swizzle @docusaurus/theme-classic BlogPostItem --danger
 
 since i use @docusaurus/theme-classic, thats why i used this example, if you use something else like @docusaurus/preset-classic, change yours to that.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

@@ -20,7 +20,7 @@ Got an output saying send a POST request to /api/invite/generate and yeah I got 
 
 And here I got my invite code.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

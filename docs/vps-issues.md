@@ -20,7 +20,7 @@ HOME=/
 
 sudo /etc/init.d/cron stop // stop cron jobs
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

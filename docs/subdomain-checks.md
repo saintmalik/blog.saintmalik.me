@@ -53,7 +53,7 @@ amass enum -passive -d target.com-config /home/saintmalik/config.ini -o np.txt
 
 amass passives With subsister 225 > 232 >242 > 336 > 327
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

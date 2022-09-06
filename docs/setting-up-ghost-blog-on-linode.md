@@ -245,7 +245,7 @@ if the operation gets successful, you should see a response like this
 
 Thats all for now, will update the guide soon also, this is just to pour out the process before i forget. ✌️
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

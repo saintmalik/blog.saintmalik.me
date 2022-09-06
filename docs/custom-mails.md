@@ -37,7 +37,7 @@ That led to the digging of ZohoMail, their free plan grants you access to the fo
 
 You get yours up to, follow <a href="https://www.zoho.com/mail/how-to/create-business-email-address.html" target="_blank">ZohoMail setup guide</a>.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

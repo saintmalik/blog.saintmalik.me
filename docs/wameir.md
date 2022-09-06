@@ -54,7 +54,7 @@ Also understand how to get golang web app up on Heroku by modifying the port ins
 
 Deployment to heroku needs a Procfile and other tiny tiny instructions and guide that i came across in toward building.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

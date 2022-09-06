@@ -19,7 +19,7 @@ making sure, each scripts runs one after the other, good for debug
 Notion Split screen shift + command + n, navigate page command + ~
 
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

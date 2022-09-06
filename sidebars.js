@@ -42,5 +42,12 @@
           "custom-mails",
         ],
       },
+      {
+        type: "category",
+        label: "Infrastructure as Code using Terraform(IaC)",
+        items: [
+          "terraform-kickstart",
+        ],
+      },
     ],
   };

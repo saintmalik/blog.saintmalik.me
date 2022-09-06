@@ -63,7 +63,7 @@ Also you can read the documentation to see some tweaks you can add to it, or whi
 
 Thats all.
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

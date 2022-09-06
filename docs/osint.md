@@ -250,7 +250,7 @@ Social Media Osint
 pip3 install --upgrade -e git+https://github.com/twintproject/twint.git@origin/master#egg=twint
 pip3 install --upgrade aiohttp_socks
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

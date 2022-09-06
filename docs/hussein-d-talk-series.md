@@ -72,7 +72,7 @@ Apache default path
 
 Active+++
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

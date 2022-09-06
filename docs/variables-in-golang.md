@@ -88,7 +88,7 @@ func main() {
 }
 ```
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"

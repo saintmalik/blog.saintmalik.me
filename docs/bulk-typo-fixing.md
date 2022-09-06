@@ -73,7 +73,7 @@ cat mytypos.txt
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
 </picture>
 
-<br></br>
+<br/>
 <h2>Comments</h2>
 <Giscus
 id="comments"
