@@ -12,7 +12,7 @@ tags: [gitops, devsecops, appsec]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Almost everyone knows how to use .gitignore, the git file that helps you keep sensitive files like .env out of the tracking, commit and pushing process and also unwanted folders like node_modules and all.
+Almost everyone knows how to use .gitignore, the git file that helps in keeping sensitive files like .env out of the tracking, commit and pushing process and also unwanted folders like node_modules and all.
 
 But do you know secrets, hardcoded credentials and API aren't easy to deal with using .gitignore file? you dont want to keep your config.js or config.go file out of the commit process, this are essential files to your project.
 
