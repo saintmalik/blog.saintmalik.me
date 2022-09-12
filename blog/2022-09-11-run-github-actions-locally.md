@@ -154,6 +154,3 @@ lang="en"
 loading="lazy"
 crossorigin="anonymous"
     />
-
-    0243757664
-
