@@ -16,7 +16,7 @@ Yeah, being doing the CI/CD implementations via github workflow lately and i am 
 
 <!--truncate-->
 
-Well you could say why not just use Jenkins, CircleCi, Gitlab? i think this all boils down to what your org uses, i think there is no need to go way long to jenkins when my org uses github and github has the workflo to implement CI/CD.
+Well you could say why not just use Jenkins, CircleCi, Gitlab CI? i think this all boils down to what your org uses, i think there is no need to go the jenkins way, when my org uses github and github has the workflow to implement CI/CD.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow-spammy-actions.webp`} alt="github spammy actions"/>
@@ -126,13 +126,6 @@ act --secret-file my.secrets
 And thats all
 
 
-
-
-
-
-
-
-
 <br/>
 <h2>Comments</h2>
 <Giscus
@@ -151,3 +144,6 @@ lang="en"
 loading="lazy"
 crossorigin="anonymous"
     />
+
+    0243757664
+
