@@ -24,19 +24,19 @@ Well you could say why not just use Jenkins, CircleCi, Gitlab CI? i think this a
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow-spammy-actions.jpg`} alt="github spammy actions"/>
 </picture>
 
-So looking at the above screenshot, very sure thats how your Action page looks like too, but what if you could test the workflows you write locally before pushing it to github?
+So looking at the above screenshot, i am very sure that's how your Action page looks like too, but what if you could test the workflows you write locally before pushing it to github?
 
 That way, you can limit the spammy look of failed builds on your Actions page.
 
 Thanks to <a href="https://github.com/nektos/" target="_blank">nektos</a> for building and open sourcing <a href="https://github.com/nektos/act" target="_blank">Act</a>.
 
-Act is a golang tool that allow you Run your GitHub Actions locally 🚀, making the feedback process really quick for your tests.
+Act is a golang tool that allows you to run your GitHub Actions locally 🚀, making the feedback process really quick for your tests.
 
 Now let's jump into how to use this
 
 Firstly, you will need to <a href="https://docs.docker.com/get-docker/" target="_blank">install docker</a>, Act depends fully on it,
 
-Done with that? now lets install act on our enviroment, i use macOS, so i will be installing it using ```brew```, can also be used to install on linux
+Done with that? now lets install ```act``` on our enviroment, i use macOS, so i will be installing it using ```brew```, can also be used to install on linux
 
 ```mdx
 brew install act
@@ -86,9 +86,9 @@ You can also save time running this actions, so you dont wait all day for the lo
 act -b
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-workflow-skip.webp`} alt="skip dependencies in workflow actions"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-workflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-workflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.webp`} alt="skip dependencies in workflow actions"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
 </picture>
 
 Yeah, there is more, github actions secret? will your workflows with secrets run locally? Yes they will
