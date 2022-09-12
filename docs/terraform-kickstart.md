@@ -1,5 +1,5 @@
 ---
-title: Debug cron script
+title: Terraform with AWS
 ---
 import Giscus from "@giscus/react";
 
