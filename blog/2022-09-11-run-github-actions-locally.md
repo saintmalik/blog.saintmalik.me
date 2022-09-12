@@ -14,6 +14,8 @@ import Giscus from "@giscus/react";
 
 Yeah, being doing the CI/CD implementations via github workflow lately and i am also trapped in the process of making commits to trigger the workflows or better still making empty commits, haha.
 
+<!--truncate-->
+
 Well you could say why not just use Jenkins, CircleCi, Gitlab? i think this all boils down to what your org uses, i think there is no need to go way long to jenkins when my org uses github and github has the workflo to implement CI/CD.
 
 <picture>
