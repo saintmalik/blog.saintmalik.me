@@ -304,6 +304,8 @@ And here it is, it got deployed automatically, you see it created another replic
 
 Well, that's it, folks! you have just learnt how to deploy argocd into your existing cluster that is created with terraform from the get start, likewise how to deploy your application on argocd and how to connect private repo with argocd.
 
+If you encounter some issues in the process, here is my curated <a href="https://blog.saintmalik.me/docs/argocd-related-issues/" target="_blank">argocd issues</a>, you can look into it.
+
 Till next time ✌️
 
 #### References

@@ -383,7 +383,9 @@ So after applying the yaml file using **kubectl apply =f deployu.yaml**, you can
 
 But in situations where you pods refuse to start, most of the time its caused by an error with the vault agen injector, you can debug it using **kubectl exec -it podsname -n vault -- sh -c vault-agent-init**
 
-That's it folks! i hope this was usefull and helpful,  I plan to cover how to configure vault for high availability using consul as backend and also setting up end to end tls cert setup, Stay tuned!
+You can also read about <a href="https://blog.saintmalik.me/automate-vault-backup-restore-on-aws-eks/" target="_blank">automating HashiCorp Vault backup and restoration for kubernetes</a> and <a href="https://blog.saintmalik.me/end-to-end-tls-vault-eks/" target="_blank">setting up of end to end tls for vault with High Availability</a>.
+
+That's it folks! I hope you find this useful and helpful.
 
 <br/>
 <h2>Comments</h2>

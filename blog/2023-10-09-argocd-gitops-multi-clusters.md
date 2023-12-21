@@ -17,7 +17,7 @@ So what's the bet? you would use your existing argocd instance to manage multipl
 
 ## Requirements
 
-- Exiting ArgoCD instance on EKS Cluster
+- <a href="https://blog.saintmalik.me/argocd-on-kubernetes-cluster/" target="_blank">Existing ArgoCD instance on EKS Cluster</a>
 - kubectl
 - A new cluster created using Terraform
 - knowledge of terraform

@@ -287,7 +287,7 @@ kubectl run unsigned --image=ttl.sh/signed-test-a4d2a1b:1h
 
 Great, you can see the pod was stopped from starting, the policy is been enforced, and you can rest assured that any container image that isn't signed by your private key, would never make it into your clusters.
 
-That's it, folks! I hope this was useful and helpful, might also write about using the keyless signing soon too, so stay tuned!
+That's it, folks! I hope you find this useful and helpful, you can read the <a href="https://blog.saintmalik.me/keyless-signing-container-images-github-oidc/" target="_blank">keyless signing container images</a>
 
 <br/>
 <h2>Comments</h2>

@@ -16,9 +16,10 @@ Originally, you would want to create an s3 iam users with minimal policies to ac
 
 But why bear all this responsibilities when your app can still do all it needs without the credential keys and just fallback to using IAM Role Access.
 
-If you are working with EKS, it's pretty easy to setup IRSA (IAM Roles for Service Accounts), this way your can provisioning and rotate the IAM temporary credentials (called a Web Identity) which the Kubernetes ServiceAccount you've mounted into your node pods can use to call AWS APIs.
+If you are working with EKS, it's pretty easy to setup IRSA (IAM Roles for Service Accounts), this way you can provision and rotate the IAM temporary credentials (called a Web Identity) which the Kubernetes ServiceAccount you've mounted into your node pods can use to call AWS APIs.
 
 ## Prerequisite
+
 - Terraform provisioned EKS Cluster
 
 So Lets jump into it;
@@ -53,7 +54,9 @@ EOF
 }
 ```
 
-### 👉 Step 2: Here, you create the IRSA, attaching the policy you created above alongside your EKS Open ID Connect, your nodejs app namespace and the ServiceAccount you want to attach to your app pod.
+### 👉 Step 2: Creating EKS IRSA,
+
+here, you will create the EKS IRSA by attaching the policy you created above alongside your EKS Open ID Connect, your nodejs app namespace and the ServiceAccount you want to attach to your app pod.
 
 ```yaml title="keylessnodes3.tf"
 module "s3eksnodejs_role" {
@@ -74,7 +77,9 @@ module "s3eksnodejs_role" {
 }
 ```
 
-### 👉 Step 3: You create your ServiceAccount with an annotation of the IAM Role you created above
+### 👉 Step 3: Creating your ServiceAccount
+
+You create your ServiceAccount with an annotation of the IAM Role you created above
 
 ```yaml title="keylessnodes3.tf"
 resource "kubernetes_service_account_v1" "s3eksnodejs" {
@@ -91,7 +96,9 @@ resource "kubernetes_service_account_v1" "s3eksnodejs" {
 ## Prepping your app and deploying to EKS
 
 
-### 👉 Step 4: You can start by removing your codes that calls for AWS credential keys.
+### 👉 Step 4: Prep your code and remove the credentials
+
+You can start by removing your codes that calls for AWS credential keys.
 
 Here is a sample of the usage with the aws-sdk/client-s3 v3. listing objects in your s3 using crendentials keys.
 
