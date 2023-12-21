@@ -2,6 +2,8 @@
 title:  Hackthebox invite challenge
 ---
 
+import Giscus from "@giscus/react";
+
 lifeisabouttrying
 
 Checked the source code nothing

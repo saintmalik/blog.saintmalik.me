@@ -2,6 +2,8 @@
 title: Hussein D Talk Series
 ---
 
+import Giscus from "@giscus/react";
+
 Port scanning, deep port scanning
 
 Subdomain recon of deeper domains like [xxxx.admin.andela.com](http://xxxx.admin.domain.com/)
@@ -49,12 +51,13 @@ cd Sublist3r && python sublist3r.py -d [example.com](http://example.com/)
 
 // nothing
 
-$ at the end of the line
+```$``` at the end of the line
 
-’s/\[404].//
+```’s/\[404].//```
 
 Bash
 
+```
 Cut http and https from urls sed 's/https\?:\/\///'
 packet_write_wait: Connection to 64.225.114.42 port 22: Broken pipe
 
@@ -71,7 +74,7 @@ phpinfo path
 Apache default path
 
 Active+++
-
+```
 <br/>
 <h2>Comments</h2>
 <Giscus

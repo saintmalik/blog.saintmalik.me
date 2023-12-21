@@ -2,6 +2,8 @@
 title: How to bulk convert images to webp
 ---
 
+import Giscus from "@giscus/react";
+
 So webp images is the new thing in the content creation world, because they render fast and they are not heavy, making your websites load up fast.
 
 And as you know images is one of the assets that drags down your webpage loading speeds.
