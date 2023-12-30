@@ -40,6 +40,21 @@ html,body {
 }
 
 /* @font-face {
+  font-family: papersan;
+  src: url(/static/fonts/papersan.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+} */
+
+/* @font-face {
+  font-family: papersan;
+  src: url(/static/fonts/papersan2.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap
+} */
+/* @font-face {
   font-family: config rounded;
   src: url(ConfigRounded-Regular.eot);
   src: local("Config Rounded Regular"),local("ConfigRounded-Regular"),url(ConfigRounded-Regular.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-Regular.woff2) format("woff2"),url(/static/fonts/ConfigRounded-Regular.woff) format("woff"),url(ConfigRounded-Regular.ttf) format("truetype");
@@ -125,7 +140,7 @@ html,body {
 }
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-font-family-base: "config rounded",-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
+  --ifm-font-family-base: "papersan", "config rounded", -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
   --ifm-color-primary: #0f9d58;
   --ifm-color-primary-dark: #0d8d4f;
   --ifm-color-primary-darker: #0d854b;
