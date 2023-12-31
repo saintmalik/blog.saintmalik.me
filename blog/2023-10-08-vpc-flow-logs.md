@@ -14,7 +14,6 @@ So you've deployed a few resources on AWS, EC2, and Redis instance, exposed port
 
 You've tried hardening by default for your resources, that's good, but by mistake, your Redis instance was deployed into the public subnets, which makes the service accessible by any internet user.
 
-
 <!--truncate-->
 
 Detecting this might take time, but having the practices of monitoring/insights of what's happening at the network traffic level across your resources which you've deployed under a VPC service is the best bet to detecting this
