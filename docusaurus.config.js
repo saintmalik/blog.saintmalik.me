@@ -111,6 +111,7 @@ module.exports = {
           blogTitle: 'Saintmalik Security Blog',
           blogDescription: 'Blog For Application Security, DevSecOps, Open Source, Golang, Web app performanc optimization and more.!',
           // showReadingTime: true,
+          blogSidebarCount: 0,
           path: "./blog",
           routeBasePath: "/"
         },

@@ -33,3 +33,7 @@ fixed by just remove force_update = true
 ## Argo CD error="server.secretkey is missing"
 
 fixed by kubectl rollout restart deploy/argocd-server -n argocd
+
+## Argo CD error="error getting cached app resource tree: cache: key is missing"
+Actually it's enough to restart only applicationController's statefulset, ie.
+kubectl rollout restart statefulset -n argocd argocd-application-controller
