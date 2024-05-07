@@ -63,17 +63,16 @@ sudo ufw allow "Nginx Full"
 sudo nano /etc/nginx/sites-available/plausible.conf
 ```
 server {
-    listen       80;
-    listen       [::]:80;
-    server_name  YOUR_DOMAIN_HERE;
+        # replace example.com with your domain name
+        server_name analytics.bookumapp.com;
 
-    access_log  /var/log/nginx/plausible.access.log;
-    error_log   /var/log/nginx/plausible.error.log;
+        listen 80;
+        listen [::]:80;
 
-    location / {
-      proxy_pass http://localhost:8000;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  }
+        location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
 }
 ```
 
@@ -89,11 +88,19 @@ sudo apt-get install certbot python-certbot-nginx
 
 sudo certbot
 
+sudo apt-get update
+sudo apt-get install certbot
+sudo apt-get install python3-certbot-nginx
 
+sudo certbot --nginx -d analytics.example.com
 mad changes to plausible config?
 
 sudo /usr/bin/docker-compose down --remove-orphans
 
+sudo docker compose down --remove-orphans
+
 and then sudo /usr/bin/docker-compose up -d
+
+sudo docker compose up -d
 
 Fix: https://github.com/SigNoz/charts/issues/63#issuecomment-1209071122

@@ -28,7 +28,7 @@ To add a new kubernetes cluster to an existing argocd instance, you could litera
 argocd login YOURARGOCDLOADBALANCER:80 --username admin
 ```
 
-after running this command you will be asked for your argocd password, input it, hit enter, then run ```argocd app list``` to see the list of applications available on your argocd server.
+after running this command you will be asked for your argocd password, input it, hit enter, then run ``argocd app list`` to see the list of applications available on your argocd server.
 
 the response would be one app for sure, now run the following command to add your newly created kubernetes cluster.
 ```
@@ -37,19 +37,27 @@ argocd cluster add YourEksClusterARN  —name yournew-cluster-name
 
 To get your EKS Cluster ARN value, run the following command, where you replace the *YOURCLUSTERNAME* and the region value with yours.
 
- ```
+```
  aws eks describe-cluster --name YOURCLUSTERNAME --region us-east-1 | grep "arn:aws:eks"
 ```
 
 Guess you see, this is so easy to achieve using the CLI route, but yes doing this in a declarative way is the best bet, so let's jump into it in a declarative way!.
 
-## Add Multiple Cluster to ArgoCD using the Declarative Method
+## Adding Multiple Cluster to ArgoCD using the Declarative Method
 
-So basically, what you are trying to achieve here, is granting the argocd instance in the exiting instance a long-lasting authentication process coupled with authorization in order to deploy your deployment yaml files across the new cluster the GitOps way.
+Basically, what you are trying to achieve here, is granting your argocd setup in the existing cluster a long-lasting authentication process coupled with authorization in order to deploy your deployment yaml files across the new cluster the GitOps way.
 
-So which authorization method is suitable for use in this scenario? ServiceAccount!
+So how do you get this done? you can use both the ServiceAccount mode and the argocd-k8s-auth mode.
 
-### Why the ServiceAccount Authentication method?
+The ServiceAccount mode will work with all kubernetes clusters be it GKE, EKS, AKS.
+
+but the argocd-k8s-auth mode is more recommended, as it uses the OIDC method to authenticate the argocd instance to the new cluster.
+
+The catch here is that the setup varies for different kubernetes clusters, the setup for EKS is different from the setup for GKE and AKS.
+
+But in this guide you will be seeing the declarative setup of argocd using the ServiceAccount mode and argocd-k8s-auth mode with EKS.
+
+## The ServiceAccount Authentication method
 
 Service account bearer tokens are perfectly valid to use outside the cluster and can be used to create identities for long-standing jobs that wish to talk to the Kubernetes API. To manually create a service account, use the kubectl create serviceaccount (NAME) command. This creates a service account in the current namespace. <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#bootstrap-tokens">refrence to kubernetes docs</a>
 
@@ -192,10 +200,10 @@ stringData:
   server: YOUR EKS CLUSTER API ENDPOINT
   config: |
     {
-      "bearerToken": "YOUR SERVICE ACCOUNT TOKEN",
+      "bearerToken": "YOUR SERVICE ACCOUNT TOKEN created on the new cluster",
       "tlsClientConfig": {
         "insecure": false,
-        "caData": "YOUR CLUSTER CA"
+        "caData": "YOUR NEW CLUSTER CA"
       }
     }
 ```
@@ -208,7 +216,208 @@ kubectl apply -f argocd-connect.yaml
 
 Now you have more than one kubernetes cluster controlled by a single argocd instance, one argocd instance deployment to worry about, haha.
 
-Also, there is another recommended process of doing this using argocd-k8s-auth and IRSA, basically authenticating using the OIDC method instead of using the long-lasting serviceaccount token.
+## The EKS Cluster secret using argocd-k8s-auth and IRSA method
+
+### Setup up IAM role, and the IAM assumable role
+
+First thing you will be creating here is an IAM assumable role, which will be assumed by another IAM role that will be used by the argocd instance deployment and also added to the aws-auth configmap in the new cluster.
+
+
+```yaml title="argocd-instance-cluster.tf"
+module "iam-assumable-role" {
+  source                          = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version                         = "5.39.0"
+  create_role                     = true
+  create_custom_role_trust_policy = true
+  role_name                       = "argocd-role"
+  custom_role_trust_policy        = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::xxxxxx:role/argocd"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+EOF
+}
+```
+
+Now here is where the IRSA comes in, you will be creating an IAM role that will be assumed by the argocd instance deployment, and also added to the aws-auth configmap in the new cluster.
+
+```yaml title="argocd-instance-cluster.tf"
+resource "aws_iam_role" "argocd_irsa_role" {
+  name               = "argocd"
+  description        = "Trusts argocd assume role "
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::xxxxx:role/argocd-role"
+            },
+            "Action": "sts:AssumeRole"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "${module.eks.oidc_provider_arn}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "${module.eks.oidc_provider}:sub": [
+                        "system:serviceaccount:argocd:argocd-application-controller",
+                        "system:serviceaccount:argocd:argocd-server"
+                    ]
+                },
+                "StringLike": {
+                    "${module.eks.oidc_provider}:aud": "sts.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+EOF
+}
+```
+
+### Configure the argocd deployment to use the IAM role
+
+Now you are done setting up the IAM role and the IAM assumable role, its time to update your argocd deployment values, for the controller and server deployment of the argocd instance, you will be adding the following annotations to the deployment values ```annotations:
+      eks.amazonaws.com/role-arn: "${aws_iam_role.argocd_irsa_role.arn}"
+    automountServiceAccountToken: true```
+
+Just like you can see in the code below.
+
+```yaml title="argocd-instance-cluster.tf"
+data "template_file" "values" {
+  template = <<EOF
+controller:
+  replicas: 1
+  serviceAccount:
+    create: true
+    name: argocd-application-controller
+    annotations:
+      eks.amazonaws.com/role-arn: "${aws_iam_role.argocd_irsa_role.arn}"
+    automountServiceAccountToken: true
+server:
+  replicas: 2
+  serviceAccount:
+    create: true
+    name: argocd-server
+    annotations:
+      eks.amazonaws.com/role-arn: "${aws_iam_role.argocd_irsa_role.arn}"
+    automountServiceAccountToken: true
+
+  EOF
+}
+
+```
+
+Now deploy the argocd deployment using the helm charts and parse the values you wrote above ```values = [data.template_file.argo-values.rendered]```
+
+```yaml title="argocd-instance-cluster.tf"
+resource "helm_release" "argocd" {
+  name       = "argocd"
+  chart      = "argo-cd"
+  repository = "https://argoproj.github.io/argo-helm"
+  version    = "6.7.11"
+  namespace  = "argocd"
+  values = [data.template_file.argo-values.rendered]
+}
+```
+
+### Deploy your new cluster on the argocd instance
+
+
+Once everything is done and up, its time to add the new cluster to your argocd instance, using the below snippet, replace the server API and the cluster CA with your new cluster API endpoint and the cluster CA.
+
+```yaml title="argocd-instance-cluster.tf"
+resource "kubectl_manifest" "your-cluster-name" {
+  yaml_body = <<-EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: your-cluster-name
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+type: Opaque
+stringData:
+  name: "your-cluster-name"
+  server: "https://xxxxxxxxxxx.sk1.us-east-1.eks.amazonaws.com"
+  config: |
+    {
+      "awsAuthConfig": {
+        "clusterName": "new-cluster",
+        "roleARN": "${module.iam-assumable-role.iam_role_arn}"
+      },
+      "tlsClientConfig": {
+        "insecure": false,
+        "caData": "YOUR CLUSTER CA"
+      }
+    }
+   EOF
+}
+
+```
+
+alternatively you can even make it more declarative by passing this values from your new cluster terraform IaC to the existing argocd instance terraform IaC, by storing the values in the AWS SSM Parameter Store, and retrieving it back in the argocd-instance-cluster.tf file.
+
+That way you can replace your Cluster CA with  ```"caData": "${data.aws_ssm_parameter.cluster_CA.value}"``` and your cluster API endpoint with ```server: "${data.aws_ssm_parameter.cluster_api_endpoint.value}"``` and your cluster name with ```"clusterName": "${data.aws_ssm_parameter.cluster_name.value}"```
+
+```yaml title="argocd-setup-on-new-cluster.tf"
+resource "aws_ssm_parameter" "cluster_CA" {
+  name      = "/argocd/cluster_CA"
+  value     = module.eks.cluster_certificate_authority_data
+  type      = "SecureString"
+  overwrite = true
+}
+
+resource "aws_ssm_parameter" "cluster_api_endpoint" {
+  name      = "/argocd/cluster_api_endpoint"
+  value     = module.eks.cluster_endpoint
+  type      = "SecureString"
+  overwrite = true
+}
+
+resource "aws_ssm_parameter" "cluster_name" {
+  name      = "/argocd/clustername"
+  value     = module.eks.cluster_name
+  type      = "SecureString"
+  overwrite = true
+}
+```
+
+### Add the IAM role to the aws-auth configmap in the new cluster
+
+Now that you added the add the IAM role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth configmap in the new cluster.
+
+```yaml title="argocd-setup-on-new-cluster.tf"
+resource "kubernetes_config_map" "aws_auth" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+
+  data = {
+    mapRoles = <<EOF
+- groups:
+  - system:masters
+  rolearn: arn:aws:iam::xxxxxx:role/argocd-role
+  username: arn:aws:iam::xxxx:role/argocd-role
+EOF
+  }
+}
+```
+Thats it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
 
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 
