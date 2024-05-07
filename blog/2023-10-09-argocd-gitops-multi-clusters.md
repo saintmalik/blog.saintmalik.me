@@ -226,7 +226,6 @@ First thing you will be creating here is an IAM assumable role, which will be as
 ```yaml title="argocd-instance-cluster.tf"
 module "iam-assumable-role" {
   source                          = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
-  version                         = "5.39.0"
   create_role                     = true
   create_custom_role_trust_policy = true
   role_name                       = "argocd-role"
@@ -247,7 +246,7 @@ EOF
 }
 ```
 
-Now here is where the IRSA comes in, you will be creating an IAM role that will be assumed by the argocd instance deployment, and also added to the aws-auth configmap in the new cluster.
+Here you will be creating an IAM role that will assume the argocd-role, and the argocd-role will be used by the argocd instance deployment to assume the IAM role, so you can deploy your deployment yaml files across the new cluster the GitOps way.
 
 ```yaml title="argocd-instance-cluster.tf"
 resource "aws_iam_role" "argocd_irsa_role" {
@@ -290,7 +289,9 @@ EOF
 
 ### Configure the argocd deployment to use the IAM role
 
-Now you are done setting up the IAM role and the IAM assumable role, its time to update your argocd deployment values, for the controller and server deployment of the argocd instance, you will be adding the following annotations to the deployment values ```annotations:
+Now you are done setting up the IAM role and the IAM assumable role, it's time to update your argocd deployment values.
+
+By adding the created IAM Role above `arn:aws:iam::xxxxxx:role/argocd` to your controller and server deployment values of the argocd instance, you will be adding the following annotations to the deployment values ```annotations:
       eks.amazonaws.com/role-arn: "${aws_iam_role.argocd_irsa_role.arn}"
     automountServiceAccountToken: true```
 
@@ -328,7 +329,6 @@ resource "helm_release" "argocd" {
   name       = "argocd"
   chart      = "argo-cd"
   repository = "https://argoproj.github.io/argo-helm"
-  version    = "6.7.11"
   namespace  = "argocd"
   values = [data.template_file.argo-values.rendered]
 }
@@ -396,9 +396,9 @@ resource "aws_ssm_parameter" "cluster_name" {
 }
 ```
 
-### Add the IAM role to the aws-auth configmap in the new cluster
+### Add the IAM Assumable role to the aws-auth configmap in the new cluster
 
-Now that you added the add the IAM role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth configmap in the new cluster.
+Now you have to add the IAM Assume role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth configmap of the new cluster.
 
 ```yaml title="argocd-setup-on-new-cluster.tf"
 resource "kubernetes_config_map" "aws_auth" {
