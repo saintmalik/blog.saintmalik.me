@@ -17,6 +17,7 @@ run the following command to generate the certificate.pem from your keystore
 sudo keytool -export -rfc -keystore signing-key.keystore -alias YOURKEYSTOREALIAS -file upload_certificate.pem
 ```
 
+
 <br/>
 <h2>Comments</h2>
 <Giscus
