@@ -126,6 +126,7 @@ But if you are using AWS S3 as your state backend, you can just go view your sta
   <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Opentofu Encrypted State File"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="OpenTofu Encrypted State File"/>
 </picture>
+<p style={{ color: 'green' }}>OpenTofu Encrypted State File</p>
 </Figure>
 
 <Figure>
@@ -134,6 +135,7 @@ But if you are using AWS S3 as your state backend, you can just go view your sta
   <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Opentofu Non Encrypted State File"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="OpenTofu Non Encrypted State File"/>
 </picture>
+<p style={{ color: 'green' }}>OpenTofu Non Encrypted State File</p>
 </Figure>
 
 ## Enabling State and Plan Encryption For New Project
