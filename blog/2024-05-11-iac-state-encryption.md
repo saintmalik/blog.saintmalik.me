@@ -122,17 +122,17 @@ But if you are using AWS S3 as your state backend, you can just go view your sta
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypted.webp`} alt="Opentofu Encrypted State File"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypted.png`} alt="Opentofu Encrypted State File"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypted.png`} alt="OpenTofu Encrypted State File"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.webp`} alt="Opentofu Encrypted State File"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Opentofu Encrypted State File"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="OpenTofu Encrypted State File"/>
 </picture>
 </Figure>
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypted.webp`} alt="Opentofu Non Encrypted State File"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypted.png`} alt="Opentofu Non Encrypted State File"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypted.png`} alt="OpenTofu Non Encrypted State File"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.webp`} alt="Opentofu Non Encrypted State File"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Opentofu Non Encrypted State File"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="OpenTofu Non Encrypted State File"/>
 </picture>
 </Figure>
 
