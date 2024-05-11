@@ -10,13 +10,13 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Best bet, you are not rotating your password and tokens across your infra's and deployment but if the software's you use has the passwordless authentication option and it's stable why not go for it?
+best bet, you are not rotating your password and tokens across your infrastructure and deployment but if the software you use has the passwordless authentication option and it's stable why not go for it?
 
 <!--truncate-->
 
-The burden of a long lasting password sitting on your server is a thing, you never can say, a static password to the DB isnt a good option at all.
+The burden of a long-lasting password sitting on your server is a thing, you never can say, a static password to the DB isn't a good option at all.
 
-So let's escape the burden by going passwordless and using IAM Role to connect to our MongoDB cluster on our applications thats sitting on AWS EKS.
+So let's escape the burden by going passwordless and using the Identity Authority Management (IAM) Role to connect to our MongoDB cluster on our application that is sitting on AWS EKS.
 
 ## Prerequisites:
 
@@ -39,7 +39,7 @@ module "mongodb_irsa_role" {
   }
 }
 ```
-Once this is done, the next thing is to create a Kubernetes service account, which we have associated in the IAM Role created above.
+Once this is done, the next thing is to create a Kubernetes service account, which we have associated with the IAM Role created above.
 
 ```hcl title="main.tf"
 resource "kubernetes_service_account_v1" "invoicing-app" {
@@ -57,7 +57,7 @@ resource "kubernetes_service_account_v1" "invoicing-app" {
 
 The next step is to add the IAM Role to the MongoDB Database Authorized users. This will allow the IAM Role to access the MongoDB cluster.
 
-To do this, you need to navigate to the MongoDB project and click on the `Security` tab, goto the <a href="https://cloud.mongodb.com/v2/security/database/users" target="_blank">Database Access</a>.
+To do this, you need to navigate to the MongoDB project and click on the `Security` tab, go to <a href="https://cloud.mongodb.com/v2/security/database/users" target="_blank">Database Access</a>.
 
 Then click on the `Add New Database User` button.
 
@@ -67,7 +67,7 @@ Then click on the `Add New Database User` button.
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbadd.png`} alt="passwordless mongodb"/>
 </picture>
 
-In the `Add New Database User` fmodal, select the Authentication Method, `AWS IAM` and drop down the `AWS IAM Type` option and select `IAM Role`, fill in the `IAM Role ARN` field with the IAM Role ARN that was created earlier. Then click on the `Add User` button.
+In the `Add New Database User` modal, select the Authentication Method, `AWS IAM` and drop down the `AWS IAM Type` option and select `IAM Role`, fill in the `IAM Role ARN` field with the IAM Role ARN that was created earlier. Then click on the `Add User` button.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbiam.webp`} alt="passwordless mongodb add iam role"/>
@@ -75,13 +75,13 @@ In the `Add New Database User` fmodal, select the Authentication Method, `AWS IA
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbiam.png`} alt="passwordless mongodb add iam role"/>
 </picture>
 
-Once this is done, it's setup your app to connect to the MongoDB cluster using passwordless authentication.
+Once this is done, it's set up your app to connect to the MongoDB cluster using passwordless authentication.
 
-## Step 3: Setting up MongoDB connection using passowrdless authentication in your app
+## Step 3: Setting up MongoDB connection using passwordless authentication in your app
 
 ### Golang App
 
-To establish connection to your MongoDB cluster using passwordless authentication, you need to set and add the servive account that you created earlier to your golang deployment yaml file in the EKS
+To establish the connection to your MongoDB cluster using passwordless authentication, you need to set and add the service account that you created earlier to your golang deployment yaml file in the EKS
 
 ```yaml title="go-eks-deployment.yaml"
 apiVersion: apps/v1
@@ -123,11 +123,9 @@ spec:
     targetPort: 7070
 ```
 
-Adding the serviceaccount `serviceAccountName: invoicing-app` to the golang deployment yaml file will grant the application pod access to env variables like AWS_WEB_IDENTITY_TOKEN_FILE, AWS_ROLE_ARN and AWS_REGION. These variables are needed to establish connection to the MongoDB cluster.
+Adding the service account `serviceAccountName: invoicing-app` to the golang deployment yaml file will grant the application pod access to env variables like AWS_WEB_IDENTITY_TOKEN_FILE, AWS_ROLE_ARN and AWS_REGION. These variables are needed to establish a connection to the MongoDB cluster.
 
 So now inside your Golang app, you can use the `AWS_WEB_IDENTITY_TOKEN_FILE` env variable to connect to your MongoDB cluster.
-
-
 
 ```go title="main.go"
 func init() {
@@ -156,11 +154,11 @@ func init() {
 
 ### NodeJS App
 
-For NodeJS Apps, there are actually many ways of getting this done, but you might just be having downtimes due to 403 errors like ["MongoError: bad auth : aws sts call has response 403"](https://blog.saintmalik.me/docs/mongo/)
+For NodeJS Apps, there are actually many ways of getting this done, but you might just be having downtimes due to 403 errors like ["MongoError: bad auth: aws sts call has response 403"](https://blog.saintmalik.me/docs/mongo/)
 
-This error occurs because the credentials mongodb is using to re-establish the connnection is wrong or has expired, digging deep into the error fix might get this article to be longer than expected, the fix works but not so clean.
+This error occurs because the credentials MongoDB is using to re-establish the connection are wrong or have expired, digging deep into the error fix might get this article to be longer than expected, the fix works but is not so clean.
 
-So i will just share the method i have tried that works well, and it's using the `@aws-sdk/credential-providers` package.
+So I will just share the method I tried that works well, and it's using the `@aws-sdk/credential-providers` package.
 
 you need to install both `@aws-sdk/credential-providers`,  `aws4` and `mongodb` packages using `yarn add @aws-sdk/credential-providers aws4 mongodb`
 
@@ -215,13 +213,13 @@ async function mongodbConnection() {
 }
 ```
 
-The `mongodbSessionName` value we used here is an optional value, but it's better to use it, so you can easily identify the session that belongs to your app from the mongodb logs.
+The `mongodbSessionName` value we used here is optional, but it's better to use it, so you can easily identify the session that belongs to your app from the mongodb logs.
 
-And that's it, you have successfully connected your app to your MongoDB cluster using passwordless authentication. You can redeploy your app to your EKS cluster and test it out.
+That's it, you have successfully connected your app to your MongoDB cluster using passwordless authentication. You can redeploy your app to your EKS cluster and test it out.
 
-also note in the nodejs example we used **aws-sdk/credential-providers**, which by default allows the driver to use any shared AWS credentials file or config file in your environment, the driver will use those credentials by default.
+also note in the nodejs example we used **aws-sdk/credential-providers**, which by default allows the driver to use any shared AWS credentials file or a config file in your environment, the driver will use those credentials by default.
 
-So its better not to see any new aws variable in your env, to avoid conflicts of credentials.
+So it's better not to see any new aws variable in your env, to avoid conflicts of credentials.
 
 Till next time, Peace be on you ✌️
 

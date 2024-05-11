@@ -13,31 +13,30 @@ tags: [vault, oss, eks, kubernetes]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-So you've moved your organization secret management process to <a href="/vault-in-kuberbetes" target="_blank"> Hashicorp Vault on Kubernetes</a> ? everything is working well, but you are about promote to production, this brings alot of questions about stability, recovery and fully opeartional vault servicing your deployments.
+So you've moved your organization's secret management process to <a href="/vault-in-kuberbetes" target="_blank"> Hashicorp Vault on Kubernetes</a>? everything is working well, but you are about to promote to production, this brings a lot of questions about stability, recovery and fully operational vault servicing your deployments.
 
 <!--truncate-->
 
-That being said, but how do you achieve this, since you have an HA(High Availability) Vault working in your cluster already, that brings us to Vault snapshots, periodically taking and storing the vault snapshots in storages like aws s3 is the way.
+That being said, how do you achieve this, since you have an HA(High Availability) Vault working in your cluster already, that brings us to Vault snapshots, periodically taking and storing the vault snapshots in storages like AWS s3 is the way.
 
 
 ## Prerequisite
-- A working vault deployment in your cluster provisioned with terraform
+- A working vault deployment in your cluster provisioned with Terraform
 - A working S3 storage bucket to store your snapshots
 
-So Lets jump into it;
+So Let's jump into it;
 
 ## Setting Authentication with Vault and S3 Bucket
+If I guess right, you probably think you are going get your AWS secret key and that's what you will be using in authenticating Vault and AWS s3.
 
-If i guess right, you probably thinking you are going get your aws secret key and that's what you will be using in authenticating vault and aws s3.
-
-Well, No you won't be doing that, since your goal is too eliminate usage of secrets in config or plain form in the first place, time to set the auth process up.
+Well, No you won't be doing that, since your goal is to eliminate the usage of secrets in config or plain form in the first place, time to set the auth process up.
 
 ### 👉  Create an S3 Policy
 
 You need to create a new file named ```vault-backup.tf``` and add the following code.
 
 ```yaml title="vault-backup.tf"
-resource "aws_iam_policy" "vault_backup_access_policy" {
+resource "AWS_iam_policy" "vault_backup_access_policy" {
   name   = "VaultBackupPolicyS3"
   policy = jsonencode({
     Version = "2012-10-17"
@@ -50,8 +49,8 @@ resource "aws_iam_policy" "vault_backup_access_policy" {
         ]
         Effect   = "Allow"
         Resource = [
-            "arn:aws:s3:::YOUR BUCKET NAME",
-            "arn:aws:s3:::YOUR BUCKET NAME/*",
+            "arn:AWS:s3:::YOUR BUCKET NAME",
+            "arn:AWS:s3:::YOUR BUCKET NAME/*",
         ]
       },
     ]
@@ -69,23 +68,23 @@ resource "kubernetes_service_account_v1" "this" {
     name      = "vault-snapshotter"
     namespace = "vault"
     annotations = {
-      "eks.amazonaws.com/role-arn" = module.vault_irsa_role.iam_role_arn
+      "eks.amazonAWS.com/role-arn" = module.vault_irsa_role.iam_role_arn
     }
   }
   # automount_service_account_token = "true"
 }
 ```
-time to create the IRSA, as you can see, i am using an irsa for eks module instead of going through the route of creating roles and attaching policy document, this module makes creating IRSA for EKS more clean and fast to create
+time to create the IRSA, as you can see, I am using an IRSA for eks module instead of going through the route of creating roles and attaching policy documents, this module makes creating IRSA for EKS clean and fast to create
 
 ```yaml title="vault-backup.tf"
 module "vault_irsa_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source  = "terraform-AWS-modules/iam/AWS//modules/iam-role-for-service-accounts-eks"
   version = "5.20.0"
 
   role_name = "hashicorp-vault-snapshot"
 
   role_policy_arns = {
-    policy = aws_iam_policy.vault_backup_access_policy.arn
+    policy = AWS_iam_policy.vault_backup_access_policy.arn
   }
 
   oidc_providers = {
@@ -96,13 +95,13 @@ module "vault_irsa_role" {
   }
 }
 ```
-Thats all, we are done with configuring the auth process for the aws s3 bucket access from the kubernetes cluster.
+That's all, we are done with configuring the auth process for the AWS s3 bucket access from the Kubernetes cluster.
 
 ## Setting Up Vault Kubernetes Auth Engine
 
-Hope you are aware there are different ways to authenticate with Vault, your root token, approle, github and more, but we won't be going for any of this, we would be proceeding with vault kubernetes auth engine.
+Hope you are aware there are different ways to authenticate with Vault, your root token, approle, GitHub and more, but we won't be going for any of this, we will be proceeding with Vault Kubernetes auth engine.
 
-First, you need to create a new namspace called **vault-client**.
+First, you need to create a new namespace called **vault-client**.
 
 ```yaml title="vault-backup.tf"
 resource "kubernetes_namespace" "vault-client" {
@@ -112,7 +111,7 @@ resource "kubernetes_namespace" "vault-client" {
 }
 ```
 
-then you will create a ServiceAccount in the **vault-client** namespace that vault can use to authenticate with in the cluster, the ServiceAccount is what you will give to vault to get the vault token(jwt) for access to carry out the actions you need.
+then you will create a ServiceAccount in the **vault-client** namespace that vault can use to authenticate within the cluster, the ServiceAccount is what you will give to vault to get the vault token(jwt) for access to carry out the actions you need.
 
 ```yaml title="vault-backup.tf"
 resource "kubernetes_service_account_v1" "vault_auth" {
@@ -124,7 +123,7 @@ resource "kubernetes_service_account_v1" "vault_auth" {
 }
 ```
 
-you will also need to create a cluster role binding with serviceaccount attachment to authenticate with other ServiceAccount withinthe cluster.
+you will also need to create a cluster role binding with a service account attachment to authenticate with other Service Accounts within the cluster.
 
 ```yaml title="vault-backup.tf"
 resource "kubernetes_cluster_role_binding" "vault_auth_role_binding" {
@@ -144,7 +143,7 @@ resource "kubernetes_cluster_role_binding" "vault_auth_role_binding" {
 }
 ```
 
-You will have to create kubernetes secret with the ServiceAccount annotations which you will make available through data block, which will then be used to authenticate kubernetes in vault in the next process.
+You will have to create a Kubernetes secret with the ServiceAccount annotations which you will make available through the data block, which will then be used to authenticate Kubernetes in Vault in the next process.
 
 ```yaml title="vault-backup.tf"
 resource "kubernetes_secret_v1" "vault_auth_sa" {
@@ -161,7 +160,7 @@ resource "kubernetes_secret_v1" "vault_auth_sa" {
 }
 ```
 
-The below codes is how you will get the secrets created from the ServiceAccount acessible for the next step in the Vault Kubernetes Engine.
+The below codes are how you will get the secrets created from the ServiceAccount accessible for the next step in the Vault Kubernetes Engine.
 
 ```yaml title="vault-backup.tf"
 data "kubernetes_secret_v1" "vault_auth_sa" {
@@ -174,9 +173,9 @@ data "kubernetes_secret_v1" "vault_auth_sa" {
 
 ### 👉  Configure Vault Kubernetes Engine
 
-So you have created and given the ServiceAccount the permission to access other ServiceAccount through the cluster role binding, it's time to configure authentication with vault via the kubernetes auth engine option.
+So you have created and permitted the Service Account to access other Service Accounts through the cluster role binding, it's time to configure authentication with Vault via the Kubernetes auth engine option.
 
-But before you proceed, you need to update your **provider.tf** file to include the vualt provider and your exiting vault server URL.
+But before you proceed, you need to update your **provider.tf** file to include the Vault provider and your existing vault server URL.
 
 ```yaml title="provider.tf"
 vault = {
@@ -190,9 +189,9 @@ provider "vault" {
 }
 ```
 
-Once you have added your vault provider config, you can proceed to the next process, which is enabling the kubernetes auth engine and authenticating the cluster access to vault.
+Once you have added your vault provider config, you can proceed to the next process, which is enabling the Kubernetes auth engine and authenticating the cluster access to Vault.
 
-Since you might have this process available already in your vault, you would only notice a modification instead of new creation of kubernetes vault engine when you run ```terraform plan```
+Since you might have this process available already in your vault, you would only notice a modification instead of the new creation of the Kubernetes vault engine when you run ```terraform plan```
 
 ```yaml title="vault-backup.tf"
 resource "vault_auth_backend" "kubernetes" {
@@ -249,17 +248,17 @@ resource "vault_kubernetes_auth_backend_role" "snapshot-role" {
 }
 ```
 
-## Creating the cronJob and job to backup and restore vault
+## Creating the cronJob and job to backup and restore Vault
 
-It's time to test out what you have being configuring so far, the reason for going through the long route of the above configurations is to avoid using plain text vault token and aws credentials to authenticate just for the backing up and restoration of vault snapshots.
+It's time to test out what you have been configuring so far, the reason for going through the long route of the above configurations is to avoid using plain text vault tokens and AWS credentials to authenticate just for the backing up and restoration of vault snapshots.
 
 ### 👉 creation and backing up of vault snapshot
 
-The below deployment is the cronjob that continously create your vault snapshot and back it up to your aws s3 bucket.
+The below deployment is the cronjob that continuously creates your vault snapshot and backs it up to your AWS s3 bucket.
 
 you can adjust the **schedule** value to what timing works for you.
 
-you also need to replace ```S3 BUCKET NAME``` with your own s3 bucket name, and you might not be needing the env variables of ```VAULT_CACERT```, ```VAULT_TLSCERT``` and ```VAULT_TLSKEY``` if you dont have <a href="/end-to-end-tls-vault-eks" target="_blank">tls enabled</a> in your existing vault setup.
+you also need to replace ```S3 BUCKET NAME``` with your s3 bucket name, and you might not need the env variables of ```VAULT_CACERT```, ```VAULT_TLSCERT``` and ```VAULT_TLSKEY``` if you don't have <a href="/end-to-end-tls-vault-eks" target="_blank">tls enabled</a> in your existing vault setup.
 
 ```yaml title="vault-backup.yaml"
 apiVersion: batch/v1
@@ -306,7 +305,7 @@ spec:
               - name: share
                 mountPath: "/share"
           - name: snapshotupload
-            image: amazon/aws-cli:2.11.21
+            image: amazon/AWS-cli:2.11.21
             imagePullPolicy: IfNotPresent
             command:
             - /bin/sh
@@ -314,14 +313,14 @@ spec:
             - -ec
             - |
                 until [ -f /share/vault-raft.snap ]; do sleep 5; done;
-                aws s3 cp /share/vault-raft.snap s3://S3 BUCKET NAME/vault_raft_$(date +"%Y%m%d_%H%M%S").snap;
+                AWS s3 cp /share/vault-raft.snap s3://S3 BUCKET NAME/vault_raft_$(date +"%Y%m%d_%H%M%S").snap;
             volumeMounts:
             - mountPath: /share
               name: share
           restartPolicy: OnFailure
 ```
 
-then you can deploy using ```kubectl apply -f vault-backup.yaml``` or deploy using terraform by adding the following to your exisiting terraform config.
+then you can deploy using ```kubectl apply -f vault-backup.yaml``` or deploy using terraform by adding the following to your existing terraform config.
 
 ```yaml title="vault-backup.tf"
 data "kubectl_file_documents" "cronjob-vault" {
@@ -334,7 +333,7 @@ resource "kubectl_manifest" "cronjob-vault" {
   yaml_body = each.value
 }
 ```
-if everything goes well, you should have something like this in your aws s3 bucket.
+if everything goes well, you should have something like this in your AWS s3 bucket.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-backup-raft.webp`} alt="vault backup snapshot s3 bucket"/>
@@ -344,9 +343,9 @@ if everything goes well, you should have something like this in your aws s3 buck
 
 ### 👉 pulling backup and restoration of vault snapshot
 
-if the situation arises and you need to restore yur backup due too cluster migration or unforseen disaster, this deployment is what you will use for restoration.
+if the situation arises and you need to restore your backup due to cluster migration or unforeseen disaster, this deployment is what you will use for restoration.
 
-but when a cron job is successful, it would be left hanging around right, this has been eliminated using ```ttlSecondsAfterFinished: 1800``` value, so after 1800 seconds, the job dissappears, you can always adjust it to whatever seconds you believe your restoration will take to be successful.
+but when a cron job is successful, it would be left hanging around right, this has been eliminated using ```ttlSecondsAfterFinished: 1800``` value, so after 1800 seconds, the job disappears, you can always adjust it to whatever seconds you believe your restoration will take to be successful.
 
 ```yaml title="vault-restore.yaml"
 apiVersion: batch/v1
@@ -367,7 +366,7 @@ spec:
               emptyDir: {}
           containers:
           - name: pullvaultbackup
-            image: amazon/aws-cli:2.11.21
+            image: amazon/AWS-cli:2.11.21
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - name: top
@@ -377,8 +376,8 @@ spec:
             args:
             - -ec
             - |
-                last_file=$(aws s3 ls s3://S3 BUCKET NAME/ | awk '{print $NF}' | tail -n1);
-                aws s3 cp s3://S3 BUCKET NAME/${last_file} /top/vault-raft.snap;
+                last_file=$(AWS s3 ls s3://S3 BUCKET NAME/ | awk '{print $NF}' | tail -n1);
+                AWS s3 cp s3://S3 BUCKET NAME/${last_file} /top/vault-raft.snap;
           - name: restore
             image: vault:1.12.1
             imagePullPolicy: IfNotPresent
@@ -426,17 +425,17 @@ resource "kubectl_manifest" "job-restore-vault" {
 
 :::note
 
-When you have tls setup for your vault already, you will need to mount it also in the cronjob and job deployment to avoid errors relating to tls which would caused the deployment to fail.
+When you have tls set up for your vault already, you will need to mount it also in the cronjob and job deployment to avoid errors relating to tls which would cause the deployment to fail.
 
 :::
 
-I hope you've learned something useful from this blog to take home for kubernetes secret management with hashicorp vault oss reliabilty and damage control.
+I hope you've learned something useful from this blog to take home for Kubernetes secret management with hashicorp vault oss reliability and damage control.
 
 Till next time ✌️
 
 #### References
 - https://michaellin.me/backup-vault-with-raft-storage-on-kubernetes/
-- https://verifa.io/blog/how-to-automate-hashicorp-vault-oss-backups-in-aws-eks/index.html
+- https://verifa.io/blog/how-to-automate-hashicorp-vault-oss-backups-in-AWS-eks/index.html
 
 <br/>
 <h2>Comments</h2>

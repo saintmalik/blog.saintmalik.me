@@ -12,21 +12,21 @@ You have your app deployed on an EC2 instance via nodes on EKS and this app need
 
 <!--truncate-->
 
-Originally, you would want to create an s3 iam users with minimal policies to acess the S3, now you have more responsibilities, having to worry about the secret keys, making sure it doesnt leak, making sure even if someone have access, there is a log or monitoring process to see if the key has been compromised.
+Originally, you would want to create an s3 IAM user with minimal policies to access the S3, now you have more responsibilities, having to worry about the secret keys, making sure it doesn't leak, making sure even if someone has access, there is a log or monitoring process to see if the key has been compromised.
 
-But why bear all this responsibilities when your app can still do all it needs without the credential keys and just fallback to using IAM Role Access.
+But why bear all these responsibilities when your app can still do all it needs without the credential keys and just fall back to using IAM Role Access?
 
-If you are working with EKS, it's pretty easy to setup IRSA (IAM Roles for Service Accounts), this way you can provision and rotate the IAM temporary credentials (called a Web Identity) which the Kubernetes ServiceAccount you've mounted into your node pods can use to call AWS APIs.
+If you are working with EKS, it's pretty easy to set up IRSA (IAM Roles for Service Accounts), this way you can provision and rotate the IAM temporary credentials (called a Web Identity) which the Kubernetes ServiceAccount you've mounted into your node pods can use to call AWS APIs.
 
 ## Prerequisite
 
 - Terraform provisioned EKS Cluster
 
-So Lets jump into it;
+So Let's jump into it;
 
 ## Setting Up EKS IRSA for your NodeJs Pods
 
-### 👉 Step 1: You want to setup your S3 Access Policy
+### 👉 Step 1: You want to set up your S3 Access Policy
 
 You can declare how you streamline your policy here,
 
@@ -56,7 +56,7 @@ EOF
 
 ### 👉 Step 2: Creating EKS IRSA,
 
-here, you will create the EKS IRSA by attaching the policy you created above alongside your EKS Open ID Connect, your nodejs app namespace and the ServiceAccount you want to attach to your app pod.
+here, you will create the EKS IRSA by attaching the policy you created above alongside your EKS Open ID Connect, your nodeJS app namespace and the ServiceAccount you want to attach to your app pod.
 
 ```yaml title="keylessnodes3.tf"
 module "s3eksnodejs_role" {
@@ -98,9 +98,9 @@ resource "kubernetes_service_account_v1" "s3eksnodejs" {
 
 ### 👉 Step 4: Prep your code and remove the credentials
 
-You can start by removing your codes that calls for AWS credential keys.
+You can start by removing your codes that call for AWS credential keys.
 
-Here is a sample of the usage with the aws-sdk/client-s3 v3. listing objects in your s3 using crendentials keys.
+Here is a sample of the usage with the aws-sdk/client-s3 v3. listing objects in your s3 using credential keys.
 
 ```js title="app.js"
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
@@ -140,7 +140,7 @@ const bucketName = 'YOURS3BUCKETNAME';
 listObjectsInBucket(bucketName);
 ```
 
-so what will your code looks like when you removethe credentials you are calling from env?
+so what will your code look like when you remove the credentials you are calling from env?
 
 ```js title="nocredsapp.js"
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
@@ -176,7 +176,7 @@ const bucketName = 'YOURS3BUCKETNAME';
 listObjectsInBucket(bucketName);
 ```
 
-Thats it, now you are left with the responsibility of making sure your running pod for the app has the ServiceAccount with the iam role mounted.
+That's it, now you are left with the responsibility of making sure your running pod for the app has the ServiceAccount with the IAM role mounted.
 
 Doing that isnt hard, in your existing YAML file, just add ```serviceAccountName: s3eksnodejs``` to the spec, just like the below example
 

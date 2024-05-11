@@ -30,7 +30,7 @@ Now that you know the reasons why you need to set this up, let's jump into it;
 
 ## What are resource limits
 
-Resource limits are the limitation you've assigned to a container, so when this container reaches these limits, its processes get killed.
+Resource limits are the limitations you've assigned to a container, so when this container reaches these limits, its processes get killed.
 
 meaning the container can't consume beyond the memory and CPU amount you've indicated.
 
@@ -93,23 +93,23 @@ so here is how it works, you can specify the number of users you estimate for yo
 
 meaning you are imitating the app usage in production mode, hence you can see how many resources are being consumed by your app.
 
-running ```kubectl top pods``` would return the metrics of the pods based on their cpu and memory consumption.
+Running ```kubectl top pods``` would return the metrics of the pods based on their CPU and memory consumption.
 
 with those results, you can set meaningful resource quotas.
 
 ### Using VPA to get resource quotas
 
-VPA is a cluster component that handles the autoscaling for kubernetes.
+VPA is a cluster component that handles the autoscaling for Kubernetes.
 
 It can also help with estimating the correct resource requests and limits for our container.
 
-first, you have to install vpa in your cluster
+first, you have to install VPA in your cluster
 
 ```bash title="Install VPA in your cluster"
 git clone https://github.com/kubernetes/autoscaler.git && cd autoscaler/vertical-pod-autoscaler && ./hack/vpa-up.sh
 ```
 
-run ```kubectl get all -n kube-system``` to confirm if vpa has been installed successfully.
+run ```kubectl get all -n kube-system``` to confirm if VPA has been installed successfully.
 
 if the installation goes well, it's time for the tests, to get VPA to give the estimates of the resource limits and requests that the app needs.
 
@@ -132,15 +132,15 @@ spec:
       - containerName: '*'
 ```
 
-so i have choosen to use ```Auto``` for **updateMode**, what does this means?
+so I have chosen to use ```Auto``` for **updateMode**, what does this mean?
 
 it means the container gets recreated based on the VPA recommendations.
 
-there other options like **Off**, **Initial**, **Recreate**
+there are options like **Off**, **Initial**, **Recreate**
 
 Now let us check the VPA recommendations, you should run ```kubectl get vpa``` to get all the available VPA deployments.
 
-then run ```kubectl describe vpa VPANAME```, example ```kubectl describe vpa flyon-vpa-test``` and here is the outputs from mine.
+then run ```kubectl describe vpa VPANAME```, example ```kubectl describe vpa flyon-vpa-test``` and here are the outputs from mine.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpa-resource-estimates.webp`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
@@ -150,13 +150,13 @@ then run ```kubectl describe vpa VPANAME```, example ```kubectl describe vpa fly
 
  - **Lower bound**:  this is the minimum estimation for the container.
 
-- **Target**: is the one you will use for setting resource requests.
+- **Target**: this the one you will use for setting resource requests.
 
-- **Uncapped target**: this is the resource limit and request to be used by your container if you didn't configure maxallowed and minallowed in your VPA definition.
+- **Uncapped target**: this is the resource limit and request to be used by your container if you didn't configure max allowed and min allowed in your VPA definition.
  - **Upper bound**: maximum recommended resource estimation for the container, anything set beyond this would be a waste of resource
 
 :::note
-You don't need to do all these as a sec individual if there are DevOps individuals in your team.
+You don't need to do all these as a Sec individual if there are DevOps individuals in your team.
 
 you should be more concerned about implementing policies at the cluster levels.
 

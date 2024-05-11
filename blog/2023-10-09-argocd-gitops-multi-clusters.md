@@ -9,7 +9,7 @@ tags: [gitops, devops]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-You've probably gotten to a point where you need to manage multiple clusters using GitOps, knowing that managing the argocd instance itself can be considered tedious or painful, haha, meaning you sure do not want to install new argocd instances on other new kubernetes clusters.
+You've probably gotten to a point where you need to manage multiple clusters using GitOps, knowing that managing the argocd instance itself can be considered tedious or painful, haha, meaning you sure do not want to install new argocd instances on other new Kubernetes clusters.
 
 <!--truncate-->
 
@@ -19,10 +19,10 @@ So what's the bet? you would use your existing argocd instance to manage multipl
 
 - <a href="https://blog.saintmalik.me/argocd-on-kubernetes-cluster/" target="_blank">Existing ArgoCD instance on EKS Cluster</a>
 - kubectl
-- A new cluster created using Terraform
+- A new cluster, created using Terraform
 - knowledge of terraform
 
-To add a new kubernetes cluster to an existing argocd instance, you could literarily use the cli route by running the following commands.
+To add a new Kubernetes cluster to an existing argocd instance, you could literally use the CLI route by running the following commands.
 
 ```
 argocd login YOURARGOCDLOADBALANCER:80 --username admin
@@ -30,7 +30,7 @@ argocd login YOURARGOCDLOADBALANCER:80 --username admin
 
 after running this command you will be asked for your argocd password, input it, hit enter, then run ``argocd app list`` to see the list of applications available on your argocd server.
 
-the response would be one app for sure, now run the following command to add your newly created kubernetes cluster.
+the response would be one app for sure, now run the following command to add your newly created Kubernetes cluster.
 ```
 argocd cluster add YourEksClusterARN  —name yournew-cluster-name
 ```
@@ -41,27 +41,27 @@ To get your EKS Cluster ARN value, run the following command, where you replace 
  aws eks describe-cluster --name YOURCLUSTERNAME --region us-east-1 | grep "arn:aws:eks"
 ```
 
-Guess you see, this is so easy to achieve using the CLI route, but yes doing this in a declarative way is the best bet, so let's jump into it in a declarative way!.
+Guess you see, this is so easy to achieve using the CLI route, but yes doing this in a declarative way is the best bet, so let's jump into it in a declarative way!
 
-## Adding Multiple Cluster to ArgoCD using the Declarative Method
+## Adding Multiple Clusters to ArgoCD using the Declarative Method
 
-Basically, what you are trying to achieve here, is granting your argocd setup in the existing cluster a long-lasting authentication process coupled with authorization in order to deploy your deployment yaml files across the new cluster the GitOps way.
+What you are trying to achieve here, is granting your argocd setup in the existing cluster a long-lasting authentication process coupled with authorization to deploy your deployment yaml files across the new cluster the GitOps way.
 
 So how do you get this done? you can use both the ServiceAccount mode and the argocd-k8s-auth mode.
 
-The ServiceAccount mode will work with all kubernetes clusters be it GKE, EKS, AKS.
+The ServiceAccount mode will work with all Kubernetes clusters be it GKE, EKS, AKS.
 
 but the argocd-k8s-auth mode is more recommended, as it uses the OIDC method to authenticate the argocd instance to the new cluster.
 
-The catch here is that the setup varies for different kubernetes clusters, the setup for EKS is different from the setup for GKE and AKS.
+The catch here is that the setup varies for different Kubernetes clusters, the setup for EKS is different from the setup for GKE and AKS.
 
-But in this guide you will be seeing the declarative setup of argocd using the ServiceAccount mode and argocd-k8s-auth mode with EKS.
+But in this guide, you will be seeing the declarative setup of argocd using the ServiceAccount mode and argocd-k8s-auth mode with EKS.
 
 ## The ServiceAccount Authentication method
 
-Service account bearer tokens are perfectly valid to use outside the cluster and can be used to create identities for long-standing jobs that wish to talk to the Kubernetes API. To manually create a service account, use the kubectl create serviceaccount (NAME) command. This creates a service account in the current namespace. <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#bootstrap-tokens">refrence to kubernetes docs</a>
+Service account bearer tokens are perfectly valid to use outside the cluster and can be used to create identities for long-standing jobs that wish to talk to the Kubernetes API. To manually create a service account, use the kubectl create service account (NAME) command. This creates a service account in the current namespace. <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#bootstrap-tokens">refrence to kubernetes docs</a>
 
-### Setup up serviceaccount token, role, role binding with terraform
+### Setup up serviceaccount token, role, and role binding with Terraform
 
 In your existing Terraform IaC folder used for your new EKS cluster, create a new file named **argocd.tf** and add the following codes.
 
@@ -134,19 +134,19 @@ resource "aws_ssm_parameter" "gitops-argocd-serverurl" {
 }
 ```
 
-The above terraform code creates K8s ServiceAccounts, K8s secret off the ServiceAccounts, Role, and RoleBindings in the new kubernetes cluster you want to add to the existing argocd instance.
+The above terraform code creates K8s ServiceAccounts, K8s secret off the ServiceAccounts, Role, and RoleBindings in the new Kubernetes cluster you want to add to the existing argocd instance.
 
-And proceeded with retrieving the K8s secret you've just created, so we can extract the serviceaccount token, kubernetes CA(Cluster Authority) cert, and also store the eks cluster endpoint all together into AWS SSM Parameter Store as a SecureString.
+And proceeded with retrieving the K8s secret you've just created, so we can extract the service account token, Kubernetes CA(Cluster Authority) cert, and also store the EKS cluster endpoint all together into AWS SSM Parameter Store as a SecureString.
 
-You will still be making reference back to the serviceaccount token, CA cert and eks cluster endpoint you just stored in the Parameter Store.
+You will still be referring back to the service account token, CA cert and EKS cluster endpoint you just stored in the Parameter Store.
 
 :::note
-You can always revise the cluster role rules and streamline the access to your own specification, maybe you want the argocd to be able to deploy to the default namespace alone and more.
+You can always revise the cluster role rules and streamline the access to your specification, maybe you want the argocd to be able to deploy to the default namespace alone and more.
 :::
 
 ### Connect the new kubernetes cluster to the existing ArgoCD
 
-If you are already using terraform IaC to power your ArgoCD instance kubernetes cluster, then it can be more relieving to spin the connection up.
+If you are already using terraform IaC to power your ArgoCD instance Kubernetes cluster, then it can be more relieving to spin the connection up.
 
 All you have to do is create a new file named **argocd-connect.tf** paste the following codes, then run ```terraform plan && terraform apply -auto-approve```
 
@@ -337,7 +337,7 @@ resource "helm_release" "argocd" {
 ### Deploy your new cluster on the argocd instance
 
 
-Once everything is done and up, its time to add the new cluster to your argocd instance, using the below snippet, replace the server API and the cluster CA with your new cluster API endpoint and the cluster CA.
+Once everything is done and up, it's time to add the new cluster to your argocd instance, using the below snippet, replace the server API and the cluster CA with your new cluster API endpoint and the cluster CA.
 
 ```yaml title="argocd-instance-cluster.tf"
 resource "kubectl_manifest" "your-cluster-name" {
@@ -369,7 +369,7 @@ stringData:
 
 ```
 
-alternatively you can even make it more declarative by passing this values from your new cluster terraform IaC to the existing argocd instance terraform IaC, by storing the values in the AWS SSM Parameter Store, and retrieving it back in the argocd-instance-cluster.tf file.
+alternatively, you can even make it more declarative by passing these values from your new cluster terraform IaC to the existing argocd instance terraform IaC, by storing the values in the AWS SSM Parameter Store, and retrieving it back in the argocd-instance-cluster.tf file.
 
 That way you can replace your Cluster CA with  ```"caData": "${data.aws_ssm_parameter.cluster_CA.value}"``` and your cluster API endpoint with ```server: "${data.aws_ssm_parameter.cluster_api_endpoint.value}"``` and your cluster name with ```"clusterName": "${data.aws_ssm_parameter.cluster_name.value}"```
 
@@ -398,7 +398,7 @@ resource "aws_ssm_parameter" "cluster_name" {
 
 ### Add the IAM Assumable role to the aws-auth configmap in the new cluster
 
-Now you have to add the IAM Assume role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth configmap of the new cluster.
+Now you have to add the IAM Assume role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth config map of the new cluster.
 
 ```yaml title="argocd-setup-on-new-cluster.tf"
 resource "kubernetes_config_map" "aws_auth" {
@@ -417,7 +417,7 @@ EOF
   }
 }
 ```
-Thats it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
+That's it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
 
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 

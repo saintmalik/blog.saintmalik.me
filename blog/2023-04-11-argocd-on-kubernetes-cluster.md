@@ -12,20 +12,20 @@ tags: [argocd, gitops, terraform, kubernetes]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-There are many tools for handling complex architecture of deploying changes of your applications from the build stage to your cluster, most times the term and process of archiving this is called GitOps only if github is being used as the single source of truth in the scenerio.
+There are many tools for handling complex architecture of deploying changes of your applications from the build stage to your cluster, most times the term and process of archiving this is called GitOps only if GitHub is being used as the single source of truth in the scenario.
 <!--truncate-->
-And out of many of these tools, ArgoCD is one among the best that you can use, its also open source, and thats what i am are writing about here.
+And out of many of these tools, ArgoCD is one of the best that you can use, it's also open source, and that's what I am writing about here.
 
 ## Prerequisites:
-- A Running kubernetes Cluster provisioned using terraform
-- Kubectl installed and your kubeconfig file is set too(~/.kube/config).
-- Your deployments yaml file in your github repository, you can git clone mine, <a href="https://github.com/saintmalik/gitops-argocd" target="_blank">gitops-argocd</a>
+- A Running Kubernetes Cluster provisioned using terraform
+- Kubectl is installed and your kubeconfig file is set too(~/.kube/config).
+- Your deployments yaml file in your GitHub repository, you can git clone mine, <a href="https://github.com/saintmalik/gitops-argocd" target="_blank">gitops-argocd</a>
 
 ## Install Argo CD to your cluster
 
 Using the following terraform code, you can deploy argocd into your existing kubernetes cluster, but before you apply this code using ```terraform apply --auto-approve```, you need to create a folder named **argocd** and save the below configurations as **install.yaml** in the **argocd** folder you just created.
 
-The below argocd configurations is not good for production, because this isnt implementation for HA(High Availabilty), you can check <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/#high-availability" target="_blank">argocd HA docs</a> to set production ready config values.
+The below argocd configurations is not good for production, because this isn't implementation for HA(High Availability), you can check <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/#high-availability" target="_blank">argocd HA docs</a> to set production-ready config values.
 
 
 ```yaml title="install.yaml"
@@ -82,7 +82,7 @@ resource "null_resource" "del-argo-pass" {
 }
 ```
 
-Here is the terraform code for the variable used, also the provider used here, copy paste this into your **variable.tf** file and **provider.tf** file
+Here is the terraform code for the variable used, as well as the provider used here, copy and paste this into your **variable.tf** file and **provider.tf** file
 
 ```yaml title="variable.tf"
 variable "eks-name" {
@@ -108,11 +108,11 @@ terraform {
   }
 ```
 
-Once you have applied the above terraform codes, Argocd will be deployed in your **argocd** namespace and loadbalancer to access argocd server via UI, will be generated too, you can find it by running ```kubectl get svc -n argocd```
+Once you have applied the above terraform codes, Argocd will be deployed in your **argocd** namespace and load balancer to access argocd server via UI, will be generated too, you can find it by running ```kubectl get svc -n argocd```
 
-Also the generated password to access your argocd server will be stored in the **argocd-login.txt** file for you, and you will notice the **del-argo-pass null_resource** in the terraform code.
+Also, the generated password to access your argocd server will be stored in the **argocd-login.txt** file for you, and you will notice the **del-argo-pass null_resource** in the terraform code.
 
-What that section of the code does is that, after you have gotten the come along argocd server password, it's security wise to delete the secret from our cluster, its mentioned in the argocd docs too.
+What that section of the code does is that, after you have gotten the come-along argocd server password, it's security-wise to delete the secret from our cluster, it's mentioned in the argocd docs too.
 
 ### Argo CD Application
 
@@ -165,7 +165,7 @@ For those curious about what the above configuration does, here is the explanati
             selfHeal: true //auto override any manual changes made by devs or other people with cluster access
 ```
 
-If everything goes well, you should see that your application will be synced and deployed in some minutes, but our's didnt, this is because i am using a private repository and this is the error i am getting.
+If everything goes well, you should see that your application will be synced and deployed in minutes, but our's didn't, this is because I am using a private repository and this is the error I am getting.
 
 ```yaml
 ComparisonError
@@ -178,19 +178,13 @@ rpc error: code = Unknown desc = error creating SSH agent: "SSH agent requested 
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-error.jpg`} alt="Okay, thats all"/>
 </picture>
 
-So lets fix this.
+So let's fix this.
 
-## Connect Argocd with private repo declaratively
-
-### 👉 Step 1 - Generate ssh keypairs using terraform
-
-
-
-## Connect Argocd with private repo manually
+## Connect Argocd with private repo manually or declaratively
 
 ### 👉 Step 1 - Generate ssh keypairs
 
-You will need to generate a passwordless ssh keypairs, you can use either ```-P ""```, or using ```-N ''``` by, leaving the strings empty it will create our keypairs without need for cli interaction.
+You will need to generate a passwordless SSH key pair, you can use either ```-P ""```, or using ```-N ''``` by, leaving the strings empty it will create our keypairs without the need for CLI interaction.
 
 ```yaml
 ssh-keygen -t ed25519 -C blog.saintmalik.me -N '' -f argo
@@ -201,11 +195,11 @@ ssh-keygen -t ed25519 -C blog.saintmalik.me -N '' -f argo
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-ssh-keypairs.jpg`} alt="Okay, thats all"/>
 </picture>
 
-This will generate two file for you, ```argo``` which holds the private ssh key and ```argo.pub``` which holds the public ssh key
+This will generate two files for you, ```argo``` which holds the private ssh key and ```argo.pub``` which holds the public ssh key
 
 ### 👉 Step 2 - Add the ssh public key to your repository
 
-Now goto your github repository settings and navigate to the **Deploy Keys** and click **Add deploy key** to add the public ssh key you generated earlier, its inside the **argo.pub** file.
+Now go to your GitHub repository settings and navigate to the **Deploy Keys** and click **Add deploy key** to add the public SSH key you generated earlier, it's inside the **argo.pub** file.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/add-deploy-key-argocd.webp`} alt="Okay, thats all"/>
@@ -221,7 +215,7 @@ Now goto your github repository settings and navigate to the **Deploy Keys** and
 
 ### 👉 Step 3 - Configure and connect your private repo
 
-Now that you have added the private key to your repository, its time for us to add the public key to your argocd server, so click the **settings** at the sidebar and hit the **CONNECT REPO** button and it should bring a screen just like the below image.
+Now that you have added the private key to your repository, it's time for us to add the public key to your argocd server, so click the **settings** at the sidebar and hit the **CONNECT REPO** button and it should bring a screen just like the below image.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connect-ssh-config.webp`} alt="Okay, thats all"/>
@@ -229,7 +223,7 @@ Now that you have added the private key to your repository, its time for us to a
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connect-ssh-config.jpg`} alt="Okay, thats all"/>
 </picture>
 
-This is where you will add the private ssh key from the ```argo``` file you generated earlier, the **repository URL** should be added too in the format same as the one you are seeing in the screenshot and the Project selection should be ```default```.
+This is where you will add the private SSH key from the ```argo``` file you generated earlier, the **repository URL** should be added too in the format same as the one you are seeing in the screenshot and the Project selection should be ```default```.
 
 When you are done with the configuration, click on the **CONNECT** button and you should see a success message just like this.
 
@@ -261,7 +255,7 @@ Only YAML files available in the **dev** folder of our repository will be deploy
 
 ### 👉 Step 4 - Testing to see if everything works
 
-So to confirm if all you have done works well, you can now alter the image in our deployment yaml file from our github repository, so i will edit the yaml file from github now
+So to confirm if all you have done works well, you can now alter the image in our deployment yaml file from our GitHub repository, so I will edit the yaml file from Github now
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/make-changes.webp`} alt="Okay, thats all"/>
@@ -269,7 +263,7 @@ So to confirm if all you have done works well, you can now alter the image in ou
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/make-changes.jpg`} alt="Okay, thats all"/>
 </picture>
 
-So i have changed the nginx image tag from _nginx:1.14.2_ to _nginx:latest_, so once i commit the changes, you can see it getting deployed real time.
+So I have changed the nginx image tag from _nginx:1.14.2_ to _nginx:latest_, so once I commit the changes, you can see it getting deployed real-time.
 
 And here it is, it got deployed automatically, you see it created another replica and its deploying the new update and has terminated the existing pod created.
 
@@ -309,9 +303,9 @@ And here it is, it got deployed automatically, you see it created another replic
 </picture> -->
 
 ### Bonus step
-You can also automate both step 2 and 3 using terraform, using terraform you can add the public key to your repository and also add the private key to your argocd server.
+You can also automate both steps 2 and 3 using Terraform, using terraform you can add the public key to your repository and also add the private key to your argocd server.
 
-the catch here is that you need to add the github provider to your terraform code which also requires you to create a github token.
+the catch here is that you need to add the GitHub provider to your Terraform code which also requires you to create a GitHub token.
 
 ```yaml title="provider.tf"
 terraform {
@@ -358,9 +352,9 @@ resource "kubernetes_secret_v1" "ssh_key" {
 }
 ```
 
-Additionlly, for faster syncing of your argocd deployment quicker when there you make a new commit, you can add a webhook to your repository to trigger argocd to sync your application when there is a new commit.
+Additionally, for faster syncing of your argocd deployment quicker when you make a new commit, you can add a webhook to your repository to trigger argocd to sync your application when there is a new commit.
 
-This will help you avoid the 3 minutes wait time for argocd to sync your application.
+This will help you avoid the 3-minute wait time for argocd to sync your application.
 
 ```yaml title="argocd.tf"
 data "kubernetes_service" "argocd_server" {
@@ -385,9 +379,9 @@ resource "github_repository_webhook" "argocd" {
 }
 ```
 
-Well, that's it, folks! you have just learnt how to deploy argocd into your existing cluster that is created with terraform from the get start, likewise how to deploy your application on argocd and how to connect private repo with argocd.
+Well, that's it, folks! you have just learned how to deploy argocd into your existing cluster that is created with terraform from the get start, likewise how to deploy your application on argocd and how to connect private repo with argocd.
 
-If you encounter some issues in the process, here is my curated <a href="https://blog.saintmalik.me/docs/argocd-related-issues/" target="_blank">argocd issues</a>, you can look into it.
+If you encounter some issues in the process, here are my curated <a href="https://blog.saintmalik.me/docs/argocd-related-issues/" target="_blank">argocd issues</a>, you can look into it.
 
 Till next time ✌️
 

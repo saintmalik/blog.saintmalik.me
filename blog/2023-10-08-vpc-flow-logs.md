@@ -170,7 +170,7 @@ Then you can start running different queries to get more insights about the log,
 ```
 SELECT * FROM vpc_appsec_flow_logs WHERE destinationaddress='%172.24%';
 ```
-To filter traffics hitting service with port 6379, you will run the folowing query
+To filter traffic hitting service with port 6379, you will run the folowing query
 
 ```
 SELECT * FROM vpc_appsec_flow_logs WHERE destinationport=6379;
@@ -182,7 +182,7 @@ SELECT * FROM vpc_appsec_flow_logs WHERE destinationport=6379;
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-queries.jpg`} alt="athena queries"/>
 </picture>
 
-That's it folks, the more query you can craft the better the insights you will have about what's happening at the network traffic level across your VPCs.
+That's it folks, the more queries you can craft the better the insights you will have about what's happening at the network traffic level across your VPCs.
 
 I hope you find this piece insightful and helpful.
 

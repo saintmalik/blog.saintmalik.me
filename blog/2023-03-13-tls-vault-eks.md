@@ -18,11 +18,11 @@ When you are preparing your vault environment for production, you would want to 
 
 To make sure communications within your vault and its replicas are encrypted and secure if you have the HA(High Availability) on.
 
-In this guide, I will work you through the process for those using vault on eks,  let's jump into it
+In this guide, I will work you through the process for those using Vault on EKS,  let's jump into it
 
 ## Prerequisites
 
-You have your eks cluster up and you have installed vault, you have kubectl and OpenSSL installed on your local environment.
+You have your EKS cluster up and you have installed Vault, you have kubectl and OpenSSL installed on your local environment.
 
 ## Creating the TLS Certificate
 
@@ -34,7 +34,7 @@ openssl genrsa -out vault.key 2048
 
 The above command will create an RSA private key for you.
 
-2. You have to prepare a the CSR( Certificate Signing Request) configurations, here you put all the important vault DNS
+2. You have to prepare the CSR( Certificate Signing Request) configurations, here you put all the important vault DNS
 ```
  cat > vault-csr.conf <<EOF
 [req]
@@ -70,7 +70,7 @@ openssl req -new -key vault.key -out vault.csr -config vault-csr.conf
 
 4. Now that you have the CSR created, you have to issue it to EKS, so you can generate and sign your vault certificates using EKS CA(Certificate Authority).
 
-Create the csr yaml file with the following command
+Create the CSR yaml file with the following command
 
 ```yaml
 cat <<EOF >vault-csr.yaml
@@ -92,7 +92,7 @@ Notice the signerName we are using here is ```beta.eks.amazonaws.com/app-serving
 
 Yes, this is because from <a href="https://docs.aws.amazon.com/eks/latest/userguide/cert-signing.html" target="_blank">EKS v1.22 or later</a>, you have to use a custom signer, else you would see that your CSR would be approved but not signed.
 
-5. It's time to apply the CSR yaml file to eks by running the following command
+5. It's time to apply the CSR yaml file to EKS by running the following command
 
 ```
 kubectl apply -f vault-csr.yaml
@@ -152,7 +152,7 @@ kubectl create secret generic vault-tls \
    --from-file=vault.ca=vault.ca
 ```
 
-12. if the certs tls secret creation goes well, time to mount them back into your vault override configurations.
+12. if the certs TLS secret creation goes well, time to mount them back into your vault override configurations.
 
 ```yaml
 global:

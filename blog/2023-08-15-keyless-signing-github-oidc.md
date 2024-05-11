@@ -9,7 +9,7 @@ tags: [appsec, container security, devsecops]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-In my past article about <a href="https://blog.saintmalik.me/signing-container-images-for-trust-assurance/" target="_blank">signing container images</a>, got some comments which led me to digging about keyless signing of container images.
+In my past article about <a href="https://blog.saintmalik.me/signing-container-images-for-trust-assurance/" target="_blank">signing container images</a>, got some comments which led me to dig into the keyless signing of container images.
 
 <picture>
 <a href="https://x.com/1azunna">
@@ -27,11 +27,11 @@ You will be walked through the process of keyless signing of container images us
 - GitHub Account
 - Knowledge about GitHub Action
 
-So Lets jump into it;
+So Let's jump into it;
 
-### 👉 How does the keyless signing works?
+### 👉 How does the keyless signing work?
 
-keyless signing works by verifying the signer's identity by using identity providers like Google, Email and GitHub and it puts the signers identity into the artifact signing certificate.
+keyless signing works by verifying the signer's identity by using identity providers like Google, Email and GitHub and it puts the signer's identity into the artifact signing certificate.
 
 When the signing is done, the signing certificate gets thrown away after 10 minutes, and the only metadata from the whole act is the public key stored inside the Rekor tlog.
 
@@ -39,15 +39,15 @@ When the signing is done, the signing certificate gets thrown away after 10 minu
 
  - <u>And fulcio</u>: on the other hand is a free code signing certificate authority based on an OpenID Connect Email address, Fulcio signs X.509 certificates valid for 10 minutes.
 
-- <u>Rekor</u>: also known as transparency log that holds metadata generated within a software project’s supply chain signing and allows other users of the software to query the logs to see if the signature is valid and signed by the authorized software owners.
+- <u>Rekor</u>: also known as a transparency log that holds metadata generated within a software project’s supply chain signing and allows other users of the software to query the logs to see if the signature is valid and signed by the authorized software owners.
 
-You can host your personal rekor instance instead of using the public one if your container images is private and you dont want to have it uploaded to public sigstore rekor instance.
+You can host your private rekor instance instead of using the public one if your container images are private and you don't want to have it uploaded to the public sigstore rekor instance.
 
 ### 👉 Keyless Signing of Container image with GitHub Actions
 
-You need to create a GitHub Action YAML file named **keyless.yaml** in the your github repository in the folder path **.github/workflows** and write the following syntaxs in it.
+You need to create a GitHub Action YAML file named **keyless.**yaml** in your GitHub repository in the folder path **.github/workflows** and write the following syntax in it.
 
-You have to start with the permmision section, the workflow will be needing the following permissions.
+You have to start with the permission section, the workflow will need the following permissions.
 
 ```yaml title=".github/workflows/keyless.yaml"
 name: keyless signing container images
@@ -62,7 +62,7 @@ jobs:
 
 ```
 
-The ```id-token: write``` enables the GitHub Actions OIDC tokens for your workflow, so that way Fulcio will be able to do it's job without needing you to hit the auth verification url manually to select the OIDC method you want to use.
+The ```id-token: write``` enables the GitHub Actions OIDC tokens for your workflow, so that way Fulcio will be able to do its job without needing you to hit the auth verification URL manually to select the OIDC method you want to use.
 
 You still have to be care and make sure the permission isnt available on the pull request based run for that action, you can read more from the <a href="https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#updating-your-actions-for-oidc" target="_blank">github security hardening</a>
 
@@ -81,7 +81,7 @@ RUN apk update
 RUN apk add git
 ```
 
-So here is the actions to build the container image from the dockerfile and push the container image to a docker registry
+So here are the actions to build the container image from the Dockerfile and push the container image to a Docker registry
 
 ```yaml title=".github/workflows/keyless.yaml"
     steps:
@@ -100,20 +100,11 @@ So here is the actions to build the container image from the dockerfile and push
           docker push ttl.sh/${IMAGE_TAG}:1h
 ```
 
-in the above workflow, i am using the ttl.sh container repositories which is an Anonymous & ephemeral Docker image registry, you can always use any container repository you want.
+in the above workflow, I am using the <a href="https://ttl.sh" target="_blank">ttl.sh</a> container repositories which is an Anonymous & ephemeral Docker image registry, you can always use any container repository you want.
 
-Next step in the workflow is getting the image digest of the container image built in the above step using the below actions in your workflow.
+The next step in the workflow is getting the image digest of the container image built in the above step using the below actions in your workflow.
 
-```yaml title=".github/workflows/keyless.yaml"
-      - name: Get image digest
-        env:
-          IMAGE_TAG: signed-test-${{ steps.uuid.outputs.sha_short }}
-        id: digest
-        run: |
-          echo "image_sha=$(docker inspect --format='{{index .RepoDigests 0}}' ttl.sh/${IMAGE_TAG}:1h)" >> $GITHUB_OUTPUT
-```
-
-Next step in your workflow is installing Cosign, add the following YAML config in your workflow
+now you have to install Cosign, add the following YAML config in your workflow
 
 ```yaml title=".github/workflows/keyless.yaml"
       - name: Install cosign
@@ -129,9 +120,9 @@ The next step is the most important in our workflow, signing the container image
         run: |
           cosign sign --yes --rekor-url "https://rekor.sigstore.dev/" ${{ steps.digest.outputs.image_sha }}
 ```
-The ```${{ steps.digest.outputs.image_sha }}``` is the output of the step where you ran the actions to grab your container image digest, you will also notice i did specify the ```--rekor-url``` flag, this is needed for when you have your own private rekor instance.
+The ```${{ steps.digest.outputs.image_sha }}``` is the output of the step where you ran the actions to grab your container image digest, you will also notice I did specify the ```--rekor-url``` flag, this is needed for when you have your private rekor instance.
 
-So its a must to set the rekor-url and fulcio-url flag if you have hosted your own private rekor and fulcio server.
+So it's a must to set the rekor-url and fulcio-url flag if you have hosted your own private rekor and fulcio server.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-actions-keyless.webp`} alt="github-actions-keyless"/>
@@ -151,7 +142,7 @@ If everything goes well, your signing workflow tlog output should look just like
 
 #### Verifying
 
-Now its time to verify and enforce that only verified image are used in our environments, to verify your just built container image.
+Now it's time to verify and enforce that only verified images are used in our environments, to verify your just-built container image.
 
 Run the following cosign verify command on your local system.
 
@@ -159,9 +150,9 @@ Run the following cosign verify command on your local system.
 cosign verify  --rekor-url "https://rekor.sigstore.dev/" ttl.sh/signed-test-89b280e@sha256:9cbba3d51f93e5ccaea502009a72bfb88985cc9c179982574f012394f45edd4d --certificate-identity "https://github.com/your-github-username/your-github-repo.github/workflows/keyless.yaml@refs/heads/main" --certificate-oidc-issuer "https://token.actions.githubusercontent.com" | jq .
 ```
 
-Replace **ttl.sh/signed-test-89b280e@sha256:9cbba3d51f93e5ccaea502009a72bfb88985cc9c179982574f012394f45edd4d** with your own container image URL, likewise the **your-github-username** with your github username and **your-github-repo** with your own repo name.
+Replace **ttl.sh/signed-test-89b280e@sha256:9cbba3d51f93e5ccaea502009a72bfb88985cc9c179982574f012394f45edd4d** with your container image URL, likewise **your-github-username** with your github username and **your-github-repo** with your repo name.
 
-Or better still run it in your github actions workflow.
+Or better still run it in your GitHub actions workflow.
 
 ```yaml title=".github/workflows/keyless.yaml"
       - name: Verify the image signing
@@ -171,45 +162,7 @@ Or better still run it in your github actions workflow.
 
 And your output should look something like this.
 
-```bash title="Output"
-Verification for ttl.sh/signed-test-89b280e@sha256:9cbba3d51f93e5ccaea502009a72bfb88985cc9c179982574f012394f45edd4d --
-The following checks were performed on each of these signatures:
-  - The cosign claims were validated
-  - Existence of the claims in the transparency log was verified offline
-  - The code-signing certificate was verified using trusted certificate authority certificates
-[
-  {
-    "critical": {
-      "identity": {
-        "docker-reference": "ttl.sh/signed-test-89b280e"
-      },
-      "image": {
-        "docker-manifest-digest": "sha256:9cbba3d51f93e5ccaea502009a72bfb88985cc9c179982574f012394f45edd4d"
-      },
-      "type": "cosign container image signature"
-    },
-    "optional": {
-      "Bundle": {
-        "SignedEntryTimestamp": "MEUCIQCU2iiGHGpGn4F5Z052N6E3tGDe006msAaFfWNYC0YvnQIgePYnhb/5wIL+0ZtKgAaFTS3lzSmnA9eEWxHENc7Hgy4=",
-        "Payload": {
-          "body": "xxxxxxx",
-          "integratedTime": 1692204473,
-          "logIndex": 31528445,
-          "logID": "c0d23d6ad406973f9559f3ba2d1ca01f84147d8ffc5b8445c224f98b9591801d"
-        }
-      },
-      "Issuer": "https://token.actions.githubusercontent.com",
-      "Subject": "https://github.com/saintmalik/sign-container-images/.github/workflows/keyless.yaml@refs/heads/main",
-      "githubWorkflowName": "keyless signing container images",
-      "githubWorkflowRef": "refs/heads/main",
-      "githubWorkflowRepository": "saintmalik/sign-container-images",
-      "githubWorkflowSha": "89b280e04139b13a002712574c76d09ffdba3d67",
-      "githubWorkflowTrigger": "push"
-    }
-  }
-]
-```
-And your final workflow should look like this
+Your final workflow should look like this
 
 ```yaml title=".github/workflows/keyless.yaml"
 name: keyless signing container images
@@ -259,11 +212,11 @@ jobs:
 ```
 #### Enforce Policy
 
-Enforcing the policy of using only signed container image can be done at any level, you can enforce it at the gitops level using OPA, making sure only signed image makes it through to your gitops repo or even using <a href="https://docs.sigstore.dev/policy-controller/overview/" target="_blank">Kubernetes Policy Controller</a> for  the Kubernetes users.
+Enforcing the policy of using only signed container images can be done at any level, you can enforce it at the GitOps level using OPA, making sure only signed image makes it through to your GitOps repo or even using <a href="https://docs.sigstore.dev/policy-controller/overview/" target="_blank">Kubernetes Policy Controller</a> for the Kubernetes users.
 
-I prefer <a href="https://kyverno.io/policies/" target="_blank">kyverno</a> though, you can simply enforce a cluster wide policy to make sure in whatever namespace a deployement is, if the image matches the one you are enforcing the policy for.
+I prefer <a href="https://kyverno.io/policies/" target="_blank">kyverno</a> though, you can simply enforce a cluster-wide policy to make sure in whatever namespace a deployment is, the image matches the one you are enforcing the policy for.
 
-It must check if it's signed based on the attestors you've given it, else don't allow the deployment make it through, here is a sample.
+It must check if it's signed based on the attestors you've given it, else don't allow the deployment to make it through, here is a sample.
 
 ```yaml title="signed-image-deployment.yaml"
 apiVersion: kyverno.io/v1
@@ -319,7 +272,7 @@ spec:
         name: public-keys
 ```
 
-Well, that's it folks! I hope you find this piece insightful and helpful.
+Well, that's it, folks! I hope you find this piece insightful and helpful.
 
 Till next time ✌️
 
