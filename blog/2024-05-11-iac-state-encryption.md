@@ -136,7 +136,7 @@ But if you are using AWS S3 as your state backend, you can just go view your sta
 </picture>
 </Figure>
 
-## Enabling State and Plan Encryption For Existing Project
+## Enabling State and Plan Encryption For New Project
 
 If you are starting a new project, you can just add the encryption syntax to your provider block, and you are good to go. nothing much to do here.
 
