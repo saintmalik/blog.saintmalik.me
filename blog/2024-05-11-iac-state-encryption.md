@@ -2,8 +2,8 @@
 slug: iac-security-with-state-file-encryption
 title: Enhanced IaC Security with State File Encryption Using OpenTofu
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vamos.jpeg
-tags: [aws, eks, containers]
+image: https://saintmalikme.mo.cloudinary.net/bgimg/encryption.webp
+tags: [IaC, opentofu, encryption]
 ---
 
 import Figure from '../src/components/Figure';
