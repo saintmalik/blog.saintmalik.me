@@ -452,9 +452,9 @@ You can streamline your permission based on your usecase also, this is just a sn
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.webp`} alt="Cloudflare API Token Permission"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.png`} alt="Cloudflare API Token Permission"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.png`} alt="Cloudflare API Token Permission"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.webp`} alt="Cloudflare API Token Permission"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare API Token Permission</p>
 </Figure>
