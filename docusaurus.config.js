@@ -56,7 +56,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://docs.google.com/document/d/1q0NQV-D_HZPc92cVaLe3ojAZCm_1l6Eb6duu6l7ddpE/edit?usp=sharing',
+          href: 'https://bit.ly/AbdulmalikSalawuResume',
           label: 'Resume',
           position: 'right',
         },
@@ -74,7 +74,7 @@ module.exports = {
             },
             {
               label: 'Resume',
-              href: 'https://docs.google.com/document/d/1q0NQV-D_HZPc92cVaLe3ojAZCm_1l6Eb6duu6l7ddpE/edit?usp=sharing',
+              href: 'https://bit.ly/AbdulmalikSalawuResume',
             },
       ],
       copyright: `Last updated on ${new Date().toDateString()}`,
