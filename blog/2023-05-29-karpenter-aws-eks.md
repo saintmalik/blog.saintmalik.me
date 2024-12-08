@@ -115,7 +115,7 @@ EOF
 }
 ```
 
-Quick heads up: Don't forget to swap out 777XXXX with your AWS account ID and US-EAST-2 with your region. The ${module.eks.cluster_name} pulls your cluster name from the EKS module - if you're not using the module, just put your cluster name directly.
+Quick heads up: Don't forget to swap out ``777XXXX`` with your AWS account ID and ``US-EAST-2`` with your region. The ``${module.eks.cluster_name}`` pulls your cluster name from the EKS module - if you're not using the module, just put your cluster name directly.
 
 ### 👉 Step 2: Create Karpenter EC2 Instance Profile
 
@@ -170,7 +170,7 @@ resource "helm_release" "karpenter" {
   cleanup_on_fail = true
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.karpenter_irsa_role.iam_role_arn
+    value = module.karpenter_irsa_role.iam_role_arn #here we refrenced the IRSA ARN created in setp 4
   }
   set {
     name  = "replicas"
@@ -245,7 +245,6 @@ And here is **NodeClasses**, NodeClasses Dictates to the NodePools which subnets
 If a private subnet is declared in the ```subnetSelectorTerms```, this means the nodes will be created in the private subnet, likewise the subnet Security Group, head over to the docs on <a href="https://karpenter.sh/docs/concepts/nodeclasses/" target="_blank">NodeClasses</a> to read more about node classes options.
 
 ```yaml title="karpenter.tf"
-
 data "aws_ami" "eks_al2023" {
   most_recent = true
   owners      = ["amazon"]
@@ -255,13 +254,11 @@ data "aws_ami" "eks_al2023" {
     values = ["amazon-eks-node-al2023-x86_64-standard-1.31-*"]
   }
 }
-
 locals {
   ami_name_parts  = split("-", data.aws_ami.eks_al2023.name)
   version_part    = element(local.ami_name_parts, length(local.ami_name_parts) - 1)
   latest_date_tag = substr(local.version_part, 1, 8)
 }
-
 resource "kubectl_manifest" "karpenter_nodeclass_template" {
   yaml_body = <<-YAML
 apiVersion: karpenter.k8s.aws/v1
