@@ -13,9 +13,9 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-You are finding ways to autoscale up and down your nodes in the Kubernetes cluster, and figuring out which autoscaler is the best can be hard since there are many options, which one should you go for?
+Struggling to pick the right autoscaler for your Kubernetes cluster? Trust me, I get it. With all the options out there, choosing between Cluster Autoscaler, Karpenter, and others can be overwhelming.
 
-Well, I would advise going for Karpenter instead of the native Cluster Autoscaler, both projects are sponsored by the AWS team though, but Karpenter is fast when it comes to scaling up and scaling down the nodes.
+Here's the deal - while both Cluster Autoscaler and Karpenter are backed by AWS, I've found Karpenter to be consistently faster at both scaling up and down. Let me show you how to set it up.
 <!--truncate-->
 
 ## Prerequisites
@@ -115,7 +115,7 @@ EOF
 }
 ```
 
-Replace ```777XXXX``` with your IAM User ID and ```US-EAST-2``` with whichever region you are using, while the cluster ```${module.eks.cluster_name}``` value we passed in, just adds your cluster name from the EKS module, you can replace it with your cluster name straight up if you don't use the EKS module to provision your EKS cluster.
+Quick heads up: Don't forget to swap out 777XXXX with your AWS account ID and US-EAST-2 with your region. The ${module.eks.cluster_name} pulls your cluster name from the EKS module - if you're not using the module, just put your cluster name directly.
 
 ### 👉 Step 2: Create Karpenter EC2 Instance Profile
 
@@ -165,27 +165,35 @@ resource "helm_release" "karpenter" {
   name            = "karpenter"
   chart           = "karpenter"
   repository      = "oci://public.ecr.aws/karpenter"
-  version         = "v0.33.0"
+  version         = "1.0.6"
   namespace       = "kube-system" #refrenced the namespaced we created in step 1
   cleanup_on_fail = true
   set {
-    name  = "serviceAccount.annotations.eks\\.amazonAWS\\.com/role-arn"
-    value = module.karpenter_irsa_role.iam_role_arn #here we refrenced the IRSA ARN created in setp 4
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.karpenter_irsa_role.iam_role_arn
   }
-
   set {
     name  = "replicas"
     value = "1"
   }
 
   set {
-    name  = "settings.aws.clusterName"
+    name  = "settings.clusterName"
     value = module.eks.cluster_name
   }
 
   set {
-    name  = "settings.AWS.clusterEndpoint"
+    name  = "settings.clusterEndpoint"
     value = module.eks.cluster_endpoint
+  }
+
+  set {
+    name  = "webhook.enabled"
+    value = "true"
+  }
+  set {
+    name  = "settings.batchMaxDuration"
+    value = "15s"
   }
 }
 ```
@@ -201,7 +209,7 @@ With the below nodepools, we are simply telling Karpenter to spin up an ON DEMAN
 ```yaml title="karpenter.tf"
 resource "kubectl_manifest" "nodepools" {
   yaml_body = <<-YAML
-apiVersion: karpenter.sh/v1beta1
+apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: default
@@ -209,9 +217,10 @@ spec:
   template:
     spec:
       nodeClassRef:
-        apiVersion: karpenter.k8s.aws/v1beta1
+        group: karpenter.k8s.aws
         kind: EC2NodeClass
         name: default
+      expireAfter: 720h
       requirements:
         - key: karpenter.sh/capacity-type
           operator: In
@@ -224,30 +233,57 @@ spec:
           values: [nano, micro, small, large]
   limits:
     cpu: 100
+  disruption:
+    consolidationPolicy: WhenEmptyOrUnderutilized
+    consolidateAfter: 1m
   YAML
 }
 ```
 
 And here is **NodeClasses**, NodeClasses Dictates to the NodePools which subnets, security groups, or amiFamily that would be attached to the nodes that the NodePools will be creating, i f the nodes be attached to a private subnet or public.
 
-If a private subnet is declared in the ```subnetSelector```, this means the nodes will be created in the private subnet, likewise the subnet Security Group, head over to the docs on <a href="https://karpenter.sh/docs/concepts/nodeclasses/" target="_blank">NodeClasses</a> to read more about node classes options.
+If a private subnet is declared in the ```subnetSelectorTerms```, this means the nodes will be created in the private subnet, likewise the subnet Security Group, head over to the docs on <a href="https://karpenter.sh/docs/concepts/nodeclasses/" target="_blank">NodeClasses</a> to read more about node classes options.
 
 ```yaml title="karpenter.tf"
-resource "kubectl_manifest" "karpenter_node_template" {
+
+data "aws_ami" "eks_al2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amazon-eks-node-al2023-x86_64-standard-1.31-*"]
+  }
+}
+
+locals {
+  ami_name_parts  = split("-", data.aws_ami.eks_al2023.name)
+  version_part    = element(local.ami_name_parts, length(local.ami_name_parts) - 1)
+  latest_date_tag = substr(local.version_part, 1, 8)
+}
+
+resource "kubectl_manifest" "karpenter_nodeclass_template" {
   yaml_body = <<-YAML
-apiVersion: karpenter.k8s.AWS/v1beta1
+apiVersion: karpenter.k8s.aws/v1
 kind: EC2NodeClass
 metadata:
   name: default
 spec:
-  amiFamily: AL2
-  securityGroupSelectorTerms:
-    - tags:
-        karpenter.sh/discovery: "YOUR-CLUSTER-NAME}"
+  amiFamily: AL2023
   subnetSelectorTerms:
-    - tags:
-        kubernetes.io/cluster/YOUR-CLUSTER-NAME}: "owned"
-  role: "YOUR EKS NODE IAM ROLLE"
+    - id: "REPLACE-YOUR-PRIVATE-EKS-SUBNETS"
+    - id: "REPLACE-YOUR-PRIVATE-EKS-SUBNETS"
+  securityGroupSelectorTerms:
+    - id: "REPLACE YOUR EKS NODE SECURITY GROUP ID"
+  role: "REPLACE YOUR EKS NODE IAM ROLE"
+  amiSelectorTerms:
+    - alias: al2023@v${local.latest_date_tag}
+  # instanceProfile:
+  metadataOptions:
+    httpEndpoint: enabled
+    httpProtocolIPv6: disabled
+    httpPutResponseHopLimit: 2
+    httpTokens: required
   YAML
 }
 ```

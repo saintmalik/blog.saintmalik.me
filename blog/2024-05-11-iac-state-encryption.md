@@ -3,7 +3,8 @@ slug: iac-security-with-state-file-encryption
 title: Enhanced IaC Security with State File Encryption Using OpenTofu
 authors: Abdulmalik
 image: https://saintmalikme.mo.cloudinary.net/bgimg/encryption.webp
-tags: [IaC, opentofu, encryption]
+tags: [IaC, opentofu, encryption, security, terraform, devops]
+description: Learn how to encrypt your OpenTofu state files using AWS KMS, GCP KMS, or PBKDF2. A practical guide for DevOps engineers looking to secure their infrastructure code.
 ---
 
 import Figure from '../src/components/Figure';
@@ -14,27 +15,29 @@ I must say you shouldn't bet against open-source software, even when Terraform w
 
 <!--truncate-->
 
-The community requested it, but it never came, but thanks to OpenTofu, the open-source fork of Terraform, you can now encrypt your IaC state and plan.
+Well, guess what? OpenTofu just changed the game.
 
-This is so great for security, especially when you have sensitive data in your state file, like secrets, passwords, and other sensitive data.
+You know those state files sitting in your S3 bucket with all your sensitive configs, API keys, and God knows what else is in plain text? Yeah, we can finally encrypt those bad boys.
 
-Wondering how we were handling secrets, API keys, and other sensitive data in our state file before now? haha, I wrote a guide on <a href="https://blog.saintmalik.me/secrets-in-iac-terraform/" target="_blank">Managing Secrets in Infrastructure As Code with Terraform</a>, you can check it out.
+(If you're wondering how we've been handling secrets up until now, check out my guide on <a href="https://blog.saintmalik.me/secrets-in-iac-terraform/" target="_blank">Managing Secrets in Infrastructure As Code with Terraform</a>.
 
-But now, we can encrypt our state file and plan using OpenTofu. Let's see how we can do that.
+## Getting Started with State Encryption
 
-For you to use the state and plan encryption, your IaC project must be using OpenTofu, if you are still using Terraform, then follow the <a href="https://opentofu.org/docs/intro/migration/" target="_blank">Opentofu migration guide</a> to migrate.
+First things first - you need to be using OpenTofu for this. Still on Terraform? No worries - just follow the <a href="https://opentofu.org/docs/intro/migration/" target="_blank">Opentofu migration guide</a>. It's pretty straightforward, I promise.
 
-If you are using OpenTofu, then you are good to go. Let's see how we can enable state and plan encryption.
+## For Existing Projects: The Migration Path
 
-## Enabling State and Plan Encryption For Existing Project
+Let's say you've got an existing project in OpenTofu with unencrypted state files. Here's how we fix that:
 
-I want to believe you have an existing project, and you want to enable state and plan encryption, your project state is unencrypted but now you are about to encrypt it
+1. First, you'll need an encryption key. OpenTofu supports four providers:
+   - AWS KMS (what I'm using)
+   - GCP KMS
+   - PBKDF2
+   - OpenBao (the open-source fork of Vault)
 
-1. First, you need to create a new key, which will be used to encrypt your state and plan, at the moment OpenTofu supports just four key providers, AWS KMS, GCP KMS, PBKDF2 and OpenBao (a fork of Hashicorp Vault).
+If you're using AWS like me, head over to KMS and create a key. You'll need that key ID that looks something like `0xxxxxx0-xxxx-xxxxx-xxxx-xexxxxxx`.
 
-I will be using AWS KMS here, so if you are using AWS KMS too, head over to your console and create a new key, if you are using GCP KMS, do the same, and if you are using PBKDF2 or OpenBao, you can skip this step.
-
-2. Once you have created your KMS Key, you need to get the key ID, it looks something like this `0xxxxxx0-xxxx-xxxxx-xxxx-xexxxxxx`, if you have the KMS key ID, add the following syntax to your OpenTofu provider block, just like this.
+2. Here's the tricky part - we need to tell OpenTofu to gradually migrate from unencrypted to encrypted state. Add this to your provider block:
 
 ```hcl
 terraform {
@@ -68,21 +71,13 @@ terraform {
 }
 ```
 
-The first line after the encryption block is the unencrypted method, telling Opentofu that this project is yet to be encrypted but is about to.
-
-The second line is the key provider, which is the key provider you are using, in my case, it's AWS KMS, so I added `key_provider "aws_kms" "basic"`, if you are using GCP KMS, you will have `key_provider "gcp_kms" "basic"`, if you are using PBKDF2, you will have `key_provider "pbkdf2" "basic"`, and if you are using OpenBao, you will have `key_provider "openbao" "basic"`.
+That `method "unencrypted" "migrate"` bit is crucial - it tells OpenTofu "hey, we're transitioning from unencrypted state here."
 
 You can see the `kms_key_id` and `region` in the code, replace the `kms_key_id` with your KMS key ID, and replace the `region` with your KMS key region.
 
-The next line is where you then declare the encryption method, at the time of writing, Opentofu supports just <a href="https://opentofu.org/docs/language/state/encryption/#methods" target="_blank">two methods</a>, **AES-GCM** for encryption and the **Unencrypted** method.
+3. Run `tofu init` followed by `tofu plan && tofu apply -auto-approve`. Cross your fingers, and...
 
-The following line is where you then declare the state encryption and the method to be used for the encryption, then the fallback method which is crucial for the first time of enabling encryption.
-
-The same thing goes for the plan encryption, you declare the method to be used for the encryption, and the fallback method.
-
-Once you have added this to your provider block, you can then run `tofu init` to initialize your project, and then run `tofu plan && tofu apply -auto-approve` to see if everything is working fine.
-
-Once you have confirmed that everything is working fine, you have to modify the provider syntax to look like this.
+4. If everything worked, we can now lock it down. Update your config to:
 
 ```hcl
 terraform {
@@ -110,63 +105,41 @@ terraform {
 }
 ```
 
-In the syntax above, you can see that I have removed the `method "unencrypted" "migrate" {}` and the `fallback { method = method.unencrypted.migrate }`line, and I have added `enforced = true` to the state and plan block.
+Notice we removed the migration stuff and added `enforced = true`. Now OpenTofu won't even touch your state without proper encryption.
 
-This will enforce the encryption on your state and plan, so the next time you try to run `tofu plan` or `tofu apply` without the encryption key, it will fail.
+## Starting Fresh? Even Easier!
 
-You have to be careful and manage your KMS key properly, if you lose your key, you will lose your state and plan, and you will have to start all over again. So be careful.
+If you're starting a new project, just use that second config block from the start. No migration needed!
 
-Now that you are done how do you confirm if your state is truly encrypted? You can run `tofu state show -state=YOURSTATEFILE` to see the state file.
+## Did It Actually Work?
 
-But if you are using AWS S3 as your state backend, you can just go view your state file in the S3 bucket, and you will see that it's encrypted.
-
-<Figure>
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.webp`} alt="Opentofu Encrypted State File"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Opentofu Encrypted State File"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="OpenTofu Encrypted State File"/>
-</picture>
-<p style={{ color: 'green' }}>OpenTofu Encrypted State File</p>
-</Figure>
+Want to check if your state is really encrypted? If you're using S3 as your backend, just peek at the state file:
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.webp`} alt="Opentofu Non Encrypted State File"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Opentofu Non Encrypted State File"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="OpenTofu Non Encrypted State File"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.webp`} alt="Encrypted state file in S3"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
 </picture>
-<p style={{ color: 'green' }}>OpenTofu Non Encrypted State File</p>
+<p style={{ color: 'green' }}>Sweet, sweet encryption</p>
 </Figure>
 
-## Enabling State and Plan Encryption For New Project
+Compare that to an unencrypted state file:
 
-If you are starting a new project, you can just add the encryption syntax to your provider block, and you are good to go. nothing much to do here.
+<Figure>
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.webp`} alt="Unencrypted state file - yikes"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
+</picture>
+<p style={{ color: 'green' }}>Plain text state file - not great for security!</p>
+</Figure>
 
-```hcl
-terraform {
-  encryption {
-    key_provider "aws_kms" "basic" {
-      kms_key_id = "0xxxxxx0-xxxx-xxxxx-xxxx-xexxxxxx"
-      region     = "KMS KEY REGION"
-      key_spec   = "AES_256"
-    }
+## One Last Thing
 
-    method "aes_gcm" "method" {
-      keys = key_provider.aws_kms.basic
-    }
+Seriously - don't lose that KMS key. Back it up, document it, tattoo it on your arm if you have to. If you lose it, you're going to have a really bad day rebuilding your entire infrastructure from scratch.
 
-    state {
-      method = method.aes_gcm.method
-      enforced = true
-    }
-    plan {
-      method = method.aes_gcm.method
-      enforced = true
-    }
-  }
-    required_version = ">= 1.7.0"
-}
-```
+That's it! Shout out to the OpenTofu team for finally making this happen. Drop a comment if you run into any issues - I'm curious to hear how this works for different setups.
 
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 

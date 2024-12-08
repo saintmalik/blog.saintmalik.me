@@ -187,14 +187,14 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr
-  availability_zone       = "us-west-2a"
+  availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidr
-  availability_zone = "us-west-2a"
+  availability_zone = "us-east-1a"
 }
 ```
 
@@ -431,13 +431,42 @@ resource "cloudflare_record" "dns" {
 }
 ```
 
+And lastly before you run ``tofu plan && tofu apply --auto-approve`` you need to create cloudflare api token for the cloudflared provider in your provider.tf
+
+<Figure>
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.webp`} alt="Cloudflare API Token Creation"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
+</picture>
+<p style={{ color: 'green' }}>Cloudflare API Token Creation</p>
+</Figure>
+
+```hcl title="provider.tf"
+provider "cloudflare" {
+  api_token = "YOUR_CLOUDFLARE_TOKEN"
+}
+```
+
+You can streamline your permission based on your usecase also, this is just a snippet to help you see what it looks like
+
+<Figure>
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.webp`} alt="Cloudflare API Token Permission"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.png`} alt="Cloudflare API Token Permission"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permission.png`} alt="Cloudflare API Token Permission"/>
+</picture>
+<p style={{ color: 'green' }}>Cloudflare API Token Permission</p>
+</Figure>
+
+
 At the end of the day, here is what your final webapp should look like if you have warp turned on your devices.
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp=client.webp`} alt="Enabled Warp Client on Your Devices"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp=client.png`} alt="Enabled Warp Client on Your Devices"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp=client.png`} alt="Enabled Warp Client on Your Devices"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.webp`} alt="Enabled Warp Client on Your Devices"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
 </picture>
 <p style={{ color: 'green' }}>Enabled Warp Client on Your Devices</p>
 </Figure>
@@ -467,6 +496,13 @@ And since the use of warp client is made a requirement, if you dont have it turn
 By leveraging Cloudflare Zero Trust and Tunnels, we've created a secure, cost-effective way to deploy internal applications. The solution provides enterprise-grade security without the complexity of traditional VPN setups.
 
 Till next time, Peace be on you ✌️
+
+#### References
+- https://noise.getoto.net/2022/02/10/adding-a-casb-to-cloudflare-zero-trust/
+- https://blog.marcolancini.it/2024/blog-building-apprunner-ec2-cloudflare-zero-trust-access/
+- https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/deploy-tunnels/deployment-guides/aws/
+- https://zenn.dev/hiroe_orz17/articles/b028fdb5444ee0
+
 <br/>
 <h2>Comments</h2>
 <Giscus

@@ -12,25 +12,36 @@ You have your app deployed on an EC2 instance via nodes on EKS and this app need
 
 <!--truncate-->
 
-Originally, you would want to create an s3 IAM user with minimal policies to access the S3, now you have more responsibilities, having to worry about the secret keys, making sure it doesn't leak, making sure even if someone has access, there is a log or monitoring process to see if the key has been compromised.
+## The Problem with Traditional S3 Access
 
-But why bear all these responsibilities when your app can still do all it needs without the credential keys and just fall back to using IAM Role Access?
+Let's be real – managing AWS access keys is a pain. We've all been there:
+- Creating IAM users
+- Managing secret keys
+- Worrying about key rotation
+- Setting up leak detection
+- Monitoring for suspicious access
+- The constant anxiety about credentials showing up on GitHub 😅
 
-If you are working with EKS, it's pretty easy to set up IRSA (IAM Roles for Service Accounts), this way you can provision and rotate the IAM temporary credentials (called a Web Identity) which the Kubernetes ServiceAccount you've mounted into your node pods can use to call AWS APIs.
+But here's the thing: **you don't need any of that**. Enter IAM Roles for Service Accounts (IRSA) – your ticket to credential-free S3 access from EKS.
 
-## Prerequisite
+## What We're Building
 
-- Terraform provisioned EKS Cluster
+We'll set up a secure, credential-free connection between your NodeJS app running on EKS and an S3 bucket. The best part? It uses temporary credentials that rotate automatically. No more key management headaches!
+
+### Prerequisites
+- An EKS cluster (provisioned with Terraform)
+- Basic understanding of Kubernetes and AWS
+- Your favorite beverage ☕
 
 So Let's jump into it;
 
 ## Setting Up EKS IRSA for your NodeJs Pods
 
-### 👉 Step 1: You want to set up your S3 Access Policy
+### 👉 1. Create Your S3 Access Policy
 
-You can declare how you streamline your policy here,
+First up, we need to define what your app can actually do with S3. Here's a Terraform configuration that sets up the necessary permissions:
 
-```yaml title="keylessnodes3.tf"
+```hcl
 resource "aws_iam_policy" "s3eksnodejs-access" {
   name   = "s3eksnodejs"
   policy = <<EOF
@@ -44,8 +55,8 @@ resource "aws_iam_policy" "s3eksnodejs-access" {
                 "s3:*"
             ],
             "Resource": [
-                "arn:aws:s3:::YOURS3BUCKETNAME",
-                "arn:aws:s3:::YOURS3BUCKETNAME/*"
+                "arn:aws:s3:::your-bucket-name",
+                "arn:aws:s3:::your-bucket-name/*"
             ]
         }
     ]
@@ -54,11 +65,13 @@ EOF
 }
 ```
 
-### 👉 Step 2: Creating EKS IRSA,
+Pro tip: In production, you might want to narrow down those S3 permissions. The `s3:*` wildcard is great for testing but maybe a bit too permissive for prod!
 
-here, you will create the EKS IRSA by attaching the policy you created above alongside your EKS Open ID Connect, your nodeJS app namespace and the ServiceAccount you want to attach to your app pod.
+### 👉 2. Set Up IRSA
 
-```yaml title="keylessnodes3.tf"
+Now for the magic part – connecting EKS to IAM:
+
+```hcl title="keylessnodes3.tf"
 module "s3eksnodejs_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
@@ -71,17 +84,17 @@ module "s3eksnodejs_role" {
   oidc_providers = {
     ex = {
       provider_arn               = module.eks.oidc_provider_arn //YOUR EKS OIDC ARN
-      namespace_service_accounts = ["YOURAPPNAMESPACENAME:s3eksnodejs"]
+      namespace_service_accounts = ["your-namespace:s3eksnodejs"]
     }
   }
 }
 ```
 
-### 👉 Step 3: Creating your ServiceAccount
+### 👉 3. Create the Kubernetes Service Account
 
-You create your ServiceAccount with an annotation of the IAM Role you created above
+This is where we link everything together:
 
-```yaml title="keylessnodes3.tf"
+```hcl title="keylessnodes3.tf"
 resource "kubernetes_service_account_v1" "s3eksnodejs" {
   metadata {
     name      = "s3eksnodejs"
@@ -93,27 +106,40 @@ resource "kubernetes_service_account_v1" "s3eksnodejs" {
 }
 ```
 
-## Prepping your app and deploying to EKS
+## The Fun Part: Your NodeJS Code
 
+Here's where you'll see the real beauty of this setup. Remember your old S3 client code with all those credentials? Let's compare:
 
-### 👉 Step 4: Prep your code and remove the credentials
+### Before (The Old Way) 🙈
+```javascript title="app.js"
+const s3Client = new S3Client({
+  region: 'AWSREGION',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+```
 
-You can start by removing your codes that call for AWS credential keys.
+### After (The Better Way) 🚀
+```javascript title="nocredsapp.js"
+const s3Client = new S3Client({
+  region: 'AWSREGION',
+  // That's it. Really.
+});
+```
 
-Here is a sample of the usage with the aws-sdk/client-s3 v3. listing objects in your s3 using credential keys.
+Yep, that's all you need! The AWS SDK will automatically pick up the credentials from the pod's IAM role. Pretty neat, right?
 
-```js title="app.js"
+Here's a complete example that lists objects in your bucket:
+
+```javascript title="nocredsapp.js"
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 
 const s3Client = new S3Client({
   region: 'AWSREGION',
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
 });
 
-// Function to list objects (images) in an S3 bucket
 const listObjectsInBucket = async (bucketName) => {
   const params = {
     Bucket: bucketName
@@ -134,58 +160,25 @@ const listObjectsInBucket = async (bucketName) => {
   }
 };
 
-// Define your S3 bucket name
-const bucketName = 'YOURS3BUCKETNAME';
-
+const bucketName = 'your-bucket-name';
 listObjectsInBucket(bucketName);
 ```
 
-so what will your code look like when you remove the credentials you are calling from env?
+## The Final Touch: Update Your Deployment
 
-```js title="nocredsapp.js"
-const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
-
-const s3Client = new S3Client({
-  region: 'AWSREGION',
-});
-
-// Function to list objects (images) in an S3 bucket
-const listObjectsInBucket = async (bucketName) => {
-  const params = {
-    Bucket: bucketName
-  };
-
-  try {
-    const data = await s3Client.send(new ListObjectsV2Command(params));
-    if (data.Contents.length > 0) {
-      console.log("Objects in the bucket:");
-      data.Contents.forEach(obj => {
-        console.log(obj.Key);
-      });
-    } else {
-      console.log("The bucket is empty.");
-    }
-  } catch (error) {
-    console.error("Error listing objects:", error);
-  }
-};
-
-// Define your S3 bucket name
-const bucketName = 'YOURS3BUCKETNAME';
-
-listObjectsInBucket(bucketName);
-```
-
-That's it, now you are left with the responsibility of making sure your running pod for the app has the ServiceAccount with the IAM role mounted.
-
-Doing that isnt hard, in your existing YAML file, just add ```serviceAccountName: s3eksnodejs``` to the spec, just like the below example
+Don't forget to tell your pods to use the new service account! Add this ```serviceAccountName: s3eksnodejs``` to your deployment spec YAML:
 
 ```yaml title="deploy.yaml"
-    spec:
-      serviceAccountName: s3eksnodejs
-      containers:
-      - image: busybox
+spec:
+  serviceAccountName: s3eksnodejs
+  containers:
+  - name: your-app
+    image: your-image
 ```
+
+## Wrapping Up
+
+And there you have it! A secure, maintainable way to access S3 from your EKS pods without managing a single access key. Your DevOps team will thank you, your security team will love you, and you'll sleep better at night knowing there are no credentials to leak.
 
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 
