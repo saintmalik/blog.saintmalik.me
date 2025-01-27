@@ -10,6 +10,7 @@ openssl base64 < signing-key.keystore | tr -d '\n' | tee signing-key.keystore.ba
 
 base64 -d signing-key.keystore.base64.txt > signing-key.keystore  //decrypt
 
+
 so you want to use the playstore app signing and you want to upload your own key certificate, i mean the one you used in signing your android app via the build stage.
 
 run the following command to generate the certificate.pem from your keystore
