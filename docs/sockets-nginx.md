@@ -98,8 +98,8 @@ spec:
     - host: driverssocket.example.com
       http:
         paths:
-        - path: /
-          pathType: Prefix
+        - path: /(socket.io|ws)(/|$)(.*)
+          pathType: ImplementationSpecific
           backend:
             service:
               name: drivers-socketiiiing
