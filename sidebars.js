@@ -42,6 +42,7 @@
           "sockets-nginx",
           "signoz",
           "sops",
+          "squeeze-node"
         ],
       },
       {
