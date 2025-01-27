@@ -13,9 +13,9 @@ Like t4g.medium now, see the below screenshot, it can only allow 17 pods
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-node.webp`} alt="Default t4g.medium max-pods"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-node.png`} alt="Default t4g.medium max-pods"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-node.png`} alt="Default t4g.medium max-pods"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.webp`} alt="Default t4g.medium max-pods"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.png`} alt="Default t4g.medium max-pods"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.png`} alt="Default t4g.medium max-pods"/>
 </picture>
 <p style={{ color: 'green' }}>Default t4g.medium max-pods</p>
 </Figure>
