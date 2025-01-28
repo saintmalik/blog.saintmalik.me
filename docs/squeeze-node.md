@@ -73,9 +73,9 @@ I want to assume you provisioned your Elastic Kubernetes Cluster(EKS) with terra
     }
 ```
 
-After doing this, expect to run into IP exhaustion errors and more, check here to see how you can increase the IP address allocation.
+After doing this, expect to run into IP exhaustion errors and more, you can read how you can <a href="https://blog.saintmalik.me/eks-ip-outage/" target="_blank"> increase the IP address allocation</a> to solve the issue.
 
-Also keep in mind that because you have 2vcpu and 4GB memory doesnt mean you will be able you use that up to, there is something called reserved memory and vcpu allocation in EKS, and your choice of maximizing your EKS Node(compute) also affect the allocation.
+Also keep in mind that because you have 2vCPU and 4GB memory doesnt mean you will be able you use that up to, there is something called reserved memory and vcpu allocation in EKS, and your choice of maximizing your EKS Node(compute) also affect the allocation.
 
 So lets say your t4g.medium can take 17 pods by default, here is what the reserved memory looks like
 
