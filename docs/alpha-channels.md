@@ -3,7 +3,7 @@ title: 📝 Images can’t contain alpha channels or transparencies.
 ---
 import Giscus from "@giscus/react";
 
-The error ``Images can’t contain alpha channels or transparencies.`` experienced it while trying to update the screenshots of our app via appstore connect interface.
+The error ``Images can’t contain alpha channels or transparencies``, experienced it while trying to update the screenshots of our app via appstore connect interface.
 
 But using ImageMagick’s mogrify command, was able to resolve it
 
