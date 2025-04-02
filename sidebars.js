@@ -42,7 +42,8 @@
           "sockets-nginx",
           "signoz",
           "sops",
-          "squeeze-node"
+          "squeeze-node",
+          "alpha-channels"
         ],
       },
       {
