@@ -6,6 +6,12 @@ module.exports = {
       crossorigin: 'anonymous',
     },
   ],
+  plugins: [
+    [
+      "@gracefullight/docusaurus-plugin-microsoft-clarity",
+      { projectId: "rb5lzwkxst" },
+    ],
+  ],
   title: 'Abdulmalik',
   tagline: 'AppSec Engineer, DevSecOps, Security Engineer',
   url: 'https://blog.saintmalik.me',
