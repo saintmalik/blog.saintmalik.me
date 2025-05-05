@@ -61,11 +61,6 @@ module.exports = {
           label: 'Talks',
           position: 'right',
         },
-        {
-          href: 'https://bit.ly/AbdulmalikSalawuResume',
-          label: 'Resume',
-          position: 'right',
-        },
       ],
     },
     footer: {
@@ -77,10 +72,6 @@ module.exports = {
             {
               label: 'GitHub',
               href: 'https://github.com/saintmalik',
-            },
-            {
-              label: 'Resume',
-              href: 'https://bit.ly/AbdulmalikSalawuResume',
             },
       ],
       copyright: `Last updated on ${new Date().toDateString()}`,
