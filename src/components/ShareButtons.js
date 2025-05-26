@@ -1,34 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function ShareButtons({ title, url, blogProps }) {
   // Fallback to blogProps only if title or url are not provided
   const childrenProps = blogProps?.children?.props;
   const metadata = childrenProps?.metadata;
-  const finalTitle = blogProps?.children?.type?.metadata?.title || blogProps?.children?.type?.frontMatter?.title || 'Check this out!';
-  const permalink = url || metadata?.permalink || window?.location?.pathname || '';
+  const finalTitle = title || blogProps?.children?.type?.metadata?.title || blogProps?.children?.type?.frontMatter?.title || 'Check this out!';
+
+  // Use ExecutionEnvironment to safely access window
+  const permalink = url || metadata?.permalink || (ExecutionEnvironment.canUseDOM ? window.location.pathname : '') || '';
   const cleanPermalink = permalink.startsWith('/') ? permalink : `/${permalink}`;
   const finalUrl = url || `https://blog.saintmalik.me${cleanPermalink}`;
-
-//   // Debug logging (only in development)
-//   if (process.env.NODE_ENV !== 'production') {
-//     console.log('ShareButtons - Title:', finalTitle);
-//     console.log('ShareButtons - URL:', finalUrl);
-//     console.log('ShareButtons - BlogProps:', blogProps);
-//     console.log('ShareButtons - childrenProps:', childrenProps);
-//     console.log('Blog Title (frontMatter):', blogProps?.children?.type?.frontMatter?.title);
-//     console.log('Blog Title (metadata):', blogProps?.children?.type?.metadata?.title);
-//     console.log('ShareButtons - metadata:', metadata);
-//     console.log('ShareButtons - blogProps.children:', blogProps?.children);
-//   }
-
-  // Skip rendering if no valid title or URL
-//   if (!finalTitle || !finalUrl) {
-//     if (process.env.NODE_ENV !== 'production') {
-//       console.warn('ShareButtons: Missing title or URL, not rendering.');
-//     }
-//     return null;
-//   }
 
   const encodedTitle = encodeURIComponent(finalTitle);
   const encodedUrl = encodeURIComponent(finalUrl);
@@ -61,7 +44,6 @@ export default function ShareButtons({ title, url, blogProps }) {
         Share this post:
       </h4>
 
-      {/* Debug info - only in development */}
       {process.env.NODE_ENV !== 'production' && (
         <div
           style={{
@@ -73,7 +55,7 @@ export default function ShareButtons({ title, url, blogProps }) {
             borderRadius: '4px',
           }}
         >
-          Title: "{finalTitle}"
+          "{finalTitle}"
         </div>
       )}
 
