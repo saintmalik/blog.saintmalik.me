@@ -17,7 +17,7 @@ html,body {
 
  @font-face {
   font-family: config rounded;
-  src: url(/static/fonts/ConfigRounded-Regular.woff2) format("woff2");
+  src: url(/static/fonts/UberMoveTextRegular.otf) format("otf");
   font-weight: 400;
   font-style: normal;
   font-display: swap
@@ -33,7 +33,7 @@ html,body {
 
 @font-face {
   font-family: config rounded;
-  src: url(/static/fonts/ConfigRounded-SemiBold.woff2) format("woff2");
+  src: url(/static/fonts/UberMoveTextMedium.otf) format("otf");
   font-weight: 500;
   font-style: normal;
   font-display: swap
