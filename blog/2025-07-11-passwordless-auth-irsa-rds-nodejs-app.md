@@ -10,7 +10,7 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-It's 2025, are you still passing around your RDS DB password in your application? it's okay but if the software you use has the option of passwordless authentication and it's stable why not go for it?
+In 2025, are you still embedding RDS database passwords in your app? If your software supports stable passwordless authentication, switch to it. It’s more secure and simplifies credential management.
 
 <!--truncate-->
 <picture>
@@ -18,14 +18,12 @@ It's 2025, are you still passing around your RDS DB password in your application
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/think-pawpaw.gif`} alt="passwordles rds iam"/>
 </picture>
 
-The burden of a long-lasting password sitting on your server is a thing, you never can say, a static password to the DB isn't a good option at all.
-
-So let's escape the burden by going passwordless and using the Identity Authority Management (IAM) Role to connect to our RDS cluster on our application that is sitting on AWS EKS.
+Static passwords on servers are risky. Instead, use IAM roles for passwordless authentication to connect your AWS EKS-hosted app to your RDS cluster, reducing security burdens.
 
 ## Prerequisites:
 
 - A Running AWS EKS Cluster provisioned using Opentofu
-- Either Go or NodeJS app using RDS DB
+- Your Typescript app using RDS DB
 
 ## Step 1: Grant RDS IAM Permissions to the DB User
 
@@ -52,7 +50,7 @@ You need to first create the IAM Role for Service Account (IRSA) that will be us
 ```hcl title="main.tf"
 module "rds_db_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "passwordless-mongo"
+  role_name = "passwordless-rds-db"
   oidc_providers = {
     ex = {
       provider_arn               = module.eks.oidc_provider_arn
