@@ -1,6 +1,6 @@
 import React from 'react';
 import BlogPostPage from '@theme-original/BlogPostPage';
-import HireMeModal from '../../components/HireMeModal';
+// import HireMeModal from '../../components/HireMeModal';
 import ShareButtons from '../../components/ShareButtons';
 
 export default function BlogPostPageWrapper(props) {
@@ -12,7 +12,7 @@ export default function BlogPostPageWrapper(props) {
       {/* <ShareButtons blogProps={props} /> */}
 
       {/* Render your modal */}
-      <HireMeModal />
+      {/* <HireMeModal /> */}
     </>
   );
 }
