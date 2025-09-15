@@ -7,6 +7,12 @@ module.exports = {
     },
   ],
   plugins: [
+        [
+      "docusaurus-plugin-generate-llms-txt",
+      {
+        outputFile: "llms.txt",
+      },
+    ],
     [
       "@gracefullight/docusaurus-plugin-microsoft-clarity",
       { projectId: "rb5lzwkxst" },
