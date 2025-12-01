@@ -42,6 +42,9 @@
           "sockets-nginx",
           "signoz",
           "sops",
+          "vault",
+          "vps-issues",
+          "cloudrun-loadbalancing",
           "squeeze-node",
           "alpha-channels"
         ],
