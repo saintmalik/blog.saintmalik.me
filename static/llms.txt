@@ -567,19 +567,11 @@ This document details a "Trenches" approach: using a **Cloudflare Worker** as a 
 
 Instead of a heavy load balancer, we use the Edge to rewrite the request headers before they hit Google's infrastructure.
 
-```mermaid
-sequenceDiagram
-    participant Dev as Developer/Client
-    participant CF as Cloudflare Worker (Edge)
-    participant GCR as Google Cloud Run
-
-    Dev->>CF: GET [https://staging.domain.com](https://staging.domain.com)
-    Note over CF: 1. Strip Client Headers (IP/Ray)<br/>2. Rewrite Host to *.run.app<br/>3. Disable Edge Caching
-    CF->>GCR: GET [https://staging-nestjs...run.app](https://staging-nestjs...run.app)
-    GCR-->>CF: 200 OK (JSON)
-    Note over CF: 4. Inject no-store/no-cache headers
-    CF-->>Dev: Response (Fresh Data)
-````
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.webp`} alt="trench-infra"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+</picture>
 
 ### The Implementation
 
@@ -606,7 +598,7 @@ async function handleRequest(request) {
   const url = new URL(request.url)
 
   // The upstream Cloud Run instance address
-  const cloudRunHost = 'staging-nestjs-api-e4jph544bq-uc.a.run.app'
+  const cloudRunHost = 'staging-nestjs-.....-uc.a.run.app'
 
   // 1. Prepare Headers for Upstream
   const headers = new Headers(request.headers)
