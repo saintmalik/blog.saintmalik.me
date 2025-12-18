@@ -1,6 +1,6 @@
 ---
 slug: sast-recommendations-with-llm
-title: DeepSeek + DevSecOps Scaling Secure Code Recommendations from SAST Scans
+title: Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to Scale SAST Analysis
 authors: Abdulmalik
 image: https://saintmalikme.mo.cloudinary.net/bgimg/passwordless-rds.png
 tags: [DevSecOps, SAST, LLM, DeepSeek, Cloudflare D1, GitHub Actions]
