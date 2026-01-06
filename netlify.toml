@@ -1,0 +1,14 @@
+[[redirects]]
+from = "https://www.blog.saintmalik.me"
+to = "https://blog.saintmalik.me"
+status = 301
+force = true
+
+[[redirects]]
+from = "http://www.blog.saintmalik.me"
+to = "https://blog.saintmalik.me"
+status = 301
+force = true
+
+[[plugins]]
+package = "./plugins/netlify-purge-cloudflare-on-deploy"

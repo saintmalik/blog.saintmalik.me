@@ -1,0 +1,3543 @@
+// File: intro
+
+## Notes
+
+Here, you will find a collection of notes on things I learn and try, bug i get to fix in my day to day activities simplified.
+
+### Solutions to Bugs from Day to Day Activities
+
+<div class="contentTableContainer">
+
+|     | Topic                                                                    | Date Posted |
+| --- | ------------------------------------------------------------------------ | ----------------- |
+| 1   | [Debug Crontab Tasks](debug-crontab-tasks) | Sep 1, 2021    |
+| 2  | [Solution to fix some docusaurus bugs](fix-docusaurus-solutions) | Sep 7, 2021    |
+| 3  | [Lazy way of setting up a ghost blog on linode/digital ocean](setting-up-ghost-blog-on-linode) | Dec 6, 2021    |
+| 4  | [How to bulk convert images to webp](converting-images-to-webp) | Jan 5, 2021    |
+| 4  | [Easy Access to Pentesting VPS with via VS Code](vps-workspace-accessibility) | Feb 25, 2022    |
+| 5  | [Automate FInding and Fixing typos in large scale documentation](bulk-typo-fixing) | Apr 04, 2022    |
+| 6  | [Automate webp image github action](automate-webp-blog) | Jan 15, 2023    |
+| 7  | [Argocd rleated issues and solutions](argocd-related-issues) | Jan 15, 2023    |
+| 8  | [Automate FInding and Fixing typos in large scale documentation](bulk-typo-fixing) | Apr 04, 2022    |
+| 9  | [Container image scan](container-image-scan) | Apr 16, 2023    |
+| 10  | [Bash Set Options to the rescue](bash-set-options) | Mar 30, 2023    |
+| 11  | [Removing the first commit on your repo can be tricky, here is how](git-remove-first-commmit) | Mar 22, 2023    |
+| 12  | [Confirm if a file is sourced in Bash](confirm-sourced-files) | Mar 15, 2023    |
+| 13  | [Delete Already Ran Github Action Workflows](delete-ran-workflow) | Mar 03, 2023    |
+| 14  | [Delete recent commits from any git branch locally and remotely](delete-ran-workflow) | Sep 13, 2022    |
+| 15  | [forcefully delete resources](delete-k8s-resource) | June 08, 2023    |
+| 16  | [AWS EKS LB controller can’t register Worker nodes to Target Group](eks-alb-nodes-controller) | June 08, 2023    |
+
+</div>
+
+### Learning GoLang
+
+<div class="contentTableContainer">
+
+|     | Title                                                                   | Date Posted |
+| --- | ----------------------------------------------------------------------- | ----------------- |
+| 1   | [Variables in GoLang](variables-in-golang) | September 7, 2021   |
+| 2  | [Arrays in GoLang](arrays-in-golang)          | September 10, 2021      |
+
+</div>
+
+### Could Be Helpful
+
+<div class="contentTableContainer">
+
+|     | Title                                                                   | Date Posted |
+| --- | ----------------------------------------------------------------------- | ----------------- |
+| 1   | [Setting up free custom mails for your startup](custom-mails) | July 17, 2022   |
+| 2   | [📝 Building a startup? here is my 🤞🏽](mistakes-were-made) | Apr 16, 2023   |
+
+</div>
+
+### Infrastructure as Code using Terraform(IaC)
+
+<div class="contentTableContainer">
+
+|     | Title                                                                   | Date Posted |
+| --- | ----------------------------------------------------------------------- | ----------------- |
+| 1   | [EKS EC2 Difference](eks-ec2) | Jan 23, 2023   |
+| 2   | [Terraform Destroy](terraform-destroy) | Feb 07, 2023   |
+| 3   | [Terraform with AWS](terraform-kickstart) | Feb 07, 2023   |
+| 4   | [Terraform Destroy Error](terraform-destroy-error) | Apr 16, 2023   |
+| 5   | [Amd64 vs Arm64, Differences?](amd64-arm64) | Apr 16, 2023   |
+
+</div>
+
+---
+
+// File: alpha-channels
+
+import Giscus from "@giscus/react";
+
+The error ``Images can’t contain alpha channels or transparencies``, experienced it while trying to update the screenshots of our app via appstore connect interface.
+
+But using ImageMagick’s mogrify command, was able to resolve it
+
+```bash
+/opt/homebrew/bin/magick mogrify -alpha off -format png /abdulmalik/downloads/ios/*.png
+```
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: amd64-arm64
+
+import Giscus from "@giscus/react";
+
+So you are wondering which arch you should pick while selecting ec2 instances, well you can make decision using the below explanation
+
+ARM64 is considered to be cost svaing and it doesnt consume much power but the yikes is that it is not a wide range compatible arch, that is some applications might not work well on it
+
+While ARMD64 can be costly but its powerful and it supports a wide range of applications and workload.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: android
+
+import Giscus from "@giscus/react";
+
+keytool -list -v -keystore signing-key.keystore to verify that it is a valid keystore.
+
+openssl base64 < signing-key.keystore | tr -d '\n' | tee signing-key.keystore.base64.txt //encrypt
+
+base64 -d signing-key.keystore.base64.txt > signing-key.keystore  //decrypt
+
+
+so you want to use the playstore app signing and you want to upload your own key certificate, i mean the one you used in signing your android app via the build stage.
+
+run the following command to generate the certificate.pem from your keystore
+```
+sudo keytool -export -rfc -keystore signing-key.keystore -alias YOURKEYSTOREALIAS -file upload_certificate.pem
+```
+
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: argocd-related-issues
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.webp`} alt="argocd-connection-timeout"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
+</picture>
+
+
+breaking port-forward issues, this is not just for argocd alone, when you encounter breaking port forward issues on kubectl
+
+just open another terminal and put the service up regardless using the following syntax
+
+```
+while true ; do nc -vz 127.0.0.1 8080 ; sleep 10 ; done
+```
+
+so 127.0.0.1 is your localhost you are port forwarding to and the 8080 port is something you can change to any port you are trying to port forward to.
+
+so the command is ```while true``` keeps the netcat connection on a loop non-stop, and the ```sleep 10``` is needed because the ```while true``` is a hot loop, so ```nc -vz``` host port, helps keep querying the server for you to see if the connection is dead or successful, if not it continues.
+
+hence keeping the connection alive
+
+## failed to replace object: Service "argocd-server"
+
+fixed by just remove force_update = true
+
+## Argo CD error="server.secretkey is missing"
+
+fixed by kubectl rollout restart deploy/argocd-server -n argocd
+
+## Argo CD error="error getting cached app resource tree: cache: key is missing"
+Actually it's enough to restart only applicationController's statefulset, ie.
+kubectl rollout restart statefulset -n argocd argocd-application-controller
+
+---
+
+// File: arrays-in-golang
+
+import Giscus from "@giscus/react";
+
+Declaring arrays in GoLang, we need to declare the variable name first, the size of the array and the type of the array, see below
+
+```go title="main.go"
+var emails [3]string // this is a string array of  size 3 taking the variable name "emails"
+```
+
+Also here is how we can initialize array in GoLang
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    nums := [4]int{1,2,3,4,5}
+    fmt.Println(nums) // prints [1 2 3 4]
+}
+```
+
+We can also look for an array using it's indexs
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    nums := [4]int{1,2,3,4}
+    fmt.Println("Number3 is:", nums[]3) // prints Number3 is: 4
+}
+```
+
+We can also do Multi-Dimensional arrays in Golang.
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    nums := [2][2]int {
+        {2,3},
+        {3,4}, // this last comma is important  else you get an error "syntax error: unexpected newline, expecting comma or }"
+    }
+       fmt.Println(nums)  // [[2 3] [3 4]]
+}
+```
+
+
+Also it is said that arrays can not be resized in golang, but at the same time Go gives us a way to do this, here is an article that helped me understand ,a <a href="https://medium.com/gojekengineering/grab-a-slice-on-the-go-c606344186c1" target="_blank"> how to resize an array</a>
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: automate-webp-blog
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+so i find myself doing this repeatedly everytime i write a content, because i pushed for using webp images on my blog.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.webp`} alt="automate-webp"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
+</picture>
+
+
+hence when i write something on here, i need to convert the images to webp version too, so any browser that supports webp.
+
+the users sees webp version of the image, and webp is know for its speed and good quality too, here is the manual process <a href="/docs/converting-images-to-webp/" target="_blank">How to bulk convert images to webp</a>
+
+so this time i moved the automation to github, since at the end of the day, i use github to build and push to netlify, why not automate it there too.
+
+so here is the workflow
+
+```yaml title=".github/workflows/deploy-on-push.yml"
+
+name: generate and push webp image version
+on:
+
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo
+      - uses: actions/checkout@v3
+
+      - name: Check if there are any changes made in bgimg
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v31
+        with:
+          files: |
+            static/bgimg/*
+
+      - name: Setup cwebp
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          pwd
+          sudo apt-get install libjpeg-dev libpng-dev libtiff-dev libgif-dev
+          wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.4-linux-x86-64.tar.gz
+          tar xzvf libwebp-1.2.4-linux-x86-64.tar.gz
+          cd libwebp-1.2.4-linux-x86-64/bin
+          mv cwebp ${{ github.workspace }}
+          cd ../..
+          rm -rf libwebp-1.2.4-linux-x86-64
+          rm -rf libwebp-1.2.4-linux-x86-64.tar.gz
+          sudo mv cwebp /bin
+          ls
+
+      - name: bash file to create the webp version of the images
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+         bash webp.sh /static/bgimg/
+
+      - name: push the webp images to the folder
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        env:
+          CI_COMMIT_MESSAGE: CI to buid webp version of the image
+          CI_COMMIT_AUTHOR: Webp Image CI Bot
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "saintmalik@users.noreply.github.com"
+          git add .
+          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
+```
+
+the line which says **Check if there are any changes made in bgimg** is where i check if there is any changes in my image folders to make decision on wheather i should run the workflow or note.
+
+that way i avoid unneccesary build.
+
+will update this soon to optimize for having to re download the cwebp tool
+
+thats all for now
+
+---
+
+// File: bash-set-options
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+
+Recently worked on small bash script status validation check on github action, it was a frustrating one though, because it kept failing without a reason, tested the same script locally and it worked.
+
+```bash
+#/bin/bash
+
+set -x
+values="success success success success"
+
+count_success=$(echo ${values[@]} | grep -o 'success' | grep -c '^')
+count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^')
+
+if [[ $count_success -eq 4 ]]; then
+  echo "success"
+elif [[ $count_failure -ge 1 ]]; then
+  echo "failure"
+else
+  echo "undefined"
+fi
+```
+
+So i did set ```set -x``` from the start, this ```set``` option is what we use in debugging a bash script, to see where the error is could be coming from, but with the below screenshot, you sure see that there isnt error here
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.webp`} alt="bash options"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
+</picture>
+
+but running this same script was returning errors in github actions, so here is what i felt happended, since i set **$count_failure** to be greater or equal to ***1*** and the value it's getting is **0**.
+
+so i guess the error starts from there and the scripts exit with a response code of **1** instead of **0**.
+
+but now that i dont want the command to end there, since the error isnt really an error, then we can make use of the set option ```set +e```.
+
+This set options makes sure the command doesnt exit a sequence because of an error, so it will competely run the script without exit on the fail or error it encounters before the exit of the commands.
+
+```bash
+#/bin/bash
+
+set +e
+values="success success success success"
+
+count_success=$(echo ${values[@]} | grep -o 'success' | grep -c '^')
+count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^')
+
+if [[ $count_success -eq 4 ]]; then
+  echo "success"
+elif [[ $count_failure -ge 1 ]]; then
+  echo "failure"
+else
+  echo "undefined"
+fi
+```
+
+And that was it, there are more other  usefull set options like, ```set -u```, ```set -v```.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: bulk-typo-fixing
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+
+Good day guys, so i decided to write a  bash script to automate, find  and fix typos in large documentations either as a contributor or as a project maintainer.
+
+Well i will like to say, this shouldnt be abused, Always make quality contribution and not quantity contribution to OSS Projects.
+
+So lets get started;
+
+Git clone the script from my github gist
+
+```bash
+git clone https://gist.github.com/b194aa4aba5bdaab8b74011fe9379ad3.git bulk-typos
+```
+
+Now navigate into the folder "bulk-typo"
+
+```bash
+cd bulk-typo
+ls
+```
+
+Next give the scriopt an executing right using the below command
+
+```bash
+chmod +x bulk-typo-check.sh
+```
+
+Create a url file to add all the link of the github documentation repos
+
+```bash
+touch urls.txt
+```
+
+Then open the file to add the docs github repo urls.
+
+```bash
+nano urls.txt
+```
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.webp`} alt="Add Github URLs"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
+</picture>
+
+After adding the links, press CNTRL + x, and then enter Y, and click enter.
+
+When you are done, run the script and add the file where you want the output of your typos and the file that contains the github url of the documentation repos.
+
+```bash
+./bulk-typo-check.sh OUTPUTFILE.txt urls.txt
+```
+
+e.g
+
+```bash
+./bulk-typo-check.sh mytypos.txt urls.txt
+```
+
+When the script is done running, you can find all the typos in the mytypos.txt file, just run
+
+```bash
+cat mytypos.txt
+```
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.webp`} alt="Bulk Typo Result"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
+</picture>
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: cloudrun-loadbalancing
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+
+# Trenches Infra: Zero-Latency Staging Routing
+
+When spinning up ephemeral or staging environments on **Google Cloud Run**, engineers often face a dilemma regarding custom domain mapping. Native Cloud Run mapping is notoriously slow (SSL provisioning can take 15+ minutes), and setting up a full Google Cloud Load Balancer (GCLB) incurs a minimum ~$18/month cost per instance plus complexity overhead.
+
+For a staging environment where velocity and immediate feedback are paramount, neither option is ideal.
+
+This document details a "Trenches" approach: using a **Cloudflare Worker** as a transparent reverse proxy. This allows us to route a custom subdomain (e.g., `staging-api.domain.com`) to a Cloud Run URL instantly, while forcing a **zero-caching policy** to ensure developers always interact with the latest deployment.
+
+### The Architecture
+
+Instead of a heavy load balancer, we use the Edge to rewrite the request headers before they hit Google's infrastructure.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.webp`} alt="trench-infra"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+</picture>
+
+### The Implementation
+
+The following Worker script handles the proxying. It is specifically tuned for **Staging** environments by aggressively stripping caching layers.
+
+**Key Technical Decisions:**
+
+1.  **Host Header Rewriting:** Cloud Run rejects requests if the `Host` header does not match the generated `.run.app` domain. We swap this at the edge.
+2.  **Aggressive Cache Busting:** We utilize `cf: { cacheTtl: -1 }` in the fetch request and inject `Cache-Control: no-store` in the response. This prevents Cloudflare, the browser, and intermediate proxies from caching stale staging data.
+3.  **Header Sanitization:** We strip Cloudflare-specific headers (`cf-connecting-ip`, `cf-ray`) before forwarding to the upstream to keep the request cleaner, though this can be adjusted if the upstream needs client IP geolocation.
+
+<!-- end list -->
+
+```javascript
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/**
+ * Proxies request to Cloud Run while enforcing a strict no-cache policy
+ * for staging environments.
+ */
+async function handleRequest(request) {
+  const url = new URL(request.url)
+
+  // The upstream Cloud Run instance address
+  const cloudRunHost = 'staging-nestjs-.....-uc.a.run.app'
+
+  // 1. Prepare Headers for Upstream
+  const headers = new Headers(request.headers)
+  headers.set('Host', cloudRunHost) // CRITICAL: Cloud Run routing requirement
+
+  // Optional: Clean up Cloudflare specific traces if not needed upstream
+  headers.delete('cf-connecting-ip')
+  headers.delete('cf-ray')
+
+  // 2. Reconstruct the Request
+  const newRequest = new Request(`https://${cloudRunHost}${url.pathname}${url.search}`, {
+    method: request.method,
+    headers: headers,
+    body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.blob() : undefined,
+  })
+
+  // 3. Fetch from Cloud Run with Edge Caching Disabled
+  const response = await fetch(newRequest, {
+    cf: {
+      cacheTtl: -1, // Force miss
+      cacheEverything: false,
+      scrapeShield: false,
+      mirage: false,
+      polish: "off"
+    }
+  })
+
+  // 4. Sanitize Response Headers for the Client
+  const newHeaders = new Headers(response.headers)
+
+  // Enforce browser-side non-caching
+  newHeaders.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+  newHeaders.set('Pragma', 'no-cache')
+  newHeaders.set('Expires', '0')
+
+  // Remove upstream CF headers to avoid confusion
+  newHeaders.delete('cf-cache-status')
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: newHeaders
+  })
+}
+```
+
+### Deployment Strategy
+
+Since this is infrastructure-as-code, deployment should be handled via `wrangler`.
+
+1.  **Configuration:** Ensure your `wrangler.toml` targets the staging environment.
+2.  **Routes:** Map the worker to your desired subdomain (e.g., `staging-api.yourdomain.com/*`).
+3.  **Deploy:**
+    ```bash
+    npx wrangler deploy
+    ```
+
+### Trade-offs & Considerations
+
+  * **Client IP Visibility:** By stripping `cf-connecting-ip` and rewriting the Host, the upstream NestJS app might lose context of the original client IP. If your application logic relies on IP rate limiting or geolocation, you should inject the `X-Forwarded-For` header explicitly in the `handleRequest` function.
+  * **Cold Starts:** Unlike a GCLB which keeps connections warm, this method is subject to standard Cloud Run cold starts.
+  * **Security:** This proxy effectively makes your Cloud Run instance public via the Worker. Ensure your application handles authentication (JWT/OAuth) correctly at the application layer.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: confirm-sourced-files
+
+You could be working on a project and then you are meant to source the file, you did it and yet you arent seeing changes, it happens.
+
+For example you have an env file that holds some environment variable, and you want to make sure this values remain in your shell even after the scripts entrypoint execution.
+
+To satisfy your curiousity or should we say debug your issue, you would have to do the following
+
+create a bash script with ```nano src.sh``` and copy paste the below script.
+
+```bash
+source $1 0 2>/dev/null && sourced=1 || sourced=0
+if [ $sourced -eq 0 ]; then
+  echo "ERROR, this script is yet to be sourced.  Retry 'source $1'"
+  exit 1
+fi
+```
+
+then run it against the file you want to source with the following command ```sh src.sh myfile.env```
+
+More Explanation about the Script
+
+- 0 - standard input (stdin)
+- 1 - standard output (stdout)
+- 2 - standard err (stderr)
+
+- '>' - passing the command outcome to whatever file is put along
+
+And we know that ```/dev/null``` is a dead hole in linux, whatever you pass in there cant be read again
+
+so now if the command ```source OURFILE``` runs successfully then the  value ***1*** would be set for the variable ***sourced***
+
+but if the command ```source OURFILE``` fails, this means ```sourced=1``` wont run, which signifies failure, hence ```sourced=0``` runs, the value ***0*** would be set for the variable ***sourced***
+
+Then the value of ***sourced*** is what we are playing with in the if statement, so we know that when ***sourced*** = ***0***, the operation isnt sucessful, hence spit out the error message.
+
+```Command A && Command B || Command C```
+
+**Command B** only runs if **Command A** succeeds, and if **Command B** doesnt run which signifies failure, **Command C** runs
+
+And we are done with our validation
+
+####  References
+
+<a href="https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced" target="_blank"> https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced</a>
+
+---
+
+// File: container-image-scan
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+
+There are alot of container scanning tools, trivy, clair, grype, docker-scan and all?
+
+but whivh one should you use, well if you host your container images on aws ecr, you will know aws ecr has an in repository scanning, both basic and advanced, the advanced scanning scans both os and app.
+
+but the advanced scanning isnt free, its paid, i also read that aws ecr uses clair within their advanced scanning tool.
+
+so i tested trivy, grype and aws ecr in repo advanced scan and here is the results.
+
+### AWS ECR Advanced scan
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.webp`} alt="AWS ECR Advanced scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
+</picture>
+
+### Grype Scan
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.webp`} alt="Grype Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.jpg`} alt="Grype Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.jpg`} alt="Grype Scan"/>
+</picture>
+
+### Trivy Scan
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.webp`} alt="Trivy OS Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
+</picture>
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.webp`} alt="Trivy App Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
+</picture>
+
+And here is the final result, we can see that grype performed better than trivy, i didnt have the chance to test with Clair
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: converting-images-to-webp
+
+import Giscus from "@giscus/react";
+
+So webp images is the new thing in the content creation world, because they render fast and they are not heavy, making your websites load up fast.
+
+And as you know images is one of the assets that drags down your webpage loading speeds.
+
+So knowing we need to adopt webp images, how do we deal with those many images that we've uploaded or we will be uploading to our next blog posts?
+
+That brings us to <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">Google WebP images Project</a>, this tool helps us compress any image files to WebP image.
+
+So you need to install the <a href="https://developers.google.com/speed/webp/download" target="_blank">Webp Tool</a> NOTE: The tool comes along with both
+
+- cwebp -- WebP encoder tool
+- dwebp -- WebP decoder tool
+- vwebp -- WebP file viewer
+- webpmux -- WebP muxing tool
+- gif2webp -- Tool for converting GIF images to WebP
+
+So after installing Webp Tool for your specified OS, now it's time to write a bash script to automate the conversion process.
+
+1. Create bash file
+
+```bash
+touch webpbulk.sh
+```
+
+2. Open the file you just created
+
+```bash
+nano webpbulk.sh
+```
+3. Then paste the below script there, where you will be replacing the "/Users/yourusername/" with your Directory paths, like, /Users/saintmalik/, just the way it is on your system.
+
+```bash
+for file in /Users/yourusername/$1/*;
+    do cwebp -q 80 "$file" -o "${file%.*}.webp";
+done
+```
+4. Save the file and get all your images ready in your images folders
+
+5. Now run command below and it will bulk convert the image files to Webp format
+
+```bash
+bash webpbulk.sh /FOLDER-WHERE YOUR IMAGES ARE.
+```
+e.g
+
+```bash
+bash webpbulk.sh DevProjects/blog.saintmalik.me/static/bgimg
+```
+
+:::info
+So at the end of the day, the directory path will look like this
+:::
+
+```bash
+/Users/abdulmalik//DevProjects/blog.saintmalik.me/static/bgimg/IMAGES-GETTING-COMPRESSED
+```
+
+Also you can read the documentation to see some tweaks you can add to it, or which flag options can be useful to you <a href="https://developers.google.com/speed/webp/docs/cwebp" target="_blank">cwebp Encoder Docs</a>.
+
+Thats all.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: custom-mails
+
+import Giscus from "@giscus/react";
+
+Sharing my experience on what i could have done better.
+
+So i bought some domains early january, building my startup stickerkeen, but for a standardized startup, you need a custom mail to get things done, so people would be doubting your mail or application validity.
+
+Didnt give it a second thought, i signed up for the Namecheap Private mail, tried thier starter plan free trial.
+
+when trial period was up? i was required to pay 14/year to keep the mail up else, i will loose it.
+
+That rush, you know, i funded my namecheap and paid for the bill.
+
+Fast forward, i noticed i need more custom mails so as to seperate things.
+
+Well namecheap gave the option to create alias mails, i.e i can create name@website.com but every mail sent to name@website.com will come to the inbox of support@website.com
+
+Doesnt looks cool enough, you wont be able to send mail directly as name@website.com but you can recieve mails.
+
+That led me to creating another private mail and subscribing another 14/year.
+
+Yes, i later discovered i can increase the mailboxes but it was too late. so i no have two mail operating on $14/year each.
+
+Now i registered another domain for an open source project that i am working on with some collegues, (<a href="https://github.com/flipify" target="_blank">Flipify, Simple, fast, and fun switch between hosting providers, third party integrations, and more</a>)
+
+And for a founding team more than 5, namecheap isnt an option, we dont have the bills.
+
+That led to the digging of ZohoMail, their free plan grants you access to the following:
+
+* 5 user accounts
+* 5GB storage/user
+* Email attachments up to 25MB
+* Email hosting for a single domain
+* Two factor authentication
+
+You get yours up to, follow <a href="https://www.zoho.com/mail/how-to/create-business-email-address.html" target="_blank">ZohoMail setup guide</a>.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: debug-crontab-tasks
+
+import Giscus from "@giscus/react";
+
+Cron Job showing different results from what the results shown on terminal when you run the shell script.
+
+Reasons: Cron tasks run in a shell that is started without your login scripts being run, which set up paths, environment variables etc.
+
+When building cron tasks, prefer things like absolute paths and explicit options etc
+
+- `env -I /pathtoyourbashscript.sh`
+- `env -u root -I /pathtoyourbashscript.sh` (running as root can also help), or better still do `chmod +x /yourbashscript.sh` and use the first command instead
+
+`trap "set +x; sleep 5; set -x" DEBUG`
+
+making sure, each scripts runs one after the other, good for debug
+
+Notion Split screen shift + command + n, navigate page command + ~
+
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: delete-k8s-resource
+
+import Giscus from "@giscus/react";
+
+Lets say you have a CRD resources hanging and not getting deleted
+
+Get the crds
+
+```bash
+kubectl get crd
+```
+
+Get the CRD
+
+```bash
+kubectl get YOURCRD NAME
+```
+Edit  the CR
+
+```bash
+kubectl edit customresource/YOURCR NAME
+```
+
+Locate the finalizer and empty it
+
+```bash
+finalizers: []
+```
+
+Then delete again
+
+```bash
+kubectl delete customresource/YOURCR NAME
+```
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: delete-ran-workflow
+
+So you might want to delete the exisiting ran workflow for what so ever reasons, you can do it using the github cli tool, ```gh```
+
+first you might want to export the values
+
+```yaml
+export OWNER=your org or username
+export REPO=your respository
+```
+
+and run the below command to get the ID's of this workflows
+
+```yaml
+gh api -X GET /repos/$OWNER/$REPO/actions/workflows | jq '.workflows[] | .name,.id'
+```
+
+note the ID's and then run the following script
+
+```sh
+for workflow_id in "$1"
+do
+  echo "Listing runs for the workflow ID $workflow_id"
+  run_ids=( $(gh api repos/$2/$3/actions/workflows/$workflow_id/runs --paginate | jq '.workflow_runs[].id') )
+  for run_id in "${run_ids[@]}"
+  do
+    echo "Deleting Run ID $run_id"
+    gh api repos/$2/$3/actions/runs/$run_id -X DELETE
+  done
+done
+```
+
+this will delete the workflows
+
+---
+
+// File: delete-recent-commits-from-any-git-branch-locally-and-remotely
+
+import Giscus from "@giscus/react";
+
+So you've committed some secrets to github mistakenly and you want to clear it off?
+
+run ```git log``` to see your commit history, copy commit id of the version that comes before the commit of the secret that was pushed.
+
+Now run ```git revert COMMIT ID```
+
+After that you will notice there are some untracked changes now if you run ```git status```
+
+also checking your ```git log``` again, you will see that the commit where you've pushed the secret is gone.
+
+Now its time to take it off the github repo commit history too, now you will run ```git push origin main -f```
+
+This is a brutal way of getting your secret off github repo though, not really recommended, haha, but you can also read the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" target="_blank"> github docs</a> on other ways to go about it.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: docker-credential-desktop
+
+import Giscus from "@giscus/react";
+
+```bash
+accessing entity: error getting credentials - err: exec: "docker-credential-desktop": executable file not found in $PATH, out:
+```
+
+just edit your **~/.docker/config.json** and remove the ```"credsStore" : "desktop"``` and leave the ```"credStore" : "desktop"```
+
+Thats all
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: eks-alb-nodes-controller
+
+import Giscus from "@giscus/react";
+
+So i had deployments which had loadbalancer and ingress, but yes they got created succefully and what happen to then, they are not working, so whats the cause.
+
+I checked the the through the console the loadbalancer, target groups found nothing pointing to the error, so i checked the alb contoller logs, what i should have done at first, haha.
+
+```bash
+kubectl logs deployment/aws-load-balancer-controller -n kube-system
+```
+ and after checking the logs, i found the error saying this
+
+```bash
+"error":"expect exactly one securityGroup taggedwith kubernetes.io/cluster/clustername: owned for eni eni-0e11cbc41dd583bec, got: [sg-0xxxxxxx sg-0xxxxxx]"
+```
+
+So it means two cluster security group are having this tag ```kubernetes.io/cluster/clustername: owned```, so what happened? i created a single cluster security group using using eks module.
+
+So i learnt that eks will create a cluster security group by default, totally irrelevant to the eks module, so now we are left with the option to remove the tag  ```kubernetes.io/cluster/clustername: owned``` from the default security group eks created
+
+But well you can do it the other way too, sinces this are tags, they are harmles, its just a means of identification and selection.
+
+You can make sure too override the tags using the following code, that if you have provisioned your cluuster using terraform
+
+```bash title="eks.tf"
+  tags = {
+    Environment = "${var.env}"
+    "kubernetes.io/cluster/${var.eks-name}" = "shared"
+    Terraform = "true"
+  }
+```
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: eks-ec2
+
+import Giscus from "@giscus/react";
+
+seen spot instance and ON-Demand instance while creating eks via console or terraform and wondering what it is?
+
+Spot Instances are instances that uses space ec2 capacity that are available in the lesser price to the On-demand instances price
+
+Spot instances can be cheap but can also be terminated at anytime
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: fix-docusaurus-solutions
+
+import Giscus from "@giscus/react";
+
+## Autoreload while in localhost
+
+Auto reload docusaurus in loaclhost using `yarn start` and `npm start`
+
+## Add captions to blog images
+
+Create Figure.js in your src/components and add this code snippet.
+
+```jsx title="/src/components/Figure.js"
+import React from "react";
+
+export default function Figure({ children, src }) {
+  return (
+    <figure style={{ textAlign: "center",  }}>
+        <img src={src} />
+    <figcaption style={{ color: "gray", fontSize: "small" }}>
+    {children}
+  </figcaption>
+</figure>
+    );
+}
+```
+
+and now go into your markdown file  and import it
+
+```
+import Figure from '../src/components/Figure';
+```
+
+and wrap your image with this
+
+```
+<Figure>
+  <img src=""/>
+  Your Caption
+</Figure>
+```
+
+Module not found : Error after updating Docusaurus everytime, Module not found: Error: Can't resolve '@theme/BlogPostAuthors' in '/blog.saintmalik.me/src/theme/BlogPostItem'
+
+
+Just run
+
+```
+yarn run swizzle theme component
+```
+
+e.g
+
+```
+yarn run swizzle @docusaurus/theme-classic BlogPostItem --danger
+```
+
+since i use @docusaurus/theme-classic, thats why i used this example, if you use something else like @docusaurus/preset-classic, change yours to that.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: git-remove-first-commmit
+
+import Giscus from "@giscus/react";
+
+If it happens that you have committed a secret value which is the first commit iin your repo, and then you've had consecutive commits after that, it would be tricky, you cant use git reset, rebase or revert, because they can only work to a certain points.
+
+So its better to flush out the commits, starting from the first commits.
+
+```
+git update-ref -d HEAD
+```
+
+now run ```git add .``` and ```git commit -m "nice"``` and finally push a force update.
+
+```
+git push origin main -f
+```
+
+reference: <a href="https://stackoverflow.com/questions/10911317/how-to-remove-the-first-commit-in-git" target="_blank">https://stackoverflow.com/questions/10911317/how-to-remove-the-first-commit-in-git</a>
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: hackthebox-invite
+
+import Giscus from "@giscus/react";
+
+lifeisabouttrying
+
+Checked the source code nothing
+
+Check the requests nothing like a parameter there
+
+So one js caught my attention
+
+Use a js beautifier and saw a json response which says sent a post request to api/invite/how/to/generate
+
+Then I got a ROT13 encoded text.. decode it with
+
+Echo “rot13 text” | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+
+Got an output saying send a POST request to /api/invite/generate and yeah I got another json parameter in the request response, this time around it was a base64 encoded text. But if you not sure which hash the code you get is, use “**[https://www.tunnelsup.com/hash-analyzer/](https://www.tunnelsup.com/hash-analyzer/)**" to get the hash that your code is, now that I know the hash is a base64 encoded hash. I decoded it using echo “base64 text” | base64 —decode
+
+And here I got my invite code.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: hussein-d-talk-series
+
+import Giscus from "@giscus/react";
+
+Port scanning, deep port scanning
+
+Subdomain recon of deeper domains like [xxxx.admin.andela.com](http://xxxx.admin.domain.com/)
+
+[http://bounty.offensiveai.com/](http://bounty.offensiveai.com/)
+
+Facebook cert
+
+crtys
+
+ffuf to scan for [WORD.admin.example.com](http://word.admin.example.com/)
+
+Fuff -u [http://fuzz.sub.domain.com](http://fuzz.sub.domain.com/) -w wordlist
+
+[Suip.biz](http://suip.biz/) subdomain
+
+Angry ip scanner
+
+Scan from this ip to this ip with this port
+
+First crawling the website and see all the requests, Blind SQL Injections
+
+Dumper Script sQL Map, (aTlas GitHub)
+
+Internet Marketing Ninja(crawler)
+
+Fofa.so
+
+Arjun or PAraminers
+Change json to xml, tamper with it
+
+Change get request to POST,
+
+LFI, Links input, file input, image inputs
+
+#!bin/bash
+
+cd Sublist3r && python sublist3r.py -d [example.com](http://example.com/)
+
+’s/ substitute
+
+\w* remove the first line
+
+. Remove the space
+
+// nothing
+
+```$``` at the end of the line
+
+```’s/\[404].//```
+
+Bash
+
+```
+Cut http and https from urls sed 's/https\?:\/\///'
+packet_write_wait: Connection to 64.225.114.42 port 22: Broken pipe
+
+sed 's/https\?:\/\///' |tr -d "[,0-9]"
+
+cat no404s.txt | sed 's/https\?:\/\///' |tr -d "[,0-9]" > cleanno404.txt
+
+cat no404s.txt | sed 's/https\?:\/\///' |tr -d "[,0-9]" > cleanno404.txt
+
+Look at javascript files always
+
+phpinfo path
+
+Apache default path
+
+Active+++
+```
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: ifihadinvested
+
+
+
+---
+
+// File: managing-kms-key-for-vault
+
+<!-- terraform state rm vault_kv_secret_v2.messaging-pod
+terraform state rm vault_kv_secret_v2.posts-pod
+terraform state rm vault_kv_secret_v2.nooks-pod
+terraform state rm vault_kv_secret_v2.firebase-sa
+terraform state rm vault_kv_secret_v2.payment-pod
+terraform state rm vault_kv_secret_v2.notifications-pod
+terraform state rm vault_kv_secret_v2.books-pod
+terraform state rm vault_kv_secret_v2.auth-pod
+terraform state rm vault_kv_secret_v2.clubs-pod
+terraform state rm vault_kubernetes_auth_backend_role.microsvc-role
+terraform state rm vault_mount.kvv2
+terraform state rm vault_policy.micro-svc
+terraform state rm vault_auth_backend.kubernetes
+terraform state rm vault_kubernetes_auth_backend_config.config
+
+
+Error: failed to replace object: Service terraform
+
+  recreate_pods     = false
+  reuse_values      = true
+  force_update      = false -->
+
+---
+
+// File: mistakes-were-made
+
+import Giscus from "@giscus/react";
+
+Dont hire on the spray, discuss your idea with colleagues and kickstart with whomever buys your idea, hiring from the start can be tricky too.
+
+if you can hire, hire, but hire those who wants to work on the product and not someone who sees it as a one time job, founding team must carry a great vibe and energy with them.
+
+Dont wait 4 month like me to fire bad engineers, they are dream and idea killers fr, its painfull
+
+Communicate better, be plain in your agreement and be ready to challenge anyone slowing down the startup progress.
+
+when you get so much excuses of why there isn''t any push for the past 20 to 140 days, dont let it go beyond 15 days infact, haha
+
+Talk them in and know the next thing.
+
+Launch faster, launch again and again
+
+Stop finding luxury, use everything free within your power until you cant use them again, dont be like me, i paid for mail server, it was useful though but i could have dodge that bill.
+
+AWS Credit to the rescue, i am sure i cant even cope with cloud bills from my pocket while we are starting out fr, haha thanks to them.
+
+Dont follow all ideas blindly, reason with your pocket and what you have on table, dont rush to do company reg when you done even have your product lauched yet.
+
+### 🪄 Hints & Spoilers
+
+<details>
+  <summary><b>✨ Use low code or No code to spin up an MVP</b></summary>
+  <div>
+    <div>You dont have to create an heavy engineered platform, a simple mvp page created with a landing page and typeform with zapier and slack, mail, stripe integration can fo 🙌</div>
+  </div>
+</details>
+
+In all i can be wrong on some part too fr.
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: mongo
+
+import Giscus from "@giscus/react";
+
+
+```
+{ "message": "user is not allowed to do action [find] on [test.users]" }
+```
+
+if you get this error, check your permissions for the mongo user you are trying to use to connect
+
+```
+"MongoError: bad auth : aws sts call has response 403",
+```
+
+if this is happening in eks, check the that the secretkey and sessiontoken returned by the assumedeks role via the SA is encoded encodeURIComponent, or ensure the exported region in your env is same as the region the iam role used, also mak sure the isnt any other default ACCESS_KEY in your env, that would cause issue for the access renewal.
+
+---
+
+// File: osint
+
+import Giscus from "@giscus/react";
+
+**### Hunt Email OSINT**
+
+hunter.io
+
+phonebook.cz
+
+VoilaNorbert - [https://www.voilanorbert.com/](https://www.voilanorbert.com/)
+
+Email Hippo - [https://tools.verifyemailaddress.io/](https://tools.verifyemailaddress.io/)
+
+Email Checker - [https://email-checker.net/validate](https://email-checker.net/validate)
+
+Clearbit Connect - [https://chrome.google.com/webstore/detail/clearbit-connect-supercha/pmnhcgfcafcnkbengdcanjablaabjplo?hl=en](https://chrome.google.com/webstore/detail/clearbit-connect-supercha/pmnhcgfcafcnkbengdcanjablaabjplo?hl=en)
+
+**### Verify and Validate found email address**
+
+tools.verifyemailaddress.io
+
+email-checker.net/validate
+
+**### Hunting leaked Password osint**
+
+NB:- do not estimate forgot pasword techniques
+
+Dehashed
+
+WeLeakInfo - [https://weleakinfo.to/v2/](https://weleakinfo.to/v2/)
+
+LeakCheck - [https://leakcheck.io/](https://leakcheck.io/)
+
+SnusBase - [https://snusbase.com/](https://snusbase.com/)
+
+Scylla.sh - [https://scylla.sh/](https://scylla.sh/)
+
+HaveIBeenPwned - [https://haveibeenpwned.com/](https://haveibeenpwned.com/)
+
+**### **Hunting Usernames and Accounts****
+
+NameChk - [https://namechk.com/](https://namechk.com/)
+
+WhatsMyName - [https://whatsmyname.app/](https://whatsmyname.app/)
+
+NameCheckup - [https://namecheckup.com/](https://namecheckup.com/)
+
+**## People Search**
+
+WhitePages - [https://www.whitepages.com/](https://www.whitepages.com/)
+
+TruePeopleSearch - [https://www.truepeoplesearch.com/](https://www.truepeoplesearch.com/)
+
+FastPeopleSearch - [https://www.fastpeoplesearch.com/](https://www.fastpeoplesearch.com/)
+
+FastBackgroundCheck - [https://www.fastbackgroundcheck.com/](https://www.fastbackgroundcheck.com/)
+
+WebMii - [https://webmii.com/](https://webmii.com/)
+
+PeekYou - [https://peekyou.com/](https://peekyou.com/)
+
+411 - [https://www.411.com/](https://www.411.com/)
+
+Spokeo - [https://www.spokeo.com/](https://www.spokeo.com/)
+
+That'sThem - [https://thatsthem.com/](https://thatsthem.com/)
+
+**### Voter Records**
+
+Voter Records - [https://www.voterrecords.com](https://www.voterrecords.com/)
+
+**### **Hunting Phone Numbers****
+
+TrueCaller - [https://www.truecaller.com/](https://www.truecaller.com/)
+
+CallerID Test - [https://calleridtest.com/](https://calleridtest.com/)
+
+Infobel - [https://infobel.com/](https://infobel.com/)
+
+**### **Discovering Birthdates****
+
+search google for the “targets name birthday”
+
+“name” intext:”happy birthday”
+
+“their nickname” intext:”happy birthday”
+
+**### **Searching for Resumes****
+
+“name” resume filetype:pdf
+
+“name” resume site:dropbox.com site:drive.google.com
+
+**### Social Media OSINT**
+
+Twiter OSINT:
+
+Twitter Advanced Search - [https://twitter.com/search-advanced](https://twitter.com/search-advanced)
+
+[https://twitter.com/MattNavarra/status/1447556138145394692?s=20](https://twitter.com/MattNavarra/status/1447556138145394692?s=20)
+
+Social Bearing - https://socialbearing.com/
+
+Twitonomy - https://www.twitonomy.com/
+
+Sleeping Time - http://sleepingtime.org/
+
+Mentionmapp - https://mentionmapp.com/
+
+Tweetbeaver - https://tweetbeaver.com/
+
+Spoonbill.io - http://spoonbill.io/
+
+Tinfoleak - https://tinfoleak.com/
+
+TweetDeck - [https://tweetdeck.com/](https://tweetdeck.com/)
+
+Facebook OSINT
+
+Sowdust Github - [https://sowdust.github.io/fb-search/](https://sowdust.github.io/fb-search/)
+
+IntelligenceX Facebook Search - [https://intelx.io/tools?tab=facebook](https://intelx.io/tools?tab=facebook)
+
+Instagram OSINT
+
+Wopita - [https://wopita.com/](https://wopita.com/)
+
+Code of a Ninja - [https://codeofaninja.com/tools/find-instagram-user-id/](https://codeofaninja.com/tools/find-instagram-user-id/)
+
+InstaDP - [https://www.instadp.com/](https://www.instadp.com/)
+
+ImgInn - [https://imginn.com/](https://imginn.com/)
+
+**Website OSINT Part 1**
+
+BuiltWith - [https://builtwith.com/](https://builtwith.com/)
+
+Domain Dossier - [https://centralops.net/co/](https://centralops.net/co/)
+
+DNSlytics - [https://dnslytics.com/reverse-ip](https://dnslytics.com/reverse-ip)
+
+SpyOnWeb - [https://spyonweb.com/](https://spyonweb.com/)
+
+Virus Total - [https://www.virustotal.com/](https://www.virustotal.com/)
+
+Visual Ping - [https://visualping.io/](https://visualping.io/)
+
+Back Link Watch - [http://backlinkwatch.com/index.php](http://backlinkwatch.com/index.php)
+
+View DNS - [https://viewdns.info/](https://viewdns.info/)
+
+Pentest-Tools Subdomain Finder - [https://pentest-tools.com/information-gathering/find-subdomains-of-domain#](https://pentest-tools.com/information-gathering/find-subdomains-of-domain#)
+
+Spyse - [https://spyse.com/](https://spyse.com/)
+
+crt.sh - [https://crt.sh/](https://crt.sh/)
+
+Shodan - [https://shodan.io](https://shodan.io/)
+
+Wayback Machine - [https://web.archive.org/](https://web.archive.org/)
+
+**Hunting Business Information**
+
+
+
+Open Corporates - [https://opencorporates.com/](https://opencorporates.com/)
+
+AI HIT - [https://www.aihitdata.com/](https://www.aihitdata.com/)
+
+**Wireless OSINT**
+
+WiGLE - [https://wigle.net/](https://wigle.net/)
+
+**Introduction to Sock Puppets**
+
+We can think it as an online identity of something you are not, not draw attention back to your self, not be used on a device thats linked to you, use the internet,
+
+Creating an Effective Sock Puppet for OSINT Investigations – Introduction - [https://jakecreps.com/sock-puppets/](https://jakecreps.com/sock-puppets/)
+
+The Art Of The Sock - [https://www.secjuice.com/the-art-of-the-sock-osint-humint/](https://www.secjuice.com/the-art-of-the-sock-osint-humint/)
+
+Reddit - My process for setting up anonymous sockpuppet accounts - [https://www.reddit.com/r/OSINT/comments/dp70jr/my_process_for_setting_up_anonymous_sockpuppet/](https://www.reddit.com/r/OSINT/comments/dp70jr/my_process_for_setting_up_anonymous_sockpuppet/)
+
+Fake Name Generator - [https://www.fakenamegenerator.com/](https://www.fakenamegenerator.com/)
+
+This Person Does not Exist - [https://www.thispersondoesnotexist.com/](https://www.thispersondoesnotexist.com/)
+
+Privacy.com - [https://privacy.com/join/LADFC](https://privacy.com/join/LADFC) - *Referral link. We each get $5 credit on sign up.
+
+Search Engine Operators
+
+Google - [https://www.google.com/](https://www.google.com/)
+
+Google Advanced Search - [https://www.google.com/advanced_search](https://www.google.com/advanced_search)
+
+Google Search Guide - [http://www.googleguide.com/print/adv_op_ref.pdf](http://www.googleguide.com/print/adv_op_ref.pdf)
+
+Bing - [https://www.bing.com/](https://www.bing.com/)
+
+Bing Search Guide - [https://www.bruceclay.com/blog/bing-google-advanced-search-operators/](https://www.bruceclay.com/blog/bing-google-advanced-search-operators/)
+
+Yandex - [https://yandex.com/](https://yandex.com/)
+
+DuckDuckGo - [https://duckduckgo.com/](https://duckduckgo.com/)
+
+DuckDuckGo Search Guide - [https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/)
+
+Baidu - [http://www.baidu.com/](https://www.baidu.com/)
+
+Reverse Image Search
+
+Google Image Search - [https://images.google.com](https://images.google.com/)
+
+Yandex - [https://yandex.com](https://yandex.com/)
+
+TinEye - [https://tineye.com](https://tineye.com/)
+
+LabNol:
+
+**Viewing EXIF Data**
+
+Jeffrey's Image Metadata Viewer - [http://exif.regex.info/exif.cgi](http://exif.regex.info/exif.cgi)
+
+**Physical Location OSINT**
+
+Google MAp
+
+**Identifying Geographical Locations**
+
+Figure out where an image was taken
+
+GeoGuessr - [https://www.geoguessr.com](https://www.geoguessr.com/)
+
+GeoGuessr - The Top Tips, Tricks and Techniques - [https://somerandomstuff1.wordpress.com/2019/02/08/geoguessr-the-top-tips-tricks-and-techniques/](https://somerandomstuff1.wordpress.com/2019/02/08/geoguessr-the-top-tips-tricks-and-techniques/)
+
+Building a Lab
+
+VMWare Workstation Player - [https://www.vmware.com/ca/products/workstation-player/workstation-player-evaluation.html](https://www.vmware.com/ca/products/workstation-player/workstation-player-evaluation.html)
+
+VirtualBox - [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
+
+TraceLabs OSINT VM - [https://www.tracelabs.org/initiatives/osint-vm](https://www.tracelabs.org/initiatives/osint-vm)
+
+TraceLabs OSINT VM Installation Guide - [https://download.tracelabs.org/Trace-Labs-OSINT-VM-Installation-Guide-v2.pdf](https://download.tracelabs.org/Trace-Labs-OSINT-VM-Installation-Guide-v2.pdf)
+
+Social Media Osint
+
+pip3 install --upgrade -e git+https://github.com/twintproject/twint.git@origin/master#egg=twint
+pip3 install --upgrade aiohttp_socks
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: setting-up-ghost-blog-on-linode
+
+import Giscus from "@giscus/react";
+
+Well,  a week ago i couldnt pay up my DO bill and my droplets got deleted, meaning all the service i have on the droplet got cleaned out.
+
+And now that i got back on my feet financially, i paid up the DO bills and then messaged their support for help with my droplets if it can still be recovered back, but unfortunately the answer was NO, it cant be retrieved.
+
+Which means i have start every project afresh, that got me angry actially and i have moved to the linode platform as at the time of wrting.
+
+Now i have to resetup a blog i host for an organization on DO using ghost cms back on linode, but due to improper documentation of how i did it the first development.
+
+Then i had to create linode servers and delete them all over again for more than 3-5 times due to errors i was encountering. but yeah now that i have fully set the Ghost CMS up on linode, i will share with you all on how i got it done.
+
+Firstly, you need to create a Linode account, using  my referral link, you get $100 Linode Credit Free.
+
+After creating you account, login into your account and create a Linode, after that login into your linode server via SSH
+
+and then  run the below commands
+
+## Adding new user
+
+```bash
+adduser <user>
+```
+
+e.g
+```bash
+adduser saintmalik
+```
+
+## Give the user some elevated permission
+
+```bash
+usermod -aG sudo ghost-user
+```
+
+## Now login as the user
+
+```bash
+su - ghost-user
+```
+
+## Next is to update the dependencies and other packages
+
+```bash
+sudo apt-get update && sudo apt-get upgrade
+```
+
+## After this you need to install nginx
+
+```bash
+sudo apt-get install nginx
+```
+
+## Now open the firewall to allows HTTP and HTTPS connection
+
+```bash
+sudo ufw allow 'Nginx Full'
+```
+
+## Then we instal MySQL server
+
+```bash
+sudo apt-get install mysql-server
+```
+
+## Add the NodeSource APT repository for Node 14
+
+```bash
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash
+```
+
+## Now we install NodeJS
+
+```bash
+sudo apt-get install -y nodejs
+```
+
+## And here we are, Install the Ghost CLI globally
+
+```bash
+sudo npm install ghost-cli@latest -g
+```
+
+## Now its time install the ghost CMS, but it has to be in its own directory with proper permission.
+
+```bash
+sudo mkdir -p /var/www/sitename
+```
+
+// creating the directory and replace the 'sitename' with whatever name you like.
+
+```bash
+sudo chown <user>:<user> /var/www/sitename
+```
+
+// this command is to set the user of the directory
+
+``bash
+sudo chmod 775 /var/www/sitename
+```
+
+// now we need to set the corect permissions
+
+```bash
+cd /var/www/sitename
+```
+
+// now we move into the directory folder , this is where we are going to install the ghost
+
+## Installation of Ghost
+
+```bash
+ghost install
+```
+
+then when the commands runs and you are reach the installation questions
+
+
+### Enter your blog URL:
+
+Put the exact blog url http://example.com , you might be wondering why not https://example.com, you dont worry i will still exlain that soon.
+
+### Enter your MySQL hostname:
+
+Leave the hostname as 'localhost", just press the enter button and proceed to the next question.
+
+### Enter your MySQL username:
+
+Enter "root" as the MySQL username
+
+###  Enter your MySQL password:
+
+Enter your MySQL password here.
+
+### Enter your Ghost database name:
+
+Leave this as default , just press the enter button to proceed, because ghost automatically generates the the database name for you, but incase you are using the non-root MySQl, then you need to enter your own MySQL database name.
+
+###  Do you wish to set up "ghost" mysql user?
+
+Enter yes here and proceed or just hit the enter button.
+
+### Do you wish to set up Nginx?
+
+Enter yes, and hit the enter button to proceed.
+
+### Setting up SSL
+
+You will notice this one is being skipped, dont worry, we will solve it just hold on.
+
+### Do you wish to set up Systemd?
+
+Enter "yes" or hit the ENTER buttopn to proceed.
+
+### Do you want to start Ghost?
+
+Enter "yes" or hit the ENTER buttopn to proceed.
+
+
+Now that we have everything set up, you might be wondering how are we going to add the SSL, we will be using Cloudflare SSL.
+
+# Adding SSL to Ghost CMS using CloudFlare
+
+Okay if you dont have a cloudflare account yet, then open one here.
+
+
+Now connect your domain to cloudflare and make sure, its connected correctly and then to go the SSL Option and then Select the "Flexible Option" of Cloudflare SSL.
+
+Then you have successfully added SSL to your Ghost CMS, easy and stress free.
+
+# Ressting/Updating your  Ghost Password using Console/terminal
+
+So goto your user that control ghost, the user, we added earlier, use the command
+
+```bash
+su - user
+```
+
+e.g
+
+```bash
+su - saintmalik
+```
+
+Then navigate to the directory where the ghost is installed,
+
+```bash
+cd /var/www/sitename
+```
+
+then run the following commands
+
+```bash
+mysql -u root -p
+```
+
+You will be promted to enter your MySQL password, which set earlier at the top.
+
+now run
+
+```bash
+use YOUR DATABASE NAME
+```
+
+to switch to your database, after that, run
+
+```bash
+SELECT * from users;
+```
+
+to see all the users that are available in your database, give a closeer look and see the email of the user you want to change their password is present there.
+
+after that, goto <a href="https://passwordhashing.com/BCrypt" target="_blank"> https://passwordhashing.com/BCrypt</a> and enter your new password that will be hashed back into the BCrypt format, because ghost stores passwords in Bcrypt format.
+
+after generating the Bcypt hash, your will be in this format
+
+"$2b$10$ZEzovaKWYtzBWNy7AQuYgefGVlpxn/nrovC3Er/gv6/E6CrALoOe."
+
+now in the mysql, we are going to run the following commands
+
+```bash
+update users
+```
+```bash
+set password='$2b$10$ZEzovaKWYtzBWNy7AQuYgefGVlpxn/nrovC3Er/gv6/E6CrALoOe.'
+```
+
+// Replace this Bcrypt hash with your own generated hash
+
+and lastly enter this command also
+
+```bash
+where email = myownmail@gmail.com;
+```
+
+//Replace the email with the email of the user you want to chnage their password
+
+if the operation gets successful, you should see a response like this
+
+> Query OK, 1 row affected (0.01 sec)
+> Rows matched: 1  Changed: 1  Warnings: 0
+
+Thats all for now, will update the guide soon also, this is just to pour out the process before i forget. 🤞🏽
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: signoz
+
+## Error from server (NotFound): jobs.batch "signoz-schema-migrator" not found
+
+An ```helm upgrade``` would fix this issue.
+
+## Error:"2023-10-24T06:46:53.083Z ERROR clickhouseReader/reader.go:137 failed to initialize ClickHouse: error connecting to primary db: code: 516, message: admin: Authentication failed: password is incorrect, or there is no user with such name." timestamp: "2023-10-24T06:46:53.083173036Z
+
+headache of Multi-Attach error for volume "pvc-xxxxxx" Volume is already used by pod(s) chi-signoz-clickhouse-cluster-0-0-0
+
+this happens when you have autoscaling available, when your pods gets rescheduled, just change it to ManyWrite
+
+
+https://docs.aws.amazon.com/systems-manager/latest/userguide/agent-install-ubuntu-64-snap.html fixes the ssm agent setup for ubuntu instances
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable., juse use sudo
+
+sudo curl -L "https://github.com/docker/compose/releases/download/2.34.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+cp  /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo /usr/bin/docker-compose -h
+
+sudo /
+
+cd ~/hosting
+
+plausible-conf.env
+ADMIN_USER_EMAIL=user@domain.com
+ADMIN_USER_NAME=USERNAME
+ADMIN_USER_PWD=YOUR_ADMIN_PASS
+BASE_URL=https://plausible.domain.com
+SECRET_KEY_BASE=sudo openssl rand -base64 64
+DISABLE_REGISTRATION=true
+MAILER_EMAIL=user@domain.com
+SMTP_HOST_ADDR=smtp.YOURSMTP_SERVER.com
+SMTP_HOST_PORT=465
+SMTP_HOST_SSL_ENABLED=true
+SMTP_USER_NAME=user@domain.com
+SMTP_USER_PWD=YOURMAIL_SMTP_PASSWORD
+SMTP_RETRIES=2
+
+  plausible:
+    image: plausible/analytics:v2.0
+    restart: always
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
+    depends_on:
+      - plausible_db
+      - plausible_events_db
+      - mail
+    ports:
+      - 127.0.0.1:8000:8000
+    env_file:
+      - plausible-conf.env
+
+from 8000:8000 to 127.0.0.1:8000:8000
+
+
+sudo apt update
+sudo apt install nginx
+sudo ufw allow "Nginx Full"
+sudo nano /etc/nginx/sites-available/plausible.conf
+```
+server {
+        # replace example.com with your domain name
+        server_name analytics.example.com;
+
+        listen 80;
+        listen [::]:80;
+
+        location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+```
+
+listen on port 80 and proxy all the requests to localhost:8000 where plausible instances is listening
+
+sudo ln -s /etc/nginx/sites-available/plausible.conf /etc/nginx/sites-enabled/
+
+sudo nginx -t
+
+sudo systemctl reload nginx
+
+sudo apt-get install certbot python-certbot-nginx
+
+sudo certbot
+
+sudo apt-get update
+sudo apt-get install certbot
+sudo apt-get install python3-certbot-nginx
+
+sudo certbot --nginx -d analytics.example.com
+mad changes to plausible config?
+
+sudo /usr/bin/docker-compose down --remove-orphans
+
+sudo docker compose down --remove-orphans
+
+and then sudo /usr/bin/docker-compose up -d
+
+sudo docker compose up -d
+
+Fix: https://github.com/SigNoz/charts/issues/63#issuecomment-1209071122
+
+---
+
+// File: sockets-nginx
+
+import Giscus from "@giscus/react";
+import Figure from '../src/components/Figure';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+Haha, i remembered dealing with getting socket io endpoints up on thier own domain in the past [Exposing socket io and webservice on a service in EKS, ALB](https://blog.saintmalik.me/docs/sockets-service-alb)
+
+This solution worked then, lol, but it wasn't the perfect solution, why? there is more loadbalancer and ingress to deal with, cost? yes all the ingress and alb bears their own cost.
+
+But what if i tell you, you can have a single ingress that serves many endpoints and service and still have socket io on it?
+
+yeah, with nginx ingress
+
+```bash title="nginx.yaml"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: My Ingress
+  namespace: socketiiiiiing
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "server: hide";
+spec:
+  rules:
+      http:
+        paths:
+          - path: /v1/driver/
+            pathType: Prefix
+            backend:
+              service:
+                name: driver
+                port:
+                  number: 8080
+  ingressClassName: nginx
+```
+
+At the same time you want to you want the expose the service itself on the other hand via LoadBalancer instead of using NodePort, likewise you want to make sure your healthcheck is in place to avoid spammy logs from aws target.
+
+At first i thought it wont be possible to have both ingress and service annotation in a single deployment file, but it turns out to be true, jaw breaking to see it work 😂.
+
+Here is what your final serive yaml file will look like.
+
+```bash title="nginx.yaml"
+apiVersion: v1
+kind: Service
+metadata:
+  name: driver
+  namespace: socketiiiiiing
+spec:
+  type: NodePort
+  selector:
+    app: drivers
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drivers-socketiiiing
+  namespace: socketiiiiiing
+spec:
+  selector:
+    app: drivers
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drivers-ingress
+  namespace: socketiiiiiing
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/server-name: "driverssocket.example.com"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($http_upgrade != "websocket") {
+        return 444;
+      }
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-set-header-upgrade: "$http_upgrade"
+    nginx.ingress.kubernetes.io/proxy-set-header-connection: "upgrade"
+    nginx.ingress.kubernetes.io/proxy-set-header-host: "$host"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+spec:
+  rules:
+    - host: driverssocket.example.com
+      http:
+        paths:
+        - path: /(socket.io|ws)(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: drivers-socketiiiing
+              port:
+                number: 80
+  ingressClassName: nginx
+```
+
+Here you see, with a single node app that has both normal service and socket, we are able to expose the normal endpoint and also expose the socket service in it.
+
+But yeah for this to work, you are definately using nginx ingress controller in your cluster already
+
+Thats it.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: sockets-service-alb
+
+import Giscus from "@giscus/react";
+import Figure from '../src/components/Figure';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+Lets say one of your microservices has both socketio and regular http service endpoints too, so how do you expose both services on EKS using AWS ALB?
+
+Can be tricky at first because you need to make the service available via your general api domain by registering the backend in your ingress.
+
+```bash title="alb.yaml"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: My Ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /v1/driver/
+            pathType: Prefix
+            backend:
+              service:
+                name: driver
+                port:
+                  number: 80
+```
+
+At the same time you want to you want the expose the service itself on the other hand via LoadBalancer instead of using NodePort, likewise you want to make sure your healthcheck is in place to avoid spammy logs from aws target.
+
+At first i thought it wont be possible to have both ingress and service annotation in a single deployment file, but it turns out to be true, jaw breaking to see it work 😂.
+
+Here is what your final serive yaml file will look like.
+
+```bash title="alb.yaml"
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: 'traffic-port'
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /v1/drivers/alive
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-success-codes: "200"
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: '5'
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: '2'
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: '2'
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+      alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+      alb.ingress.kubernetes.io/healthcheck-path: /v1/drivers/alive
+      alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+      alb.ingress.kubernetes.io/success-codes: '200'
+      alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+      alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+  name: drivers
+spec:
+  selector:
+    app: drivers
+  ports:
+  - protocol: TCP
+    port: 80
+  type: LoadBalancer
+```
+
+You will end up having two target group for a single service, one for the socketio exposed via LoadBalancer and one for the Ingress Backend.
+
+its not like you cant still access your HTTP endpoints from the loadbalancer too, but since you are dealing with a microservice here, thats the best way i could think off.
+
+OFcourse if you are using a monolithic service, you are good to go with only ```service.beta.kubernetes.io``` annotation.
+
+Wondering why i didnt use the TCP health check also? that thing just get your logs spammed with unrelated logs.
+
+<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/chill.gif`} alt="Chill"/>
+
+Till next time 🤞🏽
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: sops
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+import Figure from '../src/components/Figure';
+
+Haha, I really don't want you all to be like my buddy who has his API keys, Redis creds, and Slack hooks sitting plain as ``config.yaml``, committed to GitHub, and the server deployed on a public subnet where any random internet user could find it, ssh into the server, with a simple ``ls`` and ``cat``, you had see it all. You don’t want that, trust me.
+
+So how do we then go about it all? we would use **SOPS**, yeah you heard me right, **SOPS is a Simple And Flexible Tool For Managing Secrets**
+
+SOPS is an editor of encrypted files that supports YAML, JSON, ENV, INI and BINARY formats and encrypts with AWS KMS, GCP KMS, Azure Key Vault, age, and PGP
+
+So how will this be helping us?, it means you can encrypt your secrets env files load it encrypted, decrypt it within your codebase and access it via runtime, you get?
+
+In this post, we'll use age for encryption. age is simple — it generates a private and public key. You encrypt with the public key and decrypt with your private key, meaning you’re in charge of keeping your private key safe.
+
+For production apps, though, I’d recommend using services like AWS KMS, Azure Key Vault, or HashiCorp Vault. You can check out the official <a href="https://getsops.io/docs/" target="_blank">docs</a>
+
+
+If you are using MacOSX, just run ``brew install sops age``, this will install SOPS and age/age-keygen on your environment
+
+Then create a folder with the following commands
+
+```
+mkdir -p ~/.config/sops/age
+```
+
+And run ```age-keygen -o ~/.config/sops/age/keys.txt``` to generate the private, public key save to the ~/.config/sops/age/keys.txt file, should look like this
+
+then when you read out the file content, it should look like this
+
+<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/agekeygen.png`} alt="Chill"/>
+
+
+```
+cat ~/.config/sops/age/keys.txt
+```
+
+<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/catage.png`} alt="Chill"/>
+
+
+Now lets encrypt the env files, running
+
+```
+sops --encrypt --age age18es975c59fpgk2mwllxnds92tt5hykhp9akhukxypge7yyuw6v7sh3cutl ./config/goexample.dev.yaml > goexample.dev.enc.yaml
+```
+
+Replace ``age18es975c59fpgk2mwllxnds92tt5hykhp9akhukxypge7yyuw6v7sh3cutl`` with your own public key, you can replace the ./config/goexample.dev.yaml with your own env file or config file, e.g .env.dev or more
+
+Your output file should look just like this
+
+<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encryptlook.png`} alt="Chill"/>
+
+
+now that we have our encypted file, without loosing or exposing our private key, there is peace of mind of commiting or even leaving our encrypted secret file exposed or laying as a file in our servers, haha.
+
+So now you need to decrypt and access your secret, i prefer doing this in runtime, so let me share with you a Go based example, you can always replicate it based on whatever language you might be using.
+
+
+```Go
+package config
+
+import (
+	"bytes"
+	"fmt"
+	"os"
+	"os/exec"
+
+	"github.com/spf13/viper"
+)
+
+// Config defines the structure of the application configuration
+type Config struct {
+	PaymentService struct {
+		APIKey string `mapstructure:"api_key"`
+		URL    string `mapstructure:"url"`
+	} `mapstructure:"payment_service"`
+	Server struct {
+		Port string `mapstructure:"port"`
+	} `mapstructure:"server"`
+}
+
+func LoadConfig() (*Config, error) {
+	// Define the encrypted configuration file path
+	encryptedFilePath := "./goexample.dev.enc.yaml"
+	// Your AGE secret key
+	ageKey := os.Getenv("SOPS_AGE_KEY")
+	if ageKey == "" {
+		fmt.Println("SOPS_AGE_KEY environment variable is not set")
+		os.Exit(1)
+	}
+
+	// Use SOPS to decrypt the file directly
+	cmd := exec.Command("sops", "--decrypt", encryptedFilePath) // Provide the file path directly
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = os.Stderr // Capture any error messages
+
+	// Run the decryption command
+	if err := cmd.Run(); err != nil {
+		exitCode := cmd.ProcessState.ExitCode()
+		fmt.Printf("Failed to decrypt config: %v (exit code: %d)\n", err, exitCode)
+		os.Exit(1)
+	}
+
+	// Load the decrypted YAML/JSON into Viper
+	viper.SetConfigType("yaml") // or "json", depending on the decrypted format
+	if err := viper.ReadConfig(bytes.NewBuffer(out.Bytes())); err != nil {
+		return nil, fmt.Errorf("failed to read config: %w", err)
+	}
+
+	// Unmarshal the configuration into the Config struct
+	var config Config
+	if err := viper.Unmarshal(&config); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal config: %w", err)
+	}
+
+	return &config, nil
+}
+```
+
+And thats it, but now you get to manage your private key 😂, so this example is good for development teams, you get? but for production, just use AWS KMS, Hashicorp Vault, GCP KMS or even Azure Vault.
+
+Also if you happen to be deploying your applications in AWS? use leverage the AWS Parameter store for your application, access secrets via runtime using AWS SDK, There are Assumable roles, serviceaccounts and more.
+
+Thats it folks 🤞🏽
+
+*Written with vibes and insha Allah from somewhere in this Lagos traffic 😮‍💨*
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: squeeze-node
+
+import Giscus from "@giscus/react";
+import Figure from '../src/components/Figure';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+I dont know about you, but i dont think burning some reasonable amount of funds on under-utilized compute is fair, so it means i will queeze my compute for the money of it.
+
+By default there is a limit/capped number of pods that can run on EKS Node(compute)
+
+Like t4g.medium now, see the below screenshot, it can only allow 17 pods
+
+<Figure>
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.webp`} alt="Default t4g.medium max-pods"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.png`} alt="Default t4g.medium max-pods"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/squeeze-nodes.png`} alt="Default t4g.medium max-pods"/>
+</picture>
+<p style={{ color: 'green' }}>Default t4g.medium max-pods</p>
+</Figure>
+
+17 Pods? core-dns is two pod, aws-node is one pod, kube-proxy is one pod, external-dns is one, aws alb or nginx ingress takes 2-3 pods, you need persistent storage, efs or ebs takes upto 3, 2 controller and 1 efs or ebs node, metric-server is one pod, karpenter or any other autoscaler takes two pods.
+
+Now do the calculation, almost 14 pods already, and this is just pods we consider to be crucial or are dependencies, whats the allocation thats left? 3 pods.
+
+Will the 3 pods left be okay for our main application? i bet not, it might be okay for you, but we have multiple services to deploy, there is still redis, kafka there and more.
+
+The interesting part is, if the 17 pods space is filled, irrespective of wheather you have used up the resources, like the example i gave above **t4g.medium** is **2vCPU** and **4GB** Memory, you are then required to add more nodes if you want to add more pods to your EKS cluster.
+
+And there you have a very underutilized compute (EKS Node) wasting away, because you sure are paying for the compute, more worst if its not a spot node.
+
+You can easily check the maximum pod your instance(node) or compute can allow here <a href="https://www.middlewareinventory.com/blog/kubernetes-max-pods-per-node/" target="_blank">maximum pod chekcer</a> or use <a href="https://docs.aws.amazon.com/eks/latest/userguide/choosing-instance-type.html#determine-max-pods" target="_blank">AWS MAX-POD Calculator</a> or <a href="https://learnk8s.io/kubernetes-instance-calculator" target="_blank">K8s Instance Calculator</a>
+
+So how do we resolve this?
+
+## Pod Density
+
+Now that you know the maximum number of pods your node(compute) can run, you need to note that this limitation is determined by the number of Elastic Network Interfaces (ENIs) and IP addresses per ENI supported by the instance type.
+
+
+Now you need to modify the ``max-pod`` value in the EKS Node(compute) by altering the value either through custom AMI, user data script or Kubelet config.
+
+I want to assume you provisioned your Elastic Kubernetes Cluster(EKS) with terraform or opentofu, and you are using a managed node groups with AL2023 ami type, if so the below cloudinit syntax will help modify the max-pod value for your instance, the maximum you can go is **110** to **250** pods depends on how big your instance is
+
+
+```hcl
+  managed_node_groups = {
+    regular = {
+      ami_type       = "AL2023_x86_64_STANDARD"
+      desired_size   = 10
+      min_size       = 10
+      max_size       = 20
+      instance_types = ["t4g.medium"]
+      capacity_type  = "SPOT"
+
+      cloudinit_pre_nodeadm = [
+        {
+          content_type = "application/node.eks.aws"
+          content      = <<-EOT
+            ---
+            apiVersion: node.eks.aws/v1alpha1
+            kind: NodeConfig
+            spec:
+              kubelet:
+                config:
+                  maxPods: 50
+                  apiVersion: kubelet.config.k8s.io/v1beta1
+                  kind: KubeletConfiguration
+          EOT
+        }
+      ]
+    }
+```
+
+After doing this, expect to run into IP exhaustion errors and more, you can read how you can <a href="https://blog.saintmalik.me/eks-ip-outage/" target="_blank"> increase the IP address allocation</a> to solve the issue.
+
+Also keep in mind that because you have 2vCPU and 4GB memory doesnt mean you will be able you use that up to, there is something called reserved memory and vcpu allocation in EKS, and your choice of maximizing your EKS Node(compute) also affect the allocation.
+
+So lets say your t4g.medium can take 17 pods by default, here is what the reserved memory looks like
+
+```
+Reserved memory (17 pods) = 255Mi + 11MiB * 7 = 442MiB
+```
+
+Now if you increase it to 50 pods
+
+```
+Reserved memory (50 pods) = 255Mi + 11MiB * 50 = 805MiB
+```
+
+So your **2GB Memory (2048MiB) - 805MiB = 1243MiB** compared to **2048MiB - 442MiB = 1606 MiB** , you can read more about <a href="https://learnk8s.io/allocatable-resources" target="_blank">allocatable mememory and cpu in kubernetes nodes</a>
+
+Thats it folks 🤞🏽
+
+*Written with vibes and insha Allah from somewhere in this Rwanda traffic 😮‍💨*
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: subdomain-checks
+
+import Giscus from "@giscus/react";
+
+Gather subdomain from GitHub
+
+Gather subdomain from asset finder
+
+Gather subdomain from findomain
+
+Gather subdomain from amass
+
+Gather subdomain from subfinder
+
+Gather subdomain from
+
+-------
+------
+-----
+
+assetfinder -subs-only target.com > assetfinderdom.txt 
+
+subl -d target.com  -o subl.txt 
+
+subfinder -d target.com  -o subf.txt
+
+github-subdomains.py -t GITHUB TOKEN -d $1 > domainfromgit.txt
+
+```gau -subs target.com | awk -F[/:] '{print $4}' | sort -u > gaudomains.txt```
+
+findomain -t target.com
+
+Amass enum -d target.com
+
+amass enum -passive -d target.com-o na.txt -config /home/saintmalik/config.ini -o np.txt
+
+amass enum -passive -d target.com-o na.txt
+
+amass enum -active -d target.com
+
+amass enum -passive -d target.com-config /home/saintmalik/config.ini -o np.txt
+
+#checking for alive domains
+
+**echo** **"\n\n[+] Checking for alive domains..\n"**
+
+**cat** domains.txt | httpx -status-code | tee **-a** alive.txt
+
+4668 > 4800
+
+200 > 225
+
+amass passives With subsister 225 > 232 >242 > 336 > 327
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: terraform-destroy-error
+
+import Giscus from "@giscus/react";
+
+gotten an error like this when you ran terraform destroy?
+
+```
+│ Error: deleting EC2 Subnet (subnet-xxxxxxxxxxx): DependencyViolation: The subnet 'subnet-xxxxxxxxxxx' has dependencies and cannot be deleted.
+│       status code: 400, request id: f8f8890b-3617-43f1-a5b9-xxxxxxxx
+```
+You might want to discover the aws services that are the dependant of this services, we can use a simple bash script for the discovery instead of blindly scrolling the aws console.
+
+```discover.sh
+#!/bin/bash
+vpc="vpc-xxxxxxxxxx"
+myregion="us-west-2"
+aws ec2 describe-internet-gateways --region $myregion --filters 'Name=attachment.vpc-id,Values='$vpc | grep InternetGatewayId
+aws ec2 describe-subnets --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep SubnetId
+aws ec2 describe-route-tables --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep RouteTableId
+aws ec2 describe-network-acls --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep NetworkAclId
+aws ec2 describe-vpc-peering-connections --region $myregion --filters 'Name=requester-vpc-info.vpc-id,Values='$vpc | grep VpcPeeringConnectionId
+aws ec2 describe-vpc-endpoints --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep VpcEndpointId
+aws ec2 describe-nat-gateways --region $myregion --filter 'Name=vpc-id,Values='$vpc | grep NatGatewayId
+aws ec2 describe-security-groups --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep GroupId
+aws ec2 describe-instances --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep InstanceId
+aws ec2 describe-vpn-connections --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep VpnConnectionId
+aws ec2 describe-vpn-gateways --region $myregion --filters 'Name=attachment.vpc-id,Values='$vpc | grep VpnGatewayId
+aws ec2 describe-network-interfaces --region $myregion --filters 'Name=vpc-id,Values='$vpc | grep NetworkInterfaceId
+```
+
+And you should get the output of all the depending services, and you can easily delete them and rerun the terraform destroy command
+
+Refrences
+- https://bobcares.com/blog/the-vpc-has-dependencies-and-cannot-be-deleted-error/
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: terraform-destroy
+
+So just like every other new terraform users, haha, i made some mistakes early on too.
+
+where i tore down the whole infrastructure using ```terraform destroy --auto-approve``` just because i want to delete an helm installation.
+
+it wasnt a nice process cause it takes alot of time to destroy and even to apply back, so you see its not a funny experience.
+
+i got to know about ```terraform destroy --target``` later on, which allows you to delete a certain item.
+
+so let's say i installed argocd using helm chart just like this
+
+```yaml
+resources "helm_release" "argocd" {
+  name       = "argocd"
+  chart      = "argo-cd"
+  repository = "https://argoproj.github.io/argo-helm"
+  version    = "5.19.6"
+  ......
+  }
+```
+
+if i want to tear down argocd alone, i would run ```terraform destroy --target=helm_release.argocd``` and it will tear down the argocd installations alone.
+
+So proceeding i encounteered another issues too, i decided to tear down the whole infra and then some items refused to get destroy saying they **have some dependencies and cannot be deleted**, here is an example
+
+```yaml
+The vpc 'vpc-0xxxxxxxxxxxdca' has dependencies and cannot be deleted.
+```
+
+All you have to do is some manual tear down via aws console, like vpc dependencies? could be some target groups, could be some load balancers refusing to be destroyed.
+
+So when you are done with the dependencies tear down, you can re-run the ```destroy``` command and you should be good.
+
+check another write up on fixing <a href="/docs/terraform-destroy/" target="_blank">have some dependencies and cannot be deleted</a>
+
+Thats all folks!
+
+---
+
+// File: terraform-kickstart
+
+import Giscus from "@giscus/react";
+
+```
+terraform state rm kubernetes_namespace.argocd
+```
+
+terraform state command to remove the resource from the Terraform state file. This will prevent Terraform from tracking the resource and attempting to destroy it during the terraform destroy command.
+
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: terragrunt
+
+import Giscus from "@giscus/react";
+
+Terra grunt config file name, terragrunt.hcl
+
+Blocks:
+
+Terraform Block: to find terraform config files, communicate with resource on target provider —— Arguments: source, include_in_copy, extra_arguments,
+hooks before, error, after,
+init-from-module and init, terragrunt-read-config
+
+Include block, inherit parent terraform configuration file to child config file, process data from parent to child in current config file
+Can only process one include block, path = find_in_parent_folders(“region.hcl”)
+
+Local blocks allows you to define alias within the configuration file
+
+Remote_state block:
+
+iam_role
+
+Store remote state for multiple env
+```
+Generate
+		Path = “s3-backend.tf”
+		If_exists = “overwrite_terragrunt”
+		Contents = <<EOF
+Terraform {
+ Backend “s3” {
+    Bucket = “terraform-statefiles-aws-vpc”
+    Key = “${path_relative_to_include())/terraform.tfstate”
+```
+
+Call them in your terrgrunt file and use block name include
+
+```
+Include “root” {
+Path =
+}
+```
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: testing-azure
+
+import Giscus from "@giscus/react";
+
+
+```
+{ "message": "user is not allowed to do action [find] on [test.users]" }
+```
+
+if you get this error, check your permissions for the mongo user you are trying to use to connect
+
+---
+
+// File: tf-scripts
+
+import Giscus from "@giscus/react";
+
+well, you will always find ways to improve things, when i was first writing the tf scripts, i needed to grab the argocd load balancer url, so i can feed it into the github webhook instead of having to do it manually
+
+so i decided to use program execution process, like using kubectl wayyyy.
+
+```bash title="argocd.tf"
+// get the load balancer url after the argocd helm deployment is done
+data "external" "get_loadbalancer_url" {
+  depends_on = [helm_release.argocd]
+  program    = ["sh", "-c", "kubectl get services -n argocd --selector=app.kubernetes.io/name=argocd-server -o jsonpath='{\"{\"}\"minio-bucket\": \"{.items[0].status.loadBalancer.ingress[0].hostname}\"}' | jq -c"]
+}
+
+// create the github webhook using the data from the above resource, add https to it and strip off the "%" value at the end of the results
+
+resource "github_repository_webhook" "argocd" {
+  # depends_on = [data.external.get_loadbalancer_url]
+  repository = "gitops-repo"
+  configuration {
+    url          = trimsuffix(join("", ["https://", "${values(data.external.get_loadbalancer_url.result)[0]}"]), "%")
+    content_type = "json"
+    secret       = var.avoid-ddos-webhook //the secrets to avoid ddos if argo link is exposed
+    insecure_ssl = true
+  }
+
+  active = true
+
+  events = ["push"]
+}
+```
+
+you would agree with me, that isnt an healthy process there, but it works right, haha, yes it works, but there is always room for improvement
+
+knowing that the loadbalancer ingress is a kubernetes service, why not pull it back using the data source of kubernetes service, that looks more healthy and doesnt depend on kubectl shell execution.
+
+A great way and good thing for those who might be moving their IaC to pipelines.
+
+```bash title="argocd.tf"
+data "kubernetes_service" "argocd_server_service" {
+  metadata {
+  name      = "argocd-server"
+  namespace = "argocd"
+  }
+}
+
+resource "github_repository_webhook" "argocd" {
+  # depends_on = [data.kubernetes_service.argocd_server_service]
+  repository = "gitops-repo"
+  configuration {
+    url          = "https://${data.kubernetes_service.example_service.status[0].load_balancer[0].ingress[0].hostname}"
+    content_type = "json"
+    secret       = var.avoid-ddos-webhook //the secrets to avoid ddos if argo link is exposed
+    insecure_ssl = true
+  }
+
+  active = true
+
+  events = ["push"]
+}
+```
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: unterminated-kubernetest-namespace
+
+this fix worked: https://repost.aws/knowledge-center/eks-terminated-namespaces
+
+---
+
+// File: variables-in-golang
+
+import Giscus from "@giscus/react";
+
+The `var` keyword is what we use in declaring variables in GoLang
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    var name = "SaintMalik"
+    var name string = "Saintmalik" // type declaration for string
+    var myNumIs int  = 3 // type declaration for integers
+    fmt.Println(myNumIs)
+}
+```
+
+## Shorthand Variables
+
+You can also declare variables in short hand using `:=`
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    name := "SaintMalik"
+    fmt.Println(name)
+}
+```
+
+## Global and Local Variables
+
+Also notice the variables declared in the main function `func main()` is regarded as local variables, the variables can only be called within that main function.
+
+Lets talk about Global variables too,
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+var name = "SaintMalik" // declaring global variables
+
+func main() {
+    fmt.Println(name)
+}
+```
+
+You can't declare global variables using shorthand form of declaring variables, short hand variables can only be declared inside a function which makes them a local variable.
+
+## Shadowing in GoLang Variables
+
+Shadowing is a feature in Go that helps you in situation where you can declare a variable name in a block and also declare another variable with the same name in an inner block without having errors.
+
+here's an example
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    name := "Saintmalik"
+{
+    name := "malik"
+    fmt.Println(name)
+}
+    fmt.Println(name)
+}
+```
+
+However this wont work if you attempt to declare variables of the same name in the same block
+
+```go title="main.go"
+package main
+
+import "fmt"
+
+func main() {
+    name := "Saintmalik"
+    name := "malik"
+    fmt.Println(name) // no new variables on left side of :=
+}
+```
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: vault
+
+import Giscus from "@giscus/react";
+
+So vault injector isnt injecting the sidecar for your deployments, you've checked the log and you see only a log about Updating cert, webhook....
+
+Just restart the vault-injector deployment and everything should be good, applicable to eks v1.27, vault helm chart 0.25.0
+
+Further more, chances are your service are not communicating with each other, revise your namespace network policies.
+
+using EKS and node security group with your cluster? chances are the ingress isnt receiving the traffic, a quick fix but not recommended is allowing everything from cluster security group
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: vpc
+
+import Giscus from "@giscus/react";
+
+
+Don’t make it public. Give it a private IP address.
+Put it behind SSO and VPN
+Easiest option will be to modify the subnet inbound settings and white list whoever u want accessing the service
+I mean whitelisting their IP
+Another option will be to use a vpc tunnel(https://support.perimeter81.com/docs/configuring-a-site-to-site-ipsec-tunnel-to-aws-virtual-gateway)
+
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: vps-issues
+
+import Giscus from "@giscus/react";
+
+adduser // add ne user to your linux shell
+
+usermod -aG saintmalik
+
+usermod -aG sudo saintmalik // add saintmalik as a user to the sudoers group, the -aG, the -a makes sure the user is not removed from other groups while adding the user to another group you will be specifying after the -G, <a href="https://linuxize.com/post/usermod-command-in-linux/">read more about usermod</a>
+
+
+MAILTO="redacted@gmail.com" // mailto work in cron to pass cron job output to mail
+
+SHELL=/bin/bash //cron....
+
+HOME=/
+
+"- * * * * /home/saintmalik/track.sh "  // you point from root when executing in shell, else it might not execute
+
+sudo /etc/init.d/cron stop // stop cron jobs
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: vps-workspace-accessibility
+
+import Giscus from "@giscus/react";
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+Am a big fan of using VPS as my workspace (pentesting/development/and basic tasks) and have been using it for a long period of time now,.
+
+If you dont know how to setup a VPS for Pentesting or Development sake, feel free to check this <a href="/linux-vps-for-offensive-security-pentesting/" target="_blank">step by step guide on Setting Up Ubuntu Linux VPS For Offensive Security and Pentesting</a>
+
+Everything with an advantage will also have a disadvantage, and some of the disadavantages of using a VPS as a workspace are;
+
+1. The movement of files from my local system to my VPS, vice versa
+2. Spun up nano everytime to write and searching through files for a pattern and all that and more.
+
+Although i do find my way around this issues via Terminal, but having a nice way to access this thing can be helpful and speed up work rate.
+
+That brings us to the VS Code Software and its awesome Extension named <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh"> Remote -SSH  </a>
+
+With this you can access your VPS environment through a nice Interface good for navigation, can be handy when doing Android App Pentest.
+
+Where you decompile Apks and grep through th files or looking through manually.
+
+Creating files and editing files easily, so when you are done with installation, here is how to get your things up and running.
+
+
+1. Enable the Remote - SSH Extension after installation, you might also be prompted to install another Extension name Remote - SSH Editing Configuration Files, install and enable it also.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.webp`} alt="Remote SSH Extensiont"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.jpg`} alt="Remote SSH Extension"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh.jpg`} alt="Remote SSH Extension"/>
+</picture>
+
+2. If you are on Windows, press F1 button to spin up a command box on VS Code For Mac users, press, Shift + Comand + P
+
+Then  enter the "remote-ssh" in the box, it will show you all the Remote SSH options.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/remote-ssh-box-vscode.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+Then you pick the "Remote-SSH: Connect to Host..." Option, that should spin up another box, asking you to input your VPS username and host, in this format username@host, e.g saintmalik@209.97.157.7.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-username-host.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+3. It's time to input your VPS Password
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enter-your-password.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+4. Now that we are in, let's play inside our VPS environment
+
+## Creating folders inside our Ubuntu VPS
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-remote-vps.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+## Seeing the folder realtime on our VPS environment via our Terminal
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-folder-terminal-vps.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+
+- Creating files inside our Ubuntu VPS via VS Code and seeing it realtime on our VPS environment via our Terminal.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vps-check-terminal-file..jpg`} alt="Remote SSH Box"/>
+</picture>
+
+- Writing inside our created file in VPS via VS Code and seeing it real time via terminal
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/write-file-terminal-vps.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+- Drag and dropping files from my local system into my Ubuntu VPS Environment
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/moving-files-in-vps-to-local-system.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+- Deleting files on our VPS Environment Easily
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.webp`} alt="Remote SSH Box"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.jpg`} alt="Remote SSH Box"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/delete-files-vps-remote.jpg`} alt="Remote SSH Box"/>
+</picture>
+
+:::info
+Before i knew about this, i do use the  ``` scp -P 22 username@127.0.0.1 ``` to upload and download files between my local system and VPS Environent
+:::
+🤞🏽.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: wameir
+
+import Giscus from "@giscus/react";
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+Language used: Golang 😌
+
+Wameir was built out of repeated task, common with Community builders or any individual that takes users WhatApp details via either through forms or survey.
+
+Well, after taking users WhatsApp numbers, here come the stressful task of either saving their numbers individually to message them or drop them the community link or manually adding wa.me/NUMBER everytime.
+
+This action can be stressful and also saving numbers unneccasrily can be bad for ones privacy.
+
+You surely dont want the users seeing your status but to join the community or whatsoever you want them to do.
+
+Here comes the time saver and the stress reducer WAMEIR 😂
+
+All you have to do is select the country that the number belongs to and paste those bulky WhatsApp numbers and hit submit.
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.webp`} alt="Wameir"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
+</picture>
+
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.webp`} alt="Wameir output"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
+</picture>
+
+Dont mind the UI please, Lol, i suck at that Frontend thing
+
+Check it out: https://wame.saintmalik.me/
+
+If you wish to improve the UI or contribute here is the source code: https://github.com/saintmalik/wame
+
+---
+---
+
+So the things i learnt about Go from this project?
+
+How to work with golang template, taking data from users via html form
+
+Splitting datas taken into newlines
+
+Tried the golang switch
+
+Got to know more about strings, structs, declaration of global variable to access them in other part of the program in the go file
+
+Also understand how to get golang web app up on Heroku by modifying the port inside the main function
+
+Deployment to heroku needs a Procfile and other tiny tiny instructions and guide that i came across in toward building.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

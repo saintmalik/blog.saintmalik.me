@@ -1,0 +1,561 @@
+@import "tailwindcss";
+
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites. #00000000
+ */
+
+html,body {
+  background: #000508;
+  color: #fff;
+}
+
+/* Restore list styles (Tailwind Preflight removes these) */
+article ul,
+.markdown ul,
+[class*='docItemContainer'] ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+article ol,
+.markdown ol,
+[class*='docItemContainer'] ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+article li,
+.markdown li,
+[class*='docItemContainer'] li {
+  margin-bottom: 0.25rem;
+}
+
+.navbar {
+  background: #000508;
+  color: #fff;
+}
+
+/* Mobile navbar: space between hamburger (left) and title */
+@media screen and (max-width: 996px) {
+  .navbar__brand {
+    margin-left: 1rem;
+  }
+}
+
+ @font-face {
+  font-family: config rounded;
+  src: url(/static/fonts/UberMoveTextRegular.otf) format("otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+}
+
+/* @font-face {
+  font-family: config rounded;
+  src: url(/static/fonts/ConfigRounded-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap
+} */
+
+@font-face {
+  font-family: config rounded;
+  src: url(/static/fonts/UberMoveTextMedium.otf) format("otf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap
+}
+
+/* @font-face {
+  font-family: papersan;
+  src: url(/static/fonts/papersan.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+} */
+
+@font-face {
+  font-family: papersan;
+  src: url(/static/fonts/papersan2.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap
+}
+
+/* @font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-Regular.eot);
+  src: local("Config Rounded Regular"),local("ConfigRounded-Regular"),url(ConfigRounded-Regular.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-Regular.woff2) format("woff2"),url(/static/fonts/ConfigRounded-Regular.woff) format("woff"),url(ConfigRounded-Regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-Bold.eot);
+  src: local("Config Rounded Bold"),local("ConfigRounded-Bold"),url(ConfigRounded-Bold.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-Bold.woff2) format("woff2"),url(ConfigRounded-Bold.woff) format("woff"),url(ConfigRounded-Bold.ttf) format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-Italic.eot);
+  src: local("Config Rounded Italic"),local("ConfigRounded-Italic"),url(ConfigRounded-Italic.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-Italic.woff2) format("woff2"),url(ConfigRounded-Italic.woff) format("woff"),url(ConfigRounded-Italic.ttf) format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-BoldItalic.eot);
+  src: local("Config Rounded Bold Italic"),local("ConfigRounded-BoldItalic"),url(ConfigRounded-BoldItalic.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-BoldItalic.woff2) format("woff2"),url(ConfigRounded-BoldItalic.woff) format("woff"),url(ConfigRounded-BoldItalic.ttf) format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-Light.eot);
+  src: local("Config Rounded Light"),local("ConfigRounded-Light"),url(ConfigRounded-Light.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-Light.woff2) format("woff2"),url(ConfigRounded-Light.woff) format("woff"),url(ConfigRounded-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config;
+  src: url(Config-LightItalic.eot);
+  src: local("Config Light Italic"),local("Config-LightItalic"),url(Config-LightItalic.eot?#iefix) format("embedded-opentype"),url(/static/fonts/Config-LightItalic.woff2) format("woff2"),url(Config-LightItalic.woff) format("woff"),url(Config-LightItalic.ttf) format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-LightItalic.eot);
+  src: local("Config Rounded Light Italic"),local("ConfigRounded-LightItalic"),url(ConfigRounded-LightItalic.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-LightItalic.woff2) format("woff2"),url(ConfigRounded-LightItalic.woff) format("woff"),url(ConfigRounded-LightItalic.ttf) format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: config rounded;
+  src: url(ConfigRounded-SemiBold.eot);
+  src: local("Config Rounded SemiBold"),local("ConfigRounded-SemiBold"),url(ConfigRounded-SemiBold.eot?#iefix) format("embedded-opentype"),url(/static/fonts/ConfigRounded-SemiBold.woff2) format("woff2"),url(ConfigRounded-SemiBold.woff) format("woff"),url(ConfigRounded-SemiBold.ttf) format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap
+} */
+
+/* :root {
+  font-family: config rounded,-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,Ubuntu,roboto,noto,segoe ui,arial,sans-serif
+} */
+
+@supports(font-variation-settings: normal) {
+  :root {
+      -webkit-font-feature-settings:"tnum" off,"calt" on,"liga" on,"dlig" on,"frac" off,"case" on,"zero" off;
+      -moz-font-feature-settings: "tnum" off,"calt" on,"liga" on,"dlig" on,"frac" off,"case" on,"zero" off;
+      -ms-font-feature-settings: "tnum" off,"calt" on,"liga" on,"dlig" on,"frac" off,"case" on,"zero" off;
+      font-feature-settings: "tnum" off,"calt" on,"liga" on,"dlig" on,"frac" off,"case" on,"zero" off
+  }
+}
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-font-family-base: "config rounded", -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
+  --ifm-color-primary: #0f9d58;
+  --ifm-color-primary-dark: #0d8d4f;
+  --ifm-color-primary-darker: #0d854b;
+  --ifm-color-primary-darkest: #0a6e3e;
+  --ifm-color-primary-light: #10ad61;
+  --ifm-color-primary-lighter: #11b565;
+  --ifm-color-primary-lightest: #13cc72;
+  --ifm-color-secondary: #878787;
+  --ifm-color-secondary-dark: #616161;
+  --ifm-color-secondary-darker: #2e2e2e;
+  --ifm-color-secondary-darkest: #141414;
+  --ifm-color-secondary-light: #adadad;
+  --ifm-color-blog-fair: #111;
+  --ifm-color-code-text: #fff;
+  /* --prism-color: #fff; */
+  --ifm-color-blog-dark: #333;
+  --ifm-color-secondary-lighter: #d4d4d4;
+  --ifm-color-secondary-lightest: #ededed;
+  --ifm-navbar-background-color: #141414;
+  --ifm-background-color: #141414;
+  --ifm-color-success: #0f9d58;
+  --ifm-color-warning: #f4b400;
+  --ifm-color-danger: #db4437;
+  --ifm-link-color: #0f9d58;
+  --ifm-code-font-size: 95%;
+}
+/*
+.codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module {
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  font-size: var(--ifm-code-font-size);
+  font-weight: 500;
+  padding: 0.75rem var(--ifm-pre-padding);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-color: var(--ifm-color-blog-dark);
+  color: var(--ifm-color-code-text)
+}
+
+.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module {
+  background: var(--prism-background-color);
+  color: var(--prism-color);
+  margin-bottom: var(--ifm-leading);
+  box-shadow: var(--ifm-global-shadow-lw);
+  border-radius: var(--ifm-code-border-radius);
+}
+
+pre {
+  background-color: var(--ifm-color-blog-fair);
+  border-radius: var(--ifm-pre-border-radius);
+  color: var(--ifm-pre-color);
+  font: var(--ifm-code-font-size) / var(--ifm-pre-line-height)
+    var(--ifm-font-family-monospace);
+  margin: 0 0 var(--ifm-spacing-vertical);
+  overflow: auto;
+  padding: var(--ifm-pre-padding);
+}
+
+pre code {
+    background-color: transparent;
+    border: none;
+    font-size: 100%;
+    line-height: inherit;
+    padding: 0;
+  }
+
+.docusaurus-highlight-code-line {
+  /* background-color: rgb(72, 77, 91); */
+  /* background:  var(--ifm-color-blog-fair);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding); */
+/* }  */
+
+video {
+  max-width: 390px;
+}
+
+:root {
+  --font-family: papersan, "cursive", sans-serif;
+}
+
+h1, h2, h3, li {
+  font-family: var(--font-family);
+}
+
+h1 {
+  font-size: 2.4rem !important;
+}
+
+h2 {
+  font-size: 1.9rem !important;
+}
+
+h3 {
+  font-size: 1.2rem !important;
+}
+
+li {
+  font-size: 1rem !important;
+}
+
+p {
+  font-size: 1rem !important;
+}
+
+img {
+  border-radius: 20px;
+}
+
+.textUpper {
+  text-transform: uppercase;
+}
+
+.colorSuccess {
+  color: var(--ifm-color-success);
+}
+
+.colorWarning {
+  color: var(--ifm-color-warning);
+}
+
+.colorDanger {
+  color: var(--ifm-color-danger);
+}
+
+/* ============================================
+   ENHANCED CODE BLOCKS
+   ============================================ */
+
+/* Inline code */
+code {
+  color: #e6edf3;
+  background-color: rgba(110, 118, 129, 0.4);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-size: 85%;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+}
+
+/* Code blocks container */
+[class*='codeBlockContainer'] {
+  background: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Code block title/language label */
+[class*='codeBlockTitle'] {
+  background: #161b22 !important;
+  border-bottom: 1px solid #30363d !important;
+  color: #8b949e !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 10px 16px !important;
+}
+
+/* The actual code block */
+pre {
+  background: #0d1117 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 1rem 1.25rem !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  color: #e6edf3 !important;
+}
+
+/* Line numbers */
+[class*='codeLineNumber'] {
+  color: #484f58 !important;
+  min-width: 2.5rem !important;
+  padding-right: 1rem !important;
+  text-align: right !important;
+  user-select: none !important;
+}
+
+/* Highlighted line */
+.docusaurus-highlight-code-line,
+[class*='docusaurus-highlight-code-line'] {
+  background: rgba(56, 139, 253, 0.15) !important;
+  display: block !important;
+  margin: 0 -1.25rem !important;
+  padding: 0 1.25rem !important;
+  border-left: 3px solid #58a6ff !important;
+}
+
+/* Copy button */
+[class*='copyButton'] {
+  background: #21262d !important;
+  border: 1px solid #30363d !important;
+  border-radius: 6px !important;
+  color: #8b949e !important;
+  transition: all 0.2s ease !important;
+}
+
+[class*='copyButton']:hover {
+  background: #30363d !important;
+  color: #e6edf3 !important;
+}
+
+/* Scrollbar for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+  background: #161b22;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+p {
+  font-size: 1rem !important;
+  /* font-family: papersan, "cursive",sans-serif; */
+}
+
+img {
+  border-radius: 20px;
+}
+
+.textUpper {
+  text-transform: uppercase;
+}
+
+.colorSuccess {
+  color: var(--ifm-color-success);
+}
+
+.colorWarning {
+  color: var(--ifm-color-warning);
+}
+
+.colorDanger {
+  color: var(--ifm-color-danger);
+}
+
+.bgColorSuccess {
+  background-color: var(--ifm-color-success);
+}
+
+.bgColorDanger {
+  background-color: var(--ifm-color-danger);
+}
+
+.underlineColorSuccess {
+  border-bottom: 4px solid var(--ifm-color-success);
+}
+
+.underlineColorWarning {
+  border-bottom: 4px solid var(--ifm-color-warning);
+}
+
+.underlineColorDanger {
+  border-bottom: 4px solid var(--ifm-color-danger);
+}
+
+.admonition a,
+.admonition a:hover {
+  color: var(--ifm-alert-color);
+  text-decoration: underline;
+}
+
+.wideBodyMaxWidth {
+  max-width: 640px;
+}
+
+.contentTableContainer table {
+  display: table;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+}
+
+.contentTableContainer th:first-child {
+  width: 5%;
+}
+
+.contentTableContainer td:first-child {
+  text-align: right;
+}
+
+.contentTableContainer th:last-child {
+  width: 25%;
+}
+
+@media screen and (max-width: 966px) {
+  h1 {
+    font-size: 2.0rem !important;
+  }
+
+  h2 {
+    font-size: 1.6rem !important;
+  }
+
+  h3 {
+    font-size: 1.4rem !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+  }
+}
+
+/* ============================================
+   FOOTER & NAVBAR EXTERNAL LINK FIXES
+   ============================================ */
+
+/* NAVBAR: Fix external link icons for About/Talks */
+.navbar__link svg,
+.navbar__item a svg {
+  display: inline !important;
+  width: 12px !important;
+  height: 12px !important;
+  margin-left: 4px !important;
+  vertical-align: middle !important;
+}
+
+/* FOOTER STYLES */
+footer.footer {
+  background-color: #000508 !important;
+  padding: 3rem 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+footer.footer .footer__links {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Force inline for footer link items */
+footer.footer .footer__link-item {
+  display: inline !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.95rem !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+footer.footer .footer__link-item:hover {
+  color: #fff !important;
+}
+
+/* Dot separator between footer links */
+footer.footer .footer__links .footer__link-item:first-child::after {
+  content: " \00b7 " !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  margin: 0 8px !important;
+}
+
+/* Footer SVG icons - inline beside text */
+footer.footer .footer__link-item svg,
+footer.footer svg[class*="iconExternalLink"] {
+  display: inline !important;
+  width: 13px !important;
+  height: 13px !important;
+  margin-left: 4px !important;
+  vertical-align: middle !important;
+  opacity: 0.7 !important;
+}
+
+footer.footer .footer__copyright {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.85rem !important;
+  margin-top: 1rem !important;
+  text-align: center !important;
+}
