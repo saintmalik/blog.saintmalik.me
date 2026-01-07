@@ -41,10 +41,10 @@ If you're thinking **"I'll just use the normal Vault sidecar injection..."** sor
 
 Before we dive in, make sure you have:
 
-- ✅ HashiCorp Vault deployed and accessible
-- ✅ ArgoCD installed in your cluster
-- ✅ Kubernetes service account with Vault permissions
-- ✅ Vault role and policy configured for your secrets
+- HashiCorp Vault deployed and accessible
+- ArgoCD installed in your cluster
+- Kubernetes service account with Vault permissions
+- Vault role and policy configured for your secrets
 
 ## Step 1: Create the AVP Credentials Secret
 

@@ -182,6 +182,8 @@ stringData:
         "caData": "${data.aws_ssm_parameter.gitops-argocd-authCA.value}"
       }
     }
+  EOF
+}
 ```
 
 But if it happens that you didn't use terraform IaC for your existing ArgoCD instance, you can simply create a deployment yaml file named **argocd-connect.yaml** and paste the following code there.
@@ -223,67 +225,91 @@ Now you have more than one kubernetes cluster controlled by a single argocd inst
 First thing you will be creating here is an IAM assumable role, which will be assumed by another IAM role that will be used by the argocd instance deployment and also added to the aws-auth configmap in the new cluster.
 
 
-```yaml title="argocd-instance-cluster.tf"
-module "iam-assumable-role" {
-  source                          = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
-  create_role                     = true
-  create_custom_role_trust_policy = true
-  role_name                       = "argocd-role"
-  custom_role_trust_policy        = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::xxxxxx:role/argocd"
-            },
-            "Action": "sts:AssumeRole"
+```yaml title="argocd-iam.tf"
+locals {
+  expected_trust_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/argocd"
         }
+        Action = "sts:AssumeRole"
+      }
     ]
+  })
 }
-EOF
+
+resource "aws_iam_role" "argocd_role" {
+  name               = "argocd-role"
+  # Initial policy can be EC2 or similar, updated later by trust policy management
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
-```
 
-Here you will be creating an IAM role that will assume the argocd-role, and the argocd-role will be used by the argocd instance deployment to assume the IAM role, so you can deploy your deployment yaml files across the new cluster the GitOps way.
-
-```yaml title="argocd-instance-cluster.tf"
 resource "aws_iam_role" "argocd_irsa_role" {
-  name               = "argocd"
-  description        = "Trusts argocd assume role "
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::xxxxx:role/argocd-role"
-            },
-            "Action": "sts:AssumeRole"
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "${module.eks.oidc_provider_arn}"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "${module.eks.oidc_provider}:sub": [
-                        "system:serviceaccount:argocd:argocd-application-controller",
-                        "system:serviceaccount:argocd:argocd-server"
-                    ]
-                },
-                "StringLike": {
-                    "${module.eks.oidc_provider}:aud": "sts.amazonaws.com"
-                }
-            }
+  depends_on  = [aws_iam_role.argocd_role]
+  name        = "argocd"
+  description = "Trusts argocd assume role in prod cluster."
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/argocd-role"
         }
+        Action = "sts:AssumeRole"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = data.terraform_remote_state.eks.outputs.oidc_provider_arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "${data.terraform_remote_state.eks.outputs.oidc_provider}:sub" = [
+              "system:serviceaccount:argocd:argocd-application-controller",
+              "system:serviceaccount:argocd:argocd-server",
+              "system:serviceaccount:argocd:argocd-repo-server"
+            ]
+          }
+          StringLike = {
+            "${data.terraform_remote_state.eks.outputs.oidc_provider}:aud" = "sts.amazonaws.com"
+          }
+        }
+      }
     ]
+  })
 }
-EOF
+
+resource "null_resource" "update_trust_policy" {
+  triggers = {
+    role_arn = aws_iam_role.argocd_role.arn
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      aws iam update-assume-role-policy \
+        --role-name argocd-role \
+        --policy-document '${local.expected_trust_policy}'
+    EOT
+  }
+
+  depends_on = [aws_iam_role.argocd_role]
 }
 ```
 
@@ -402,22 +428,64 @@ Now you have to add the IAM Assume role ```arn:aws:iam::xxxxxx:role/argocd-role`
 
 ```yaml title="argocd-setup-on-new-cluster.tf"
 resource "kubernetes_config_map" "aws_auth" {
+data "kubernetes_config_map" "aws_auth" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+}
+
+locals {
+  # Decode the existing mapRoles from the aws-auth configmap, defaulting to empty list if missing
+  existing_map_roles = try(yamldecode(data.kubernetes_config_map.aws_auth.data.mapRoles), [])
+
+  # Define the new ArgoCD role mapping
+  argocd_role = {
+    groups   = ["system:masters"]
+    rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/argocd-role"
+    username = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/argocd-role"
+  }
+
+  # Check if the role is already present to avoid duplicates
+  argocd_role_exists = anytrue([
+    for role in local.existing_map_roles : role.rolearn == local.argocd_role.rolearn
+  ])
+
+  # Append the new role only if it doesn't exist
+  updated_map_roles = local.argocd_role_exists ? local.existing_map_roles : concat(local.existing_map_roles, [local.argocd_role])
+
+  # Convert back to YAML string
+  map_roles_yaml = join("\n", [
+    for role in local.updated_map_roles : <<-EOT
+      - groups:
+        - ${join("\n  - ", role.groups)}
+        rolearn: ${role.rolearn}
+        username: ${role.username}
+    EOT
+  ])
+}
+
+# Apply the updated configmap preserving existing roles
+resource "kubernetes_config_map_v1_data" "aws_auth" {
   metadata {
     name      = "aws-auth"
     namespace = "kube-system"
   }
 
   data = {
-    mapRoles = <<EOF
-- groups:
-  - system:masters
-  rolearn: arn:aws:iam::xxxxxx:role/argocd-role
-  username: arn:aws:iam::xxxx:role/argocd-role
-EOF
+    mapRoles = local.map_roles_yaml
   }
+
+  force = true
 }
 ```
-That's it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
+
+This method is safer than the standard `kubernetes_config_map` resource because:
+1. It reads the existing `aws-auth` configmap first.
+2. It appends your new ArgoCD role to the existing roles instead of overwriting them.
+3. It uses `kubernetes_config_map_v1_data` which is designed for patching specific data fields without assuming full control of the resource lifecycle, reducing conflicts with the EKS module or other controllers.
+
+And that's it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
 
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 
