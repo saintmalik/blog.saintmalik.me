@@ -1,0 +1,32 @@
+# Cloudflare Pages Cache Headers
+# HTML pages - always revalidate to get fresh content
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Hashed assets (JS, CSS) - cache forever since filenames change on rebuild
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static files with hashes
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images and fonts - long cache
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Prevent caching issues for service worker and manifest
+/manifest.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
