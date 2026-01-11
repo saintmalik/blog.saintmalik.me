@@ -46,7 +46,8 @@
           "vps-issues",
           "cloudrun-loadbalancing",
           "squeeze-node",
-          "alpha-channels"
+          "alpha-channels",
+          "vpn-issues"
         ],
       },
       {
