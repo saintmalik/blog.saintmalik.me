@@ -9,7 +9,7 @@ description: Moving Vault to a GitOps flow is great, but what happens when you l
 
 import Giscus from "@giscus/react";
 
-If you've been following my journey with HashiCorp Vault on EKS, you've seen me talk about <a href="https://blog.saintmalik.me/automate-vault-backup-restore-on-aws-eks/" target="_blank">automating backups</a> and <a href="https://blog.saintmalik.me/tls-vault-eks/" target="_blank">setting up TLS</a>. But as my infrastructure grew, I realized that "manual-ish" restores and Terraform-managed manifests were becoming a bottleneck.
+If you've been following my journey with HashiCorp Vault on EKS, you've seen me talk about <a href="https://blog.saintmalik.me/automate-vault-backup-restore-on-aws-eks/" target="_blank">automating backups</a> and <a href="https://blog.saintmalik.me/tls-vault-eks/" target="_blank">setting up TLS</a>. But as things scaled, I realized that detached manual processes and terraform/tofu-managed manifests were becoming a major friction point.
 
 <!--truncate-->
 
@@ -46,8 +46,8 @@ resource "aws_security_group_rule" "allow_vault_injector" {
   from_port                = 8080
   to_port                  = 8080
   protocol                 = "tcp"
-  source_security_group_id = data.terraform_remote_state.eks.outputs.cluster_primary_security_group_id
-  security_group_id        = data.terraform_remote_state.eks.outputs.node_security_group_id
+  source_security_group_id = EKS CLUSTER PRIMARY SECURITY GROUP ID
+  security_group_id        = EKS NODE SECURITY GROUP ID
 }
 ```
 
@@ -60,7 +60,7 @@ resource "aws_kms_key" "vault" {
   lifecycle {
     prevent_destroy = true
   }
-  description             = "KMS key for Vault encryption in chaos"
+  description             = "KMS key for Vault encryption"
   deletion_window_in_days = 7
   enable_key_rotation     = true
 
@@ -71,7 +71,7 @@ resource "aws_kms_key" "vault" {
         Sid    = "KeyAdministration"
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::ACCOUNT_ID:user/chaos-admin"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
         Action = "kms:*"
         Resource = "*"
@@ -103,14 +103,14 @@ resource "aws_kms_alias" "vault" {
 
 ### 👉 IAM Roles for Service Accounts (IRSA)
 
-We need roles for both KMS unsealing and S3 backup/restore access.
+We need roles for both KMS unsealing and S3 backup/restore access. We use the [official module](https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/latest/submodules/iam-role-for-service-accounts-eks) from the Terraform Registry.
 
 ```hcl
 module "vault_kms_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.30.0"
+  version = local.module_versions.irsa
 
-  role_name = "vault-kms-chaos"
+  role_name = "vault-kms-${var.env}"
 
   role_policy_arns = {
     kms_policy = aws_iam_policy.vault_kms_policy.arn
@@ -121,6 +121,10 @@ module "vault_kms_irsa_role" {
       provider_arn               = data.terraform_remote_state.eks.outputs.oidc_provider_arn
       namespace_service_accounts = ["vault:vault"]
     }
+  }
+
+  lifecycle {
+    enabled = var.use_irsa
   }
 }
 
@@ -151,28 +155,33 @@ resource "aws_iam_policy" "vault_kms_policy" {
           "ssm:GetParameters"
         ]
         Resource = [
-          "arn:aws:ssm:us-west-2:ACCOUNT_ID:parameter/chaos/iac/*"
+          "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/${var.env}/iac/*"
         ]
       }
     ]
   })
 }
+```
+
+> [!IMPORTANT]
+> **The Vault Token**: Note that the root token generated from your very first `vault operator init` must be manually saved to AWS SSM Parameter Store at the path defined in your configuration (e.g., `/infra/iac/vaulttoken`). The configuration job will fetch this token to set up secrets engines and auth methods.
 
 module "vault_backup_irsa_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version   = "5.30.0"
-  role_name = "hashicorp-vault-snapshot-chaos"
-  role_policy_arns = {
-    policy = aws_iam_policy.vault_backup_access_policy.arn
-  }
-  oidc_providers = {
-    ex = {
-      provider_arn               = data.terraform_remote_state.eks.outputs.oidc_provider_arn
-      namespace_service_accounts = ["vault:vault-snapshotter"]
-    }
-  }
+source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+version = "5.30.0"
+role_name = "hashicorp-vault-snapshot-chaos"
+role_policy_arns = {
+policy = aws_iam_policy.vault_backup_access_policy.arn
 }
-```
+oidc_providers = {
+ex = {
+provider_arn = EKS OIDC PROVIDER ARN
+namespace_service_accounts = ["vault:vault-snapshotter"]
+}
+}
+}
+
+````
 
 ## The "Helmization" of Vault
 
@@ -378,23 +387,18 @@ vault:
       kubernetes:
         enabled: true
         mount_path: "kubernetes"
-        # issuer is now discovered dynamically from the service account token
         roles:
           - name: "chaos-pod-role"
             bound_service_account_names:
-              [
-                "receipt-pod-prod",
-                "chaos-room-pod-prod",
-              ]
-            bound_service_account_namespaces:
-              ["chaos"]
+              ["receipt-pod-prod", "chaos-room-pod-prod"]
+            bound_service_account_namespaces: ["chaos"]
             policies: ["chaos-pod-policy"]
             ttl: "24h"
             audience: "https://kubernetes.default.svc"
-        - name: "backing"
-          bound_service_account_names: ["vault-snapshotter"]
-          bound_service_account_namespaces: ["vault"]
-          policies: ["vault-snapshot-policy"]
+          - name: "backing"
+            bound_service_account_names: ["vault-snapshotter"]
+            bound_service_account_namespaces: ["vault"]
+            policies: ["vault-snapshot-policy"]
 
       github:
         enabled: false
@@ -499,9 +503,9 @@ spec:
 
 The goal was simple: **If Vault starts and finds no data, it should automatically find the latest snapshot in S3 and restore itself.**
 
-We baked this logic into a Post-Install/Post-Upgrade hook Job.
+We baked this logic into a Post-Install/Post-Upgrade hook Job. This is the **brain** of the operation.
 
-### 👉 The Restore Logic (`templates/config-job.yaml`)
+### 👉 The Config & Restore Job (`templates/config-job.yaml`)
 
 ```yaml
 {{- if .Values.vault.config.enabled -}}
@@ -509,20 +513,45 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Release.Name }}-config
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "10"
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   template:
     spec:
-      serviceAccountName: vault
+      serviceAccountName: {{ .Values.vault.server.serviceAccount.name | default "vault" }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       initContainers:
-        - name: fetch-snapshot
-          image: "amazon/aws-cli:2.27.33"
+        - name: fetch-secrets
+          image: "amazon/aws-cli:{{ .Values.vault.config.aws_cli_version | default "2.27.33" }}"
           command:
             - /bin/sh
             - -c
             - |
+              set -e
+              {{- if and (not .Values.vault.config.root_token) .Values.vault.config.ssm_vault_token }}
+              echo "Fetching Vault Token from SSM ({{ .Values.vault.config.ssm_vault_token }})..."
+              aws ssm get-parameter --name {{ .Values.vault.config.ssm_vault_token | quote }} --with-decryption --query Parameter.Value --output text > /env/vault_token
+              {{- end }}
+
+              {{- if .Values.vault.config.auth_methods.oidc.enabled }}
+              echo "Fetching OIDC Client ID from SSM..."
+              aws ssm get-parameter --name {{ .Values.vault.config.auth_methods.oidc.ssm_client_id | quote }} --query Parameter.Value --output text > /env/oidc_client_id
+
+              echo "Fetching OIDC Client Secret from SSM..."
+              aws ssm get-parameter --name {{ .Values.vault.config.auth_methods.oidc.ssm_client_secret | quote }} --with-decryption --query Parameter.Value --output text > /env/oidc_client_secret
+              {{- end }}
+
               {{- if .Values.vault.config.auto_restore }}
+              echo "Auto-Restore enabled. Checking for latest snapshot in S3..."
               LATEST_SNAP=$(aws s3 ls {{ .Values.vault.backup.s3Path }}/ | grep "\.snap$" | sort | tail -n 1 | awk '{print $4}')
               if [ -n "$LATEST_SNAP" ]; then
+                echo "Downloading $LATEST_SNAP to /env/vault.snap..."
                 aws s3 cp {{ .Values.vault.backup.s3Path }}/$LATEST_SNAP /env/vault.snap
               fi
               {{- end }}
@@ -531,26 +560,125 @@ spec:
               mountPath: /env
       containers:
         - name: config
-          image: "hashicorp/vault:1.19.5"
+          image: "hashicorp/vault:{{ .Values.vault.config.vault_cli_version | default "1.19.5" }}"
+          env:
+            - name: VAULT_ADDR
+              value: "https://{{ .Release.Name }}-0.{{ .Release.Name }}-internal:8200"
+            {{- if .Values.vault.config.root_token }}
+            - name: VAULT_TOKEN
+              value: {{ .Values.vault.config.root_token | quote }}
+            {{- end }}
+            - name: VAULT_CACERT
+              value: /vault/tls/ca.crt
+          volumeMounts:
+            - name: tls
+              mountPath: /vault/tls
+              readOnly: true
+            - name: env
+              mountPath: /env
+              readOnly: true
           command:
             - /bin/sh
             - -c
             - |
+              if [ -z "$VAULT_TOKEN" ] && [ -f /env/vault_token ]; then
+                export VAULT_TOKEN=$(cat /env/vault_token)
+              fi
+
+              echo "Waiting for Vault..."
               until vault status -tls-skip-verify > /dev/null 2>&1 || [ $? -eq 2 ]; do sleep 5; done
 
               # AUTO-RESTORE LOGIC
               if vault status -tls-skip-verify 2>&1 | grep -q "Initialized.*false" && [ -f /env/vault.snap ]; then
+                echo "Vault uninitialized. Restoring from S3..."
                 INIT_OUT=$(vault operator init -key-shares=1 -key-threshold=1 -format=json)
-                TEMP_TOKEN=$(echo $INIT_OUT | sed -n 's/.*"root_token":"\([^\" ]*\)".*/\1/p')
+                TEMP_TOKEN=$(echo $INIT_OUT | sed -n 's/.*"root_token":"\([^"]*\)".*/\1/p')
                 VAULT_TOKEN=$TEMP_TOKEN vault operator raft snapshot restore /env/vault.snap
                 sleep 10
               fi
-          volumeMounts:
-            - name: env
-              mountPath: /env
+
+              echo "--- Applying Secrets Engines ---"
+              {{- range .Values.vault.config.secrets_engines }}
+              if ! vault secrets list | grep -q '^{{ .path }}/'; then
+                vault secrets enable -path={{ .path }} {{ .type }}
+              fi
+              {{- end }}
+
+              echo "--- Applying Policies ---"
+              {{- range $name, $policy := .Values.vault.config.policies }}
+              cat <<EOF | vault policy write {{ $name }} -
+{{ $policy | indent 14 }}
+              EOF
+              {{- end }}
+
+              echo "--- Configuring Kubernetes Auth ---"
+              {{- if .Values.vault.config.auth_methods.kubernetes.enabled }}
+              if ! vault auth list | grep -q '^kubernetes/'; then
+                vault auth enable kubernetes
+              fi
+
+              K_ISSUER=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token | cut -d. -f2 | base64 -d 2>/dev/null | sed 's/.*"iss":"\([^"]*\)".*/\1/')
+
+              vault write auth/{{ .Values.vault.config.auth_methods.kubernetes.mount_path }}/config \
+                kubernetes_host="https://kubernetes.default.svc" \
+                kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+                issuer="$K_ISSUER"
+
+              {{- range .Values.vault.config.auth_methods.kubernetes.roles }}
+              vault write auth/{{ $.Values.vault.config.auth_methods.kubernetes.mount_path }}/role/{{ .name }} \
+                bound_service_account_names={{ .bound_service_account_names | join "," | quote }} \
+                bound_service_account_namespaces={{ .bound_service_account_namespaces | join "," | quote }} \
+                policies={{ .policies | join "," | quote }} \
+                ttl={{ .ttl | quote }}
+              {{- end }}
+              {{- end }}
+
+              echo "--- Configuring GitHub Auth ---"
+              {{- if .Values.vault.config.auth_methods.github.enabled }}
+              if ! vault auth list | grep -q '^github/'; then
+                vault auth enable -path={{ .Values.vault.config.auth_methods.github.mount_path }} github
+              fi
+              vault write auth/{{ .Values.vault.config.auth_methods.github.mount_path }}/config \
+                organization={{ .Values.vault.config.auth_methods.github.organization | quote }}
+              {{- end }}
+
+              echo "--- Configuring OIDC Auth ---"
+              {{- if .Values.vault.config.auth_methods.oidc.enabled }}
+              if ! vault auth list | grep -q '^oidc/'; then
+                vault auth enable -path={{ .Values.vault.config.auth_methods.oidc.mount_path }} oidc
+              fi
+
+              OIDC_CLIENT_ID=$(cat /env/oidc_client_id)
+              OIDC_CLIENT_SECRET=$(cat /env/oidc_client_secret)
+
+              vault write auth/{{ .Values.vault.config.auth_methods.oidc.mount_path }}/config \
+                oidc_discovery_url={{ .Values.vault.config.auth_methods.oidc.discovery_url | quote }} \
+                oidc_client_id="$OIDC_CLIENT_ID" \
+                oidc_client_secret="$OIDC_CLIENT_SECRET" \
+                default_role={{ .Values.vault.config.auth_methods.oidc.default_role | quote }} \
+                allowed_redirect_uris={{ .Values.vault.config.auth_methods.oidc.allowed_redirect_uris | join "," | quote }}
+
+              {{- range .Values.vault.config.auth_methods.oidc.roles }}
+              cat <<EOF | vault write auth/{{ $.Values.vault.config.auth_methods.oidc.mount_path }}/role/{{ .name }} -
+              {
+                "user_claim": "email",
+                "role_type": "oidc",
+                "bound_audiences": ["$OIDC_CLIENT_ID"],
+                "allowed_redirect_uris": {{ $.Values.vault.config.auth_methods.oidc.allowed_redirect_uris | toJson }},
+                "token_policies": {{ .policies | toJson }}
+              }
+              EOF
+              {{- end }}
+              {{- end }}
+
+              echo "Vault configuration complete!"
       volumes:
+        - name: tls
+          secret:
+            secretName: vault-tls
         - name: env
           emptyDir: {}
+      restartPolicy: OnFailure
 {{- end }}
 ```
 
@@ -587,3 +715,4 @@ lang="en"
 loading="lazy"
 crossorigin="anonymous"
     />
+````
