@@ -118,7 +118,7 @@ module "vault_kms_irsa_role" {
 
   oidc_providers = {
     ex = {
-      provider_arn               = data.terraform_remote_state.eks.outputs.oidc_provider_arn
+      provider_arn               = REPLACE WITH YOUR EKS OIDC PROVIDER ARN
       namespace_service_accounts = ["vault:vault"]
     }
   }
@@ -176,7 +176,7 @@ module "vault_backup_irsa_role" {
   }
   oidc_providers = {
     ex = {
-      provider_arn               = data.terraform_remote_state.eks.outputs.oidc_provider_arn
+      provider_arn               = REPLACE WITH YOUR EKS OIDC PROVIDER ARN
       namespace_service_accounts = ["vault:vault-snapshotter"]
     }
   }
