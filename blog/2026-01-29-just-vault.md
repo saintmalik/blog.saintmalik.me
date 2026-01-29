@@ -166,22 +166,22 @@ resource "aws_iam_policy" "vault_kms_policy" {
 > [!IMPORTANT]
 > **The Vault Token**: Note that the root token generated from your very first `vault operator init` must be manually saved to AWS SSM Parameter Store at the path defined in your configuration (e.g., `/infra/iac/vaulttoken`). The configuration job will fetch this token to set up secrets engines and auth methods.
 
+```hcl
 module "vault_backup_irsa_role" {
-source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-version = "5.30.0"
-role_name = "hashicorp-vault-snapshot-chaos"
-role_policy_arns = {
-policy = aws_iam_policy.vault_backup_access_policy.arn
+  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version   = "5.30.0"
+  role_name = "hashicorp-vault-snapshot-chaos"
+  role_policy_arns = {
+    policy = aws_iam_policy.vault_backup_access_policy.arn
+  }
+  oidc_providers = {
+    ex = {
+      provider_arn               = data.terraform_remote_state.eks.outputs.oidc_provider_arn
+      namespace_service_accounts = ["vault:vault-snapshotter"]
+    }
+  }
 }
-oidc_providers = {
-ex = {
-provider_arn = EKS OIDC PROVIDER ARN
-namespace_service_accounts = ["vault:vault-snapshotter"]
-}
-}
-}
-
-````
+```
 
 ## The "Helmization" of Vault
 
