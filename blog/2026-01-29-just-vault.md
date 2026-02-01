@@ -529,6 +529,9 @@ spec:
       initContainers:
         - name: fetch-secrets
           image: "amazon/aws-cli:{{ .Values.vault.config.aws_cli_version | default "2.27.33" }}"
+          env:
+            - name: HOME
+              value: /tmp
           command:
             - /bin/sh
             - -c
