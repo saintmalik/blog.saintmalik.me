@@ -160,7 +160,7 @@ For even tighter security, you can require that users have the Cloudflare WARP c
 
 **Infrastructure as Code vs. "ClickOps"**
 
-In my [previous guide regarding AWS](/cloudflare-zero-trust-securing-web-app-on-ec2-with-cloudflare-tunnel), I mentioned that I couldn't find a way to configure the WARP client requirement via Terraform at the time, forcing us to resort to "ClickOps" in the Cloudflare console to create the access group.
+In my [previous guide regarding AWS](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/), I mentioned that I couldn't find a way to configure the WARP client requirement via Terraform at the time, forcing us to resort to "ClickOps" in the Cloudflare console to create the access group.
 
 Well, good news: we can now define the device posture checks and access groups entirely in code. No more manual console work needed.
 
