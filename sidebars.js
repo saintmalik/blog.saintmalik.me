@@ -47,7 +47,8 @@
           "cloudrun-loadbalancing",
           "squeeze-node",
           "alpha-channels",
-          "vpn-issues"
+          "vpn-issues",
+          "locking-zshrc",
         ],
       },
       {
