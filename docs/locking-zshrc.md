@@ -5,14 +5,13 @@ description: How AI coding assistants silently modify your shell config, why you
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.webp`} alt="Locking ZSH"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg`} alt="Locking ZSH"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg`} alt="Locking ZSH"/>
-</picture>
-
-
 # Defending Your .zshrc From Rogue Agents
+
+<picture>
+  <source type="image/webp" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.webp" alt="Locking ZSH"/>
+  <source type="image/jpeg" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg" alt="Locking ZSH"/>
+  <img src="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg" alt="Locking ZSH"/>
+</picture>
 
 If you use AI-powered code editors or coding assistants like **Antigravity**, there's something you should know: they can and **will** silently modify your `~/.zshrc`.
 
