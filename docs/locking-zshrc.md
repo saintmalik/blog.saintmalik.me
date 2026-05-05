@@ -9,8 +9,8 @@ import Giscus from "@giscus/react";
 
 <picture>
   <source type="image/webp" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.webp" alt="Locking ZSH"/>
-  <source type="image/jpeg" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg" alt="Locking ZSH"/>
-  <img src="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.jpg" alt="Locking ZSH"/>
+  <source type="image/png" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png" alt="Locking ZSH"/>
+  <img src="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png" alt="Locking ZSH"/>
 </picture>
 
 If you use AI-powered code editors or coding assistants like **Antigravity**, there's something you should know: they can and **will** silently modify your `~/.zshrc`.
