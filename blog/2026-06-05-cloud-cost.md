@@ -2,7 +2,7 @@
 slug: cutting-aws-cloud-costs-for-startups
 title: "AWS Cloud Costs Nightmare, Cutting It To Elongate That Startup Runway"
 authors: Abdulmalik
-image: /bgimg/aws-cloud-cost.webp
+image: /bgimg/aws-cloud-cost-cutting.webp
 tags: [devops, aws, cloud-computing, finops, cost-optimization]
 description: Not generating revenue yet burning too much on cloud costs? Learn practical architectural and infrastructure strategies to cut your AWS bill and make that runway longer.
 ---
