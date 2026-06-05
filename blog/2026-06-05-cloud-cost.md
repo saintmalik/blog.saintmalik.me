@@ -9,15 +9,21 @@ description: Not generating revenue yet burning too much on cloud costs? Learn p
 
 import Giscus from "@giscus/react";
 
-I have been on that end before personally, also on the end of leading teams in startups looking to cut cost on AWS.
+Cloud costs at early stage startups rarely spiral because of recklessness.
 
-Not generating revenue yet burning too much on cloud cost, it can be draining, most of the time this cost comes from poor architectural and design decisions.
+They spiral because the team was moving fast, the architecture made sense at the time, and nobody had the bandwidth to revisit it.
 
-<!--truncate-->
+By the time the bill becomes a problem, the decisions are already baked in.
 
-But i am not here to talk about infrastructure or architectural designs today but to share what i have done and worked on in the past to help startups save cost and cut burn rate on cloud which definitely also help elongate runway
+I have been on both sides of this, burning through it personally, and leading teams trying to unwind it before the runway ran out. Here is what has actually worked.<!--truncate-->
 
-One of the elephant in the room is NATs Gateway on non production environments, if you access your non production environment, you probably have multiple NATs Gateway or multiple private subnets and using different NATs Gateway, this can be very expensive, sometimes you will see NAT Gateway having high traffic, this can be due to some processes running in your EC2 instances pulling dependencies from the internet.
+The first place to look is almost always NAT Gateways on non production environments.
+
+Most staging and dev setups have multiple private subnets, each routing through its own managed NAT Gateway.
+
+You are paying the hourly rate on all of them, plus per-GB data processing charges every time an EC2 instance pulls a dependency, a package update, or a Docker image from the internet.
+
+It adds up quietly until it doesn't.
 
 ### Replace NAT Gateways with fck-nat
 For staging and development environments, replace standard AWS Managed NAT Gateways with [fck-nat](https://fck-nat.dev/).
@@ -35,13 +41,42 @@ Sitting idle, fck-nat costs only 10% of a Managed NAT Gateway. In practice, beca
 The official AWS supported NAT Instance AMI hasn't been updated since 2018, is running Amazon Linux 1 (which is now EOL), and has no ARM support, meaning it can't be deployed on EC2's most cost-effective instance types. fck-nat solves all these issues.
 
 **When should you stick to Managed NAT Gateways?**
-AWS limits outgoing internet bandwidth on EC2 instances to 5Gbps. This means that the highest bandwidth fck-nat can support while remaining cost-effective is 5Gbps. This covers a very broad set of use cases, but if your workload requires more internet egress bandwidth, you should stick to Managed NAT Gateways.
+AWS limits outgoing internet bandwidth on EC2 instances to 5Gbps. This means that the highest bandwidth fck-nat can support while remaining cost-effective is 5Gbps.
+
+This covers a very broad set of use cases, but if your workload requires more internet egress bandwidth, you should stick to Managed NAT Gateways.
+
+### One Load Balancer Per Environment, Not One Per Service
+
+<picture>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
+</picture>
+
+Another place money quietly disappears is ALB sprawl. It is common to see staging environments running five, eight, sometimes ten Application Load Balancers
+
+one per service or per deployment. Each one is sitting there billing you hourly whether it is serving traffic or not.
+
+You do not need that. A single ALB can handle all your routing if you put Nginx or an Envoy Gateway in front of your services.
+
+The ALB terminates TLS and forwards traffic to the gateway, the gateway handles path-based or host-based routing to whichever pod or service needs it.
+
+You can attach multiple custom domains to the same ALB using SNI, so there is no reason a multi-service, multi-domain environment needs more than one.
+
+In production you may want a second ALB for isolation between public-facing and internal traffic, but even that is a deliberate choice, not a default.
+
+In non production environments there is almost never a justification for more than one.
+
+The pattern is straightforward: ALB → Nginx/Envoy → services. Everything else is overhead you are paying for without getting anything back.
 
 ### Instance Optimization
 Use one large instance instead of multiple small instances to maximize resource utilization and reduce overhead.
 
 ### Do You Really Need Kubernetes?
-Most times, you don't need a complex orchestrator like Kubernetes and the overhead that comes with it. A simple EC2 instance running your containers with **WUD (What's Up Docker?)** is often enough. WUD is a popular open-source, self-hosted DevOps dashboard designed to track, monitor, and notify you about upstream updates for your running Docker containers. Pair that with a tool like **Vector** exporter on **BetterStack** to export your app logs, and you have a solid, highly cost-effective deployment without the EKS cluster fee and management burden.
+Most times, you don't need a complex orchestrator like Kubernetes and the overhead that comes with it. A simple EC2 instance running your containers with **WUD (What's Up Docker?)** is often enough.
+
+WUD is a popular open-source, self-hosted DevOps dashboard designed to track, monitor, and notify you about upstream updates for your running Docker containers.
+
+Pair that with a tool like **Vector** exporter on **BetterStack** to export your app logs, and you have a solid, highly cost-effective deployment without the EKS cluster fee and management burden.
 
 ### Kubernetes & Spot Instances
 Enable Spot instances to save drastically on compute. If you *do* use Kubernetes:
