@@ -100,11 +100,16 @@ Using VPC Endpoints so that traffic from private subnets doesn't go through a NA
 
 ### Database Optimization
 Using Graviton instances for managed databases (RDS, ElastiCache) for better price-to-performance.
+
 Automatically stopping non-production RDS instances during off-hours (similar to the environment scheduling).
 
 ## Conclusion
 
-Cutting cloud costs isn't just about turning things off; it's about smart architectural choices and leveraging the right infrastructure tools. Whether you're swapping an expensive NAT Gateway for an fck-nat instance or moving idle workloads to serverless, these changes can dramatically reduce your AWS burn rate and extend your startup's runway. Start small, right-size your resources, and build cost-awareness into your engineering culture.
+Cutting cloud costs isn't just about turning things off; it's about smart architectural choices and leveraging the right infrastructure tools.
+
+Whether you're swapping an expensive NAT Gateway for an fck-nat instance or moving idle workloads to serverless, these changes can dramatically reduce your AWS burn rate and extend your startup's runway.
+
+Start small, right-size your resources, and build cost-awareness into your engineering culture.
 
 Till next time, Peace be on you 🤞🏽
 
