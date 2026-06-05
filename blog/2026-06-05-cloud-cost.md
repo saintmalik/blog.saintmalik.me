@@ -7,6 +7,8 @@ tags: [devops, aws, cloud-computing, finops, cost-optimization]
 description: Not generating revenue yet burning too much on cloud costs? Learn practical architectural and infrastructure strategies to cut your AWS bill and make that runway longer.
 ---
 
+import Figure from '../src/components/Figure';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
 Cloud costs at early stage startups rarely spiral because of recklessness.
