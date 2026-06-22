@@ -17,6 +17,12 @@ Every team generating an SBOM and calling it done is doing the security equivale
 
 The Sha Hulud, Mini Sha Hulud, SolarWinds breach. XZ Utils. Log4Shell. Each one hit organizations that, on paper, had security programs. The pattern is the same: a dependency you did not think twice about becomes the vector. Your SBOM tells you what is in the box. It does not automatically tell you what is rotting.
 
+<picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sbom-beyond-generation.webp`} alt="SBOM supply chain beyond generation"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sbom-beyond-generation.png`} alt="SBOM supply chain beyond generation"/>
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sbom-beyond-generation.png`} alt="SBOM supply chain beyond generation"/>
+</picture>
+
 Generating the document is table stakes. The real question is what you actually do with it.
 
 ## What an SBOM Actually Is
