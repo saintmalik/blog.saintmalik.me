@@ -264,6 +264,42 @@ OK    [2 months]  express
 
 `request` has been officially deprecated. If it shows up in your SBOM, you are carrying dead weight.
 
+## Catching Dependency Confusion
+
+Dependency confusion attacks occur when a threat actor figures out the name of your private, internal packages (e.g., `@mycompany/auth-utils`) and publishes a malicious package with the exact same name to a public registry like npm or PyPI, but with an absurdly high version number (e.g., `99.0.0`).
+
+Poorly configured package managers will see the public version, assume it is an upgrade, and pull the malware into your build.
+
+Your SBOM is the perfect tool to detect this before it ships.
+
+Since Syft records the PURL for every package, you know exactly what is in your build.
+
+You can write a script that looks for your internal namespaces in the SBOM, and then queries the public registry to see if a package by that name actually exists there. If it does and you did not explicitly open-source it, you are likely being targeted.
+
+```bash
+#!/bin/bash
+# check-confusion.sh - flags internal packages that exist on the public registry
+SBOM_FILE=${1:-sbom.json}
+INTERNAL_ORG="@acmecorp"
+
+echo "Checking for dependency confusion for $INTERNAL_ORG..."
+
+cat "$SBOM_FILE" | jq -r '
+  .components[]
+  | select(.purl | startswith("pkg:npm/'"$INTERNAL_ORG"'"))
+  | .name
+' | sort -u | while read -r pkg; do
+  HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://registry.npmjs.org/$pkg")
+  if [ "$HTTP_CODE" == "200" ]; then
+    echo "WARNING: Internal package $pkg exists on the public npm registry!"
+  else
+    echo "Safe: $pkg is not public."
+  fi
+done
+```
+
+If that script fires, you fail the pipeline immediately.
+
 ## Putting It Together: CI Pipeline
 
 The pattern that makes all of this real is automation. A one-off scan is not a control. A pipeline gate is.
@@ -311,6 +347,19 @@ Two gates in one pipeline:
 2. **Age check** - informational until you decide your stale threshold
 
 The SBOM is uploaded as a build artifact on every run, so you have a versioned record of what shipped.
+
+### Tying it to Container Signing
+
+Generating and querying the SBOM is half the battle. The other half is ensuring the SBOM and the container image itself have not been tampered with after the build.
+
+This ties naturally into container signing. By using tools like [Cosign](https://github.com/sigstore/cosign), you can cryptographically sign your container image and attach the SBOM as an in-toto attestation.
+
+```bash
+# Attach and sign the SBOM to the image
+cosign attest --predicate sbom.json --type cyclonedx your-image:latest
+```
+
+When you do this, your Kubernetes admission controller can verify the signature before the container ever runs, guaranteeing that the image was built by your CI pipeline and that the SBOM exactly matches what was deployed.
 
 ## What This Catches That Pure Scanning Misses
 
