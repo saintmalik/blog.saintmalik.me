@@ -11,7 +11,7 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-If you stay in security long enough, you'll see a real incident before you retire, pivot, or quietly stop answering pages. Dont let it catch you off guard, compose and face it, haha, its your turn.
+If you stay in this space long enough, you'll one day face real incident before you retire, pivot, or quietly stop answering pages. Dont let it catch you off guard, compose and face it, haha, its your turn.
 
 <!--truncate-->
 
