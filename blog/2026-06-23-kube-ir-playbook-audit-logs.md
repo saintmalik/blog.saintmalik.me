@@ -2,7 +2,7 @@
 slug: kube-ir-playbook-audit-logs
 title: "Building a Kubernetes IR Playbook: Audit Logs Alone Won't Save You"
 authors: Abdulmalik
-image: /bgimg/kubernetes-incident-response.png
+image: /bgimg/kubernetes-incident-response.webp
 tags: [devsecops, kubernetes, eks, incident-response, aws, cloudwatch, appsec]
 description: Building a Kubernetes IR playbook from real EKS work. Why audit logs alone are not enough, why offline TSV sweeps beat ad-hoc jq at volume, and how lnav fits once the columns are flat.
 ---
@@ -17,6 +17,7 @@ If you stay in this space long enough, you'll one day face real incident before 
 
 <Figure>
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
 </picture>
@@ -318,6 +319,7 @@ lnav exec.tsv secrets.tsv denied.tsv human-users.tsv
 
 <Figure>
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
 </picture>
@@ -339,6 +341,7 @@ Commands I actually use once the TSV files exist. This is where regex habits pay
 
 <Figure>
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.webp`} alt="lnav filter-in command narrowing audit log results"/>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
 </picture>

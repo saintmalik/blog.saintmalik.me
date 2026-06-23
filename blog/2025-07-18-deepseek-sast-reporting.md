@@ -17,6 +17,7 @@ Scaling DevSecOps without burnout: how I moved from manual security reviews to A
 <!--truncate-->
 
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/ai-reports.webp`} alt="DeepSeek + DevSecOps Scaling Secure Code Recommendations from SAST Scans"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/ai-reports.png`} alt="DeepSeek + DevSecOps Scaling Secure Code Recommendations from SAST Scans"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/ai-reports.png`} alt="DeepSeek + DevSecOps Scaling Secure Code Recommendations from SAST Scans"/>
 </picture>

@@ -97,6 +97,7 @@ so run
 kubectl exec -it vault-vault-0  -n vault -- vault operator init
 ```
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.webp`} alt="hashicorp-vault-operator-init"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.jpg`} alt="hashicorp-vault-operator-init"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.jpg`} alt="hashicorp-vault-operator-init"/>
 </picture>
@@ -115,6 +116,7 @@ because if you cant unseal your vault, it means you've lost access to your vault
 :::
 <Figure>
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.webp`} alt="hashicorp-vault-unseal"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.jpg`} alt="hashicorp-vault-unseal"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.jpg`} alt="hashicorp-vault-unseal"/>
 </picture>
@@ -123,6 +125,7 @@ because if you cant unseal your vault, it means you've lost access to your vault
 
 <Figure>
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.webp`} alt="hashicorp-vault-unseal"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.jpg`} alt="hashicorp-vault-unseal"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.jpg`} alt="hashicorp-vault-unseal"/>
 </picture>
@@ -187,6 +190,7 @@ vault kv put -mount=secret golangsecrets apikey="jduhdshieioieiisbbjsb" awskey="
 ```
 
 <picture>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.webp`} alt="kube-vault-create-kv-secret"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.jpg`} alt="kube-vault-create-kv-secret"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.jpg`} alt="kube-vault-create-kv-secret"/>
 </picture>

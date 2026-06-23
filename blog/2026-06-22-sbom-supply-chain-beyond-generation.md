@@ -2,7 +2,7 @@
 slug: sbom-supply-chain-beyond-generation
 title: "SBOM Generation Is Not Enough: What to Actually Do With It"
 authors: Abdulmalik
-image: /bgimg/sbom-beyond-generation.png
+image: /bgimg/sbom-beyond-generation.webp
 tags: [devsecops, appsec, security, sbom, supply-chain, syft, grype, cve]
 description: Generating an SBOM is table stakes. The real question is what you do with it - querying for CVEs, license violations, and dependency age before they become incidents.
 ---
