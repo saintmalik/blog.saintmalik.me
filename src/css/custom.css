@@ -559,3 +559,26 @@ footer.footer .footer__copyright {
   margin-top: 1rem !important;
   text-align: center !important;
 }
+
+/* Blog post layout: shift content right, give TOC more room */
+@media (min-width: 997px) {
+  .blog-post-page .container > .row > main.col {
+    --ifm-col-width: calc(7 / 12 * 100%);
+    margin-left: calc(2 / 12 * 100%);
+  }
+
+  .blog-post-page .container > .row > main.col + .col {
+    --ifm-col-width: calc(3 / 12 * 100%);
+    padding-left: 1.25rem;
+  }
+
+  .blog-post-page .table-of-contents {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .blog-post-page .table-of-contents__link {
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+}

@@ -1,0 +1,102 @@
+.box {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 24px 0;
+}
+
+.label {
+  color: #e6edf3;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 2px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btnTextShort {
+  display: none;
+}
+
+.twitter {
+  background-color: #1da1f2;
+}
+
+.linkedin {
+  background-color: #0a66c2;
+}
+
+.reddit {
+  background-color: #ff4500;
+}
+
+@media (max-width: 640px) {
+  .box {
+    padding: 10px 12px;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+
+  .label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .row {
+    gap: 6px;
+  }
+
+  .btn {
+    padding: 8px 6px;
+    border-radius: 7px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .btnTextLong {
+    display: none;
+  }
+
+  .btnTextShort {
+    display: inline;
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+}

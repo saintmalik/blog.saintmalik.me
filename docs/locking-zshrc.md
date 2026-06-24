@@ -8,9 +8,9 @@ import Giscus from "@giscus/react";
 # Defending Your .zshrc From Rogue Agents
 
 <picture>
-  <source type="image/webp" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.webp" alt="Locking ZSH"/>
-  <source type="image/png" srcset="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png" alt="Locking ZSH"/>
-  <img src="${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png" alt="Locking ZSH"/>
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lockzshrc.png`} alt="Locking ZSH" />
 </picture>
 
 If you use AI-powered code editors or coding assistants like **Antigravity**, there's something you should know: they can and **will** silently modify your `~/.zshrc`.
