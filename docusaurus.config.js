@@ -1,4 +1,5 @@
 module.exports = {
+  clientModules: [require.resolve('./src/clientModules/gtag.js')],
   headTags: [
     {
       tagName: 'style',
@@ -24,6 +25,17 @@ module.exports = {
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://www.googletagmanager.com'},
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        async: 'async',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-LYQVDXF79Z',
       },
     },
   ],
@@ -134,10 +146,6 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
-        gtag: {
-          trackingID: 'G-LYQVDXF79Z',
-          anonymizeIP: true,
-        },
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,

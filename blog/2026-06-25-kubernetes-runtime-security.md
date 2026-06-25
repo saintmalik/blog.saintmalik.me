@@ -2,7 +2,7 @@
 slug: kubernetes-runtime-security
 title: "Kubernetes Runtime Security: The Silence That Should Keep You Up at Night"
 authors: Abdulmalik
-image: /bgimg/kubernetes-incident-response.webp
+image: /bgimg/runtime-security.webp
 tags: [kubernetes, devsecops, falco, runtime-security, appsec, ebpf, security]
 description: Two real assessments where attackers moved inside Kubernetes with zero alerts. A practical Falco setup with modern eBPF, custom rules, Falcosidekick, Talon, and EKS audit detection.
 ---
