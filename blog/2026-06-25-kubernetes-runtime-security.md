@@ -20,11 +20,11 @@ That silence is the oversight runtime security exists to fix. Not a logo on a sl
 
 ## The Second Time It Happened
 
-On a separate backend assessment we found **SSRF in the Books service**, not a generic file upload. When you save or contribute a book, you pass a `thumbnail` URL. A background worker (`BookThumbnailQueue`) fetches it with `axios.get()` after a weak allowlist check: `startsWith('https://images-na.ssl-images-amazon.com')`. Prefix the URL with that string, add `@`, and point the rest at your host. The server still fetches your URL.
+On a separate backend assessment we found **SSRF in the one service**, not a generic file upload. When you save or contribute a book, you pass a `thumbnail` URL. A background worker (`ThumbnailQueue`) fetches it with `axios.get()` after a weak allowlist check: `startsWith('https://images-na.ssl-images-amazon.com')`. Prefix the URL with that string, add `@`, and point the rest at your host. The server still fetches your URL.
 
 We **confirmed** the SSRF first: submit a thumbnail like `https://images-na.ssl-images-amazon.com@attacker.example/...`, wait for the worker, and the stored thumbnail changes to whatever the backend retrieved. That is server-side fetch, proven.
 
-From there we ran a **blind internal scan**. Chained redirects through an external tunnel let the worker follow into `kubernetes.default.svc`, internal microservices (`*.microservice.svc.cluster.local`), Vault, NATS, and the AWS metadata endpoint. We did not get clean response bodies back. We inferred reachability from worker log patterns ("Corrupt Header" vs "Connection Refused"). Not a cluster takeover. Not a confirmed Secret exfiltration. But outbound probes from a pod that should only talk to Amazon image hosts, and **nobody on the team knew anything was happening**.
+From there we ran a **blind internal scan**. Chained redirects through an external tunnel let the worker follow into `kubernetes.default.svc`, internal microservices (`*.platformservice.svc.cluster.local`), Vault, NATS, and the AWS metadata endpoint. We did not get clean response bodies back. We inferred reachability from worker log patterns ("Corrupt Header" vs "Connection Refused"). Not a cluster takeover. Not a confirmed Secret exfiltration. But outbound probes from a pod that should only talk to Amazon image hosts, and **nobody on the team knew anything was happening**.
 
 Preventive controls did not fail loudly. The story was active abuse inside the boundary with **zero runtime signal**.
 
