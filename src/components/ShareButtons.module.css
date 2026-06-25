@@ -28,13 +28,29 @@
   min-width: 0;
   padding: 10px 12px;
   border-radius: 8px;
-  color: #fff;
-  text-decoration: none;
+  color: #fff !important;
+  text-decoration: none !important;
   font-size: 13px;
   font-weight: 600;
   line-height: 1;
   border: none;
   cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.btn:hover,
+.btn:active,
+.btn:visited {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.btn:hover {
+  filter: brightness(1.08);
+}
+
+.btn:active {
+  filter: brightness(0.95);
 }
 
 .btn:focus-visible {

@@ -384,7 +384,7 @@ Version one was "alert in chat, check app logs, grep audit in the console." That
 
 Still on the list for us: **turn on VPC Flow Logs**, authenticator parsing in the same script, automated audit export when an alert fires.
 
-## Close
+## Conclusion
 
 Building a Kubernetes IR playbook isn't a PDF exercise. It's knowing which log source answers which question, and being honest about the ones you skipped and the workflows that don't work yet.
 

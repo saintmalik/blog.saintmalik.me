@@ -1,4 +1,33 @@
 module.exports = {
+  headTags: [
+    {
+      tagName: 'style',
+      attributes: {},
+      innerHTML:
+        'html{color-scheme:dark}html,body{background:#000508;color:#fff;margin:0;min-height:100%}body{font-family:ConfigRounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}h1,h2,h3{font-family:Papersan,Georgia,"Times New Roman",serif}.navbar{background:#000508}',
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/ConfigRounded-Regular.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/papersan.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+  stylesheets: ['/fonts/site-fonts.css'],
   scripts: [
     {
       src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7106984408518821',
@@ -105,10 +134,6 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
-        googleAnalytics: {
-          trackingID: 'UA-123518521-4',
-          anonymizeIP: true, // Should IPs be anonymized?
-        },
         gtag: {
           trackingID: 'G-LYQVDXF79Z',
           anonymizeIP: true,

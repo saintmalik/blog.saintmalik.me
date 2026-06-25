@@ -12,13 +12,13 @@ import Giscus from "@giscus/react";
 
 A [Reddit thread on r/devops](https://www.reddit.com/r/devops/comments/1qh6dze/iac_for_github_teams_need_advice/) stuck with me: someone at a 600-developer org with 2,000 repositories, Okta pushing users via SCIM, was redesigning RBAC and asking whether GitHub teams could realistically be managed with IaC. The replies split fast: Entra groups, access-request tickets, [safe-settings](https://github.com/github/safe-settings), Terraform, and one blunt take: **"Don't. Unless you have a full team of Terraform experts."**
 
+<!--truncate-->
+
 <picture>
   <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.webp`} />
   <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.png`} />
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.png`} alt="Reddit r/devops thread: IaC for GitHub teams - Need advice" />
 </picture>
-
-<!--truncate-->
 
 I had been living the opposite answer. Over the past year, our platform team rebuilt GitHub access for a multi-product engineering org using **OpenTofu**, not as a side experiment, but as the authoritative control plane for org membership, teams, and repository permissions. Manual UI changes get reverted on apply. Offboarding is deleting one block in a registry file.
 
@@ -388,7 +388,7 @@ Skip full GitHub IaC if:
 - Nobody will own offboarding registry deletes: IaC makes nothing worse, but also nothing better.
 - You want HR-driven auto-provisioning with zero human PR: that is a different problem, and you will still need a policy engine somewhere.
 
-## Closing Take
+## Conclusion
 
 The Reddit question was not "can Terraform talk to the GitHub API?" Of course it can. The question was **how do you manage the combinatorics** (people × products × repos × contractors × offboarding) without UI drift and without granting access that outlives the reason it was granted.
 

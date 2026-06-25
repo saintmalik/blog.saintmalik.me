@@ -1,27 +1,20 @@
-# Cloudflare Pages Cache Headers
-# HTML pages - always revalidate to get fresh content
-/*.html
+# Cloudflare Pages cache headers
+# Default: HTML and routes revalidate on every deploy (prevents stale HTML → missing CSS)
+/*
   Cache-Control: public, max-age=0, must-revalidate
 
-/
-  Cache-Control: public, max-age=0, must-revalidate
-
-# Hashed assets (JS, CSS) - cache forever since filenames change on rebuild
+# Hashed webpack assets — safe to cache forever
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Static files with hashes
-/*.js
+# Self-hosted fonts and font CSS — stable paths, long cache
+/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
-/*.css
-  Cache-Control: public, max-age=31536000, immutable
-
-# Images and fonts - long cache
 /img/*
   Cache-Control: public, max-age=31536000, immutable
 
-/fonts/*
+/bgimg/*
   Cache-Control: public, max-age=31536000, immutable
 
 # Prevent caching issues for service worker and manifest
