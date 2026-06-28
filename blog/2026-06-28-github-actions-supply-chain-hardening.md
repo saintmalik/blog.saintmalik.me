@@ -2,7 +2,7 @@
 slug: github-actions-supply-chain-hardening
 title: "GitHub Actions Supply Chain Attacks: How to Actually Harden Your CI/CD Pipeline"
 authors: Abdulmalik
-image: /bgimg/github-actions-supply-chain-hardening.png
+image: /bgimg/github-actions-supply-chain-hardening.webp
 tags: [devsecops, github-actions, supply-chain, security, cicd, appsec, falco]
 description: Pinned SHAs and zizmor are not enough. After tj-actions and NX, here is how to phase static hardening, runtime egress control, and syscall visibility into a CI/CD supply chain program by repo type and budget.
 ---
