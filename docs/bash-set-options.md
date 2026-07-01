@@ -1,13 +1,14 @@
 ---
 title: Bash Set Options to the rescue
 ---
+
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Recently worked on small bash script status validation check on github action, it was a frustrating one though, because it kept failing without a reason, tested the same script locally and it worked.
+A small bash script worked locally in GitHub Actions. The script counted successes and failures from a string, then branched on the result. Local run was fine; the CI run failed with exit code 1.
 
 ```bash
-#/bin/bash
+#!/bin/bash
 
 set -x
 values="success success success success"
@@ -24,30 +25,33 @@ else
 fi
 ```
 
-So i did set ```set -x``` from the start, this ```set``` option is what we use in debugging a bash script, to see where the error is could be coming from, but with the below screenshot, you sure see that there isnt error here
-
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.webp`} alt="bash options"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
 </picture>
 
-but running this same script was returning errors in github actions, so here is what i felt happended, since i set **$count_failure** to be greater or equal to ***1*** and the value it's getting is **0**.
+## Why it fails in CI
 
-so i guess the error starts from there and the scripts exit with a response code of **1** instead of **0**.
+The value of `count_failure` is `0`, which is expected. The problem is not the final branch; it is the pipeline that produces `count_failure`.
 
-but now that i dont want the command to end there, since the error isnt really an error, then we can make use of the set option ```set +e```.
+When `grep -o 'failure'` finds no matches it exits with status `1`. GitHub Actions runs shell steps with `set -e` and often `set -o pipefail` enabled by default, so a failing command in a pipeline aborts the whole script even though the output you care about (`count_failure = 0`) is correct.
 
-This set options makes sure the command doesnt exit a sequence because of an error, so it will competely run the script without exit on the fail or error it encounters before the exit of the commands.
+`set -x` only prints each command; it does not change how the shell reacts to a failing command.
+
+## The fix: `set +e`
+
+`set +e` tells the shell to keep running even when a command returns a non-zero exit status. Use it around the pipeline that is expected to produce zero matches:
 
 ```bash
-#/bin/bash
+#!/bin/bash
 
 set +e
 values="success success success success"
 
 count_success=$(echo ${values[@]} | grep -o 'success' | grep -c '^')
 count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^')
+set -e
 
 if [[ $count_success -eq 4 ]]; then
   echo "success"
@@ -58,7 +62,31 @@ else
 fi
 ```
 
-And that was it, there are more other  usefull set options like, ```set -u```, ```set -v```.
+A safer alternative is to make the pipeline itself robust so it never fails:
+
+```bash
+count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^' || true)
+```
+
+`|| true` forces the substitution to return `0` regardless of whether `grep` found a match.
+
+## The four `set` options you reach for first
+
+| Option | Shorthand | What it does | When you need it |
+|---|---|---|---|
+| `set -e` | exit on error | Aborts the script when any command returns non-zero | CI pipelines; default in GitHub Actions |
+| `set +e` | disable exit on error | Keeps the script running after a non-zero command | Around commands where failure is expected data |
+| `set -u` | unset variable guard | Exits if an undefined variable is expanded | Catching typos in variable names |
+| `set -x` | xtrace | Prints each command before executing it | Debugging: seeing exactly what runs and with what values |
+| `set -o pipefail` | pipefail | A pipeline fails if any command in it fails, not just the last | CI pipelines with multiple-stage pipes |
+
+## Completion criterion
+
+After reading this, you should be able to:
+
+1. Explain why a script that works locally can fail in GitHub Actions.
+2. Choose between `set +e`, `|| true`, and `set -o pipefail` to handle a pipeline that legitimately produces no matches.
+3. Use `set -x` for debugging and `set -u` to catch unset variables.
 
 <br/>
 <h2>Comments</h2>

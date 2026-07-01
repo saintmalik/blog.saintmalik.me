@@ -10,46 +10,45 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-So you've deployed a few resources on AWS, EC2, and Redis instance, exposed port 6379, and made sure other resources in the VPC have access to the Redis instance and all.
-
-You've tried hardening by default for your resources, that's good, but by mistake, your Redis instance was deployed into the public subnets, which makes the service accessible by any internet user.
+You have deployed resources on AWS and hardened the application layer, but the network layer is often overlooked. If an EC2 instance or Redis node ends up in a public subnet by mistake, VPC Flow Logs are the fastest way to detect unexpected traffic.
 
 <!--truncate-->
 
-Detecting this might take time, but having the practices of monitoring/insights of what's happening at the network traffic level across your resources which you've deployed under a VPC service is the best bet to detecting this
+## What you will build
 
-That brings us to VPC Flow Logs
+1. An S3 bucket for durable flow log storage.
+2. A VPC Flow Log sending traffic metadata to that S3 bucket.
+3. An Athena database and table for querying the logs.
+4. A sample query to find traffic hitting a specific port or IP.
 
-## What are VPC Flow Logs?
+## What VPC Flow Logs capture
 
-Virtual Private Cloud Flow Logs (VPC Flow Log) is an aws service that helps in logging relevant traffic to the Cloudwatch log, provided you've enabled it for your VPC.
+VPC Flow Logs record:
 
-But you can achieve more by sending the logs to the s3 storage bucket to analyze the captured network traffic, either by using any of the aws querying services or other third-party tools.
+- Source and destination IP addresses and ports
+- Protocol numbers
+- Packet and byte counts
+- Start and end times
+- Action (`ACCEPT`, `REJECT`, or `ALL`)
 
-The data logged by vpc logs are byte counts, source and destination ports, IP Addresses, start time and end time of the flow, protocol number, actions, and traffic type, either *ACCEPT*, *REJECT* or *ALL*.
+They do **not** log traffic to privately hosted zones, instance metadata queries, or DNS traffic.
 
-It doesn't log requests for privately hosted zones, traffic, or queries about instance metadata.
+## Prerequisites
 
-With the aid of Cloudwatch, you can trigger alarms based on metrics for spotting patterns and anomalies in the logs.
-
-## Prerequisite
-
-- Existing knowledge about terraform
 - AWS account
-- A new vpc or use the default vpc
+- Existing VPC (or the default VPC)
+- Terraform basics
 
-So Let's jump into it;
+## Terraform setup
 
-## Setting up VPC Flow Log using Terraform
+Create a folder and two files: `provider.tf` and `main.tf`.
 
-Firstly, you might need to create a new folder named **vpc-flow-logs**, then create two new files named **main.tf** and **provider.tf** in the folder.
+### `provider.tf`
 
-Open the **provider.tf** and configure your cloud provider, copy the below code.
-
-```yaml title="provider.tf"
+```hcl
 provider "aws" {
-  region  = "AWS REGION"
-  profile = "AWS PROFILE"
+  region  = "us-east-1"
+  profile = "default"
 }
 
 terraform {
@@ -62,16 +61,16 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "iac-terraform" # you can replace the bucket name with your own s3 bucket
+    bucket = "iac-terraform"
     key    = "vpcflowlogs/terraform.tfstate"
-    region = "AWS REGION"
+    region = "us-east-1"
   }
 }
 ```
 
-replace the **AWS REGION** and **AWS PROFILE** value with the aws region you are working with, once done, open the **main.tf** file to configure the s3 bucket and VPC logs.
+### `main.tf`: S3 bucket and flow log
 
-```yaml title="main.tf"
+```hcl
 resource "aws_s3_bucket" "vpc_flow_logs" {
   bucket = "vpc-flow-logs-book"
 
@@ -88,9 +87,8 @@ resource "aws_flow_log" "appsec-preprod" {
   log_destination      = aws_s3_bucket.vpc_flow_logs.arn
   log_destination_type = "s3"
   traffic_type         = "ALL"
-  vpc_id               = "YOUR VPC ID"
+  vpc_id               = "vpc-xxxxxxxx"
 
-  # Enable the new meta fields
   log_format = "$${version} $${vpc-id} $${subnet-id} $${instance-id} $${interface-id} $${account-id} $${type} $${srcaddr} $${dstaddr} $${srcport} $${dstport} $${protocol} $${packets} $${bytes} $${start} $${end} $${action} $${tcp-flags}"
 
   tags = {
@@ -99,28 +97,22 @@ resource "aws_flow_log" "appsec-preprod" {
 }
 ```
 
-The above code will create an s3 bucket and and VPC flow logs which the s3 bucket created is attached to as the destination for storing all the logs captured, also notice value of the traffic type is stated as **ALL**, you can replace it with either *ACCEPT* or *REJECT*.
+Replace `vpc-xxxxxxxx` with your VPC ID. Set `traffic_type` to `ACCEPT` or `REJECT` if you only need one direction.
 
-You also need to replace the **YOUR VPC ID** with your newly created VPC ID or the default VPC ID, you can find it in the <a href="https://console.aws.amazon.com/vpcconsole/" target="_blank">VPC Console Dashboard</a>
+### `main.tf`: Athena database and table
 
-for the log format input, it's an optional value, but it's there to just show how you want the logs to be lined up and stored in the s3 bucket.
-
-well you are not done yet, since the end game also includes querying our logs to analyze the logs, you can easily do that using the AWS Athena service, so let's go back to our **main.tf** file and paste the following codes.
-
-```yaml title="main.tf"
-# create a new athena database from our vpc logs s3 bucket
+```hcl
 resource "aws_athena_database" "appsec" {
   name   = "appsec"
   bucket = aws_s3_bucket.vpc_flow_logs.id
 }
 
-# create athena query table
 resource "aws_athena_named_query" "create_table" {
   name      = "vpc_appsec_logs"
   workgroup = "primary"
   database  = aws_athena_database.appsec.name
   query     = <<EOF
-  CREATE EXTERNAL TABLE IF NOT EXISTS vpc_appsec_flow_logs (
+CREATE EXTERNAL TABLE IF NOT EXISTS vpc_appsec_flow_logs (
   version int,
   account string,
   interfaceid string,
@@ -139,59 +131,42 @@ resource "aws_athena_named_query" "create_table" {
 PARTITIONED BY (dt string)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ' '
-LOCATION 's3://YOUR_S3_BUCKET_NAME/AWSLogs/YOUR_AWS_ACCOUNT_ID/vpcflowlogs/YOUR_AWS_REGION'
+LOCATION 's3://vpc-flow-logs-book/AWSLogs/YOUR_AWS_ACCOUNT_ID/vpcflowlogs/us-east-1'
 TBLPROPERTIES ("skip.header.line.count"="1");
 EOF
 }
 ```
 
-The above code will create an Athena database from your logs in the s3 bucket you created earlier and then you can proceed to create the first query to create a TABLE with the Athena database you just created in the primary workgroup.
+Replace the bucket name, account ID, and region in the `LOCATION` string.
 
-Once you are done with the code, you can go ahead to run ```terraform init && terraform plan && terraform apply -auto-approve```
+## Deploy and query
 
-If the deployment is completed, you can hold for a few minutes then go to the Athena service using the aws console to start querying the logs.
+Run:
 
-The table query you just deployed can be found in the **saved query** tabs, click on it, then hit the RUN button.
-
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-saved-queries.webp`} alt="athena query dashboard"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-saved-queries.jpg`} alt="athena query dashboard"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-saved-queries.jpg`} alt="athena query dashboard"/>
-</picture>
-
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-athena-queries.webp`} alt="athena query dashboard"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-athena-queries.jpg`} alt="athena query dashboard"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-athena-queries.jpg`} alt="athena query dashboard"/>
-</picture>
-
-Then you can start running different queries to get more insights about the log, just the way to interact with your SQL DB for example you want to filter the logs based on the destination IP address, since you know the destination IP address, you can run the following query.
-
-```
-SELECT * FROM vpc_appsec_flow_logs WHERE destinationaddress='%172.24%';
-```
-To filter traffic hitting service with port 6379, you will run the folowing query
-
-```
-SELECT * FROM vpc_appsec_flow_logs WHERE destinationport=6379;
+```bash
+terraform init
+terraform plan
+terraform apply -auto-approve
 ```
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-queries.webp`} alt="athena queries"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-queries.jpg`} alt="athena queries"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/athena-queries.jpg`} alt="athena queries"/>
-</picture>
+After a few minutes, open the Athena console, run the saved query to create the table, then query the logs:
 
-That's it folks, the more queries you can craft the better the insights you will have about what's happening at the network traffic level across your VPCs.
+```sql
+-- Traffic to a specific IP range
+SELECT * FROM vpc_appsec_flow_logs WHERE destinationaddress LIKE '172.24%';
 
-I hope you find this piece insightful and helpful.
+-- Traffic on Redis port 6379
+SELECT * FROM vpc_appsec_flow_logs WHERE destinationport = 6379;
+```
 
-Till next time 🤞🏽
+## Completion criterion
 
-#### References
-- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log
-- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_named_query
-- https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
+The setup is complete when:
+
+1. `terraform apply` succeeds and creates the S3 bucket, flow log, and Athena resources.
+2. Flow log files appear in the S3 bucket after a few minutes.
+3. The Athena table is created and returns results.
+4. You can run a query that shows accepted or rejected traffic for a specific port or IP range.
 
 <br/>
 <h2>Comments</h2>

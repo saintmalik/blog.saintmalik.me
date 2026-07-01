@@ -384,6 +384,26 @@ Version one was "alert in chat, check app logs, grep audit in the console." That
 
 Still on the list for us: **turn on VPC Flow Logs**, authenticator parsing in the same script, automated audit export when an alert fires.
 
+## Incident Response Checklist
+
+Use this as a completion criterion for the investigation:
+
+- [ ] All control plane log types are enabled (api, audit, authenticator, controllerManager, scheduler)
+- [ ] Application logs are shipped to a central platform with the same time window
+- [ ] Cloud audit trail is enabled and queryable
+- [ ] Threat detection alerts are in the on-call channel
+- [ ] VPC Flow Logs are enabled (acknowledge if still off)
+- [ ] Audit logs are exported offline and `kube-audit.sh` has been run
+- [ ] `principals.txt` reviewed for unexpected or high-volume users
+- [ ] `lnav` is open on the relevant TSV slices (exec, secrets, denied, human-users)
+- [ ] App logs in observability are checked for the same incident window
+- [ ] Cloud audit trail is checked for cluster IAM role or cloud API activity
+- [ ] Compromised pod is quarantined (NetworkPolicy), not deleted first
+- [ ] Worker node is cordoned and volatile state captured if needed
+- [ ] Credentials rotated before containment changes are finalized
+- [ ] New image built and workload redeployed after patching
+- [ ] Lessons are captured in a tabletop or post-incident review
+
 ## Conclusion
 
 Building a Kubernetes IR playbook isn't a PDF exercise. It's knowing which log source answers which question, and being honest about the ones you skipped and the workflows that don't work yet.

@@ -1,23 +1,77 @@
 ---
 title: Debug cron script
 ---
+
 import Giscus from "@giscus/react";
 
-Cron Job showing different results from what the results shown on terminal when you run the shell script.
+Cron jobs often behave differently from the same script run in an interactive shell because cron starts a minimal environment: no login scripts, no familiar PATH, and no loaded dotfiles.
 
-Reasons: Cron tasks run in a shell that is started without your login scripts being run, which set up paths, environment variables etc.
+## When this applies
 
-When building cron tasks, prefer things like absolute paths and explicit options etc
+Use this runbook when a script works in your terminal but produces different output or fails as a cron job.
 
-- `env -I /pathtoyourbashscript.sh`
-- `env -u root -I /pathtoyourbashscript.sh` (running as root can also help), or better still do `chmod +x /yourbashscript.sh` and use the first command instead
+## Diagnostic steps
 
-`trap "set +x; sleep 5; set -x" DEBUG`
+### 1. Reproduce the cron environment
 
-making sure, each scripts runs one after the other, good for debug
+Run the script with a stripped environment to confirm the issue:
 
-Notion Split screen shift + command + n, navigate page command + ~
+```bash
+env -i /path/to/your/script.sh
+```
 
+Or run it as root if the crontab is owned by root:
+
+```bash
+sudo env -i /path/to/your/script.sh
+```
+
+A better default is to make the script executable and call it directly:
+
+```bash
+chmod +x /path/to/your/script.sh
+env -i /path/to/your/script.sh
+```
+
+### 2. Harden the script
+
+Inside the script itself:
+
+- Use absolute paths for every command and file.
+- Export the PATH you need explicitly.
+- Do not rely on `~` expansion or aliases.
+
+```bash
+#!/bin/bash
+export PATH=/usr/local/bin:/usr/bin:/bin
+LOG_FILE=/var/log/my-job.log
+/usr/local/bin/my-command >> "$LOG_FILE" 2>&1
+```
+
+### 3. Trace execution
+
+Add a debug trap to see each command as it runs:
+
+```bash
+#!/bin/bash
+set -x
+trap "set +x; sleep 5; set -x" DEBUG
+```
+
+The `sleep 5` gives you time to read the trace between commands. Remove it once the bug is found.
+
+### 4. Inspect cron logs
+
+Most systems log cron output to `/var/log/syslog` or `/var/log/cron`. Check there for the exact error and exit code.
+
+## Completion criterion
+
+The cron job is fixed when:
+
+1. The script runs successfully under `env -i`.
+2. The script uses absolute paths and explicit environment variables.
+3. The cron entry matches the user and path you tested.
+4. A test run in cron produced the expected output or log entry.
 
 <br/>
 <h2>Comments</h2>

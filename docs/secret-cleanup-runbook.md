@@ -22,13 +22,17 @@ Treat secret cleanup as three phases, in order:
 
 Skipping step 2 leaves the secret in PR history. Skipping step 3 guarantees a repeat.
 
+**Use this runbook when:** a secret has been committed to a git repository that has open or merged pull requests on GitHub.
+
 ## Phase 1: Rotate first
 
 History rewrite does not invalidate a leaked API key, database password, or private key. Assume the secret is compromised the moment it hit the remote.
 
 Rotate before or in parallel with git cleanup. If you rewrite history but forget rotation, the old credential may still be live somewhere an attacker already copied it.
 
-## Phase 2: Rewrite history (necessary, not sufficient)
+## Phase 2: Remove the secret from git history
+
+### Step 1: Rewrite history
 
 Use the approach that fits your situation:
 
@@ -40,7 +44,7 @@ Force-push every affected branch. Tell collaborators to re-clone or hard reset. 
 
 That clears the secret from current commit trees. It does **not** clear PR diffs.
 
-## Phase 2b: Scrub GitHub PR diffs (the step everyone skips)
+### Step 2: Scrub GitHub PR diffs
 
 If the secret ever appeared in a pull request (opened, closed, or merged), the diff can still show it under the PR's **Files changed** tab even after you rewrite `main`.
 

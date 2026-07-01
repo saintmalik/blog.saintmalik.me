@@ -10,11 +10,11 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Having worked across some startups over time, i have seen how many of them handle apps meant to be internal, best guess? its mostly deployed to the public.
+Most internal web apps I have seen are deployed to the public internet. The assumption is usually that the app is secure enough, but the network layer is still exposed.
 
 <!--truncate-->
 
-I believe most of them believe that their web apps are so secure and aren't prone to attacks? Or they've written the most secure code against access or authorization attacks etc., not sure why though but it always amazes me.
+A better default is to put the app in a private subnet and access it through a tunnel. The options are site-to-site VPNs, bastion hosts, Direct Connect, PrivateLink, or tunneling. For most teams, **Cloudflare Tunnel** is the simplest and cheapest path.
 
 ## The Challenge with Deploying Internal Applications
 
@@ -38,28 +38,26 @@ But the cons of deploying to private subnets or private network? Accessing the a
 
 Following the mantra that I have also stuck with, **"simplicity is preferable"** so why not go for something simpler that works the same way - Cloudflare Tunneling.
 
-AWS VPN is great too, but it comes at a cost, likewise OpenVPN is great too, but the setup can be complex, depends on the org too, but Cloudflare Tunnel just works great, simple and free
+AWS VPN and OpenVPN work, but Cloudflare Tunnel is free and requires no client-side VPN configuration for most users.
 
-Lets get into it
-
-## Prerequisite
+## Prerequisites
 
 - Experience with OpenTofu/Terraform
 - Cloudflare Account with Your Domain Added Already
 - Your Container Repository to push your the container image built from the Dockerfile
 - Access to Google Workspace for SSO
 
-## Implementation Overview
+## Implementation overview
 
-Our implementation consists of several key components, also the full OpenTofu code for this guide is aviable on <a href="https://github.com/saintmalik/cloudflare-zero-trust-ec2/" targe="_blank">GitHub</a>
+The full OpenTofu code is on <a href="https://github.com/saintmalik/cloudflare-zero-trust-ec2/" target="_blank">GitHub</a>.
 
-1. Building our cloudflared container image
-2. VPC and Network Infrastructure
-3. EC2 Instance Configuration
-4. Identity and Access Management
-5. Cloudflare Tunnel Setup
-
-Let's break down each component:
+| Step | What you build | Why it matters |
+|---|---|---|
+| 1 | cloudflared container image | Connects the private EC2 instance to Cloudflare's edge. |
+| 2 | VPC with public/private subnets and fck-nat | Hosts the app in a private subnet without AWS NAT Gateway cost. |
+| 3 | EC2 instance in the private subnet | Runs the internal application behind the tunnel. |
+| 4 | Google Workspace IdP + access policy | Authenticates users and enforces device posture. |
+| 5 | Cloudflare Tunnel + DNS record | Publishes the app behind Zero Trust without exposing the origin. |
 
 ### 1. Building our cloudflared container image
 
@@ -491,6 +489,17 @@ And since the use of warp client is made a requirement, if you dont have it turn
 </picture>
 <p style={{ color: 'green' }}>Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements</p>
 </Figure>
+
+## Completion criterion
+
+The setup is complete when:
+
+1. The EC2 instance has no public IP and lives in a private subnet.
+2. The cloudflared container is running and the tunnel shows healthy in the Cloudflare dashboard.
+3. A DNS record points the internal domain to the Cloudflare Tunnel.
+4. The Access policy requires Google Workspace authentication and the WARP client posture.
+5. With WARP turned on and the user in the allowed group, the app loads.
+6. With WARP off or the user outside the allowed group, the access-denied page is shown.
 
 ## Conclusion
 By leveraging Cloudflare Zero Trust and Tunnels, we've created a secure, cost-effective way to deploy internal applications. The solution provides enterprise-grade security without the complexity of traditional VPN setups.

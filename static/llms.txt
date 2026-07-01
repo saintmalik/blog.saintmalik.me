@@ -257,7 +257,7 @@ crossorigin="anonymous"
 // File: argocd-related-issues
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-
+import Giscus from "@giscus/react";
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.webp`} alt="argocd-connection-timeout"/>
@@ -265,32 +265,53 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
 </picture>
 
+A quick reference for ArgoCD problems I have hit and the fix that worked.
 
-breaking port-forward issues, this is not just for argocd alone, when you encounter breaking port forward issues on kubectl
+<!--truncate-->
 
-just open another terminal and put the service up regardless using the following syntax
+| Symptom | Cause | Fix |
+|---|---|---|
+| `kubectl port-forward` drops or breaks after a few minutes | Idle connection timeout | Keep the tunnel alive with a looped `nc` probe |
+| `failed to replace object: Service "argocd-server"` | Helm chart is forcing an immutable service update | Remove `force_update = true` from the Helm release |
+| `server.secretkey is missing` | ArgoCD server secret was reset or not initialized | `kubectl rollout restart deploy/argocd-server -n argocd` |
+| `error getting cached app resource tree: cache: key is missing` | Application controller cache is stale | `kubectl rollout restart statefulset -n argocd argocd-application-controller` |
 
+## Keeping a port-forward alive
+
+`kubectl port-forward` can drop when the connection goes idle. Open a second terminal and keep probing the local port:
+
+```bash
+while true; do nc -vz 127.0.0.1 8080; sleep 10; done
 ```
-while true ; do nc -vz 127.0.0.1 8080 ; sleep 10 ; done
-```
 
-so 127.0.0.1 is your localhost you are port forwarding to and the 8080 port is something you can change to any port you are trying to port forward to.
+Replace `8080` with the port you forwarded.
 
-so the command is ```while true``` keeps the netcat connection on a loop non-stop, and the ```sleep 10``` is needed because the ```while true``` is a hot loop, so ```nc -vz``` host port, helps keep querying the server for you to see if the connection is dead or successful, if not it continues.
+## Completion criterion
 
-hence keeping the connection alive
+The ArgoCD issue is resolved when:
 
-## failed to replace object: Service "argocd-server"
+1. The UI or CLI is reachable and stays reachable.
+2. The application resource tree loads without cache errors.
+3. Any service-related error is gone after removing `force_update = true`.
 
-fixed by just remove force_update = true
-
-## Argo CD error="server.secretkey is missing"
-
-fixed by kubectl rollout restart deploy/argocd-server -n argocd
-
-## Argo CD error="error getting cached app resource tree: cache: key is missing"
-Actually it's enough to restart only applicationController's statefulset, ie.
-kubectl rollout restart statefulset -n argocd argocd-application-controller
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
 
 ---
 
@@ -460,10 +481,10 @@ thats all for now
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Recently worked on small bash script status validation check on github action, it was a frustrating one though, because it kept failing without a reason, tested the same script locally and it worked.
+A small bash script worked locally in GitHub Actions. The script counted successes and failures from a string, then branched on the result. Local run was fine; the CI run failed with exit code 1.
 
 ```bash
-#/bin/bash
+#!/bin/bash
 
 set -x
 values="success success success success"
@@ -480,30 +501,33 @@ else
 fi
 ```
 
-So i did set ```set -x``` from the start, this ```set``` option is what we use in debugging a bash script, to see where the error is could be coming from, but with the below screenshot, you sure see that there isnt error here
-
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.webp`} alt="bash options"/>
   <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
 </picture>
 
-but running this same script was returning errors in github actions, so here is what i felt happended, since i set **$count_failure** to be greater or equal to ***1*** and the value it's getting is **0**.
+## Why it fails in CI
 
-so i guess the error starts from there and the scripts exit with a response code of **1** instead of **0**.
+The value of `count_failure` is `0`, which is expected. The problem is not the final branch; it is the pipeline that produces `count_failure`.
 
-but now that i dont want the command to end there, since the error isnt really an error, then we can make use of the set option ```set +e```.
+When `grep -o 'failure'` finds no matches it exits with status `1`. GitHub Actions runs shell steps with `set -e` and often `set -o pipefail` enabled by default, so a failing command in a pipeline aborts the whole script even though the output you care about (`count_failure = 0`) is correct.
 
-This set options makes sure the command doesnt exit a sequence because of an error, so it will competely run the script without exit on the fail or error it encounters before the exit of the commands.
+`set -x` only prints each command; it does not change how the shell reacts to a failing command.
+
+## The fix: `set +e`
+
+`set +e` tells the shell to keep running even when a command returns a non-zero exit status. Use it around the pipeline that is expected to produce zero matches:
 
 ```bash
-#/bin/bash
+#!/bin/bash
 
 set +e
 values="success success success success"
 
 count_success=$(echo ${values[@]} | grep -o 'success' | grep -c '^')
 count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^')
+set -e
 
 if [[ $count_success -eq 4 ]]; then
   echo "success"
@@ -514,7 +538,31 @@ else
 fi
 ```
 
-And that was it, there are more other  usefull set options like, ```set -u```, ```set -v```.
+A safer alternative is to make the pipeline itself robust so it never fails:
+
+```bash
+count_failure=$(echo ${values[@]} | grep -o 'failure' | grep -c '^' || true)
+```
+
+`|| true` forces the substitution to return `0` regardless of whether `grep` found a match.
+
+## The four `set` options you reach for first
+
+| Option | Shorthand | What it does | When you need it |
+|---|---|---|---|
+| `set -e` | exit on error | Aborts the script when any command returns non-zero | CI pipelines; default in GitHub Actions |
+| `set +e` | disable exit on error | Keeps the script running after a non-zero command | Around commands where failure is expected data |
+| `set -u` | unset variable guard | Exits if an undefined variable is expanded | Catching typos in variable names |
+| `set -x` | xtrace | Prints each command before executing it | Debugging: seeing exactly what runs and with what values |
+| `set -o pipefail` | pipefail | A pipeline fails if any command in it fails, not just the last | CI pipelines with multiple-stage pipes |
+
+## Completion criterion
+
+After reading this, you should be able to:
+
+1. Explain why a script that works locally can fail in GitHub Actions.
+2. Choose between `set +e`, `|| true`, and `set -o pipefail` to handle a pipeline that legitimately produces no matches.
+3. Use `set -x` for debugging and `set -u` to catch unset variables.
 
 <br/>
 <h2>Comments</h2>
@@ -856,7 +904,33 @@ so i tested trivy, grype and aws ecr in repo advanced scan and here is the resul
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
 </picture>
 
-And here is the final result, we can see that grype performed better than trivy, i didnt have the chance to test with Clair
+## What the comparison showed
+
+From the three scanners tested against the same image, **Grype reported more findings than Trivy** for this particular image. AWS ECR Advanced Scan also surfaced issues, including application-layer findings.
+
+That does not mean Grype is universally better. Scanners differ in:
+
+- **Vulnerability databases** and update cadence
+- **OS vs application** coverage
+- **False positive rates** and severity scoring
+- **CI integration** and output formats
+
+## When to choose which
+
+| Scenario | Sensible starting point |
+|---|---|
+| Images hosted in AWS ECR | AWS ECR Basic/Advanced scanning for native integration |
+| Need fast, easy CI integration | Trivy or Grype via their GitHub Actions |
+| Want the broadest detection on a single image | Run both Grype and Trivy and compare, then triage differences |
+| Enterprise policy and reporting | Use a scanner that exports SARIF or supports policy enforcement |
+
+## Completion criterion
+
+After reading this, you should be able to:
+
+1. Explain why no single scanner catches everything.
+2. Pick Trivy, Grype, or AWS ECR scanning based on where your images live and your CI setup.
+3. Run at least one container scan before an image reaches production.
 
 <br/>
 <h2>Comments</h2>
@@ -1028,21 +1102,74 @@ crossorigin="anonymous"
 
 import Giscus from "@giscus/react";
 
-Cron Job showing different results from what the results shown on terminal when you run the shell script.
+Cron jobs often behave differently from the same script run in an interactive shell because cron starts a minimal environment: no login scripts, no familiar PATH, and no loaded dotfiles.
 
-Reasons: Cron tasks run in a shell that is started without your login scripts being run, which set up paths, environment variables etc.
+## When this applies
 
-When building cron tasks, prefer things like absolute paths and explicit options etc
+Use this runbook when a script works in your terminal but produces different output or fails as a cron job.
 
-- `env -I /pathtoyourbashscript.sh`
-- `env -u root -I /pathtoyourbashscript.sh` (running as root can also help), or better still do `chmod +x /yourbashscript.sh` and use the first command instead
+## Diagnostic steps
 
-`trap "set +x; sleep 5; set -x" DEBUG`
+### 1. Reproduce the cron environment
 
-making sure, each scripts runs one after the other, good for debug
+Run the script with a stripped environment to confirm the issue:
 
-Notion Split screen shift + command + n, navigate page command + ~
+```bash
+env -i /path/to/your/script.sh
+```
 
+Or run it as root if the crontab is owned by root:
+
+```bash
+sudo env -i /path/to/your/script.sh
+```
+
+A better default is to make the script executable and call it directly:
+
+```bash
+chmod +x /path/to/your/script.sh
+env -i /path/to/your/script.sh
+```
+
+### 2. Harden the script
+
+Inside the script itself:
+
+- Use absolute paths for every command and file.
+- Export the PATH you need explicitly.
+- Do not rely on `~` expansion or aliases.
+
+```bash
+#!/bin/bash
+export PATH=/usr/local/bin:/usr/bin:/bin
+LOG_FILE=/var/log/my-job.log
+/usr/local/bin/my-command >> "$LOG_FILE" 2>&1
+```
+
+### 3. Trace execution
+
+Add a debug trap to see each command as it runs:
+
+```bash
+#!/bin/bash
+set -x
+trap "set +x; sleep 5; set -x" DEBUG
+```
+
+The `sleep 5` gives you time to read the trace between commands. Remove it once the bug is found.
+
+### 4. Inspect cron logs
+
+Most systems log cron output to `/var/log/syslog` or `/var/log/cron`. Check there for the exact error and exit code.
+
+## Completion criterion
+
+The cron job is fixed when:
+
+1. The script runs successfully under `env -i`.
+2. The script uses absolute paths and explicit environment variables.
+3. The cron entry matches the user and path you tested.
+4. A test run in cron produced the expected output or log entry.
 
 <br/>
 <h2>Comments</h2>
@@ -1161,19 +1288,40 @@ this will delete the workflows
 
 import Giscus from "@giscus/react";
 
-So you've committed some secrets to github mistakenly and you want to clear it off?
+Use this to remove the most recent commits from a branch. It rewrites history, so it is only appropriate for branches where you can coordinate with everyone who has a copy.
 
-run ```git log``` to see your commit history, copy commit id of the version that comes before the commit of the secret that was pushed.
+:::warning
+This is destructive. Anyone else working on the branch will need to reset their local copy. If the commits contain secrets, use the [secret cleanup runbook](/docs/secret-cleanup-runbook) instead so the PR diffs and forks are also handled.
+:::
 
-Now run ```git revert COMMIT ID```
+## Steps
 
-After that you will notice there are some untracked changes now if you run ```git status```
+1. Find the commit id of the last good state before the commits you want to remove:
 
-also checking your ```git log``` again, you will see that the commit where you've pushed the secret is gone.
+```bash
+git log --oneline
+```
 
-Now its time to take it off the github repo commit history too, now you will run ```git push origin main -f```
+2. Reset the branch to that commit:
 
-This is a brutal way of getting your secret off github repo though, not really recommended, haha, but you can also read the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" target="_blank"> github docs</a> on other ways to go about it.
+```bash
+git reset --hard COMMIT_ID
+```
+
+3. Force-push the rewritten branch to the remote:
+
+```bash
+git push origin main -f
+```
+
+Replace `main` with the branch you are rewriting.
+
+## Completion criterion
+
+- [ ] `git log` locally shows only the commits you want to keep.
+- [ ] The remote branch matches the local branch after `git push -f`.
+- [ ] Other contributors have been told to reset their local branches (`git fetch origin && git reset --hard origin/main`).
+- [ ] If the removed commits contained secrets, the [secret cleanup runbook](/docs/secret-cleanup-runbook) was followed instead.
 
 <br/>
 <h2>Comments</h2>
@@ -2114,13 +2262,17 @@ Treat secret cleanup as three phases, in order:
 
 Skipping step 2 leaves the secret in PR history. Skipping step 3 guarantees a repeat.
 
+**Use this runbook when:** a secret has been committed to a git repository that has open or merged pull requests on GitHub.
+
 ## Phase 1: Rotate first
 
 History rewrite does not invalidate a leaked API key, database password, or private key. Assume the secret is compromised the moment it hit the remote.
 
 Rotate before or in parallel with git cleanup. If you rewrite history but forget rotation, the old credential may still be live somewhere an attacker already copied it.
 
-## Phase 2: Rewrite history (necessary, not sufficient)
+## Phase 2: Remove the secret from git history
+
+### Step 1: Rewrite history
 
 Use the approach that fits your situation:
 
@@ -2132,7 +2284,7 @@ Force-push every affected branch. Tell collaborators to re-clone or hard reset. 
 
 That clears the secret from current commit trees. It does **not** clear PR diffs.
 
-## Phase 2b: Scrub GitHub PR diffs (the step everyone skips)
+### Step 2: Scrub GitHub PR diffs
 
 If the secret ever appeared in a pull request (opened, closed, or merged), the diff can still show it under the PR's **Files changed** tab even after you rewrite `main`.
 
@@ -3339,42 +3491,87 @@ crossorigin="anonymous"
 
 import Giscus from "@giscus/react";
 
-Terra grunt config file name, terragrunt.hcl
+Terragrunt wraps Terraform to keep configurations DRY across environments. The config file is named `terragrunt.hcl`.
 
-Blocks:
+## Core blocks
 
-Terraform Block: to find terraform config files, communicate with resource on target provider —— Arguments: source, include_in_copy, extra_arguments,
-hooks before, error, after,
-init-from-module and init, terragrunt-read-config
+| Block | Purpose |
+|---|---|
+| `terraform` | Points to the Terraform source module and adds extra CLI arguments or hooks. |
+| `include` | Inherits a parent `terragrunt.hcl` so environment configs reuse shared settings. |
+| `locals` | Defines aliases and computed values inside the current file. |
+| `remote_state` | Configures the backend (S3, GCS, Azure, etc.) once for all child configs. |
+| `generate` | Creates additional Terraform files, such as a backend configuration, at runtime. |
 
-Include block, inherit parent terraform configuration file to child config file, process data from parent to child in current config file
-Can only process one include block, path = find_in_parent_folders(“region.hcl”)
+## Example: backend generation
 
-Local blocks allows you to define alias within the configuration file
+```hcl
+# terragrunt.hcl
+remote_state {
+  backend = "s3"
 
-Remote_state block:
+  config = {
+    bucket         = "terraform-statefiles-aws-vpc"
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
 
-iam_role
-
-Store remote state for multiple env
-```
-Generate
-		Path = “s3-backend.tf”
-		If_exists = “overwrite_terragrunt”
-		Contents = <<EOF
-Terraform {
- Backend “s3” {
-    Bucket = “terraform-statefiles-aws-vpc”
-    Key = “${path_relative_to_include())/terraform.tfstate”
-```
-
-Call them in your terrgrunt file and use block name include
-
-```
-Include “root” {
-Path =
+  generate = {
+    path      = "s3-backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
 }
 ```
+
+This generates `s3-backend.tf` in each child directory with the S3 backend configuration.
+
+## Example: include a parent config
+
+```hcl
+# dev/terragrunt.hcl
+include "root" {
+  path = find_in_parent_folders("root.hcl")
+}
+```
+
+`find_in_parent_folders()` walks up the directory tree until it finds `root.hcl`. Each child can include only one block with the same label, but different labels are allowed if you need more than one inclusion.
+
+## Example: terraform source and hooks
+
+```hcl
+# terragrunt.hcl
+terraform {
+  source = "git::https://github.com/org/terraform-modules.git//vpc?ref=v1.2.0"
+
+  extra_arguments "common_vars" {
+    commands = [
+      "apply",
+      "plan",
+    ]
+
+    arguments = [
+      "-var-file=../common.tfvars",
+    ]
+  }
+
+  before_hook "before_hook" {
+    commands = ["apply"]
+    execute  = ["echo", "Running apply"]
+  }
+}
+```
+
+## Completion criterion
+
+After reading this, you should be able to:
+
+1. Name the config file and place it correctly in a Terragrunt project.
+2. Use `include` to inherit a parent configuration.
+3. Use `remote_state` with `generate` to create a backend file automatically.
+4. Add extra arguments and hooks to Terraform commands.
+
 <br/>
 <h2>Comments</h2>
 <Giscus

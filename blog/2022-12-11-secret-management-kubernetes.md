@@ -10,7 +10,7 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-You probably handling your manifest and deployment secrets in kube like this
+You are probably handling secrets in Kubernetes like this today:
 
 <!--truncate-->
 
@@ -18,7 +18,6 @@ You probably handling your manifest and deployment secrets in kube like this
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: hashicorp-vault-k8s
   name: hashicorp-vault-k8s
@@ -29,7 +28,6 @@ spec:
       app: hashicorp-vault-k8s
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: hashicorp-vault-k8s
     spec:
@@ -39,297 +37,158 @@ spec:
         env:
         - name: API_KEY
           value: jduhdshieioieiisbbjsb
-        - name: AWS_KEY
-          value: 96859988gddjjdjds
-        - name: WEBHOOK_SECRET
-          value: jimjimjimokaynice
 ```
 
-you are adding the secrets using environment variables, and if you are not doing it this way, you probably mounting it as a file path or injecting it as a file.
+Hard-coding secrets in environment variables or mounting them as files has three problems:
 
-regardless of the ways you are getting secrets to your pods, none of the process is recommended security wise, because secrets are not encrypted on rest, in memory or etcd.
+1. They are plaintext in the manifest.
+2. They are plaintext in etcd.
+3. They can end up committed to Git if the manifest is your source of truth.
 
-injected secrets in the containers are in plaintext or base64, and you might also end up committing the yaml file to github as your Source Of Truth that if you plan to do GitOps.
+This guide replaces that pattern with HashiCorp Vault, the Kubernetes auth method, and the Vault Agent Injector.
 
-and if something goes wrong either at org level or via third party access on your github repo, these secrets become available to attackers in plaintext.
+## What you will build
 
-So lets get into fixing this, time to jump in;
+1. Vault running in a namespace on your cluster.
+2. Kubernetes authentication between Vault and your pods.
+3. A KV secrets engine holding your secrets.
+4. A Vault policy and role controlling which pod can read which secret.
+5. A deployment that receives secrets at runtime from Vault instead of from the manifest.
 
-## My Environment set up?
+## Environment
 
-- AWS EKS Cluster(Fargate) — Here is terraform codes
-- Local Installations are helm, kubectl and Vault for CLI
+- AWS EKS (Fargate)
+- Helm, kubectl, and Vault CLI locally
 
-## What will i be doing ?
-- Spun up a running Vault on Kubernetes
-- Kubernetes Auth Method
-- Create and use Vault KV secrets engine
-- Vault Policies and Service Accounts creations
-- Injection of created secrets in kv into our deployment/pod yaml file
+## Install Vault
 
-## Vault Installation
+Create a namespace and install Vault:
 
-Before installing the vault, you need to create a namespace called vault in your kube cluster
-
-```yaml
+```bash
 kubectl create ns vault
-```
-after that, you can install vault using helm install, installing it this way means you are following the default configurations and there is requirement for a PVC in other to create a "file" backend as data storage for vault.
-
-```yaml
 helm install vault hashicorp/vault --namespace vault
 ```
 
-Although this process is not recommend in production, due to absent of High Availailty, you might consider Consul as your backend for data storage in prod.
-
-Done with the installation, noticed the vault-0 pods is yet to be ready, thats because the vault hasnt been unsealed, so lets get it up
-
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-installed.webp`} alt="hashicorp vault installed"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-installed.jpg`} alt="hashicorp vault installed"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-installed.jpg`} alt="hashicorp vault installed"/>
-</picture>
-
-### Initialize and unseal vault
-
-so run
-```yaml
-kubectl exec -it vault-vault-0  -n vault -- vault operator init
-```
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.webp`} alt="hashicorp-vault-operator-init"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.jpg`} alt="hashicorp-vault-operator-init"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-operator-init.jpg`} alt="hashicorp-vault-operator-init"/>
-</picture>
-
-Now you need to unseal atleast 3 key to get it up running
-
-```yaml
-kubectl exec -it vault-vault-0  -n vault -- vault operator unseal KEY1
-kubectl exec -it vault-vault-0  -n vault -- vault operator unseal KEY2
-kubectl exec -it vault-vault-0  -n vault -- vault operator unseal KEY3
-```
 :::note
-Also make sure you copy both the root token and the sealed keys into seperate note cause you might need to login via root token later or probably unsealling again.
-
-because if you cant unseal your vault, it means you've lost access to your vault and the data, hence you will be creating a new vault
+This uses the default Helm configuration with a file backend. For production, use a Consul-backed or integrated storage with high availability.
 :::
-<Figure>
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.webp`} alt="hashicorp-vault-unseal"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.jpg`} alt="hashicorp-vault-unseal"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unseal.jpg`} alt="hashicorp-vault-unseal"/>
-</picture>
-  <p>unsealed one key</p>
-  </Figure>
 
-<Figure>
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.webp`} alt="hashicorp-vault-unseal"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.jpg`} alt="hashicorp-vault-unseal"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-unsealed.jpg`} alt="hashicorp-vault-unseal"/>
-</picture>
-  <p>unsealed three keys</p>
-  </Figure>
+After install, the `vault-0` pod will not be ready because Vault is sealed.
 
-Also there are ways to auto unseal, but thats a topic for another day.
+## Initialize and unseal Vault
 
-Done initializing and unsealing? now login into your vault using the root token you copied earlier
-
-```yaml
-kubectl exec -it vault-vault-0  -n vault -- vault login
+```bash
+kubectl exec -it vault-0 -n vault -- vault operator init
+kubectl exec -it vault-0 -n vault -- vault operator unseal KEY1
+kubectl exec -it vault-0 -n vault -- vault operator unseal KEY2
+kubectl exec -it vault-0 -n vault -- vault operator unseal KEY3
 ```
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-login-sucess.webp`} alt="hashicorp vault login success"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-login-sucess.jpg`} alt="hashicorp vault login success"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicorp-vault-login-sucess.jpg`} alt="hashicorp vault login success"/>
-</picture>
+Save the root token and unseal keys somewhere safe. If you lose them, you lose Vault and its data.
 
-## Kubernetes Auth Method
+Then log in:
 
-This stage is where you configure authentication between the kube cluster and vault server, so enable auth for kubernetes by running this
+```bash
+kubectl exec -it vault-0 -n vault -- vault login
+```
 
-```yaml
+For production, configure [auto-unseal with AWS KMS](https://developer.hashicorp.com/vault/docs/configuration/seal/awskms).
+
+## Configure Kubernetes authentication
+
+Enable the Kubernetes auth method:
+
+```bash
 vault auth enable kubernetes
 ```
-now write the configurration into the config path of the auth engine you just created
 
-```yaml
+Configure it to trust the cluster:
+
+```bash
 vault write auth/kubernetes/config \
-token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
-kubernetes_host=https://${KUBERNETES_PORT_443_TCP_ADDR}:443 \
-kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
-issuer="https://kubernetes.default.svc.cluster.local"
+  token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+  kubernetes_host=https://${KUBERNETES_PORT_443_TCP_ADDR}:443 \
+  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+  issuer="https://kubernetes.default.svc.cluster.local"
 ```
 
-In addition to this, you can configure all this on the UI side too by running
+You can reach the Vault UI by port-forwarding if you prefer:
 
-```yaml
-kubectl port-forward svc/vault-vault -n vault 443:8200
+```bash
+kubectl port-forward svc/vault -n vault 8200:8200
 ```
 
-## Create and use Vault KV secrets engine
+## Create a KV secret
 
-vault kv secrets engine is used to store static secrets, writing a key/value pairs to the vault which should be a non-string values
+Enable the KV secrets engine:
 
-so enable the kv secrets engine by running this in your vault
-
-```yaml
+```bash
 vault secrets enable -path=secret/ kv-v2
-
-OR
-
-vault secrets enable -version=2 -path=secret/ kv
 ```
 
-So now that you have enabled the kv secret engine, lets start creating secrets in different file paths
+Write a secret:
 
-```yaml
-vault kv put -mount=secret golangsecrets apikey="jduhdshieioieiisbbjsb" awskey="96859988gddjjdjds"  webhooksecret="jimjimjimokaynice"
+```bash
+vault kv put -mount=secret golangsecrets \
+  apikey="jduhdshieioieiisbbjsb" \
+  awskey="96859988gddjjdjds" \
+  webhooksecret="jimjimjimokaynice"
 ```
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.webp`} alt="kube-vault-create-kv-secret"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.jpg`} alt="kube-vault-create-kv-secret"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kube-vault-create-kv-secret.jpg`} alt="kube-vault-create-kv-secret"/>
-</picture>
+The values are now accessible at `secret/data/golangsecrets`.
 
-So now you've created kube auth, you can also enable kv secrets at the same time.
+## Create a custom service account
 
-I have added our secret to golangsecrets file, it is acessible on the path **secret/data/golangsecrets**.
-
-Now let's move to the part where you can make vault and pods to  communicate with each other via roles, service account and policies.
-
-## Create custom service account
-
-While the humans use kubeconfig to authenticate with the cluster, pods use serviceaccounts to authenticate.
-
-And i believe you know your pods has a default service account, but this default service accounts does not have any permission, so its not useful.
-
-Now you need to create a custom service account for your pod which will be binded to the vault authentication roles you will be creating alongside the vault policies that carries the permission that the role can access.
+Pods authenticate to Kubernetes using service accounts. Create one for the workload:
 
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-    name: hashicorp-vault-k8s-pod
-    labels:
-        app: hashicorp-vault-k8s-pod
+  name: hashicorp-vault-k8s-pod
+  labels:
+    app: hashicorp-vault-k8s-pod
 ```
 
-## Creating vault policies
+## Create a Vault policy
 
-You need to create a policies that defines what access a vault role has on a certain secret path, whether its just a **read** permission or the role can perform more actions such as **delete**, **update** and more, you can also read up more about vault policies <a href="https://developer.hashicorp.com/vault/docs/concepts/policies" target="_blank">here</a>.
+Create a policy that grants read access to the secret path:
 
-But in this guide i only needa read access so i will be creating the hcl file that holds the rules
-
-```yaml
-cat <<EOF> /home/vault/hashicorp-vault-k8s.hcl
+```hcl
+# hashicorp-vault-k8s.hcl
 path "/secret/data/golangsecrets" {
-    capabilities = ["read"]
-  }
-EOF
+  capabilities = ["read"]
+}
 ```
 
-now you create the policy by running
+Apply it:
 
-```yaml
-vault policy write hashi-vault-k8s-policy /home/vault/hashicorp-vault-k8s.hcl
+```bash
+vault policy write hashi-vault-k8s-policy hashicorp-vault-k8s.hcl
 ```
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-policy-creation.webp`} alt="vault policy creation"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-policy-creation.jpg`} alt="vault policy creation"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-policy-creation.jpg`} alt="vault policy creation"/>
-</picture>
+## Create a Vault role
 
-## Creating vault roles for k8s access
+The role binds the policy to a service account and namespace:
 
-You need to create a vault role under the k8s auth you've configured earlier, this role is what you will bind the serviceaccount and policies too.
-
-```yaml
+```bash
 vault write auth/kubernetes/role/hashi-vault-k8s-role \
     bound_service_account_names=hashicorp-vault-k8s-pod \
     bound_service_account_namespaces=vault \
-    policies=demo-hashi-vault-k8s-policy \
+    policies=hashi-vault-k8s-policy \
     ttl=24h
 ```
-So now that you've created the role and you've also binded the serviceaccount and policy you created earlier.
 
-It's time to move to the next part, injecting secret into our pods.
+A single role can bind multiple service accounts and namespaces if needed.
 
-But before that, i would like to inform you that you can use a single role and bind more than just one service account to it, likewise the namespaces too.
+## Inject the secret into a pod
 
-## Injection of created secrets in kv into our deployment/pod yaml file
-
-With the serviceaccount you created earlier, it's time to use it in your pods now by adding it to your deployment yaml
+Add the service account and Vault Agent Injector annotations to your deployment:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    app: hashicorp-vault-k8s
-  name: hashicorp-vault-k8s
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: hashicorp-vault-k8s
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: hashicorp-vault-k8s
-    spec:
-      serviceAccountName: hashicorp-vault-k8s-pod //add the serviceacccount to your pods
-      containers:
-      - image: busybox
-        name: hashicorp-vault-container
-        command:
-          ['sh', '-c']
-        args:
-          ['source /vault/secrets/golangsecrets']
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-    name: hashicorp-vault-k8s-pod
-    labels:
-        app: hashicorp-vault-k8s-pod
-
-```
-
-Now you need to inject the vault agent injector by addding the followwing annotation to your yaml file
-
-```yaml
-      annotations:
-        vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/agent-inject-secret-golangsecrets: secret/golangsecrets //my secret file path
-        vault.hashicorp.com/agent-inject-template-golangsecrets: |
-          {{ with secret "secret/data/golangsecrets -}}
-            export API_KEY="{{ .Data.data.apikey }}"
-            export AWS_KEY="{{ .Data.data.awskey }}"
-            export WEBHOOK_SECRET="{{ .Data.data.webhooksecret }}"
-          {{- end }}
-        vault.hashicorp.com/role: hashi-vault-k8s-role //the vault role you created earlier
-        vault.hashicorp.com/tls-skip-verify: 'true'
-```
-
-the reason i am also injecting it as template **vault.hashicorp.com/agent-inject-template** is because i want to export it and use it as an enviroment variables
-
-also the **vault.hashicorp.com/tls-skip-verify: 'true'** is not recommended in prod, decided to skip it since i didnt set any tls cert for an end to end communication yet.
-
-your final deployment yaml file should look like this
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  creationTimestamp: null
   labels:
     app: hashicorp-vault-k8s
   name: hashicorp-vault-k8s
@@ -342,20 +201,19 @@ spec:
     metadata:
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/agent-inject-secret-golangsecrets: secret/golangsecrets //my secret file path
+        vault.hashicorp.com/agent-inject-secret-golangsecrets: secret/golangsecrets
         vault.hashicorp.com/agent-inject-template-golangsecrets: |
-          {{ with secret "secret/data/golangsecrets -}}
+          {{ with secret "secret/data/golangsecrets" -}}
             export API_KEY="{{ .Data.data.apikey }}"
             export AWS_KEY="{{ .Data.data.awskey }}"
             export WEBHOOK_SECRET="{{ .Data.data.webhooksecret }}"
           {{- end }}
-        vault.hashicorp.com/role: hashi-vault-k8s-role //the vault role you created earlier
+        vault.hashicorp.com/role: hashi-vault-k8s-role
         vault.hashicorp.com/tls-skip-verify: 'true'
-      creationTimestamp: null
       labels:
         app: hashicorp-vault-k8s
     spec:
-      serviceAccountName: hashicorp-vault-k8s-pod //add the serviceacccount to your pods
+      serviceAccountName: hashicorp-vault-k8s-pod
       containers:
       - image: busybox
         name: hashicorp-vault-container
@@ -363,30 +221,40 @@ spec:
           ['sh', '-c']
         args:
           ['source /vault/secrets/golangsecrets']
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-    name: hashicorp-vault-k8s-pod
-    labels:
-        app: hashicorp-vault-k8s-pod
-
 ```
 
-So after applying the yaml file using **kubectl apply =f deployu.yaml**, you can confirm if the secrets are successful mounted by navigating into /vault/secrets/ in your pods.
+:::warning
+`vault.hashicorp.com/tls-skip-verify: 'true'` is only acceptable here because TLS is not configured. In production, terminate TLS properly.
+:::
 
-<picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicopr-vault-deply.webp`} alt="hashicorp vault deployment"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicopr-vault-deply.jpg`} alt="hashicorp vault deployment"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hashicopr-vault-deply.jpg`} alt="hashicorp vault deployment"/>
-</picture>
+Apply the deployment:
 
-But in situations where you pods refuse to start, most of the time its caused by an error with the vault agen injector, you can debug it using **kubectl exec -it podsname -n vault -- sh -c vault-agent-init**
+```bash
+kubectl apply -f deployment.yaml
+```
 
-You can also read about <a href="https://blog.saintmalik.me/automate-vault-backup-restore-on-aws-eks/" target="_blank">automating HashiCorp Vault backup and restoration for kubernetes</a> and <a href="https://blog.saintmalik.me/end-to-end-tls-vault-eks/" target="_blank">setting up of end to end tls for vault with High Availability</a>.
+Verify the secret by checking `/vault/secrets/` inside the pod:
 
-That's it folks! I hope you find this useful and helpful.
+```bash
+kubectl exec -it <pod-name> -n vault -- ls /vault/secrets
+```
+
+If the pod fails to start, debug the injector:
+
+```bash
+kubectl logs <pod-name> -n vault -c vault-agent-init
+```
+
+## Completion criterion
+
+The migration is complete when:
+
+1. Vault pods are running and unsealed.
+2. The Kubernetes auth method is enabled and configured.
+3. A KV secret exists at a known path.
+4. A policy and role restrict access to a specific service account and namespace.
+5. The workload pod starts and can read secrets from `/vault/secrets/` at runtime.
+6. The original manifest no longer contains hard-coded secrets.
 
 <br/>
 <h2>Comments</h2>

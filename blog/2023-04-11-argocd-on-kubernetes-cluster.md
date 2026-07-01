@@ -145,27 +145,18 @@ spec:
             selfHeal: true
 ```
 
-For those curious about what the above configuration does, here is the explanation.
+What the Application fields mean:
 
-```yaml
-     source: // this is the repo you hold all your deployment yaml file, you can use either github, gitlab or bitbucket repo
-       repoURL: git@github.com:saintmalik/gitops-argocd.git
-       targetRevision: HEAD // to always look for the top/latest commit
-       path: dev // this is the folder where my dev deployment are, folder base environment promotion is the best according to argo docs
-       directory:
-         recurse: true //if there appears to be a sub folder,, it should be included too and process
-     destination: //this is the cluster you want does deployment yaml file to be deployed to for you
-       server: https://kubernetes.default.svc // the defualt cluster dns
-       namespaces: default //and the namespace they should be deployed too
-     syncPolicy:
-          syncOptions:
-          - CreateNamespace=true //create namespace for the destination namespace set if non available
-          automated: //to pull the changes in every 3 minutes, this can be overriden using configuring git webhook
-            prune: true //by default auto sync will not delete resources, but to allow argocd to also delete what you have deleted, set prune to true
-            selfHeal: true //auto override any manual changes made by devs or other people with cluster access
-```
+- `source.repoURL`: the Git repository holding your deployment manifests.
+- `source.targetRevision: HEAD`: track the latest commit.
+- `source.path: dev`: the folder inside the repo for this environment.
+- `destination.server: https://kubernetes.default.svc`: the target cluster. For the local cluster this is the default.
+- `destination.namespace: default`: the namespace to deploy into.
+- `syncPolicy.automated.prune: true`: ArgoCD deletes resources that are removed from Git.
+- `syncPolicy.automated.selfHeal: true`: ArgoCD reverts drift caused by manual changes.
+- `syncPolicy.syncOptions.CreateNamespace=true`: creates the destination namespace if it does not exist.
 
-If everything goes well, you should see that your application will be synced and deployed in minutes, but our's didn't, this is because I am using a private repository and this is the error I am getting.
+If everything goes well, your application will sync and deploy in minutes. If the repo is private, you will see an error like this instead.
 
 ```yaml
 ComparisonError
@@ -315,18 +306,21 @@ terraform {
       source  = "integrations/github"
       version = "~> 5.0"
     }
-provider "github" {
-  token = "your-github-token" //e.g 1234567890"
-  owner = "your-github-username" //e.g saintmalik"
+  }
 }
-  ```
+
+provider "github" {
+  token = "your-github-token"
+  owner = "your-github-username"
+}
+```
 
 ```yaml title="argocd.tf"
 resource "github_repository_deploy_key" "argocd_repo_deploykey" {
   title      = "argocd-connect"
   repository = "gitops"
-  key        = "Replace this with the public key you generated in step 1"
-  read_only  = "false"
+  key        = "REPLACE THIS WITH THE PUBLIC KEY YOU GENERATED IN STEP 1"
+  read_only  = false
 }
 ```
 
@@ -343,7 +337,7 @@ resource "kubernetes_secret_v1" "ssh_key" {
   type = "Opaque"
 
   data = {
-    "sshPrivateKey" = "REPLACE THIS WITH THE SSH PRIVATE KEY YOU GENERATED IN STEP 1""
+    "sshPrivateKey" = "REPLACE THIS WITH THE SSH PRIVATE KEY YOU GENERATED IN STEP 1"
     "type"          = "git"
     "url"           = "git@github.com:saintmalik/gitops-argocd.git"
     "name"          = "github"
@@ -379,9 +373,17 @@ resource "github_repository_webhook" "argocd" {
 }
 ```
 
-Well, that's it, folks! you have just learned how to deploy argocd into your existing cluster that is created with terraform from the get start, likewise how to deploy your application on argocd and how to connect private repo with argocd.
+## Completion criterion
 
-If you encounter some issues in the process, here are my curated <a href="https://blog.saintmalik.me/docs/argocd-related-issues/" target="_blank">argocd issues</a>, you can look into it.
+ArgoCD is fully set up when:
+
+1. The ArgoCD server is reachable via its load balancer or port-forward.
+2. You can log in with the initial admin password.
+3. An ArgoCD Application exists and is synced to a Git repository.
+4. If the repository is private, the SSH deploy key is added to the repo and the matching private key is stored as a Secret in the `argocd` namespace.
+5. Changing a manifest in Git and pushing it triggers a new sync (via webhook or the 3-minute poll).
+
+If you run into issues, see the [ArgoCD issues reference](https://blog.saintmalik.me/docs/argocd-related-issues/).
 
 Till next time 🤞🏽
 

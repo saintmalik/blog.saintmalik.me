@@ -4,19 +4,40 @@ title: Delete recent commits from any git branch locally and remotely
 
 import Giscus from "@giscus/react";
 
-So you've committed some secrets to github mistakenly and you want to clear it off?
+Use this to remove the most recent commits from a branch. It rewrites history, so it is only appropriate for branches where you can coordinate with everyone who has a copy.
 
-run ```git log``` to see your commit history, copy commit id of the version that comes before the commit of the secret that was pushed.
+:::warning
+This is destructive. Anyone else working on the branch will need to reset their local copy. If the commits contain secrets, use the [secret cleanup runbook](/docs/secret-cleanup-runbook) instead so the PR diffs and forks are also handled.
+:::
 
-Now run ```git revert COMMIT ID```
+## Steps
 
-After that you will notice there are some untracked changes now if you run ```git status```
+1. Find the commit id of the last good state before the commits you want to remove:
 
-also checking your ```git log``` again, you will see that the commit where you've pushed the secret is gone.
+```bash
+git log --oneline
+```
 
-Now its time to take it off the github repo commit history too, now you will run ```git push origin main -f```
+2. Reset the branch to that commit:
 
-This is a brutal way of getting your secret off github repo though, not really recommended, haha, but you can also read the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" target="_blank"> github docs</a> on other ways to go about it.
+```bash
+git reset --hard COMMIT_ID
+```
+
+3. Force-push the rewritten branch to the remote:
+
+```bash
+git push origin main -f
+```
+
+Replace `main` with the branch you are rewriting.
+
+## Completion criterion
+
+- [ ] `git log` locally shows only the commits you want to keep.
+- [ ] The remote branch matches the local branch after `git push -f`.
+- [ ] Other contributors have been told to reset their local branches (`git fetch origin && git reset --hard origin/main`).
+- [ ] If the removed commits contained secrets, the [secret cleanup runbook](/docs/secret-cleanup-runbook) was followed instead.
 
 <br/>
 <h2>Comments</h2>

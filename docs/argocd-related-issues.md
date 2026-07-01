@@ -1,9 +1,9 @@
 ---
-title: Argocd-related issues and solutions
+title: ArgoCD-related issues and solutions
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-
+import Giscus from "@giscus/react";
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.webp`} alt="argocd-connection-timeout"/>
@@ -11,29 +11,50 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
 </picture>
 
+A quick reference for ArgoCD problems I have hit and the fix that worked.
 
-breaking port-forward issues, this is not just for argocd alone, when you encounter breaking port forward issues on kubectl
+<!--truncate-->
 
-just open another terminal and put the service up regardless using the following syntax
+| Symptom | Cause | Fix |
+|---|---|---|
+| `kubectl port-forward` drops or breaks after a few minutes | Idle connection timeout | Keep the tunnel alive with a looped `nc` probe |
+| `failed to replace object: Service "argocd-server"` | Helm chart is forcing an immutable service update | Remove `force_update = true` from the Helm release |
+| `server.secretkey is missing` | ArgoCD server secret was reset or not initialized | `kubectl rollout restart deploy/argocd-server -n argocd` |
+| `error getting cached app resource tree: cache: key is missing` | Application controller cache is stale | `kubectl rollout restart statefulset -n argocd argocd-application-controller` |
 
+## Keeping a port-forward alive
+
+`kubectl port-forward` can drop when the connection goes idle. Open a second terminal and keep probing the local port:
+
+```bash
+while true; do nc -vz 127.0.0.1 8080; sleep 10; done
 ```
-while true ; do nc -vz 127.0.0.1 8080 ; sleep 10 ; done
-```
 
-so 127.0.0.1 is your localhost you are port forwarding to and the 8080 port is something you can change to any port you are trying to port forward to.
+Replace `8080` with the port you forwarded.
 
-so the command is ```while true``` keeps the netcat connection on a loop non-stop, and the ```sleep 10``` is needed because the ```while true``` is a hot loop, so ```nc -vz``` host port, helps keep querying the server for you to see if the connection is dead or successful, if not it continues.
+## Completion criterion
 
-hence keeping the connection alive
+The ArgoCD issue is resolved when:
 
-## failed to replace object: Service "argocd-server"
+1. The UI or CLI is reachable and stays reachable.
+2. The application resource tree loads without cache errors.
+3. Any service-related error is gone after removing `force_update = true`.
 
-fixed by just remove force_update = true
-
-## Argo CD error="server.secretkey is missing"
-
-fixed by kubectl rollout restart deploy/argocd-server -n argocd
-
-## Argo CD error="error getting cached app resource tree: cache: key is missing"
-Actually it's enough to restart only applicationController's statefulset, ie.
-kubectl rollout restart statefulset -n argocd argocd-application-controller
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />

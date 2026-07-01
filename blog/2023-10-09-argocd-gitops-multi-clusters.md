@@ -22,40 +22,33 @@ So what's the bet? you would use your existing argocd instance to manage multipl
 - A new cluster, created using Terraform
 - knowledge of terraform
 
-To add a new Kubernetes cluster to an existing argocd instance, you could literally use the CLI route by running the following commands.
+To add a new Kubernetes cluster to an existing ArgoCD instance, you can use the CLI route first:
 
 ```
 argocd login YOURARGOCDLOADBALANCER:80 --username admin
 ```
 
-after running this command you will be asked for your argocd password, input it, hit enter, then run ``argocd app list`` to see the list of applications available on your argocd server.
-
-the response would be one app for sure, now run the following command to add your newly created Kubernetes cluster.
-```
-argocd cluster add YourEksClusterARN  —name yournew-cluster-name
-```
-
-To get your EKS Cluster ARN value, run the following command, where you replace the *YOURCLUSTERNAME* and the region value with yours.
+After logging in, list applications and add the new cluster:
 
 ```
- aws eks describe-cluster --name YOURCLUSTERNAME --region us-east-1 | grep "arn:aws:eks"
+argocd app list
+argocd cluster add YourEksClusterARN --name yournew-cluster-name
 ```
 
-Guess you see, this is so easy to achieve using the CLI route, but yes doing this in a declarative way is the best bet, so let's jump into it in a declarative way!
+To get your EKS cluster ARN:
 
-## Adding Multiple Clusters to ArgoCD using the Declarative Method
+```
+aws eks describe-cluster --name YOURCLUSTERNAME --region us-east-1 | grep "arn:aws:eks"
+```
 
-What you are trying to achieve here, is granting your argocd setup in the existing cluster a long-lasting authentication process coupled with authorization to deploy your deployment yaml files across the new cluster the GitOps way.
+The CLI route works for one-offs, but it does not scale. The rest of this guide covers two declarative options so the connection is stored in Git and managed like any other infrastructure:
 
-So how do you get this done? you can use both the ServiceAccount mode and the argocd-k8s-auth mode.
+| Method | Best for | Trade-off |
+|---|---|---|
+| **ServiceAccount bearer token** | Any Kubernetes cluster (EKS, GKE, AKS) | Long-lived token stored in a Secret |
+| **argocd-k8s-auth with IRSA** | EKS only | OIDC-based, no long-lived token, more setup |
 
-The ServiceAccount mode will work with all Kubernetes clusters be it GKE, EKS, AKS.
-
-but the argocd-k8s-auth mode is more recommended, as it uses the OIDC method to authenticate the argocd instance to the new cluster.
-
-The catch here is that the setup varies for different Kubernetes clusters, the setup for EKS is different from the setup for GKE and AKS.
-
-But in this guide, you will be seeing the declarative setup of argocd using the ServiceAccount mode and argocd-k8s-auth mode with EKS.
+Pick the ServiceAccount method if you want one pattern across multiple providers. Pick the IRSA method if you are on EKS and want to avoid storing tokens.
 
 ## The ServiceAccount Authentication method
 
@@ -427,7 +420,6 @@ resource "aws_ssm_parameter" "cluster_name" {
 Now you have to add the IAM Assume role ```arn:aws:iam::xxxxxx:role/argocd-role``` you created in the argocd instance cluster to the aws-auth config map of the new cluster.
 
 ```yaml title="argocd-setup-on-new-cluster.tf"
-resource "kubernetes_config_map" "aws_auth" {
 data "kubernetes_config_map" "aws_auth" {
   metadata {
     name      = "aws-auth"
@@ -481,15 +473,20 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
 ```
 
 This method is safer than the standard `kubernetes_config_map` resource because:
+
 1. It reads the existing `aws-auth` configmap first.
 2. It appends your new ArgoCD role to the existing roles instead of overwriting them.
 3. It uses `kubernetes_config_map_v1_data` which is designed for patching specific data fields without assuming full control of the resource lifecycle, reducing conflicts with the EKS module or other controllers.
 
-And that's it, you are done, you can start deploying your deployment yaml files across the new cluster the GitOps way.
+## Completion criterion
 
-Well, that's it, folks! I hope you find this piece insightful and helpful.
+The multi-cluster setup is done when:
 
-Till next time 🤞🏽
+1. A Secret of type `cluster` exists in the `argocd` namespace of the management cluster.
+2. `argocd cluster list` shows the new cluster as healthy.
+3. You can create an ArgoCD Application targeting the new cluster and it reaches `Synced` / `Healthy`.
+4. If you used the IRSA method, `aws-auth` contains the ArgoCD assume role and no existing role mappings were lost.
+5. If you used the ServiceAccount method, the token is stored in AWS SSM Parameter Store or another secrets manager.
 
 #### References
 - https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters

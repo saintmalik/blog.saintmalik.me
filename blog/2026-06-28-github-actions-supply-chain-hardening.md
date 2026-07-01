@@ -188,7 +188,7 @@ For multi-product pipelines where cloud environment secrets flow through CI into
 
 Pinned SHA stopped being sufficient the day maintainers got compromised **before** you pinned. zizmor catches the YAML mistakes. Neither one stops a malicious step from phoning home during the five minutes your job holds AWS credentials.
 
-## Closing
+## Conclusion
 
 Teams that treat GitHub Actions as "already safe because GitHub runs the VM" are one compromised marketplace action away from production keys in a stranger's S3 bucket. tj-actions proved the blast radius is org-wide, not theoretical.
 

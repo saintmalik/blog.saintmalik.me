@@ -42,7 +42,33 @@ so i tested trivy, grype and aws ecr in repo advanced scan and here is the resul
   <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
 </picture>
 
-And here is the final result, we can see that grype performed better than trivy, i didnt have the chance to test with Clair
+## What the comparison showed
+
+From the three scanners tested against the same image, **Grype reported more findings than Trivy** for this particular image. AWS ECR Advanced Scan also surfaced issues, including application-layer findings.
+
+That does not mean Grype is universally better. Scanners differ in:
+
+- **Vulnerability databases** and update cadence
+- **OS vs application** coverage
+- **False positive rates** and severity scoring
+- **CI integration** and output formats
+
+## When to choose which
+
+| Scenario | Sensible starting point |
+|---|---|
+| Images hosted in AWS ECR | AWS ECR Basic/Advanced scanning for native integration |
+| Need fast, easy CI integration | Trivy or Grype via their GitHub Actions |
+| Want the broadest detection on a single image | Run both Grype and Trivy and compare, then triage differences |
+| Enterprise policy and reporting | Use a scanner that exports SARIF or supports policy enforcement |
+
+## Completion criterion
+
+After reading this, you should be able to:
+
+1. Explain why no single scanner catches everything.
+2. Pick Trivy, Grype, or AWS ECR scanning based on where your images live and your CI setup.
+3. Run at least one container scan before an image reaches production.
 
 <br/>
 <h2>Comments</h2>

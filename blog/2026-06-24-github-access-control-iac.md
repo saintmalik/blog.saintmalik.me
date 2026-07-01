@@ -388,9 +388,20 @@ Skip full GitHub IaC if:
 - Nobody will own offboarding registry deletes: IaC makes nothing worse, but also nothing better.
 - You want HR-driven auto-provisioning with zero human PR: that is a different problem, and you will still need a policy engine somewhere.
 
+## Completion criterion
+
+Before you call this migration done, you should be able to:
+
+1. Onboard an engineer with one registry PR.
+2. Offboard an engineer with one registry deletion.
+3. See any manual UI change reverted by the next `tofu apply`.
+4. Explain how topics decide repo access for dev, leader, and intern tiers.
+5. Show a plan diff for every access change before it reaches `main`.
+6. Demonstrate that contractors have access only to repos matching their declared topics.
+
 ## Conclusion
 
-The Reddit question was not "can Terraform talk to the GitHub API?" Of course it can. The question was **how do you manage the combinatorics** (people × products × repos × contractors × offboarding) without UI drift and without granting access that outlives the reason it was granted.
+The Reddit question was not "can Terraform talk to the GitHub API?" Of course it can. The question was **how you manage the combinatorics** (people × products × repos × contractors × offboarding) without UI drift and without granting access that outlives the reason it was granted.
 
 IaC for GitHub teams is not only possible. For a multi-product org with serious audit requirements, it is the most maintainable option we found, **if** you invest in registries, tiered squad teams, topic-driven access, least-privilege intern handling, org-level rulesets for review gates, and a culture where the plan diff is the approval artifact.
 

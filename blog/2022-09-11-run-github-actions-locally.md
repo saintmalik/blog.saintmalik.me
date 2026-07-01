@@ -132,6 +132,16 @@ act --secret-file my.secrets
 
 And that's all, there are more ```act``` options you can play with to speed up your devsecops or DevOps with github action by testing workflows locally.
 
+## Completion criterion
+
+You have act working end-to-end when:
+
+- [ ] Docker is installed and running.
+- [ ] `act` is installed and the medium image is downloaded.
+- [ ] `act` runs a workflow in your `.github/workflows` folder without errors.
+- [ ] You can pass secrets manually with `-s` or from a file with `--secret-file`.
+- [ ] You know how to reuse the container with `act --reuse` when you need to inspect outputs.
+- [ ] You know how to bind `node_modules` with `act -b` to skip dependency installs.
 
 <br/>
 <h2>Comments</h2>

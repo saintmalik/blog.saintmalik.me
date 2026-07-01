@@ -13,9 +13,17 @@ If you've been following my journey with HashiCorp Vault on EKS, you've seen me 
 
 <!--truncate-->
 
-When you're running at scale, you want your infrastructure to be boring. Boring is good. Boring means if a PVC gets accidentally deleted or an EBS volume goes "poof", the system just... fixes itself.
+When you're running at scale, you want your infrastructure to be boring. Boring means if a PVC gets accidentally deleted or an EBS volume goes "poof", the system just... fixes itself.
 
 Today, I'm sharing how I "helmized" my Vault setup and implemented a fully automated **Auto-Restore** flow.
+
+## What this setup does
+
+This post covers a GitOps-deployed Vault cluster that can restore itself from S3 if its data is lost. It is made of three layers:
+
+1. **Terraform**: cluster namespace, KMS auto-unseal key, and IAM roles.
+2. **Helm values and templates**: Vault deployment, TLS, backup cronjob, and the restore job.
+3. **ArgoCD Application**: ties the Helm chart to a Git repository for continuous delivery.
 
 ## The Foundation: Infrastructure as Code (Terraform)
 
@@ -202,6 +210,15 @@ chaos-home/
             ├── config-job.yaml  # The Auto-Restore Logic
             └── snapshot-cronjob.yaml
 ```
+
+| File | Purpose |
+|---|---|
+| `services/vault.yaml` | ArgoCD Application that watches the Helm chart. |
+| `vault/values.yaml` | Helm overrides for Vault server, injector, backups, and config hooks. |
+| `vault/templates/certificate.yaml` | cert-manager Issuer and Certificate for internal TLS. |
+| `vault/templates/serviceaccount.yaml` | IRSA-enabled service account for snapshot uploads. |
+| `vault/templates/snapshot-cronjob.yaml` | CronJob that takes Raft snapshots and uploads them to S3. |
+| `vault/templates/config-job.yaml` | Helm post-install/upgrade hook that configures Vault and restores from snapshot if needed. |
 
 ### 👉 ArgoCD Application (`services/vault.yaml`)
 
@@ -685,6 +702,17 @@ spec:
 {{- end }}
 ```
 
+## Completion criterion
+
+The self-healing Vault setup is working when:
+
+1. Terraform created the KMS key, IRSA roles, and namespace.
+2. ArgoCD synced the Vault Helm chart and all pods are running.
+3. `vault status` shows the cluster is initialized, unsealed, and active.
+4. The snapshot CronJob has written at least one `.snap` file to S3.
+5. A fresh install on an empty PVC triggers the config job, restores the latest snapshot, and Vault becomes usable without manual `operator init`.
+6. You can read a test secret through the web UI or CLI.
+
 ## Why This Matters
 
 This approach turns a major disaster recovery event into a minor deployment blip.
@@ -718,4 +746,4 @@ lang="en"
 loading="lazy"
 crossorigin="anonymous"
     />
-````
+
