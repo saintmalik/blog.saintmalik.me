@@ -93,7 +93,7 @@ So your **2GB Memory (2048MiB) - 805MiB = 1243MiB** compared to **2048MiB - 442M
 
 Thats it folks 🤞🏽
 
-*Written with vibes and insha Allah from somewhere in this Rwanda traffic 😮‍💨*
+*Written with vibes and InshaAllah from somewhere in this Rwanda traffic 😮‍💨*
 
 <br/>
 <h2>Comments</h2>

@@ -128,7 +128,7 @@ Also if you happen to be deploying your applications in AWS? use leverage the AW
 
 Thats it folks 🤞🏽
 
-*Written with vibes and insha Allah from somewhere in this Lagos traffic 😮‍💨*
+*Written with vibes and InshaAllah from somewhere in this Lagos traffic 😮‍💨*
 
 <br/>
 <h2>Comments</h2>
