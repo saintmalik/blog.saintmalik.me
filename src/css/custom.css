@@ -548,17 +548,6 @@ footer.footer .footer__copyright {
     max-width: 1600px;
     padding-left: 240px;
   }
-
-  /* Landing page: ad rail in the right gutter */
-  .blog-list-page .container {
-    max-width: 1600px;
-    padding-right: 240px;
-  }
-
-  .blog-list-page .consulting-ad {
-    left: auto;
-    right: 16px;
-  }
 }
 
 .consulting-ad__kicker {
