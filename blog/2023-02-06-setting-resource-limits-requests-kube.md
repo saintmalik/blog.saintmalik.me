@@ -20,7 +20,7 @@ But why do you need this in the first place?
 
 Let's say your container images get compromised or there was a breakthrough in your containers and the vector actors decided to use your container to host and run their heavy scripts or cryptomines.
 
-With the absence of resource quotas, those containers will keep on consuming all the needed CPU and memories they need to survive, hence using more instances.
+With the absence of resource quotas, those containers will keep on consuming all the needed CPU and memories they need to survive, so you use more instances.
 
 if you luckily have the nodes auto scalers available.
 
@@ -91,7 +91,7 @@ for the load testing, use <a href="https://github.com/locustio/locust" taget="_b
 
 so here is how it works, you can specify the number of users you estimate for your app and the number of users sending requests/seconds.
 
-meaning you are imitating the app usage in production mode, hence you can see how many resources are being consumed by your app.
+meaning you are imitating the app usage in production mode, so you can see how many resources are being consumed by your app.
 
 Running ```kubectl top pods``` would return the metrics of the pods based on their CPU and memory consumption.
 

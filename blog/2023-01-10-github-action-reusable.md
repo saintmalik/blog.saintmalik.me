@@ -39,7 +39,7 @@ here is a good scenario of this, let's assume you are trying to build, tag, push
 
 And then, the microservices are hosted in the folder level on a single repo under the branch "main"
 
-so if you have three services, then you will find yourself rewriting for these services each, hence there is repetition and you would be zeroed out on DRY(do not repeat yourself).
+so if you have three services, then you will find yourself rewriting for these services each, so there is repetition and you would be zeroed out on DRY(do not repeat yourself).
 
 so let's jump into it;
 
@@ -139,9 +139,9 @@ jobs:
 
 so you know as usual, you have to check out and that's what the **step: actions/checkout@v3** does, the **step: Check if there are any changes made in folders** is what I use in determining what service would be built.
 
-if you don't forget, we have three microservices hosted in separate folders and not a separate repo, hence there is a need to check which of these folders has changes pushed to them.
+if you don't forget, we have three microservices hosted in separate folders and not a separate repo, so we need to check which of these folders has changes pushed to them.
 
-That way we won't be running the workflow blindly, hence we would just run it against folders that have the changes alone.
+That way we won't be running the workflow blindly, so we would just run it against folders that have the changes alone.
 
 Now you will see in that same step, I passed an input in ``` ${{ inputs.servicename }}/**```, the servicename is an input declared manually, so if I passed the value "shop" to it
 
@@ -169,7 +169,7 @@ I believe you get the scope of the workflow now, after checking for changes in t
 
 If there is any, it configures aws creds, login into aws ECR, gets a shortened version of your GitHub sha and after that we build, tag, and push the image to ecr.
 
-One more thing, we would be dealing with outputs on reusable workflows, because we need the image that we just built and push to ecr to get scanned, hence we need to pass the output of the build workflow to another.
+One more thing, we would be dealing with outputs on reusable workflows, because we need the image that we just built and push to ecr to get scanned, so we need to pass the output of the build workflow to another.
 
 And to do this, you have to declare the outputs outside the job's level to make them accessible to other workflows
 
@@ -328,7 +328,7 @@ So in this workflow, we would be needing three inputs, the servicename, the GitH
       awsregion:
         required: true
 ```
-You should be wondering why we still need secrets again in this workflow, this is because our image is in a private repository, hence we can pull it and scan it.
+You should be wondering why we still need secrets again in this workflow, this is because our image is in a private repository, so we can pull it and scan it.
 
 Also, I am using the trivy image scanner here, you can choose to use anyone out here, and here is the job workflow
 
@@ -594,13 +594,13 @@ To pass outputs from one reusable workflow to another, you must have declared th
 
 for the ```needs: shops-image-build``` statement, you are doing this, because, you can't scan an image that hasn't been built and pushed to ECR yet.
 
-hence the need for making sure the jobs of **shops-image-build** gets successful before the scan job can start.
+so we need to make sure the jobs of **shops-image-build** gets successful before the scan job can start.
 
 So if a certain job of yours needs another job to progress, you can always do that using ```needs: JOBNAME``` and that's it.
 
 You can see that we have three inputs being passed into the scanning workflow and they are values passed from the build workflow which are the ```servicename```, ```githubsha``` and the ```foldercheck```
 
-These three are essential for the scanning workflow, hence the need to pass them across, and you see I used the ```needs``` syntax to pass the values.
+These three are essential for the scanning workflow, so we need to pass them across, and you see I used the ```needs``` syntax to pass the values.
 
 going to the pushing to k8 deployment jobs, here are the workflow codes
 

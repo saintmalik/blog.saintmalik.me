@@ -75,7 +75,7 @@ In situations where you need to get the results/feedback of your workflow action
 
 But ```act``` has a subcommand to help with that, which makes your docker containers reusable.
 
-hence you can enter the docker container to view the output of your action or copy it into your local system, whichever one is okay with you.
+so you can enter the docker container to view the output of your action or copy it into your local system, whichever one is okay with you.
 
 Here is the parameter to achieve that
 

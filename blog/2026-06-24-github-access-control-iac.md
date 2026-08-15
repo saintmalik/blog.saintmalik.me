@@ -397,7 +397,7 @@ Before you call this migration done, you should be able to:
 3. See any manual UI change reverted by the next `tofu apply`.
 4. Explain how topics decide repo access for dev, leader, and intern tiers.
 5. Show a plan diff for every access change before it reaches `main`.
-6. Demonstrate that contractors have access only to repos matching their declared topics.
+6. Show that contractors have access only to repos matching their declared topics.
 
 ## Conclusion
 

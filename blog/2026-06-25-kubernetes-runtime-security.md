@@ -245,7 +245,7 @@ This took a week of tuning against normal cluster noise. You cannot skip it.
   tags: [runtime, shell, mitre_execution]
 ```
 
-`proc.tty != 0` is the difference between a human shell and a CI script. That one field cuts false positives significantly.
+`proc.tty != 0` is the difference between a human shell and a CI script. That one field cuts false positives a lot.
 
 **ERROR: post-exploitation drift**:
 

@@ -497,16 +497,16 @@ footer.footer .footer__copyright {
   text-align: center !important;
 }
 
-/* Blog post layout: shift content right, give TOC more room */
+/* Blog post layout: wide article column, TOC on the right */
 @media (min-width: 997px) {
   .blog-post-page .container > .row > main.col {
-    --ifm-col-width: calc(7 / 12 * 100%);
-    margin-left: calc(2 / 12 * 100%);
+    --ifm-col-width: calc(9 / 12 * 100%);
+    margin-left: 0;
   }
 
   .blog-post-page .container > .row > main.col + .col {
     --ifm-col-width: calc(3 / 12 * 100%);
-    padding-left: 1.25rem;
+    padding-left: 2rem;
   }
 
   .blog-post-page .table-of-contents {
@@ -518,4 +518,79 @@ footer.footer .footer__copyright {
     hyphens: auto;
     overflow-wrap: anywhere;
   }
+}
+
+/* ============================================
+   CONSULTING AD RAIL (left gutter, desktop only)
+   ============================================ */
+.consulting-ad {
+  position: fixed;
+  top: 25%;
+  left: 16px;
+  z-index: 100;
+  display: none;
+  width: 200px;
+  padding: 1.1rem 1rem;
+  background: #11161d;
+  border: 1px solid rgba(15, 157, 88, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+@media (min-width: 997px) {
+  .consulting-ad {
+    display: block;
+  }
+
+  /* Article pages: ad rail in the left gutter */
+  .blog-post-page .container {
+    max-width: 1600px;
+    padding-left: 240px;
+  }
+
+  /* Landing page: ad rail in the right gutter */
+  .blog-list-page .container {
+    max-width: 1600px;
+    padding-right: 240px;
+  }
+
+  .blog-list-page .consulting-ad {
+    left: auto;
+    right: 16px;
+  }
+}
+
+.consulting-ad__kicker {
+  margin: 0 0 0.5rem;
+  font-family: ConfigRounded, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+}
+
+.consulting-ad__text {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #e6edf3;
+}
+
+.consulting-ad__link {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.consulting-ad__link:hover {
+  background: var(--ifm-color-primary-light);
+  color: #fff;
+  text-decoration: none;
 }

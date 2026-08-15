@@ -72,7 +72,7 @@ In non production environments there is almost never a justification for more th
 The pattern is straightforward: ALB → Nginx/Envoy → services. Everything else is overhead you are paying for without getting anything back.
 
 ### Instance Optimization
-Use one large instance instead of multiple small instances to maximize resource utilization and reduce overhead.
+Use one large instance instead of multiple small instances to get the most out of your resources and reduce overhead.
 
 ### Do You Really Need Kubernetes?
 Most times, you don't need a complex orchestrator like Kubernetes and the overhead that comes with it. A simple EC2 instance running your containers with **WUD (What's Up Docker?)** is often enough.
@@ -95,7 +95,7 @@ Have a crucial workload, like a video processor? Why waste an instance when you 
 ### VPC Endpoints for S3 & ECR
 Using VPC Endpoints so that traffic from private subnets doesn't go through a NAT Gateway, avoiding heavy NAT data processing charges (especially when pulling large Docker images).
 - **S3 Gateway Endpoints** are completely free. Since ECR image layers are actually stored in S3, this is a must-have to avoid NAT costs on image pulls.
-- **ECR Interface Endpoints** have a small hourly cost but are significantly cheaper than paying NAT data charges if you are pulling images frequently.
+- **ECR Interface Endpoints** have a small hourly cost but are much cheaper than paying NAT data charges if you are pulling images frequently.
 
 ### EBS & Storage Optimization
 - **EBS Volume Right-Sizing:** Upgrade your volumes from `gp2` to `gp3`. `gp3` is cheaper per GB, and it lets you control IOPS and throughput independently of storage size. This means there is no need to overprovision storage just to meet performance targets.
@@ -108,7 +108,7 @@ Automatically stopping non-production RDS instances during off-hours (similar to
 
 ## Conclusion
 
-Cutting cloud costs isn't just about turning things off; it's about smart architectural choices and leveraging the right infrastructure tools.
+Cutting cloud costs isn't just about turning things off; it's about smart architectural choices and using the right infrastructure tools.
 
 Whether you're swapping an expensive NAT Gateway for an fck-nat instance or moving idle workloads to serverless, these changes can dramatically reduce your AWS burn rate and extend your startup's runway.
 

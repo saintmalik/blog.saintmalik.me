@@ -33,7 +33,7 @@ A good illustration of this is when you are using kubernetes as your orchestrato
 
 making sure a policy is enforced to validate that your container images are signed.
 
-hence, you will be at peace that no trojanized container images or images that are not signed by your key can be deployed to your cluster.
+so you can be at peace that no trojanized container images or images that are not signed by your key can be deployed to your cluster.
 
 ## How do you sign your container images?
 

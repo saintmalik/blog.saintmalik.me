@@ -16,7 +16,7 @@ Sooner or later, your Elastic Kubernetes Service (EKS) Cluster will run out of I
 
 So how do you resolve this? there are really many ways like moving to IPv6, yeah, you will get more IP address to go round for your workloads, you will never run out, but for me, i dont think i am ready to tear down my existing EKS Cluster to move to IPv6.
 
-Moreover not all technology have support for IPv6 yet, i really cherish my peace of mind also, so this isnt an option for me.
+Also, not all technology have support for IPv6 yet, i really cherish my peace of mind also, so this isnt an option for me.
 
 But you can always consider this when creating new EKS cluster though.
 

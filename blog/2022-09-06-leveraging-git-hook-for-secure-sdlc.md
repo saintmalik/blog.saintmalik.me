@@ -17,7 +17,7 @@ But do you know secrets, hardcoded credentials, and API aren't easy to deal with
 
 Okay, since you can't keep them out, you probably think, yes, I would use dummy creds, and sandbox API, so you are good.
 
-Yes, but in the dev process/circle, mistakes are inevitable, you are not always perfect, and the pressure of delivering early is definitely real, hence you end up pushing secrets to the public domain via github.
+Yes, but in the dev process/circle, mistakes are inevitable, you are not always perfect, and the pressure of delivering early is definitely real, so you end up pushing secrets to the public domain via github.
 
 So how do you automate this secret/API/hardcoded creds process to avoid mistakes like this?
 
@@ -35,7 +35,7 @@ There are many types of git hooks but here I will only be discussing two which a
 
 ## What's the pre-commit hook?
 
-The pre-commit hook is the script that runs immediately after you enter the ```git commit -m "Committing my changes"```, meaning that whatever instruction is given to the pre-commit hook would initiate first before the commit.
+The pre-commit hook is the script that runs immediately after you enter the ```git commit -m "Committing my changes"```, meaning that whatever instruction is given to the pre-commit hook would run first before the commit.
 
 So if the instructions fail, the commit would not take place and if the instructions are successful the commit will proceed.
 

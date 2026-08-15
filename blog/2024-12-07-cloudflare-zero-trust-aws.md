@@ -246,7 +246,7 @@ You get the chance to use IdP, SAML, OpenID Connect or One-time PIN, but in this
 
 If you are done with the setup, you will be left with ``google_oauth_client_id`` and ``google_oauth_client_secret`` credentials.
 
-And as you know, you can't hardcode those values in your IaC code, hence the need to store it as a SecureString in AWS Parameter store or whatever alternative of AWS Parameter Store that you have on the Cloud Infra you are using.
+And as you know, you can't hardcode those values in your IaC code, so you need to store it as a SecureString in AWS Parameter store or whatever alternative of AWS Parameter Store that you have on the Cloud Infra you are using.
 
 Wrote a piece on <a href="https://blog.saintmalik.me/secrets-in-iac-terraform/" target="_blank">how to handle secrets in IaC</a>, you can check it out too.
 
@@ -502,7 +502,7 @@ The setup is complete when:
 6. With WARP off or the user outside the allowed group, the access-denied page is shown.
 
 ## Conclusion
-By leveraging Cloudflare Zero Trust and Tunnels, we've created a secure, cost-effective way to deploy internal applications. The solution provides enterprise-grade security without the complexity of traditional VPN setups.
+By using Cloudflare Zero Trust and Tunnels, we've created a secure, cost-effective way to deploy internal applications. The solution provides enterprise-grade security without the complexity of traditional VPN setups.
 
 Till next time, Peace be on you 🤞🏽
 
