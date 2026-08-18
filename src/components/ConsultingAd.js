@@ -8,7 +8,7 @@ export default function ConsultingAd() {
     <aside className="consulting-ad" aria-label="Consulting">
       <div className="consulting-ad__kicker">Consulting</div>
       <div className="consulting-ad__text">
-        Do you need a DevSecOps consultant, an experienced security consultant, or DevOps?
+        Do you need an Infrastructure Security Consultant to harden your systems?
       </div>
       <a className="consulting-ad__link" href={MAILTO}>
         Mail Abdulmalik
