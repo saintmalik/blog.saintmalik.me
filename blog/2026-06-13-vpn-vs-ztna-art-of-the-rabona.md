@@ -2,7 +2,7 @@
 slug: vpn-vs-ztna-art-of-the-rabona
 title: "Zero Trust Network Access vs VPN: The Art of the Rabona"
 authors: Abdulmalik
-image: /bgimg/vpn-vs-ztna-access-control.webp
+image: /bgimg/vpn-vs-ztna-rabona-cover.webp
 tags: [devops, devsecops, appsec, security, cloudflare, vpn, wireguard, zero-trust]
 description: WireGuard and OpenVPN get you inside the network. Zero Trust keeps you at the door of each app. Here is how I pick between them, and why teams under 50 often just reach for cloudflared.
 ---

@@ -1,0 +1,45 @@
+---
+description: Blog post thumbnail / cover art style (zhero-inspired, minimal). Use when generating or redesigning blog og:image / bgimg covers.
+globs: blog/**/*.md,static/bgimg/**
+alwaysApply: false
+---
+
+# Blog thumbnails (saintmalik)
+
+Inspired by [zhero_web_security](https://zhero-web-sec.github.io/research-and-things/) covers, tuned **minimal** for this blog — not dense collage.
+
+## Recipe
+
+1. **One metaphor** — a single dramatic painted scene that encodes the post topic (not a dashboard, not a collage of many props).
+2. **Breathing room** — large negative space; subject occupies ~40–60% of frame. Avoid stacking investigator + pod + RAM + multiple UI chips.
+3. **Light enough to read** — mid-tone or soft-gradient ground; grain OK. Do **not** crush to near-black (title must stay readable without glowing outlines).
+4. **Sparse overlays** (pick 2–3 max):
+   - Title (large white/near-black serif) **or** leave title off if frontmatter already carries it
+   - One technical chip (monospace command / header / CVE)
+   - Optional small handwritten accent (tool name, CVE, red)
+5. **No brand soup** — no random vendor logos unless the post is specifically about that tool.
+6. **Aspect** — prefer `16:9` for og/blog headers. Export PNG + WebP to `static/bgimg/<slug>-cover.{png,webp}` (or another **new** basename) and set frontmatter `image:` to that path.
+7. **Never overwrite an existing `/bgimg/...` file** if it is referenced in post body `<Figure>` / `<picture>` / screenshots. Covers and inline diagrams must use **different filenames**. Search the repo for the basename before replacing.
+
+## zhero DNA (keep)
+
+- Metaphor-first (sword = middleware, theater fire = DoS, knights labeled CDN/HIT)
+- Light film grain / painterly texture
+- Tech as sticker on art (code chip, CVE), not wall of text
+
+## Anti-patterns
+
+- Clustered: hands + sword + alert + code strip + title + subtitle all fighting
+- Pure black void backgrounds
+- Purple neon / stock “cyber HUD”
+- Watermarks bigger than `/saintmalik;`
+
+## Prompt sketch
+
+```
+Minimal research-blog cover, 16:9. Single metaphor painting for <TOPIC>.
+Soft desaturated palette, visible grain, generous empty space.
+At most one monospace chip: "<COMMAND>".
+Optional small red handwritten accent: "<ACCENT>".
+No crowded collage, no dense UI, not near-black.
+```
