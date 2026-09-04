@@ -2,7 +2,7 @@
 slug: secrets-in-iac-terraform
 title: Managing Secrets in Infrastructure As Code with Terraform
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/iac-terraform-secrets.webp
+image: /bgimg/managing-secret-in-iac-cover.webp
 tags: [secrets, terraform, iac]
 ---
 

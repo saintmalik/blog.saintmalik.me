@@ -2,7 +2,7 @@
 slug: vpc-flow-logs-via-terraform
 title: Applying Network Security using VPC Flow Logs with Terraform
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vpc-flow.webp
+image: /bgimg/vpc-flow-logs-cover.webp
 tags: [appsec, devsecops]
 ---
 

@@ -2,7 +2,7 @@
 slug: github-access-control-iac
 title: "GitHub Access Control at Scale: Why IaC Beats Entra Groups and Manual Grants"
 authors: Abdulmalik
-image: /bgimg/github-access-control-iac.webp
+image: /bgimg/github-access-control-iac-cover.webp
 tags: [devsecops, github, iac, opentofu, rbac, security, platform-engineering]
 description: A practical guide to managing GitHub teams, repo access, and least-privilege onboarding with OpenTofu, responding to the r/devops thread on whether IaC for GitHub RBAC is even worth attempting.
 ---

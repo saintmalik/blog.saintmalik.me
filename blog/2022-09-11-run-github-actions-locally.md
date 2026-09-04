@@ -2,7 +2,7 @@
 slug: running-github-actions-locally
 title: Run github action locally using act
 authors: Saintmalik
-image: /bgimg/github-workflow-spammy-actions.jpg
+image: /bgimg/run-github-actions-locally-cover.webp
 tags: [ci/cd, appsec, devsecops]
 ---
 

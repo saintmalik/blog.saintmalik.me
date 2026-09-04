@@ -5,7 +5,7 @@ author: Abdulmalik
 author_title: AppSec Engineer
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://saintmalikme.mo.cloudinary.net/bgimg/logo.gif
-image: https://saintmalikme.mo.cloudinary.net/bgimg/gitops-argocd-k8s.png
+image: /bgimg/argocd-on-kubernetes-cover.webp
 tags: [argocd, gitops, terraform, kubernetes]
 ---
 

@@ -2,7 +2,7 @@
 slug: cloudflare-access-workers-for-internal-apps
 title: "Protecting Your Internal Apps on Cloudflare Workers with Cloudflare Access"
 authors: Abdulmalik
-image: /bgimg/cloudflare-access-workers.webp
+image: /bgimg/cloudflare-access-workers-cover.webp
 tags: [devops, devsecops, appsec, cloudflare, security]
 description: Internal dashboards should never be publicly accessible. Learn how to secure your Cloudflare Workers applications with Cloudflare Access - a simpler alternative to VPNs.
 ---

@@ -2,7 +2,7 @@
 slug: vault-self-healing-kubernetes
 title: "Self-Healing HashiCorp Vault on Kubernetes: Helmization & Auto-Restore"
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vault-restore.webp
+image: /bgimg/just-vault-cover.webp
 tags: [vault, kubernetes, gitops, devops, security, terraform]
 description: Moving Vault to a GitOps flow is great, but what happens when you lose your data? Learn how to build a self-healing Vault cluster that restores itself from S3.
 ---

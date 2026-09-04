@@ -2,7 +2,7 @@
 slug: signing-container-images-for-trust-assurance
 title: Signing Container Images for Trust Assurance
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/peace-of-mind.webp
+image: /bgimg/container-images-sign-cover.webp
 tags: [appsec, container security, devsecops]
 ---
 

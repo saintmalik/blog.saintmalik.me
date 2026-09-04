@@ -2,7 +2,7 @@
 slug: vault-in-kuberbetes
 title: Good Secrets Management in Kubernetes
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/kube-secret-management.jpeg
+image: /bgimg/secret-management-kubernetes-cover.webp
 tags: [appsec, kube, devsecops]
 ---
 

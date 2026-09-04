@@ -2,7 +2,7 @@
 slug: iac-security-with-state-file-encryption
 title: Enhanced IaC Security with State File Encryption Using OpenTofu
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/encryption.webp
+image: /bgimg/iac-state-encryption-cover.webp
 tags: [IaC, opentofu, encryption, security, terraform, devops]
 description: Learn how to encrypt your OpenTofu state files using AWS KMS, GCP KMS, or PBKDF2. A practical guide for DevOps engineers looking to secure their infrastructure code.
 ---

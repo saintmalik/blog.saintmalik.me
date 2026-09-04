@@ -2,7 +2,7 @@
 slug: s3-eks-nodejs-app
 title: Securing the Connection from NodeJS App on EKS to S3
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vamos.jpeg
+image: /bgimg/keyless-s3-access-cover.webp
 tags: [aws, eks, containers]
 ---
 

@@ -6,7 +6,7 @@ author: Abdulmalik
 author_title: OSS Contributor
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
-image: https://saintmalikme.mo.cloudinary.net/bgimg/open-source-challenge-2021.jpeg
+image: /bgimg/open-source-challenge-cover.webp
 tags: [open source, oss]
 ---
 

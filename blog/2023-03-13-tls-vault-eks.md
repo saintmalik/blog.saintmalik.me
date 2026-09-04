@@ -2,7 +2,7 @@
 slug: end-to-end-tls-vault-eks
 title: Enabling End-to-End TLS for Vault HA with Integrated Storage on EKS
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/bgimg/github-workflow.webp
+image: /bgimg/tls-vault-eks-cover.webp
 tags: [appsec, vault, eks, devsecops]
 ---
 

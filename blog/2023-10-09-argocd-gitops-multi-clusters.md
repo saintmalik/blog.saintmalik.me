@@ -2,7 +2,7 @@
 slug: declarative-setup-clusters-gitops-and-argocd
 title: Declarative Setup of Multiple Kubernetes Clusters with GitOps and ArgoCD
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/gitops-argocd.jpeg
+image: /bgimg/argocd-gitops-multi-clusters-cover.webp
 tags: [gitops, devops]
 ---
 

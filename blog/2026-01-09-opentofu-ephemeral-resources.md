@@ -2,7 +2,7 @@
 slug: opentofu-ephemeral-resources
 title: "Ephemeral Resources and the End of Secrets in State Files"
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/opentofu.webp
+image: /bgimg/opentofu-ephemeral-resources-cover.webp
 tags: [opentofu, IaC, security, terraform, devops, devsecops]
 description: OpenTofu 1.11 introduces ephemeral resources that keep secrets out of state files forever. Learn about this game-changing feature.
 ---

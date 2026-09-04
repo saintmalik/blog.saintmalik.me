@@ -2,7 +2,7 @@
 slug: rds-db-passwordless-auth-eks
 title: RDS DB Passwordless Authentication on AWS EKS using IAM Role Service Account
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/passwordless-rds.png
+image: /bgimg/passwordless-auth-irsa-rds-cover.webp
 tags: [aws, eks, containers]
 ---
 

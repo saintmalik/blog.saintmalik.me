@@ -2,7 +2,7 @@
 slug: container-image-sbom-blind-spots
 title: "Container Image SBOM Blind Spots: What Scanning Your Image Still Misses"
 authors: Abdulmalik
-image: /bgimg/container-image-sbom-blind-spots.webp
+image: /bgimg/container-image-sbom-blind-spots-cover.webp
 tags: [containers, docker, devsecops, appsec, security, sbom, supply-chain, syft, grype, cosign, kubernetes]
 description: An SBOM of your container image is not the SBOM of your app. Knowing which part is which, whether the bad code can run, and proving the image is the one you built all get harder once layers, base images, and OS packages enter the picture - the container version of the three blind spots.
 ---

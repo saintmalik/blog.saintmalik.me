@@ -2,7 +2,7 @@
 slug: mongodb-passwordless-auth-eks
 title: MongoDB Passwordless Authentication on AWS EKS using IAM Role
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vamos.jpeg
+image: /bgimg/mongo-passwordless-cover.webp
 tags: [aws, eks, containers]
 ---
 

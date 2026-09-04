@@ -2,7 +2,7 @@
 slug: automate-vault-backup-restore-on-aws-eks
 title: How to automate HashiCorp Vault backup and restoration in AWS EKS with Terraform
 author: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/vault-eks-backup-restore.png
+image: /bgimg/restore-backup-vault-cover.webp
 tags: [vault, oss, eks, kubernetes]
 ---
 

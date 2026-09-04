@@ -5,7 +5,7 @@ author: Abdulmalik
 author_title: Open Sourcerer
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
-image: /bgimg/documentation-as-a-into-open-source.jpeg
+image: /bgimg/documentation-gateway-oss-cover.webp
 tags: [Open Source, OSS]
 ---
 

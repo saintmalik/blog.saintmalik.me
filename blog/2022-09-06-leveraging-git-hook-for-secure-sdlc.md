@@ -2,7 +2,7 @@
 slug: leveraging-git-hook-hardcoded-secrets-codebase
 title: Leveraging git hook for hardcoded secrets scanning in a codebase
 author: Abdulmalik
-image: /bgimg/leveraging-git-hook-hardcoded-secrets-codebase.webp
+image: /bgimg/git-hook-secrets-cover.webp
 tags: [gitops, devsecops, appsec]
 ---
 

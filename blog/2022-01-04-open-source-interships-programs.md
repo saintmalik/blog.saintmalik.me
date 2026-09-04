@@ -6,7 +6,7 @@ author: Abdulmalik
 author_title: OSS Contributor
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
-image: https://saintmalikme.mo.cloudinary.net/bgimg/open-source-internship-programs-2022.jpg
+image: /bgimg/open-source-internships-cover.webp
 tags: [Open Source, OSS]
 ---
 

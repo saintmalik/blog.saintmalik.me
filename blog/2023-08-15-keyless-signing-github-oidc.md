@@ -2,7 +2,7 @@
 slug: keyless-signing-container-images-github-oidc
 title: Keyless Signing of Container Images using GitHub Actions
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/peace-mind.webp
+image: /bgimg/keyless-signing-github-oidc-cover.webp
 tags: [appsec, container security, devsecops]
 ---
 

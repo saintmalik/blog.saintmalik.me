@@ -2,7 +2,7 @@
 slug: kubernetes-memory-forensics-volatility
 title: "The Incident Response Step Most Teams Skip: Memory Forensics for Kubernetes"
 authors: Abdulmalik
-image: /bgimg/kubernetes-memory-forensics-volatility.webp
+image: /bgimg/kubernetes-memory-forensics-volatility-cover.webp
 tags: [devsecops, kubernetes, eks, incident-response, volatility, memory-forensics, appsec, containers]
 description: Audit logs and Falco catch a lot. Fileless malware, process hollowing, and other in-memory artifacts often live only in RAM. How to capture memory from an EKS node with AVML and what Volatility 3 actually gives you in a Kubernetes IR.
 ---

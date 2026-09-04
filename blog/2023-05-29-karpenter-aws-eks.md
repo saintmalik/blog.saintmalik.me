@@ -5,7 +5,7 @@ author: Abdulmalik
 author_title: DevSecOps
 author_url: https://twitter.com/saintmalik_
 author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
-image: https://saintmalikme.mo.cloudinary.net/bgimg/kubernetes-request-limits.jpeg
+image: /bgimg/karpenter-aws-eks-cover.webp
 tags: [autocaling, cluster, kubernetes, eks, karpenter]
 ---
 

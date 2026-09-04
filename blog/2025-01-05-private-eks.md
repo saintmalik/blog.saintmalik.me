@@ -3,7 +3,7 @@ slug: eks-private-apiserver
 title:  "Managing multiple EKS clusters access using Private EKS API Endpoint with OpenVPN"
 authors: Abdulmalik
 draft: true
-image: /bgimg/eks-private-openvpn.webp
+image: /bgimg/private-eks-cover.webp
 tags: [devops, devsecops, appsec]
 ---
 

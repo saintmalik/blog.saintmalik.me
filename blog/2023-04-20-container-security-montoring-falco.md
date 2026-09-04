@@ -3,7 +3,7 @@ slug: dockerfile-best
 title: Container Security Monitoring
 author: Abdulmalik
 draft: true
-image: https://saintmalikme.mo.cloudinary.net/bgimg/peace-of-mind.webp
+image: /bgimg/container-security-falco-cover.webp
 tags: [appsec, container, monitoring, devsecops]
 ---
 

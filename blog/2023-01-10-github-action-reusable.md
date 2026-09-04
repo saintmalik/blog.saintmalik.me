@@ -2,7 +2,7 @@
 slug: github-reusable-workflow
 title: Reducing 900 lines of GitHub workflow to 200 lines 😌
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/bgimg/github-workflow.webp
+image: /bgimg/github-action-reusable-cover.webp
 tags: [appsec, docker file, ci/cd, devsecops]
 ---
 

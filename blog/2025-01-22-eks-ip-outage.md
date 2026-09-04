@@ -2,7 +2,7 @@
 slug: eks-ip-outage
 title:  "How to Prevent EKS Outages: Solving Insufficient IP Address Issues in AWS EKS"
 authors: Abdulmalik
-image: /bgimg/ip-runout.webp
+image: /bgimg/eks-ip-outage-cover.webp
 tags: [devops, devsecops, appsec]
 ---
 

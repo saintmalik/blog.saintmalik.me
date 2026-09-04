@@ -2,7 +2,7 @@
 slug: cloudflare-zero-trust-security-ec2
 title:  "Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel"
 authors: Abdulmalik
-image: /bgimg/toni.webp
+image: /bgimg/cloudflare-zero-trust-aws-cover.webp
 tags: [devops, devsecops, appsec]
 ---
 

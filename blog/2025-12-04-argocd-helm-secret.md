@@ -2,7 +2,7 @@
 slug: helm-argocd-secret-management
 title: Dynamic Secret Management On Helm Charts in ArgoCD App
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/gitops-argocd.jpeg
+image: /bgimg/argocd-helm-secret-cover.webp
 tags: [DevSecOps, Helm, ArgoCD, Secrets]
 ---
 

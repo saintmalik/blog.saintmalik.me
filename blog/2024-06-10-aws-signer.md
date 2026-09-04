@@ -2,7 +2,7 @@
 slug: iac-security-with-state-file-aws-signerion
 title: Ditching Rekor for AWS Signer - A Simpler Way to Sign Container Images
 authors: Abdulmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/encryption.webp
+image: /bgimg/aws-signer-cover.webp
 tags: [IaC, opentofu, encryption, aws-signer, devops, containers]
 ---
 

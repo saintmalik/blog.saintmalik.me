@@ -2,7 +2,7 @@
 slug: kube-ir-playbook-audit-logs
 title: "Building a Kubernetes IR Playbook: Audit Logs Alone Won't Save You"
 authors: Abdulmalik
-image: /bgimg/kubernetes-incident-response.webp
+image: /bgimg/kubernetes-incident-response-cover.webp
 tags: [devsecops, kubernetes, eks, incident-response, aws, cloudwatch, appsec]
 description: Building a Kubernetes IR playbook from real EKS work. Why audit logs alone are not enough, why offline TSV sweeps beat ad-hoc jq at volume, and how lnav fits once the columns are flat.
 ---

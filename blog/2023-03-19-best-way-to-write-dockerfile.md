@@ -3,7 +3,7 @@ slug: dockerfile-best-practices
 title: Best Security Practices for Dockerfile
 draft: true
 authors: Saintmalik
-image: https://saintmalikme.mo.cloudinary.net/bgimg/peace-of-mind.webp
+image: /bgimg/dockerfile-security-cover.webp
 tags: [appsec, dockerfile, docker, devsecops]
 ---
 
