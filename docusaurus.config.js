@@ -5,23 +5,13 @@ module.exports = {
       tagName: 'style',
       attributes: {},
       innerHTML:
-        'html{color-scheme:dark}html,body{background:#000508;color:#fff;margin:0;min-height:100%}body{font-family:ConfigRounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}h1,h2,h3{font-family:Papersan,Georgia,"Times New Roman",serif}.navbar{background:#000508}',
+        'html{color-scheme:dark}html,body{background:#000508;color:#d4dbe3;margin:0;min-height:100%}body{font-family:ConfigRounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica Neue,Arial,sans-serif}h1,h2,h3,.navbar,.navbar__title,.navbar__link,footer.footer{font-family:"American Typewriter","Courier New",Courier,ui-monospace,monospace}.navbar{background:#000508}',
     },
     {
       tagName: 'link',
       attributes: {
         rel: 'preload',
         href: '/fonts/ConfigRounded-Regular.woff2',
-        as: 'font',
-        type: 'font/woff2',
-        crossorigin: 'anonymous',
-      },
-    },
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preload',
-        href: '/fonts/papersan.woff2',
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
@@ -53,10 +43,10 @@ module.exports = {
     },
   ],
   plugins: [
-        [
-      "docusaurus-plugin-generate-llms-txt",
+    [
+      require.resolve('./src/plugins/generate-llms-txt.js'),
       {
-        outputFile: "llms.txt",
+        outputFile: 'llms.txt',
       },
     ],
     [

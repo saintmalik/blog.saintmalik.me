@@ -164,7 +164,7 @@ Memory forensics is step four, not step one. If you have no detection and no con
 
 For offensive work the inverse also holds: if you know what `malfind` and `sockstat` surface, you know how loud your post exploitation tooling is and you can put that in the report as blue team readiness, not just "we got a shell."
 
-## Closing
+## Conclusion
 
 Kubernetes IR that stops at audit logs and image scans assumes threat actors writes to disk and calls the API like a polite citizen. Plenty of them do not.
 

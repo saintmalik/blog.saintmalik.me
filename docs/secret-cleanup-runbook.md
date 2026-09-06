@@ -141,7 +141,7 @@ Also scan workflow files themselves. CI tokens and deploy keys get hardcoded in 
 [ ] Incident ticket closed only after PR scrub confirmed
 ```
 
-## Closing
+## Conclusion
 
 Rewriting git history is necessary. It is just not the finish line most teams think it is.
 

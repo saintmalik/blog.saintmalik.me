@@ -1,0 +1,75 @@
+.yearsSection {
+  margin: 1.5rem 0 3rem;
+}
+
+.yearsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 997px) {
+  .yearsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+  }
+}
+
+.yearBlock {
+  min-width: 0;
+}
+
+.yearHeading {
+  margin: 0 0 0.85rem !important;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.yearCount {
+  opacity: 0.55;
+  font-weight: 500;
+}
+
+.postList {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.postList li {
+  margin: 0 0 0.85rem;
+  line-height: 1.55;
+}
+
+.postList li:last-child {
+  margin-bottom: 0;
+}
+
+.postList a {
+  display: inline;
+  overflow-wrap: anywhere;
+}
+
+/* Compact page banner — default Infima hero is huge on mobile */
+.banner {
+  padding: 0.85rem 0 !important;
+}
+
+.bannerTitle {
+  margin: 0 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+}
+
+@media (min-width: 997px) {
+  .banner {
+    padding: 1.1rem 0 !important;
+  }
+
+  .bannerTitle {
+    font-size: 1.85rem !important;
+  }
+}
