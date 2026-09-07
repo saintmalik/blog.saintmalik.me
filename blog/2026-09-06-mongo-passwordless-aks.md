@@ -18,7 +18,7 @@ I already wrote the [AWS EKS version](/mongodb-passwordless-auth-eks/) of this: 
 
 Same idea, different plumbing. On AKS you use **Workload Identity** + Atlas **Workload Identity Federation** (`MONGODB-OIDC`). No long-lived DB password. Your pod gets a short-lived Entra token, Atlas trusts that IdP, done.
 
-One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**. Free / Flex / shared tiers do **not** support `MONGODB-OIDC`. If you try this on an `M0` and wonder why Federated Auth never shows up the way you expect — that's why.
+One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**. Free / Flex / shared tiers do **not** support `MONGODB-OIDC`. If you try this on an `M0` and wonder why Federated Auth never shows up the way you expect, that's why.
 
 ## Prerequisites
 
@@ -80,12 +80,12 @@ resource "azurerm_federated_identity_credential" "app" {
 
 Note the two different audiences:
 
-- **`api://AzureADTokenExchange`** — Entra ↔ AKS Workload Identity token exchange
-- **`api://atlas-wif`** — what Atlas validates on the access token
+- **`api://AzureADTokenExchange`**: Entra ↔ AKS Workload Identity token exchange
+- **`api://atlas-wif`**: what Atlas validates on the access token
 
 Don't mix them up.
 
-Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as the federated database user identifier — **not** the client ID.
+Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as the federated database user identifier, **not** the client ID.
 
 | Field | Use |
 | --- | --- |
@@ -291,21 +291,21 @@ Install what you need:
 yarn add mongodb @azure/identity
 ```
 
-Driver version matters — Node / TypeScript **6.7+** for Workload Identity Federation support.
+Driver version matters: Node / TypeScript **6.7+** for Workload Identity Federation support.
 
 ### Optional: `ENVIRONMENT:k8s`
 
-The driver also has `ENVIRONMENT:k8s`, which reads `AZURE_FEDERATED_TOKEN_FILE` directly. That file is the **Kubernetes projected token** used for Entra exchange — not necessarily an Atlas-ready access token with audience `api://atlas-wif`. For Atlas Workload IdP against Entra, prefer the callback that requests a token for your Application ID URI.
+The driver also has `ENVIRONMENT:k8s`, which reads `AZURE_FEDERATED_TOKEN_FILE` directly. That file is the **Kubernetes projected token** used for Entra exchange, not necessarily an Atlas-ready access token with audience `api://atlas-wif`. For Atlas Workload IdP against Entra, prefer the callback that requests a token for your Application ID URI.
 
 ## Gotchas (read these before you open a ticket)
 
 1. **M10+ dedicated only.** Free / Flex / shared do not support this auth mechanism. Upgrade first.
 2. **Object ID ≠ Client ID.** Atlas user identifier = UAMI **Object ID**. SA annotation / Azure Identity = **Client ID**.
 3. **Audience must match everywhere it matters.** Entra Application ID URI ↔ Atlas IdP Audience ↔ `TOKEN_RESOURCE` / `getToken(...)` scope. One typo and auth fails in the least helpful way.
-4. **Don't use `ENVIRONMENT:azure` on AKS WI** unless you know IMDS can see that identity. Expect **Identity not found** otherwise — use `OIDC_CALLBACK` + federated token / `@azure/identity`.
+4. **Don't use `ENVIRONMENT:azure` on AKS WI** unless you know IMDS can see that identity. Expect **Identity not found** otherwise; use `OIDC_CALLBACK` + federated token / `@azure/identity`.
 5. **Pod label required:** `azure.workload.identity/use: "true"` on the pod template, not only the SA.
 6. **Workforce ≠ Workload.** Wrong IdP type = wrong product surface. Apps need Workload.
-7. **Issuer format:** `https://login.microsoftonline.com/<TENANT_ID>/v2.0` — drop the well-known suffix.
+7. **Issuer format:** `https://login.microsoftonline.com/<TENANT_ID>/v2.0` (drop the well-known suffix).
 
 ## Conclusion
 
