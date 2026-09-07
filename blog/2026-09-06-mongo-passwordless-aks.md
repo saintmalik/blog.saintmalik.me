@@ -28,9 +28,11 @@ One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**.
 - Node.js MongoDB driver **6.7+** (or another driver that supports Workload Identity Federation)
 - Terraform / OpenTofu if you want the snippets below as-is
 
-## Step 1: Entra app registration (the Atlas audience)
+## Step 1: Entra app registration (two “audience” values, not one)
 
-Atlas Workload IdP needs an Entra app whose **Application ID URI** becomes the OIDC **audience**. Keep that URI boring and stable, e.g. `api://atlas-wif`.
+Atlas Workload IdP needs an Entra app. Keep the **Application ID URI** boring and stable, e.g. `api://atlas-wif`. That URI is what your pod asks Entra for (`TOKEN_RESOURCE` / `getToken(.../.default)`).
+
+With `requestedAccessTokenVersion = 2`, Entra does **not** put that URI in the access token. The JWT **`aud` claim is the app’s Application (client) ID GUID**. Atlas IdP **Audience** must match that GUID. I burned time on this; details in the gotcha below.
 
 ```hcl title="entra-app.tf"
 resource "azuread_application" "atlas_wif" {
@@ -78,12 +80,13 @@ resource "azurerm_federated_identity_credential" "app" {
 }
 ```
 
-Note the two different audiences:
+Note the audiences stacking up already:
 
 - **`api://AzureADTokenExchange`**: Entra ↔ AKS Workload Identity token exchange
-- **`api://atlas-wif`**: what Atlas validates on the access token
+- **`api://atlas-wif`**: Entra **token request** scope (`TOKEN_RESOURCE` / `MONGO_OIDC_AUDIENCE`)
+- **Entra app client ID GUID**: what lands in JWT `aud`, and what Atlas IdP Audience must be
 
-Don't mix them up.
+Don't paste the `api://` URI into Atlas as Audience and expect it to work with v2 tokens.
 
 Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as the federated database user identifier, **not** the client ID.
 
@@ -118,9 +121,11 @@ Fill OIDC protocol settings:
 | --- | --- |
 | Configuration Name | `azure-wif` |
 | Issuer URI | `https://login.microsoftonline.com/<TENANT_ID>/v2.0` |
-| Audience | `api://atlas-wif` (must match Entra Application ID URI) |
+| Audience | Entra app **client ID GUID** (JWT `aud`), **not** `api://atlas-wif` |
 | Authorization | **User ID** |
 | User Claim | `sub` (default) |
+
+If you set Atlas Audience to the Application ID URI (`api://…`) while Entra issues v2 tokens, Entra token exchange still returns **200** and you still get `Authentication failed` at Atlas `finishAuthentication`. Paste the GUID.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-oidc-protocol-settings.webp`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
@@ -242,9 +247,9 @@ That path talks to **Azure IMDS**. On a normal Azure VM with a managed identity 
 
 On **AKS Workload Identity**, IMDS often answers with something like **Identity not found**. Your UAMI lives behind the federated token file, not classic IMDS association. So don't cargo-cult the VM snippet into AKS and expect miracles.
 
-### What works: callback + Entra token for the Atlas audience
+### What works: callback + Entra token for the Application ID URI
 
-Use `@azure/identity` (it understands Workload Identity env vars) and hand Atlas a real Entra access token whose audience is `api://atlas-wif`.
+Use `@azure/identity` (it understands Workload Identity env vars) and request an Entra access token with scope `api://atlas-wif/.default` (your Application ID URI). The token’s JWT `aud` will be the app client ID GUID; that is what Atlas checks against IdP Audience.
 
 ```js title="mongo.js"
 import { DefaultAzureCredential } from "@azure/identity";
@@ -259,7 +264,7 @@ if (!clusterUrl) throw new Error("MONGODB_CLUSTER_URL must be defined");
 const credential = new DefaultAzureCredential();
 
 async function oidcCallback() {
-  // audience must match Atlas Workload IdP + Entra Application ID URI
+  // TOKEN_RESOURCE = Entra Application ID URI (api://…). JWT aud will be the app client ID GUID.
   const token = await credential.getToken(`${tokenResource}/.default`);
   if (!token?.token) {
     throw new Error("failed to acquire Entra access token for Atlas");
@@ -301,7 +306,11 @@ The driver also has `ENVIRONMENT:k8s`, which reads `AZURE_FEDERATED_TOKEN_FILE` 
 
 1. **M10+ dedicated only.** Free / Flex / shared do not support this auth mechanism. Upgrade first.
 2. **Object ID ≠ Client ID.** Atlas user identifier = UAMI **Object ID**. SA annotation / Azure Identity = **Client ID**.
-3. **Audience must match everywhere it matters.** Entra Application ID URI ↔ Atlas IdP Audience ↔ `TOKEN_RESOURCE` / `getToken(...)` scope. One typo and auth fails in the least helpful way.
+3. **Two “audience” values (this one got me).** With Entra `requestedAccessTokenVersion = 2`:
+   - **`TOKEN_RESOURCE` / `MONGO_OIDC_AUDIENCE` / `getToken` scope** = Entra **Application ID URI** (e.g. `api://atlas-wif`). Do **not** put the GUID here or Entra exchange breaks.
+   - **JWT `aud`** = that Entra app’s **Application (client) ID** GUID.
+   - **Atlas Workload IdP → Audience** = that same **GUID**, **not** `api://…`.
+   - Symptom if you get this wrong: Entra returns **200**, your callback has a token, Atlas still says **Authentication failed** at `finishAuthentication`. Decode the JWT, copy `aud` into Atlas Audience, retry.
 4. **Don't use `ENVIRONMENT:azure` on AKS WI** unless you know IMDS can see that identity. Expect **Identity not found** otherwise; use `OIDC_CALLBACK` + federated token / `@azure/identity`.
 5. **Pod label required:** `azure.workload.identity/use: "true"` on the pod template, not only the SA.
 6. **Workforce ≠ Workload.** Wrong IdP type = wrong product surface. Apps need Workload.
