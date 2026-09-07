@@ -126,7 +126,6 @@ module.exports = {
               href: 'https://github.com/saintmalik',
             },
       ],
-      copyright: `Last updated on ${new Date().toDateString()}`,
     },
   },
   customFields: {
@@ -153,6 +152,7 @@ module.exports = {
           blogDescription: 'Blog For Application Security, DevSecOps, Open Source, Golang, Web app performanc optimization and more.!',
           // showReadingTime: true,
           blogSidebarCount: 0,
+          postsPerPage: 'ALL',
           path: "./blog",
           routeBasePath: "/",
           onInlineAuthors: 'ignore'

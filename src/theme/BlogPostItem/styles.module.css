@@ -4,11 +4,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/*
-.blogPostTitle {
-  font-size: 3rem;
-} */
-
 
 html, body {
   /* background:  var(--ifm-color-blog-fair); */
@@ -21,4 +16,120 @@ html, body {
 
 .blogPostDetailsFull {
   flex-direction: column;
+}
+
+/* Compact homepage / blog list */
+.listItem {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.35rem 1.15rem;
+  align-items: start;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listDate {
+  font-family: var(--ifm-font-family-heading);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+  padding-top: 0.15rem;
+}
+
+.listBody {
+  min-width: 0;
+}
+
+.listTitle {
+  margin: 0 0 0.35rem !important;
+  font-size: 1.08rem !important;
+  line-height: 1.35 !important;
+  font-weight: 600;
+}
+
+.listTitle a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.listTitle a:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.listExcerptText,
+.listExcerpt {
+  margin: 0;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(212, 219, 227, 0.72);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Keep truncate MDX quiet: no images/code/tables in the teaser */
+.listExcerpt :global(img),
+.listExcerpt :global(picture),
+.listExcerpt :global(pre),
+.listExcerpt :global(table),
+.listExcerpt :global(hr),
+.listExcerpt :global(h1),
+.listExcerpt :global(h2),
+.listExcerpt :global(h3),
+.listExcerpt :global(ul),
+.listExcerpt :global(ol),
+.listExcerpt :global(.theme-admonition) {
+  display: none !important;
+}
+
+.listExcerpt :global(p) {
+  margin: 0;
+  display: inline;
+}
+
+.listExcerpt :global(p + p)::before {
+  content: ' ';
+}
+
+.listExcerpt :global(a) {
+  color: inherit;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+@media (min-width: 997px) {
+  .listItem {
+    padding: 1.15rem 0;
+    gap: 0.4rem 1.5rem;
+  }
+
+  .listTitle {
+    font-size: 1.15rem !important;
+  }
+
+  .listExcerptText,
+  .listExcerpt {
+    max-width: 46rem;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .listItem {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.85rem 0;
+  }
+
+  .listTitle {
+    font-size: 1rem !important;
+  }
 }

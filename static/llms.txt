@@ -4221,13 +4221,11 @@ How you get two stores behind one `nats` Service:
 
 From the outside it still looks like one Service. From JetStream's point of view you have two clusters that happen to share a DNS name.
 
-## The HA argument I would not drop
+## The HA shape I settled on
 
-There was a long-running debate on the team: keep NATS as **one pod** so this class of confusion cannot happen, versus run **three members** for real HA.
+Around 2025 I stopped treating "one NATS pod" as the safe default. A single pod is a single disk, a single node drain, a single spot reclaim away from losing the bus. Shrink-to-one can feel like it dodges the dual-store mess, but it does not. The failure mode above is not "HA is bad." It is **HA done wrong**: two StatefulSets pretending to be one cluster, or stream replicas left at 1 so JetStream is not actually replicated.
 
-I pushed for three. Not because "HA" looks good on a diagram. Because a single NATS pod is a single disk, a single node drain, a single spot reclaim away from losing the bus. The failure mode above is not "HA is bad." It is **HA done wrong**: two StatefulSets pretending to be one cluster, or stream replicas left at 1 so JetStream is not actually replicated.
-
-What I wanted, and what we eventually aligned on in ops:
+What I chose then, and still run toward:
 
 - **One** StatefulSet
 - **One** Service (ClusterIP clients use)
@@ -4268,7 +4266,7 @@ That is detection. It does not replace the topology rule. It tells you the topol
 
 ## Conclusion
 
-Wrong-cluster JetStream does not look like "NATS is down." It looks like flaky product: publishers that ack into the void, realtime joins that never fan out, consumers that only wake up after a lucky restart.
+Wrong cluster JetStream does not look like "NATS is down." It looks like flaky product: publishers that ack into the void, realtime joins that never fan out, consumers that only wake up after a lucky restart.
 
 Do not shrink to one pod to avoid thinking. Run **one cluster with three members**, one Service, one URL, stream replicas that match the member count. Delete the second STS and its PVCs. Split your own CSV if the client will not. Fingerprint the stream so the next split fails loud.
 
@@ -4279,6 +4277,162 @@ Till next time, Peace be on you 🙏🏽
 - https://docs.nats.io/nats-concepts/jetstream
 - https://docs.nats.io/running-a-nats-service/configuration/clustering
 - https://github.com/nats-io/nats.js
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+    />
+
+---
+
+// File: blog/2026-09-07-eradicate-long-lived-tokens
+
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Giscus from "@giscus/react";
+
+If you are still using classic GitHub PATs in your environments "just for pulling, read or packaging," you are not being pragmatic. You are accepting forever access as normal. That is a culture problem. Tooling only follows.
+
+<!--truncate-->
+
+I keep landing the same conversation, someone wants a token that "just works" for CI, a deploy bot, or a SaaS that pulls private code. The default answer is still a long-lived PAT in a secret store. It works until it shows up in a log, a laptop dump, a leaked env file, or a campaign that clones your private repos in bulk while the token is still valid.
+
+Short-lived credentials are not a niche hardening trick. They are how you stop one leak from becoming permanent access.
+
+## Why this is culture, not tooling
+
+A PAT in an environment secret is convenient. Mint once, paste, forget. That convenience trains the team:
+
+- Nobody asks whether the job needs repo-scoped access for ten minutes or environment-wide access forever
+- Fallback PATs stay "temporary" for years
+- External systems get a personal token because "the App setup looked hard"
+- Rotation becomes a quarterly project instead of a non-event
+
+You can buy scanners and still lose. The failure is treating durable bearer tokens as the default identity model for machines.
+
+Machines should get credentials that expire when the job ends. Humans should not mint forever keys for automation.
+
+## What a PAT compromise actually looks like
+
+[Wiz CIRT published a playbook](https://www.wiz.io/blog/investigating-github-pat-compromise) from investigating a coordinated campaign that abused compromised GitHub PATs across multiple organizations (mid-May through early June 2026). I am not restating their IOCs here. Read their post if you are in IR mode. The shape that matters for prevention is simple:
+
+1. Valid employee PATs showed up in attacker hands
+2. Quiet recon against accessible repos came first
+3. Low-volume clone checks validated the tokens still worked
+4. Then mass `git.clone` traffic pulled private repositories in parallel from cloud IPs
+
+Containment was ugly for the usual reasons. Classic PATs are often hard for environment owners to see and revoke cleanly. Fine-grained tokens are better, but still long-lived if nobody expires them. GitHub's short retention for some git events means if you were not streaming audit logs, reconstructing blast radius gets worse with time. Exfiltrated repos are not "just source." They are often full of cloud keys, SaaS tokens, and internal docs that extend the incident sideways.
+
+Wiz could not pin the initial leak path for that campaign. Endpoint theft is a plausible guess. The lesson I take is not "find the perfect leak vector." It is: **if a long-lived token exists, theft is enough.** You do not need a fancy exploit if the bearer credential never dies.
+
+If your incident response plan assumes you can always find and kill every PAT in minutes, you are planning for hope. Prefer identities where the stolen thing expires on its own.
+
+## Prefer GitHub Apps and installation tokens
+
+A GitHub App installation access token is short-lived (on the order of an hour) and scoped to the App's permissions and the repos you allow. That is the model I want for automation.
+
+What I store as a secret:
+
+- App **client ID** (or App ID, depending on the minting action)
+- App **private key** PEM
+
+What I do **not** want stored as the primary clone/push credential:
+
+- Classic PATs
+- Fine-grained PATs with no expiry that sit in environment secrets "for CI"
+- A human's PAT reused by five workflows and one laptop
+
+At runtime, the workflow signs a JWT with the App key, exchanges it for an installation token, uses that token for the job, and lets it die. Leak the installation token from a log and the window is small. Leak the App private key and you still have a problem, but you rotated one machine identity instead of hunting every PAT an engineer ever created. Scope the App to Contents: Read (or whatever the job needs), not admin-by-default.
+
+Same idea for humans: fine-grained PATs with short expiry beat classic forever tokens. Apps still win for bots and CI.
+
+## Mint in the pipeline, do not warehouse classic PATs
+
+In shared reusable workflows and composite actions, I push this pattern explicitly.
+
+A small composite action whose only job is: **mint a GitHub App installation token, mask it, and only fall back to a long-lived token with a warning.** Callers pass `client-id` + `private-key` (plus owner / optional repo list). If App creds are missing, it can use a fallback PAT so old callers do not break overnight. The workflow log says when you are on the bad path. That warning is intentional. Soft migration beats silent forever PATs.
+
+Concrete places that use it:
+
+- **Cross-repo clone in CI.** Security scans or shared tooling often need private helper repos. Instead of a dedicated clone PAT in environment secrets, a clone helper resolves auth through the App token mint, then `actions/checkout` with that short-lived token. Cache keys are tip SHAs; the credential is not the interesting part of the cache.
+- **Private package / VCS deps at image build.** The image-build job mints an App token and builds a temporary package-manager auth blob (Composer `github-oauth`, npm `_authToken`, etc.) for the Docker build. The old long-lived package-auth secret remains as a documented fallback and emits a warning when used. Preferred path is App client ID + private key with Contents: Read.
+- **Reusable workflow secrets.** Shared build and frontend workflows take App client ID + private key as the preferred secrets. Older PAT-style secrets are marked deprecated in the workflow interface so adopters migrate without a flag day.
+
+The migration rule I care about: **do not delete the fallback on day one if half the callers still need it. Do make the fallback loud, and stop issuing new PATs for clone/push jobs that an App can do.**
+
+Also stop putting classic PATs in environment secrets "because Amplify / vendor X needs GitHub." Prefer App-based access or vendor OIDC where it exists. If a product only accepts a PAT today, put an expiry on the calendar and treat it as debt, not architecture.
+
+## External systems that pull your code
+
+Anything outside GitHub Actions that needs to clone or fetch private repos gets the same rule:
+
+| Bad default | Better default |
+| --- | --- |
+| PAT on a laptop, bastion, or forever server env | GitHub App installed for the environment, mint installation tokens in that service |
+| Shared "deploy" user PAT in five tools | One App per tool or tightly scoped installation, least permissions |
+| "We'll rotate quarterly" | Token TTL measured in minutes/hours; rotation is automatic |
+
+Deploy bots, security scanners, internal portals that mirror repos, codegen services: if they need git access, give them an App (or OIDC federation into your cloud, then short-lived cloud creds). Do not give them a human PAT copied from someone's settings page.
+
+OIDC into AWS / GCP / Azure for cloud access is the sibling habit. Same thesis, different control plane: [keyless image signing](/keyless-signing-container-images-github-oidc/), IRSA / Workload Identity style DB auth against a managed database, no static cloud keys in Actions when federation works. This post stays GitHub-focused, but if you kill GitHub PATs and still leave `AKIA...` in secrets, you only finished half the job.
+
+Light touch on the rest of the zoo: chat-bot tokens, npm tokens, container-registry PATs. Same smell. Prefer expiring or rotatable machine identities. Do not expand scope here; just do not pretend GitHub is the only place forever tokens hide.
+
+## Start here checklist
+
+If you want a culture shift instead of a slide deck:
+
+1. **Inventory** Actions secrets at every scope (shared, repository, and environment) for `PAT`, `GITHUB_TOKEN`-shaped custom secrets, package-auth blobs, clone tokens, deploy tokens. Name the owners.
+2. **Classify** each one: human break-glass, CI clone/push, external SaaS, leftover unknown. Unknown gets a kill date.
+3. **Stand up a GitHub App** (or reuse one) with least privileges for CI. Contents: Read is enough for many clone-only jobs. Separate Apps if blast radius matters.
+4. **Wire minting in reusable workflows** so app teams inherit short-lived tokens without inventing their own secret scheme. Prefer one composite "mint token" action everyone calls.
+5. **Deprecate PAT secrets in the workflow interface** with warnings when fallback is used. Keep fallbacks temporarily; stop documenting them as the happy path.
+6. **Move external clone consumers** to Apps or OIDC. No new forever PATs for servers.
+7. **Expire remaining human PATs.** Fine-grained + short TTL. Ban classic PATs for automation in policy even if GitHub still allows creating them.
+8. **Stream GitHub audit logs** somewhere durable. Mass clone and odd ASO / user-agent patterns are how you notice the bad day early. Wiz's post is a good reminder that git event retention is short if you are not streaming.
+9. **Practice revoke.** Who can disable an App installation? Who revokes a fine-grained PAT? Write it down before you need it.
+10. **Say it in onboarding.** "We do not create classic PATs for bots" beats another wiki page nobody reads.
+
+## Living example
+
+I am not linking a public recipe repo here; the patterns above are the portable part:
+
+- Composite action: App token first, masked output, loud fallback
+- Clone helpers and build jobs consume that output, not a stored PAT
+- Reusable workflow secrets prefer App client ID + private key
+- Deprecated PAT inputs remain only to avoid breaking callers during migration
+
+If you maintain a shared Actions environment, put the minting helper there. Make the wrong path emit <code>{'::warning::'}</code> so the Actions UI surfaces a real annotation. Culture changes faster when the pipeline nags.
+
+For the IR side of PAT abuse, use the [Wiz investigation writeup](https://www.wiz.io/blog/investigating-github-pat-compromise) as the response playbook. Use this post as the prevention argument: stop minting the class of credential that campaign depended on.
+
+## Conclusion
+
+Long-lived tokens feel like glue. They are solvent for attackers. Every classic PAT in an environment secret is a decision that expiry does not matter. Flip that default.
+
+Mint at job time. Scope the App. Expire what must still be a PAT. Treat fallbacks as debt with a warning, not as architecture.
+
+Till next time, Peace be on you 🙏🏽
+
+#### References
+
+- [How to Investigate GitHub PAT Compromise (Wiz)](https://www.wiz.io/blog/investigating-github-pat-compromise)
+- [Authenticating as a GitHub App installation](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation)
+- [actions/create-github-app-token](https://github.com/actions/create-github-app-token)
+- Related on this blog: [GitHub Actions supply chain hardening](/github-actions-supply-chain-hardening/), [GitHub access control as IaC](/github-access-control-iac/), [Keyless signing with GitHub OIDC](/keyless-signing-container-images-github-oidc/)
 
 <br/>
 <h2>Comments</h2>
@@ -4315,7 +4469,7 @@ I already wrote the [AWS EKS version](/mongodb-passwordless-auth-eks/) of this: 
 
 Same idea, different plumbing. On AKS you use **Workload Identity** + Atlas **Workload Identity Federation** (`MONGODB-OIDC`). No long-lived DB password. Your pod gets a short-lived Entra token, Atlas trusts that IdP, done.
 
-One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**. Free / Flex / shared tiers do **not** support `MONGODB-OIDC`. If you try this on an `M0` and wonder why Federated Auth never shows up the way you expect — that's why.
+One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**. Free / Flex / shared tiers do **not** support `MONGODB-OIDC`. If you try this on an `M0` and wonder why Federated Auth never shows up the way you expect, that's why.
 
 ## Prerequisites
 
@@ -4325,9 +4479,11 @@ One big gotcha up front: this only works on **Atlas dedicated clusters (M10+)**.
 - Node.js MongoDB driver **6.7+** (or another driver that supports Workload Identity Federation)
 - Terraform / OpenTofu if you want the snippets below as-is
 
-## Step 1: Entra app registration (the Atlas audience)
+## Step 1: Entra app registration (two “audience” values, not one)
 
-Atlas Workload IdP needs an Entra app whose **Application ID URI** becomes the OIDC **audience**. Keep that URI boring and stable, e.g. `api://atlas-wif`.
+Atlas Workload IdP needs an Entra app. Keep the **Application ID URI** boring and stable, e.g. `api://atlas-wif`. That URI is what your pod asks Entra for (`TOKEN_RESOURCE` / `getToken(.../.default)`).
+
+With `requestedAccessTokenVersion = 2`, Entra does **not** put that URI in the access token. The JWT **`aud` claim is the app’s Application (client) ID GUID**. Atlas IdP **Audience** must match that GUID. I burned time on this; details in the gotcha below.
 
 ```hcl title="entra-app.tf"
 resource "azuread_application" "atlas_wif" {
@@ -4375,14 +4531,15 @@ resource "azurerm_federated_identity_credential" "app" {
 }
 ```
 
-Note the two different audiences:
+Note the audiences stacking up already:
 
-- **`api://AzureADTokenExchange`** — Entra ↔ AKS Workload Identity token exchange
-- **`api://atlas-wif`** — what Atlas validates on the access token
+- **`api://AzureADTokenExchange`**: Entra ↔ AKS Workload Identity token exchange
+- **`api://atlas-wif`**: Entra **token request** scope (`TOKEN_RESOURCE` / `MONGO_OIDC_AUDIENCE`)
+- **Entra app client ID GUID**: what lands in JWT `aud`, and what Atlas IdP Audience must be
 
-Don't mix them up.
+Don't paste the `api://` URI into Atlas as Audience and expect it to work with v2 tokens.
 
-Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as the federated database user identifier — **not** the client ID.
+Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as the federated database user identifier, **not** the client ID.
 
 | Field | Use |
 | --- | --- |
@@ -4415,9 +4572,11 @@ Fill OIDC protocol settings:
 | --- | --- |
 | Configuration Name | `azure-wif` |
 | Issuer URI | `https://login.microsoftonline.com/<TENANT_ID>/v2.0` |
-| Audience | `api://atlas-wif` (must match Entra Application ID URI) |
+| Audience | Entra app **client ID GUID** (JWT `aud`), **not** `api://atlas-wif` |
 | Authorization | **User ID** |
 | User Claim | `sub` (default) |
+
+If you set Atlas Audience to the Application ID URI (`api://…`) while Entra issues v2 tokens, Entra token exchange still returns **200** and you still get `Authentication failed` at Atlas `finishAuthentication`. Paste the GUID.
 
 <picture>
   <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-oidc-protocol-settings.webp`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
@@ -4539,9 +4698,9 @@ That path talks to **Azure IMDS**. On a normal Azure VM with a managed identity 
 
 On **AKS Workload Identity**, IMDS often answers with something like **Identity not found**. Your UAMI lives behind the federated token file, not classic IMDS association. So don't cargo-cult the VM snippet into AKS and expect miracles.
 
-### What works: callback + Entra token for the Atlas audience
+### What works: callback + Entra token for the Application ID URI
 
-Use `@azure/identity` (it understands Workload Identity env vars) and hand Atlas a real Entra access token whose audience is `api://atlas-wif`.
+Use `@azure/identity` (it understands Workload Identity env vars) and request an Entra access token with scope `api://atlas-wif/.default` (your Application ID URI). The token’s JWT `aud` will be the app client ID GUID; that is what Atlas checks against IdP Audience.
 
 ```js title="mongo.js"
 import { DefaultAzureCredential } from "@azure/identity";
@@ -4556,7 +4715,7 @@ if (!clusterUrl) throw new Error("MONGODB_CLUSTER_URL must be defined");
 const credential = new DefaultAzureCredential();
 
 async function oidcCallback() {
-  // audience must match Atlas Workload IdP + Entra Application ID URI
+  // TOKEN_RESOURCE = Entra Application ID URI (api://…). JWT aud will be the app client ID GUID.
   const token = await credential.getToken(`${tokenResource}/.default`);
   if (!token?.token) {
     throw new Error("failed to acquire Entra access token for Atlas");
@@ -4588,21 +4747,25 @@ Install what you need:
 yarn add mongodb @azure/identity
 ```
 
-Driver version matters — Node / TypeScript **6.7+** for Workload Identity Federation support.
+Driver version matters: Node / TypeScript **6.7+** for Workload Identity Federation support.
 
 ### Optional: `ENVIRONMENT:k8s`
 
-The driver also has `ENVIRONMENT:k8s`, which reads `AZURE_FEDERATED_TOKEN_FILE` directly. That file is the **Kubernetes projected token** used for Entra exchange — not necessarily an Atlas-ready access token with audience `api://atlas-wif`. For Atlas Workload IdP against Entra, prefer the callback that requests a token for your Application ID URI.
+The driver also has `ENVIRONMENT:k8s`, which reads `AZURE_FEDERATED_TOKEN_FILE` directly. That file is the **Kubernetes projected token** used for Entra exchange, not necessarily an Atlas-ready access token with audience `api://atlas-wif`. For Atlas Workload IdP against Entra, prefer the callback that requests a token for your Application ID URI.
 
 ## Gotchas (read these before you open a ticket)
 
 1. **M10+ dedicated only.** Free / Flex / shared do not support this auth mechanism. Upgrade first.
 2. **Object ID ≠ Client ID.** Atlas user identifier = UAMI **Object ID**. SA annotation / Azure Identity = **Client ID**.
-3. **Audience must match everywhere it matters.** Entra Application ID URI ↔ Atlas IdP Audience ↔ `TOKEN_RESOURCE` / `getToken(...)` scope. One typo and auth fails in the least helpful way.
-4. **Don't use `ENVIRONMENT:azure` on AKS WI** unless you know IMDS can see that identity. Expect **Identity not found** otherwise — use `OIDC_CALLBACK` + federated token / `@azure/identity`.
+3. **Two “audience” values (this one got me).** With Entra `requestedAccessTokenVersion = 2`:
+   - **`TOKEN_RESOURCE` / `MONGO_OIDC_AUDIENCE` / `getToken` scope** = Entra **Application ID URI** (e.g. `api://atlas-wif`). Do **not** put the GUID here or Entra exchange breaks.
+   - **JWT `aud`** = that Entra app’s **Application (client) ID** GUID.
+   - **Atlas Workload IdP → Audience** = that same **GUID**, **not** `api://…`.
+   - Symptom if you get this wrong: Entra returns **200**, your callback has a token, Atlas still says **Authentication failed** at `finishAuthentication`. Decode the JWT, copy `aud` into Atlas Audience, retry.
+4. **Don't use `ENVIRONMENT:azure` on AKS WI** unless you know IMDS can see that identity. Expect **Identity not found** otherwise; use `OIDC_CALLBACK` + federated token / `@azure/identity`.
 5. **Pod label required:** `azure.workload.identity/use: "true"` on the pod template, not only the SA.
 6. **Workforce ≠ Workload.** Wrong IdP type = wrong product surface. Apps need Workload.
-7. **Issuer format:** `https://login.microsoftonline.com/<TENANT_ID>/v2.0` — drop the well-known suffix.
+7. **Issuer format:** `https://login.microsoftonline.com/<TENANT_ID>/v2.0` (drop the well-known suffix).
 
 ## Conclusion
 

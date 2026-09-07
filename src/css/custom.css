@@ -472,22 +472,42 @@ img {
 /* FOOTER STYLES */
 footer.footer {
   background-color: #000508 !important;
-  padding: 3rem 0 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 2rem 0 2.5rem !important;
+  border-top: none !important;
+}
+
+/* Desktop: pin footer to the bottom of the viewport when content is short */
+@media (min-width: 997px) {
+  #__docusaurus {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-wrapper {
+    flex: 1 0 auto;
+  }
+
+  footer.footer {
+    margin-top: auto;
+    padding: 2.75rem 0 3rem !important;
+  }
 }
 
 footer.footer .footer__links {
   display: flex !important;
   flex-direction: row !important;
+  flex-wrap: wrap !important;
   justify-content: center !important;
   align-items: center !important;
-  gap: 0 !important;
+  gap: 0.25rem 0.5rem !important;
   margin-bottom: 0.75rem !important;
 }
 
 /* Force inline for footer link items */
 footer.footer .footer__link-item {
-  display: inline !important;
+  display: inline-flex !important;
+  align-items: center !important;
   color: rgba(255, 255, 255, 0.7) !important;
   font-size: 0.95rem !important;
   text-decoration: none !important;
@@ -498,11 +518,19 @@ footer.footer .footer__link-item:hover {
   color: #fff !important;
 }
 
-/* Dot separator between footer links */
-footer.footer .footer__links .footer__link-item:first-child::after {
-  content: " \00b7 " !important;
-  color: rgba(255, 255, 255, 0.4) !important;
-  margin: 0 8px !important;
+/* Built-in Docusaurus separator — keep · visible on narrow screens */
+footer.footer .footer__link-separator {
+  display: inline-block !important;
+  margin: 0 0.35rem !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  user-select: none;
+}
+
+footer.footer .footer__copyright {
+  display: none !important;
 }
 
 /* Footer SVG icons - inline beside text */
@@ -514,13 +542,6 @@ footer.footer svg[class*="iconExternalLink"] {
   margin-left: 4px !important;
   vertical-align: middle !important;
   opacity: 0.7 !important;
-}
-
-footer.footer .footer__copyright {
-  color: rgba(255, 255, 255, 0.5) !important;
-  font-size: 0.85rem !important;
-  margin-top: 1rem !important;
-  text-align: center !important;
 }
 
 /* Blog post layout: wide article column, TOC on the right */
