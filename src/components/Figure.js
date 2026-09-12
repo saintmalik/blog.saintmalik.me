@@ -1,16 +1,20 @@
 import React from "react";
 
-export default function Figure({ children, src }) {
+/**
+ * Blog figure wrapper. Prefer:
+ *   <Figure><picture>...</picture><p>caption</p></Figure>
+ * Legacy: <Figure src="...">caption</Figure>
+ */
+export default function Figure({ children, src, alt = "" }) {
   return (
-    <figure style={{ textAlign: "center",  }}>
-    <picture>
-        <source type="image/webp" srcSet={src} />
-        <source type="image/jpeg" srcSet={src} />
-        <img src={src} />
-    </picture>
-    <figcaption style={{ color: "gray", fontSize: "small" }}>
-    {children}
-  </figcaption>
-</figure>
-    );
+    <figure className="blog-figure">
+      {src ? (
+        <picture>
+          <source type="image/webp" srcSet={src} />
+          <img src={src} alt={alt} loading="lazy" />
+        </picture>
+      ) : null}
+      {children}
+    </figure>
+  );
 }
