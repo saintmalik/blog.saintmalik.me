@@ -94,9 +94,9 @@ repos:
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.webp`} alt="pre commit config"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-commit-config.webp`} alt="pre commit config"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-commit-config.jpg`} alt="pre commit config"/>
 </picture>
 
 
@@ -112,9 +112,9 @@ By default if you run ```pre-commit install``` in your project folder, it will i
 pre-commit install --hook-type pre-push
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.webp`} alt="pre push"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="pre push"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/pre-push.png`} alt="pre push"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-push.webp`} alt="pre push"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-push.png`} alt="pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/pre-push.png`} alt="pre push"/>
 </picture>
 
 So now that you have the pre-push hook installed, let's test it out.
@@ -145,9 +145,9 @@ aws_secret_access_key = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 git add . && git commit -m "Git secret scanning using pre-commit hooks"
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.webp`} alt="commit pre push"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/commit-pre-push.webp`} alt="commit pre push"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/commit-pre-push.jpg`} alt="commit pre push"/>
 </picture>
 
 8. After the commit, you can then push to your remote repository using ```git push```as you can see in the screenshot below.
@@ -155,15 +155,15 @@ git add . && git commit -m "Git secret scanning using pre-commit hooks"
 Yeah, the push failed and the secrets/hardcoded APIs are being pointed out.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.webp`} alt="failed pre push hook"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/failed-pre-push-hook.webp`} alt="failed pre push hook"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/failed-pre-push-hook.jpg`} alt="failed pre push hook"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.webp`} alt="push failed pre push"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Push-failed-pre-push.webp`} alt="push failed pre push"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/Push-failed-pre-push.jpg`} alt="push failed pre push"/>
 </picture>
 
 :::tip

@@ -31,14 +31,14 @@ And run ```age-keygen -o ~/.config/sops/age/keys.txt``` to generate the private,
 
 then when you read out the file content, it should look like this
 
-<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/agekeygen.png`} alt="Chill"/>
+<img src={`${useDocusaurusContext().siteConfig.url}/bgimg/agekeygen.png`} alt="Chill"/>
 
 
 ```
 cat ~/.config/sops/age/keys.txt
 ```
 
-<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/catage.png`} alt="Chill"/>
+<img src={`${useDocusaurusContext().siteConfig.url}/bgimg/catage.png`} alt="Chill"/>
 
 
 Now lets encrypt the env files, running
@@ -51,7 +51,7 @@ Replace ``age18es975c59fpgk2mwllxnds92tt5hykhp9akhukxypge7yyuw6v7sh3cutl`` with 
 
 Your output file should look just like this
 
-<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encryptlook.png`} alt="Chill"/>
+<img src={`${useDocusaurusContext().siteConfig.url}/bgimg/encryptlook.png`} alt="Chill"/>
 
 
 now that we have our encypted file, without loosing or exposing our private key, there is peace of mind of commiting or even leaving our encrypted secret file exposed or laying as a file in our servers, haha.

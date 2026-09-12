@@ -3,6 +3,7 @@ import React from "react";
 /**
  * Blog figure wrapper. Prefer:
  *   <Figure><picture>...</picture><p>caption</p></Figure>
+ * Use siteConfig.url for /bgimg/* so webp→png/jpeg fallback works.
  * Legacy: <Figure src="...">caption</Figure>
  */
 export default function Figure({ children, src, alt = "" }) {

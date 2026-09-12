@@ -14,8 +14,8 @@ In 2025, are you still embedding RDS database passwords in your app? If your sof
 
 <!--truncate-->
 <picture>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/think-pawpaw.gif`} alt="passwordles rds iam"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/think-pawpaw.gif`} alt="passwordles rds iam"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/think-pawpaw.gif`} alt="passwordles rds iam"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/think-pawpaw.gif`} alt="passwordles rds iam"/>
 </picture>
 
 Static passwords on servers are risky. Instead, use IAM roles for passwordless authentication to connect your AWS EKS-hosted app to your RDS cluster, reducing security burdens.

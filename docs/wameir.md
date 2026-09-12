@@ -20,15 +20,15 @@ Here comes the time saver and the stress reducer WAMEIR 😂
 All you have to do is select the country that the number belongs to and paste those bulky WhatsApp numbers and hit submit.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.webp`} alt="Wameir"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir.jpg`} alt="Wameir"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir.webp`} alt="Wameir"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir.jpg`} alt="Wameir"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir.jpg`} alt="Wameir"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.webp`} alt="Wameir output"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir-output.webp`} alt="Wameir output"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/wameir-output.jpg`} alt="Wameir output"/>
 </picture>
 
 Dont mind the UI please, Lol, i suck at that Frontend thing

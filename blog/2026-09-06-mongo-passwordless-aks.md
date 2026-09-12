@@ -100,9 +100,9 @@ Also grab the UAMI **Object (principal) ID**. That is what you put in Atlas as t
 In Atlas: **Identity & Access → Federation** (org owner).
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-federation-nav.webp`} alt="Atlas sidebar with Federation under Identity and Access"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-federation-nav.png`} alt="Atlas sidebar with Federation under Identity and Access"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-federation-nav.png`} alt="Atlas sidebar with Federation under Identity and Access"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-federation-nav.webp`} alt="Atlas sidebar with Federation under Identity and Access"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-federation-nav.png`} alt="Atlas sidebar with Federation under Identity and Access"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-federation-nav.png`} alt="Atlas sidebar with Federation under Identity and Access"/>
 </picture>
 
 Open Federation Management → **Identity Providers** → configure a new IdP.
@@ -110,9 +110,9 @@ Open Federation Management → **Identity Providers** → configure a new IdP.
 **Pick Workload, not Workforce.** Workforce is for humans (SSO into Atlas UI). Workload is for apps.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-workload-vs-workforce.webp`} alt="Atlas choose Workload Identity Federation"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-workload-vs-workforce.png`} alt="Atlas choose Workload Identity Federation"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-workload-vs-workforce.png`} alt="Atlas choose Workload Identity Federation"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-workload-vs-workforce.webp`} alt="Atlas choose Workload Identity Federation"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-workload-vs-workforce.png`} alt="Atlas choose Workload Identity Federation"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-workload-vs-workforce.png`} alt="Atlas choose Workload Identity Federation"/>
 </picture>
 
 Fill OIDC protocol settings:
@@ -128,17 +128,17 @@ Fill OIDC protocol settings:
 If you set Atlas Audience to the Application ID URI (`api://…`) while Entra issues v2 tokens, Entra token exchange still returns **200** and you still get `Authentication failed` at Atlas `finishAuthentication`. Paste the GUID.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-oidc-protocol-settings.webp`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-oidc-protocol-settings.png`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-oidc-protocol-settings.png`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-oidc-protocol-settings.webp`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-oidc-protocol-settings.png`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-oidc-protocol-settings.png`} alt="Atlas OIDC protocol settings issuer audience User ID"/>
 </picture>
 
 Save. You should get the success banner and the IdP card with issuer / audience / `sub`.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-configured.webp`} alt="Atlas Workload IdP configured successfully"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-configured.png`} alt="Atlas Workload IdP configured successfully"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-configured.png`} alt="Atlas Workload IdP configured successfully"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-configured.webp`} alt="Atlas Workload IdP configured successfully"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-configured.png`} alt="Atlas Workload IdP configured successfully"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-configured.png`} alt="Atlas Workload IdP configured successfully"/>
 </picture>
 
 ## Step 4: Connect the IdP to your organization
@@ -146,17 +146,17 @@ Save. You should get the success banner and the IdP card with issuer / audience 
 An IdP that isn't connected to an org does nothing useful for database access. Under Federation → **Organizations** → your org → **Connect Identity Provider**, select the Workload IdP (Data Access), connect.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-connect-idp-modal.webp`} alt="Connect Workload Identity Provider modal"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-connect-idp-modal.png`} alt="Connect Workload Identity Provider modal"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-connect-idp-modal.png`} alt="Connect Workload Identity Provider modal"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-connect-idp-modal.webp`} alt="Connect Workload Identity Provider modal"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-connect-idp-modal.png`} alt="Connect Workload Identity Provider modal"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-connect-idp-modal.png`} alt="Connect Workload Identity Provider modal"/>
 </picture>
 
 When it sticks, you get the green "successfully connected" banner. All projects in that org can use it.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-org-connected.webp`} alt="Workload IdP connected to Atlas organization"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-org-connected.png`} alt="Workload IdP connected to Atlas organization"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-idp-org-connected.png`} alt="Workload IdP connected to Atlas organization"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-org-connected.webp`} alt="Workload IdP connected to Atlas organization"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-org-connected.png`} alt="Workload IdP connected to Atlas organization"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-idp-org-connected.png`} alt="Workload IdP connected to Atlas organization"/>
 </picture>
 
 ## Step 5: Database user = UAMI Object ID
@@ -172,17 +172,17 @@ Not the client ID. Not the display name. Object ID.
 Then roles + (optionally) restrict to a specific cluster.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-add-federated-db-user.webp`} alt="Add database user with Federated Auth"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-add-federated-db-user.png`} alt="Add database user with Federated Auth"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-add-federated-db-user.png`} alt="Add database user with Federated Auth"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-add-federated-db-user.webp`} alt="Add database user with Federated Auth"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-add-federated-db-user.png`} alt="Add database user with Federated Auth"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-add-federated-db-user.png`} alt="Add database user with Federated Auth"/>
 </picture>
 
 Assign a built-in role (or tighter custom roles), and if you want blast-radius control, turn on **Restrict Access to Specific Clusters** and pick the cluster.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-db-user-cluster-restrict.webp`} alt="Database user roles and cluster restriction"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-db-user-cluster-restrict.png`} alt="Database user roles and cluster restriction"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/atlas-db-user-cluster-restrict.png`} alt="Database user roles and cluster restriction"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-db-user-cluster-restrict.webp`} alt="Database user roles and cluster restriction"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-db-user-cluster-restrict.png`} alt="Database user roles and cluster restriction"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/atlas-db-user-cluster-restrict.png`} alt="Database user roles and cluster restriction"/>
 </picture>
 
 ## Step 6: Kubernetes service account + pod label

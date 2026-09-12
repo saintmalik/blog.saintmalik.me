@@ -15,9 +15,9 @@ A [Reddit thread on r/devops](https://www.reddit.com/r/devops/comments/1qh6dze/i
 <!--truncate-->
 
 <picture>
-  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.webp`} />
-  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/reddit-iac-github-teams-thread.png`} alt="Reddit r/devops thread: IaC for GitHub teams - Need advice" />
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/reddit-iac-github-teams-thread.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/reddit-iac-github-teams-thread.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/reddit-iac-github-teams-thread.png`} alt="Reddit r/devops thread: IaC for GitHub teams - Need advice" />
 </picture>
 
 I had been living the opposite answer. Over the past year, our platform team rebuilt GitHub access for a multi-product engineering org using **OpenTofu**, not as a side experiment, but as the authoritative control plane for org membership, teams, and repository permissions. Manual UI changes get reverted on apply. Offboarding is deleting one block in a registry file.

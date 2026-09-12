@@ -62,17 +62,17 @@ To do this, you need to navigate to the MongoDB project and click on the `Securi
 Then click on the `Add New Database User` button.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbadd.webp`} alt="passwordless mongodb"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbadd.png`} alt="passwordless mongodb"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbadd.png`} alt="passwordless mongodb"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbadd.webp`} alt="passwordless mongodb"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbadd.png`} alt="passwordless mongodb"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbadd.png`} alt="passwordless mongodb"/>
 </picture>
 
 In the `Add New Database User` modal, select the Authentication Method, `AWS IAM` and drop down the `AWS IAM Type` option and select `IAM Role`, fill in the `IAM Role ARN` field with the IAM Role ARN that was created earlier. Then click on the `Add User` button.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbiam.webp`} alt="passwordless mongodb add iam role"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbiam.png`} alt="passwordless mongodb add iam role"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/mongodbiam.png`} alt="passwordless mongodb add iam role"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbiam.webp`} alt="passwordless mongodb add iam role"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbiam.png`} alt="passwordless mongodb add iam role"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/mongodbiam.png`} alt="passwordless mongodb add iam role"/>
 </picture>
 
 Once this is done, it's set up your app to connect to the MongoDB cluster using passwordless authentication.

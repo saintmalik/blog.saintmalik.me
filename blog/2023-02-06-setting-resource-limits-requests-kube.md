@@ -4,7 +4,7 @@ title: Reduce Cloud Costs and Prevent Noisy Neighbors with Resource Quotas in Ku
 author: Abdulmalik
 author_title: DevSecOps
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/kube-resource-limits-cover.webp
 tags: [appsec, container, Kubernetes, devsecops]
 ---
@@ -84,9 +84,9 @@ there are different ways of going about getting the values, you can either lever
 for the load testing, use <a href="https://github.com/locustio/locust" taget="_blank">Locust</a>, a very power open source load testing tools.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/locust-loadtesting.webp`} alt="Locust Load Testing Resource quotas extimates"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/locust-loadtesting.jpg`} alt="Locust Load Testing Resource quotas extimates"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/locust-loadtesting.jpg`} alt="Locust Load Testing Resource quotas extimates"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/locust-loadtesting.webp`} alt="Locust Load Testing Resource quotas extimates"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/locust-loadtesting.jpg`} alt="Locust Load Testing Resource quotas extimates"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/locust-loadtesting.jpg`} alt="Locust Load Testing Resource quotas extimates"/>
 </picture>
 
 so here is how it works, you can specify the number of users you estimate for your app and the number of users sending requests/seconds.
@@ -143,9 +143,9 @@ Now let us check the VPA recommendations, you should run ```kubectl get vpa``` t
 then run ```kubectl describe vpa VPANAME```, example ```kubectl describe vpa flyon-vpa-test``` and here are the outputs from mine.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpa-resource-estimates.webp`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpa-resource-estimates.jpg`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpa-resource-estimates.jpg`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vpa-resource-estimates.webp`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vpa-resource-estimates.jpg`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/vpa-resource-estimates.jpg`} alt="Vertical Pod Autoscaler resource quotas estimation"/>
 </picture>
 
  - **Lower bound**:  this is the minimum estimation for the container.

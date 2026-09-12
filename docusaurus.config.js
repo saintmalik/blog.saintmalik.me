@@ -129,7 +129,9 @@ module.exports = {
     },
   },
   customFields: {
-    imgurl: 'https://saintmalikme.mo.cloudinary.net',
+    // Same-origin static assets so <picture> webp→png/jpeg fallback works.
+    // Prefer siteConfig.url in posts; imgurl kept as an alias for older snippets.
+    imgurl: 'https://blog.saintmalik.me',
   },
   presets: [
     [

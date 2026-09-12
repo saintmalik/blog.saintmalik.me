@@ -13,9 +13,9 @@ In my past article about <a href="https://blog.saintmalik.me/signing-container-i
 
 <picture>
 <a href="https://x.com/1azunna">
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keyless-signing-tweet-comment.webp`} alt="tweet about keyless signing"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keyless-signing-tweet-comment.jpg`} alt="tweet about keyless signing"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keyless-signing-tweet-comment.jpg`} alt="tweet about keyless signing"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/keyless-signing-tweet-comment.webp`} alt="tweet about keyless signing"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/keyless-signing-tweet-comment.jpg`} alt="tweet about keyless signing"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/keyless-signing-tweet-comment.jpg`} alt="tweet about keyless signing"/>
   </a>
 </picture>
 
@@ -67,9 +67,9 @@ The ```id-token: write``` enables the GitHub Actions OIDC tokens for your workfl
 You still have to be care and make sure the permission isnt available on the pull request based run for that action, you can read more from the <a href="https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#updating-your-actions-for-oidc" target="_blank">github security hardening</a>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/fulcio-token.webp`} alt="keyless signing error"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/fulcio-token.jpg`} alt="keyless signing error"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/fulcio-token.jpg`} alt="keyless signing error"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/fulcio-token.webp`} alt="keyless signing error"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/fulcio-token.jpg`} alt="keyless signing error"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/fulcio-token.jpg`} alt="keyless signing error"/>
 </picture>
 
 Now, you write the actions to build your container images from your Dockerfile, the Dockerfile used in this guide is below, you can use it too for practical sake.
@@ -125,17 +125,17 @@ The ```${{ steps.digest.outputs.image_sha }}``` is the output of the step where 
 So it's a must to set the rekor-url and fulcio-url flag if you have hosted your own private rekor and fulcio server.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-actions-keyless.webp`} alt="github-actions-keyless"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-actions-keyless.jpg`} alt="github-actions-keyless"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-actions-keyless.jpg`} alt="github-actions-keyless"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-actions-keyless.webp`} alt="github-actions-keyless"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-actions-keyless.jpg`} alt="github-actions-keyless"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-actions-keyless.jpg`} alt="github-actions-keyless"/>
 </picture>
 
 If everything goes well, your signing workflow tlog output should look just like this, with information about the rekor tlog indexing number, the container image, SHA value of our image tag.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/tlog-signed-keyless.webp`} alt="tlog-signed-keyless"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/tlog-signed-keyless.jpg`} alt="tlog-signed-keyless"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/tlog-signed-keyless.jpg`} alt="tlog-signed-keyless"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/tlog-signed-keyless.webp`} alt="tlog-signed-keyless"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/tlog-signed-keyless.jpg`} alt="tlog-signed-keyless"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/tlog-signed-keyless.jpg`} alt="tlog-signed-keyless"/>
 </picture>
 
 ### 👉 Verifying and enforcing signed container images policies

@@ -333,9 +333,9 @@ resource "kubectl_manifest" "cronjob-vault" {
 if everything goes well, you should have something like this in your AWS s3 bucket.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-backup-raft.webp`} alt="vault backup snapshot s3 bucket"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-backup-raft.jpg`} alt="vault backup snapshot s3 bucket"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vault-backup-raft.jpg`} alt="vault backup snapshot s3 bucket"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vault-backup-raft.webp`} alt="vault backup snapshot s3 bucket"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vault-backup-raft.jpg`} alt="vault backup snapshot s3 bucket"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/vault-backup-raft.jpg`} alt="vault backup snapshot s3 bucket"/>
 </picture>
 
 ### 👉 pulling backup and restoration of vault snapshot

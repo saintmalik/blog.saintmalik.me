@@ -193,9 +193,9 @@ server:
 Well, that's it, folks! I hope you find this piece insightful and helpful.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/indeed.gif`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/indeed.gif`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/indeed.gif`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/indeed.gif`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/indeed.gif`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/indeed.gif`} alt="Okay, thats all"/>
 </picture>
 
 <br/>

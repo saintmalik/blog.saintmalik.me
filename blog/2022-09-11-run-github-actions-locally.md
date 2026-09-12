@@ -16,9 +16,9 @@ Yeah, being doing the CI/CD implementations via github workflow lately and I am 
 Well, you can say why don't you just use Jenkins, CircleCi, and Gitlab CI? I think this all boils down to what your org uses, I think there is no need to go the Jenkins way when my org uses github and github has the workflow to implement CI/CD.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow-spammy-actions.webp`} alt="github spammy actions"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow-spammy-actions.jpg`} alt="github spammy actions"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow-spammy-actions.jpg`} alt="github spammy actions"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow-spammy-actions.webp`} alt="github spammy actions"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow-spammy-actions.jpg`} alt="github spammy actions"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow-spammy-actions.jpg`} alt="github spammy actions"/>
 </picture>
 
 Now, looking at the above screenshot, I am very sure that's how your Actions page looks like too, but what if you could test the workflows you write locally before pushing it to github?
@@ -62,9 +62,9 @@ It will run and spin up the **~/.actrc** file that contains the image configurat
 So Immediately after selecting the image size, ```act``` also auto-detects any workflow file in your **.github/workflow** folder and it will proceed with spinning up a docker container and run the actions workflows in it.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/act-image-selection.webp`} alt="act image selection"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/act-image-selection.jpg`} alt="act image selection"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/act-image-selection.jpg`} alt="act image selection"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/act-image-selection.webp`} alt="act image selection"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/act-image-selection.jpg`} alt="act image selection"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/act-image-selection.jpg`} alt="act image selection"/>
 </picture>
 
 :::note
@@ -93,9 +93,9 @@ You can also save time running these actions workflows, sure you don't want to w
 act -b
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.webp`} alt="skip dependencies in workflow actions"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/actions-github-worflow-skip.webp`} alt="skip dependencies in workflow actions"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/actions-github-worflow-skip.jpg`} alt="skip dependencies in workflow actions"/>
 </picture>
 
 Yeah, there is more, what about the github action secrets? will your workflows with the secrets run locally? Yes they will

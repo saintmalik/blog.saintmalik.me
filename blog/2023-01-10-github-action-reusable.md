@@ -12,17 +12,17 @@ import Giscus from "@giscus/react";
 hello everyone, okay, so I did something recently with GitHub action, re-wrote and optimized a workflow of 900+ lines back to 200+
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/900-lines.webp`} alt="900 lines of workflow"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/900-lines.jpg`} alt="900 lines of workflow"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/900-lines.jpg`} alt="900 lines of workflow"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/900-lines.webp`} alt="900 lines of workflow"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/900-lines.jpg`} alt="900 lines of workflow"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/900-lines.jpg`} alt="900 lines of workflow"/>
 </picture>
 
 >>>>>>>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/200-lines.webp`} alt="200 lines of workflow"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/200-lines.jpg`} alt="200 lines of workflow"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/200-lines.jpg`} alt="200 lines of workflow"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/200-lines.webp`} alt="200 lines of workflow"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/200-lines.jpg`} alt="200 lines of workflow"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/200-lines.jpg`} alt="200 lines of workflow"/>
 </picture>
 
 <!--truncate-->
@@ -32,9 +32,9 @@ I was able to do that using GitHub reusable workflow, so GitHub reusable workflo
 here is a good scenario of this, let's assume you are trying to build, tag, push, and scan a docker image for a microservice architecture, just like this
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow.webp`} alt="github workflow"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow.jpg`} alt="github workflow"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-workflow.jpg`} alt="github workflow"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow.webp`} alt="github workflow"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow.jpg`} alt="github workflow"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-workflow.jpg`} alt="github workflow"/>
 </picture>
 
 And then, the microservices are hosted in the folder level on a single repo under the branch "main"

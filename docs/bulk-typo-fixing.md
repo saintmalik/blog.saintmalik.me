@@ -42,9 +42,9 @@ nano urls.txt
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.webp`} alt="Add Github URLs"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/edit-github-urls.webp`} alt="Add Github URLs"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/edit-github-urls.jpg`} alt="Add Github URLs"/>
 </picture>
 
 After adding the links, press CNTRL + x, and then enter Y, and click enter.
@@ -68,9 +68,9 @@ cat mytypos.txt
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.webp`} alt="Bulk Typo Result"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/bulk-typo.webp`} alt="Bulk Typo Result"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/bulk-typo.jpg`} alt="Bulk Typo Result"/>
 </picture>
 
 <br/>

@@ -4,7 +4,7 @@ title: Autoscaling EKS Cluster With Karpenter Using Terraform
 author: Abdulmalik
 author_title: DevSecOps
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/karpenter-aws-eks-cover.webp
 tags: [autocaling, cluster, kubernetes, eks, karpenter]
 ---
@@ -291,27 +291,27 @@ The results from my side are that, it helped us use our nodes to their maximum l
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3.webp`} alt="t3 medium karpenter"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3.jpg`} alt="t3 medium karpenter"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3.jpg`} alt="t3 medium karpenter"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3.webp`} alt="t3 medium karpenter"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3.jpg`} alt="t3 medium karpenter"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/t3.jpg`} alt="t3 medium karpenter"/>
 </picture>
   <p>t3.medium Node created by Karpenter used up well</p>
   </Figure>
 
   <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3large.webp`} alt="t3 large karpenter"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3large.jpg`} alt="t3 large karpenter"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3large.jpg`} alt="t3 large karpenter"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3large.webp`} alt="t3 large karpenter"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3large.jpg`} alt="t3 large karpenter"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/t3large.jpg`} alt="t3 large karpenter"/>
 </picture>
   <p>t3.large Node Created Manually Having Much Resouces Left and After Deployment Settled</p>
   </Figure>
 
   <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3largee.webp`} alt="t3 largee karpenter"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3largee.jpg`} alt="t3 largee karpenter"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/t3largee.jpg`} alt="t3 largee karpenter"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3largee.webp`} alt="t3 largee karpenter"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/t3largee.jpg`} alt="t3 largee karpenter"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/t3largee.jpg`} alt="t3 largee karpenter"/>
 </picture>
   <p>t3.large Second Node Created Manually Having Much Resouces Left and After Deployment Settled</p>
   </Figure>

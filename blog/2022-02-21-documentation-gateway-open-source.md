@@ -4,7 +4,7 @@ title: Documentation as a gateway to Open Source
 author: Abdulmalik
 author_title: Open Sourcerer
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/documentation-gateway-oss-cover.webp
 tags: [Open Source, OSS]
 ---
@@ -58,9 +58,9 @@ Better still to see how you can make life easier for the next person.
 A very good scenario of this that i can share is when I got successful with the deployment of Docusaurus with Firebase.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.webp`} alt="docusaurus-firebase-deployment"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/docusaurus-firebase-deployment.webp`} alt="docusaurus-firebase-deployment"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/docusaurus-firebase-deployment.jpg`} alt="docusaurus-firebase-deployment"/>
 </picture>
 
 So you see, I used the project and I was able to find something to contribute to.
@@ -76,9 +76,9 @@ Another  great way of looking for projects is through the use of **GitHub’s To
 Go to **“Explore”** and then **“Topic”**.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.webp`} alt="github-topic-pages-documentation"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-topic-pages-documentation.webp`} alt="github-topic-pages-documentation"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-topic-pages-documentation.jpg`} alt="github-topic-pages-documentation"/>
 </picture>
 
 Here you can explore a lot of topic based projects.
@@ -122,16 +122,16 @@ So you can try out the installation guide to see what works and what doesnt work
 See their old installation guide, which doesn't work well for others and the update of the new installation guide that works.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.webp`} alt="Knock-Subdomain-Scan-README"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-README.webp`} alt="Knock-Subdomain-Scan-README"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-README.jpg`} alt="Knock-Subdomain-Scan-README"/>
    <p>Old ReadME</p>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.webp`} alt="Knock-Subdomain-Scan-new-README"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-new-README.webp`} alt="Knock-Subdomain-Scan-new-README"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/Knock-Subdomain-Scan-new-README.jpg`} alt="Knock-Subdomain-Scan-new-README"/>
      <p>New ReadME</p>
 </picture>
 

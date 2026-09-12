@@ -24,9 +24,9 @@ Around June I found [falco-actions](https://github.com/falcosecurity/falco-actio
 
 <Figure>
 <picture>
-  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/falco-actions-enforcement-slack.webp`} />
-  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/falco-actions-enforcement-slack.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/falco-actions-enforcement-slack.png`} alt="Public Falco Slack thread: Saintmalik proposing falco-actions enforcement mode; leogr replies that Falco drivers are detection-only and falco-actions is lightly maintained" />
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.png`} alt="Public Falco Slack thread: Saintmalik proposing falco-actions enforcement mode; leogr replies that Falco drivers are detection-only and falco-actions is lightly maintained" />
 </picture>
 <p>Public Falco Slack thread: proposing enforcement for falco-actions. Drivers stay detect-only; the Actions project needed maintainers more than a block path.</p>
 </Figure>

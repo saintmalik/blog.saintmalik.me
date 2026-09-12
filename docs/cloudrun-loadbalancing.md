@@ -18,9 +18,9 @@ This document details a "Trenches" approach: using a **Cloudflare Worker** as a 
 Instead of a heavy load balancer, we use the Edge to rewrite the request headers before they hit Google's infrastructure.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.webp`} alt="trench-infra"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trench-infra.webp`} alt="trench-infra"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/trench-infra.jpg`} alt="trench-infra"/>
 </picture>
 
 ### The Implementation

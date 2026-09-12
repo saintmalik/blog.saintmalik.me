@@ -87,9 +87,9 @@ End state of a good lab run:
 
 <Figure>
 <picture>
-  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-summary.webp`} />
-  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-summary.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-summary.png`} alt="GitHub Actions summary: clean Trace policy PASS, dirty FAIL expected, image signature PASS both" />
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-summary.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-summary.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-summary.png`} alt="GitHub Actions summary: clean Trace policy PASS, dirty FAIL expected, image signature PASS both" />
 </picture>
 <p>Job summary: image signature PASS on both; Trace policy PASS only on clean.</p>
 </Figure>
@@ -283,9 +283,9 @@ What a real export looks like (dirty): `rawEvents`, `monitor.tracePolicy` listin
 
 <Figure>
 <picture>
-  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-export.webp`} />
-  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-export.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-export.png`} alt="Export Runtime Trace step showing runtime-trace-dirty.json with Tetragon policies connect and file-access" />
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-export.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-export.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-export.png`} alt="Export Runtime Trace step showing runtime-trace-dirty.json with Tetragon policies connect and file-access" />
 </picture>
 <p>Export Runtime Trace: predicate names the Tetragon policies, then lists observed processes.</p>
 </Figure>
@@ -367,9 +367,9 @@ Dirty fails like this (image verify above it stayed green):
 
 <Figure>
 <picture>
-  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-policy-fail.webp`} />
-  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-policy-fail.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cosign-runtime-trace-policy-fail.png`} alt="cosign verify-attestation failing: processBinary /tmp/curl-exfil out of bound !~^/tmp/" />
+  <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-policy-fail.webp`} />
+  <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-policy-fail.png`} />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cosign-runtime-trace-policy-fail.png`} alt="cosign verify-attestation failing: processBinary /tmp/curl-exfil out of bound !~^/tmp/" />
 </picture>
 <p><code>processBinary: "/tmp/curl-exfil"</code> violates <code>!~"^/tmp/"</code>.</p>
 </Figure>

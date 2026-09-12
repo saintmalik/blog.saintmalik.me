@@ -12,9 +12,9 @@ import Giscus from "@giscus/react";
 Hii 👋, I am sure you want peace of mind too, haha
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/peace-tweet.webp`} alt="peace tweet"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/peace-tweet.jpg`} alt="peace tweet"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/peace-tweet.jpg`} alt="peace tweet"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/peace-tweet.webp`} alt="peace tweet"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/peace-tweet.jpg`} alt="peace tweet"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/peace-tweet.jpg`} alt="peace tweet"/>
 </picture>
 
 Well, there is no way you would be discussing container supply chain security without talking about the signing of container images.
@@ -63,9 +63,9 @@ cosign generate-key-pair
 You will be prompted to enter a password, after that, two new files should be created, ```cosign.key``` and  ```cosign.pub```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keypairs-cosign.webp`} alt="keypairs cosign"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keypairs-cosign.jpg`} alt="keypairs cosign"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/keypairs-cosign.jpg`} alt="keypairs cosign"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/keypairs-cosign.webp`} alt="keypairs cosign"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/keypairs-cosign.jpg`} alt="keypairs cosign"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/keypairs-cosign.jpg`} alt="keypairs cosign"/>
 </picture>
 
 Done creating the key pair? let's create our docker file for our container image.
@@ -121,17 +121,17 @@ You can just run ```cat cosign.key``` and copy the output, then add it to the ``
 For the ```COSIGN_PASSWORD```, input the password you entered while creating the keypairs from the start.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/variables-github-repo.webp`} alt="variables github repo"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/variables-github-repo.jpg`} alt="variables github repo"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/variables-github-repo.jpg`} alt="variables github repo"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/variables-github-repo.webp`} alt="variables github repo"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/variables-github-repo.jpg`} alt="variables github repo"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/variables-github-repo.jpg`} alt="variables github repo"/>
 </picture>
 
 So once the workflow is done building, pushing, and signing the container image, you can verify the container image using your public key.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sign-container-images-github.webp`} alt="sign container images github"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sign-container-images-github.jpg`} alt="sign container images github"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sign-container-images-github.jpg`} alt="sign container images github"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/sign-container-images-github.webp`} alt="sign container images github"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/sign-container-images-github.jpg`} alt="sign container images github"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/sign-container-images-github.jpg`} alt="sign container images github"/>
 </picture>
 
 verify the image using your public key
@@ -143,9 +143,9 @@ cosign verify --key cosign.pub ttl.sh/signed-test-960c8cb:1h | jq
 if the public key is yours, then the verification should go through, and you should see a result similar to this.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signed-images.webp`} alt="verify-signed-images"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signed-images.jpg`} alt="verify-signed-images"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signed-images.jpg`} alt="verify-signed-images"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signed-images.webp`} alt="verify-signed-images"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signed-images.jpg`} alt="verify-signed-images"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signed-images.jpg`} alt="verify-signed-images"/>
 </picture>
 
 Now you've successfully signed and verified the container image.
@@ -167,9 +167,9 @@ You are going to modify your yaml file to add the signing author's name to the i
 Once your workflow is done running and the image is signed, you can now verify it with your public key and you should see an output that looks like this showing the signing author's names
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signing-images-author.webp`} alt="verify signing images author"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signing-images-author.jpg`} alt="verify signing images author"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/verify-signing-images-author.jpg`} alt="verify signing images author"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signing-images-author.webp`} alt="verify signing images author"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signing-images-author.jpg`} alt="verify signing images author"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/verify-signing-images-author.jpg`} alt="verify signing images author"/>
 </picture>
 
 You know how to sign and verify container images now, but that's not all though.
@@ -200,8 +200,8 @@ but here I will be using Kyverno, I also want to believe your cluster is up alre
 So let's jump into it;
 
 <picture>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lets-get-started.gif`} alt="signing container images"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lets-get-started.gif`} alt="signing container images"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lets-get-started.gif`} alt="signing container images"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/lets-get-started.gif`} alt="signing container images"/>
 </picture>
 
 I won't be going over what policies as code is in kubernetes nor the installation process, but to install Kyverno, head over to their <a href="https://kyverno.io/docs/installation/" target="_blank">documentation</a>
@@ -240,9 +240,9 @@ spec:
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kyverno-policy-apply.webp`} alt="kyverno policy apply"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kyverno-policy-apply.jpg`} alt="kyverno policy apply"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/kyverno-policy-apply.jpg`} alt="kyverno policy apply"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/kyverno-policy-apply.webp`} alt="kyverno policy apply"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/kyverno-policy-apply.jpg`} alt="kyverno policy apply"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/kyverno-policy-apply.jpg`} alt="kyverno policy apply"/>
 </picture>
 
 Replace the public here with your public key, you can get that by running ```cat cosign.pub``` and also replace the image link with your container registry image.
@@ -254,9 +254,9 @@ But in a situation where you are running microservices? you might just want to u
 You can also read more about different ways of enforcing the image signing policy on their <a href="https://kyverno.io/docs/writing-policies/verify-images" target="_blank">documentation</a> page.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/clusterpolicy-deployed.webp`} alt="clusterpolicy deployed"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/clusterpolicy-deployed.jpg`} alt="clusterpolicy deployed"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/clusterpolicy-deployed.jpg`} alt="clusterpolicy deployed"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/clusterpolicy-deployed.webp`} alt="clusterpolicy deployed"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/clusterpolicy-deployed.jpg`} alt="clusterpolicy deployed"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/clusterpolicy-deployed.jpg`} alt="clusterpolicy deployed"/>
 </picture>
 
 Once your cluster policy has been deployed, it's time to test it out, firstly you are going to run/deploy a signed image.
@@ -266,9 +266,9 @@ kubectl run signed --image=ttl.sh/signed-test-41d6573:1h
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/signed-pod.webp`} alt="signed pod"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/signed-pod.jpg`} alt="signed pod"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/signed-pod.jpg`} alt="signed pod"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/signed-pod.webp`} alt="signed pod"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/signed-pod.jpg`} alt="signed pod"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/signed-pod.jpg`} alt="signed pod"/>
 </picture>
 
 As you can see, the pod was created successfully, now let's run it against an unsigned container image.
@@ -277,9 +277,9 @@ As you can see, the pod was created successfully, now let's run it against an un
 kubectl run unsigned --image=ttl.sh/signed-test-a4d2a1b:1h
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/unsigned-images-policy.webp`} alt="unsigned image policy"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/unsigned-images-policy.jpg`} alt="unsigned image policy"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/unsigned-images-policy.jpg`} alt="unsigned image policy"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/unsigned-images-policy.webp`} alt="unsigned image policy"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/unsigned-images-policy.jpg`} alt="unsigned image policy"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/unsigned-images-policy.jpg`} alt="unsigned image policy"/>
 </picture>
 
 Great, you can see the pod was stopped from starting, the policy is been enforced, and you can rest assured that any container image that isn't signed by your private key, would never make it into your clusters.

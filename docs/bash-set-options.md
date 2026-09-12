@@ -26,9 +26,9 @@ fi
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.webp`} alt="bash options"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/bash-options.jpg`} alt="bash options"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/bash-options.webp`} alt="bash options"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/bash-options.jpg`} alt="bash options"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/bash-options.jpg`} alt="bash options"/>
 </picture>
 
 ## Why it fails in CI

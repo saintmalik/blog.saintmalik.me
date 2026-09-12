@@ -4,7 +4,7 @@ title: Installing ArgoCD on Kubernetes Cluster with Terraform
 author: Abdulmalik
 author_title: AppSec Engineer
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/bgimg/logo.gif
+author_image_url: /bgimg/logo.gif
 image: /bgimg/argocd-on-kubernetes-cover.webp
 tags: [argocd, gitops, terraform, kubernetes]
 ---
@@ -164,9 +164,9 @@ rpc error: code = Unknown desc = error creating SSH agent: "SSH agent requested 
 ```
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-error.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-error.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-error.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-error.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-error.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-error.jpg`} alt="Okay, thats all"/>
 </picture>
 
 So let's fix this.
@@ -181,9 +181,9 @@ You will need to generate a passwordless SSH key pair, you can use either ```-P 
 ssh-keygen -t ed25519 -C blog.saintmalik.me -N '' -f argo
 ```
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-ssh-keypairs.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-ssh-keypairs.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-ssh-keypairs.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-ssh-keypairs.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-ssh-keypairs.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-ssh-keypairs.jpg`} alt="Okay, thats all"/>
 </picture>
 
 This will generate two files for you, ```argo``` which holds the private ssh key and ```argo.pub``` which holds the public ssh key
@@ -193,15 +193,15 @@ This will generate two files for you, ```argo``` which holds the private ssh key
 Now go to your GitHub repository settings and navigate to the **Deploy Keys** and click **Add deploy key** to add the public SSH key you generated earlier, it's inside the **argo.pub** file.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/add-deploy-key-argocd.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/add-deploy-key-argocd.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/add-deploy-key-argocd.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/add-deploy-key-argocd.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/add-deploy-key-argocd.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/add-deploy-key-argocd.jpg`} alt="Okay, thats all"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/adding-public-keypair-deploy.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/adding-public-keypair-deploy.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/adding-public-keypair-deploy.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/adding-public-keypair-deploy.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/adding-public-keypair-deploy.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/adding-public-keypair-deploy.jpg`} alt="Okay, thats all"/>
 </picture>
 
 ### 👉 Step 3 - Configure and connect your private repo
@@ -209,9 +209,9 @@ Now go to your GitHub repository settings and navigate to the **Deploy Keys** an
 Now that you have added the private key to your repository, it's time for us to add the public key to your argocd server, so click the **settings** at the sidebar and hit the **CONNECT REPO** button and it should bring a screen just like the below image.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connect-ssh-config.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connect-ssh-config.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connect-ssh-config.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connect-ssh-config.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connect-ssh-config.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connect-ssh-config.jpg`} alt="Okay, thats all"/>
 </picture>
 
 This is where you will add the private SSH key from the ```argo``` file you generated earlier, the **repository URL** should be added too in the format same as the one you are seeing in the screenshot and the Project selection should be ```default```.
@@ -219,25 +219,25 @@ This is where you will add the private SSH key from the ```argo``` file you gene
 When you are done with the configuration, click on the **CONNECT** button and you should see a success message just like this.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sucess-gitops.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sucess-gitops.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/sucess-gitops.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/sucess-gitops.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/sucess-gitops.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/sucess-gitops.jpg`} alt="Okay, thats all"/>
 </picture>
 
 If this shows success, then your deployment argo app should be synced and healthy already and it should look just like this
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/synced-app.webp`} alt="synced repo for app"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/synced-app.jpg`} alt="synced repo for app"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/synced-app.jpg`} alt="synced repo for app"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/synced-app.webp`} alt="synced repo for app"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/synced-app.jpg`} alt="synced repo for app"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/synced-app.jpg`} alt="synced repo for app"/>
 </picture>
 
 When you click on the app, you should see more details about your deployment just like this
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/success-nginx.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/success-nginx.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/success-nginx.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/success-nginx.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/success-nginx.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/success-nginx.jpg`} alt="Okay, thats all"/>
 </picture>
 
 :::note
@@ -249,9 +249,9 @@ Only YAML files available in the **dev** folder of our repository will be deploy
 So to confirm if all you have done works well, you can now alter the image in our deployment yaml file from our GitHub repository, so I will edit the yaml file from Github now
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/make-changes.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/make-changes.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/make-changes.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/make-changes.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/make-changes.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/make-changes.jpg`} alt="Okay, thats all"/>
 </picture>
 
 So I have changed the nginx image tag from _nginx:1.14.2_ to _nginx:latest_, so once I commit the changes, you can see it getting deployed real-time.
@@ -259,38 +259,38 @@ So I have changed the nginx image tag from _nginx:1.14.2_ to _nginx:latest_, so 
 And here it is, it got deployed automatically, you see it created another replica and its deploying the new update and has terminated the existing pod created.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/updated-deployment-file.webp`} alt="update deployment file"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/updated-deployment-file.jpg`} alt="update deployment file"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/updated-deployment-file.jpg`} alt="update deployment file"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/updated-deployment-file.webp`} alt="update deployment file"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/updated-deployment-file.jpg`} alt="update deployment file"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/updated-deployment-file.jpg`} alt="update deployment file"/>
 </picture>
 
 #### Deployment Comparison
 
 ##### first image
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/live-manifest.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/live-manifest.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/live-manifest.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/live-manifest.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/live-manifest.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/live-manifest.jpg`} alt="Okay, thats all"/>
 </picture>
 
 ##### second image
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gitops-success.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gitops-success.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gitops-success.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gitops-success.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gitops-success.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/gitops-success.jpg`} alt="Okay, thats all"/>
 </picture>
 
 <!-- <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/desired-manifest.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/desired-manifest.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/desired-manifest.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/desired-manifest.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/desired-manifest.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/desired-manifest.jpg`} alt="Okay, thats all"/>
 </picture> -->
 
 <!-- <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-application-yaml.webp`} alt="Okay, thats all"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-application-yaml.jpg`} alt="Okay, thats all"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/create-application-yaml.jpg`} alt="Okay, thats all"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/create-application-yaml.webp`} alt="Okay, thats all"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/create-application-yaml.jpg`} alt="Okay, thats all"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/create-application-yaml.jpg`} alt="Okay, thats all"/>
 </picture> -->
 
 ### Bonus step

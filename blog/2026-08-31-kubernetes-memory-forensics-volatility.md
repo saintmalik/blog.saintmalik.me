@@ -92,8 +92,8 @@ kubectl get nodes
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-01-cordon.png`} alt="kubectl get nodes with one worker SchedulingDisabled after cordon"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-01-cordon.png`} alt="kubectl get nodes with one worker SchedulingDisabled after cordon"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-01-cordon.png`} alt="kubectl get nodes with one worker SchedulingDisabled after cordon"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-01-cordon.png`} alt="kubectl get nodes with one worker SchedulingDisabled after cordon"/>
 </picture>
 
 ### 2. Disposable lab pod with a planted marker
@@ -125,8 +125,8 @@ kubectl -n ir-mem-lab get pod
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-02-lab-pod.png`} alt="Lab marker pod Running"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-02-lab-pod.png`} alt="Lab marker pod Running"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-02-lab-pod.png`} alt="Lab marker pod Running"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-02-lab-pod.png`} alt="Lab marker pod Running"/>
 </picture>
 
 Prove it is live in the process before you image anything:
@@ -136,8 +136,8 @@ kubectl -n ir-mem-lab exec mem-marker -- sh -c 'printenv IR_MEM_LAB_MARKER; ps w
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-03-marker-in-container.png`} alt="Planted marker visible in env and process cmdline inside the lab container"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-03-marker-in-container.png`} alt="Planted marker visible in env and process cmdline inside the lab container"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-03-marker-in-container.png`} alt="Planted marker visible in env and process cmdline inside the lab container"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-03-marker-in-container.png`} alt="Planted marker visible in env and process cmdline inside the lab container"/>
 </picture>
 
 That string is the stand-in for "attacker secret only in RAM." Cleanup later is just delete the namespace and wipe dumps. No special image teardown.
@@ -159,8 +159,8 @@ chmod +x avml
 AVML 0.20+ uses subcommands. Bare `./avml outfile.lime` fails with "unrecognized subcommand". Use `acquire`:
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-04-avml-help.png`} alt="avml --help showing acquire convert upload stream subcommands"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-04-avml-help.png`} alt="avml --help showing acquire convert upload stream subcommands"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-04-avml-help.png`} alt="avml --help showing acquire convert upload stream subcommands"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-04-avml-help.png`} alt="avml --help showing acquire convert upload stream subcommands"/>
 </picture>
 
 ```bash
@@ -171,8 +171,8 @@ ls -lh /var/tmp/ir-case/memory.lime
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-05-avml-acquire.png`} alt="avml acquire finished with LiME file sized like host RAM"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-05-avml-acquire.png`} alt="avml acquire finished with LiME file sized like host RAM"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-05-avml-acquire.png`} alt="avml acquire finished with LiME file sized like host RAM"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-05-avml-acquire.png`} alt="avml acquire finished with LiME file sized like host RAM"/>
 </picture>
 
 AVML is quiet while it runs. Confirm the file exists and matches RAM size before you tear the node down.
@@ -198,8 +198,8 @@ pgrep -af MEMFORENSICS_LAB_MARKER_20260831
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-06-crictl-pid.png`} alt="crictl inspect host PID matched with pgrep for the planted marker"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-06-crictl-pid.png`} alt="crictl inspect host PID matched with pgrep for the planted marker"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-06-crictl-pid.png`} alt="crictl inspect host PID matched with pgrep for the planted marker"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-06-crictl-pid.png`} alt="crictl inspect host PID matched with pgrep for the planted marker"/>
 </picture>
 
 Without that inventory, a Volatility `pslist` is a phone book with no street names.
@@ -214,8 +214,8 @@ gzip -c /var/tmp/ir-case/memory.lime > /var/tmp/ir-case/memory.lime.gz
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-07-transfer.png`} alt="gzipped LiME shipped off-box via redacted object store hop"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-07-transfer.png`} alt="gzipped LiME shipped off-box via redacted object store hop"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-07-transfer.png`} alt="gzipped LiME shipped off-box via redacted object store hop"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-07-transfer.png`} alt="gzipped LiME shipped off-box via redacted object store hop"/>
 </picture>
 
 Do not try to run Volatility on a small evidence node that is already full of app pods. Analyze on your laptop or a dedicated forensics host.
@@ -234,8 +234,8 @@ vol -f memory.lime banners
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-08-vol-banners.png`} alt="vol banners confirming a usable LiME image with kernel string redacted"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-08-vol-banners.png`} alt="vol banners confirming a usable LiME image with kernel string redacted"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-08-vol-banners.png`} alt="vol banners confirming a usable LiME image with kernel string redacted"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-08-vol-banners.png`} alt="vol banners confirming a usable LiME image with kernel string redacted"/>
 </picture>
 
 If `banners` fails, stop and fix the image before you trust deep plugin output. I redact the full kernel build string in screenshots because it fingerprints the AMI; keep the real string in your private case notes.
@@ -250,8 +250,8 @@ strings memory.lime | grep -F 'MEMFORENSICS_LAB_MARKER_20260831' | head
 ```
 
 <picture>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-09-strings-marker.png`} alt="strings grep recovering the planted MEMFORENSICS_LAB_MARKER from the memory dump"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/k8s-mem-forensics-09-strings-marker.png`} alt="strings grep recovering the planted MEMFORENSICS_LAB_MARKER from the memory dump"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-09-strings-marker.png`} alt="strings grep recovering the planted MEMFORENSICS_LAB_MARKER from the memory dump"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-09-strings-marker.png`} alt="strings grep recovering the planted MEMFORENSICS_LAB_MARKER from the memory dump"/>
 </picture>
 
 In an incident you would swap the planted string for a known IOC, token prefix, or C2 domain. Same class of hunt.

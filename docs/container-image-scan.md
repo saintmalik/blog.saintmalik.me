@@ -15,31 +15,31 @@ so i tested trivy, grype and aws ecr in repo advanced scan and here is the resul
 ### AWS ECR Advanced scan
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.webp`} alt="AWS ECR Advanced scan"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-ecr-advanced-scan.webp`} alt="AWS ECR Advanced scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-ecr-advanced-scan.jpg`} alt="AWS ECR Advanced scan"/>
 </picture>
 
 ### Grype Scan
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.webp`} alt="Grype Scan"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.jpg`} alt="Grype Scan"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/grype.jpg`} alt="Grype Scan"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/grype.webp`} alt="Grype Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/grype.jpg`} alt="Grype Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/grype.jpg`} alt="Grype Scan"/>
 </picture>
 
 ### Trivy Scan
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.webp`} alt="Trivy OS Scan"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-os.webp`} alt="Trivy OS Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-os.jpg`} alt="Trivy OS Scan"/>
 </picture>
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.webp`} alt="Trivy App Scan"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-app.webp`} alt="Trivy App Scan"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/trivy-app.jpg`} alt="Trivy App Scan"/>
 </picture>
 
 ## What the comparison showed

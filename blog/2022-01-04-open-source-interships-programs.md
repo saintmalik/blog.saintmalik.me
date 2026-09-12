@@ -5,7 +5,7 @@ description: List Of Best Open Source Programs and Internships For Students to P
 author: Abdulmalik
 author_title: OSS Contributor
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/open-source-internships-cover.webp
 tags: [Open Source, OSS]
 ---
@@ -30,9 +30,9 @@ Let’s jump in.
 ##  1. Reinforcement Learning Open Source Fest
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.webp`} alt="Reinforcement Learning Open Source Fest"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Reinforcement-Learning-Open-Source.webp`} alt="Reinforcement Learning Open Source Fest"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/Reinforcement-Learning-Open-Source.jpg`} alt="Reinforcement Learning Open Source Fest"/>
 </picture>
 
 The Open Source Reinforcement Learning programs have the largest payout in the list of open source internships.
@@ -68,9 +68,9 @@ Apply on their official page: <a href="https://www.microsoft.com/en-us/research/
 ##  2. MLH Open Source Fellowship
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.webp`} alt="MLH Open Source Fellowship"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/MLH-Open-Source-Fellowship.webp`} alt="MLH Open Source Fellowship"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/MLH-Open-Source-Fellowship.jpg`} alt="MLH Open Source Fellowship"/>
 </picture>
 
 Major League Hacking is a well-known platform among devs and hackers, so apart from their regular fellowships.
@@ -95,9 +95,9 @@ Apply on their official page: <a href="https://fellowship.mlh.io/programs/open-s
 ##  3. Google Season of Docs
 
  <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.webp`} alt="google season of docs open source"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/google-season-of-docs-open-source.webp`} alt="google season of docs open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/google-season-of-docs-open-source.jpg`} alt="google season of docs open source"/>
 </picture>
 
  This program is for the documentation and technical writers geeks, No open source projects can do away with documentation.
@@ -121,9 +121,9 @@ Apply on their official page: <a href="https://developers.google.com/season-of-d
 ##  4. Season of KDE
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.webp`} alt="season of kde open source"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/season-of-kde-open-source.webp`} alt="season of kde open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/season-of-kde-open-source.jpg`} alt="season of kde open source"/>
 </picture>
 
 Okay Season of KDE is open to everyone to apply, student or not, everybody can apply, it is similar to Google Season of Code.
@@ -147,9 +147,9 @@ Apply on their official page: <a href="https://season.kde.org/" target="_blank">
 ##  5. Google Summer of Code(GSoC)
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.webp`} alt="google summer of code open source"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/google-summer-of-code-open-source.webp`} alt="google summer of code open source"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/google-summer-of-code-open-source.jpg`} alt="google summer of code open source"/>
 </picture>
 
 Well, GSoC is known to be for students, but recently google announced that other people apart from students can also participate in GSoC.
@@ -171,9 +171,9 @@ Apply on their official page: <a href="https://summerofcode.withgoogle.com/" tar
 ##  6. Hacktobefest
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.webp`} alt="hacktoberfest open source internships"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/hacktoberfest-open-source-internships.webp`} alt="hacktoberfest open source internships"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/hacktoberfest-open-source-internships.png`} alt="hacktoberfest open source internships"/>
 </picture>
 
 You all won't want to miss Hacktoberfest, it's full of fun activities, collaboration, and working with different Open Source Organisations in the month of October.

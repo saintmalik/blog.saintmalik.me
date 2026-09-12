@@ -6,9 +6,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.webp`} alt="argocd-connection-timeout"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connection-timeout.webp`} alt="argocd-connection-timeout"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/argocd-connection-timeout.jpg`} alt="argocd-connection-timeout"/>
 </picture>
 
 A quick reference for ArgoCD problems I have hit and the fix that worked.

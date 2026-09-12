@@ -5,10 +5,12 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 so i find myself doing this repeatedly everytime i write a content, because i pushed for using webp images on my blog.
 
+Serve figures from the site origin (`siteConfig.url`), not a transforming CDN. WebP is generated in CI and may lag the original `.png` / `.jpg` / `.jpeg`; same-origin means a missing WebP hard-404s and the browser falls back to the original on `<img>`.
+
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.webp`} alt="automate-webp"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/automate-webp.webp`} alt="automate-webp"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/automate-webp.jpg`} alt="automate-webp"/>
 </picture>
 
 

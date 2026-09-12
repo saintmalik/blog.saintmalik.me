@@ -31,9 +31,9 @@ WireGuard is fast and lightweight. OpenVPN is familiar and everywhere. Neither o
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpn-vs-ztna-access-control.webp`} alt="VPN flat access vs ZTNA app-level access"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpn-vs-ztna-access-control.png`} alt="VPN flat access vs ZTNA app-level access"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/vpn-vs-ztna-access-control.png`} alt="VPN flat access vs ZTNA app-level access"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vpn-vs-ztna-access-control.webp`} alt="VPN flat access vs ZTNA app-level access"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/vpn-vs-ztna-access-control.png`} alt="VPN flat access vs ZTNA app-level access"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/vpn-vs-ztna-access-control.png`} alt="VPN flat access vs ZTNA app-level access"/>
 </picture>
 <p style={{ color: 'green' }}>Booking app yes. Call password app and unprotected Power BI no.</p>
 </Figure>

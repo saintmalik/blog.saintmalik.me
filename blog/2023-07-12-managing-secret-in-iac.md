@@ -45,9 +45,9 @@ aws ssm put-parameter --name /staging/terraform/githubtoken --value ghp_xxxxxxx 
 The above command would create your secrets in the parameter store, likewise, you can create it via the was console too.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/parameterstore.webp`} alt="parameter store aws console"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/parameterstore.jpg`} alt="parameter store aws console"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/parameterstore.jpg`} alt="parameter store aws console"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/parameterstore.webp`} alt="parameter store aws console"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/parameterstore.jpg`} alt="parameter store aws console"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/parameterstore.jpg`} alt="parameter store aws console"/>
 </picture>
 
 Once you are done with adding your secrets, you need to get it back to use where you need it, which is in our terraform code.

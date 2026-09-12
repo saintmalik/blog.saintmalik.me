@@ -117,9 +117,9 @@ Want to check if your state is really encrypted? If you're using S3 as your back
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.webp`} alt="Encrypted state file in S3"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/encrypt.webp`} alt="Encrypted state file in S3"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/encrypt.png`} alt="Encrypted state file in S3"/>
 </picture>
 <p style={{ color: 'green' }}>Sweet, sweet encryption</p>
 </Figure>
@@ -128,9 +128,9 @@ Compare that to an unencrypted state file:
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.webp`} alt="Unencrypted state file - yikes"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/nonencrypt.webp`} alt="Unencrypted state file - yikes"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/nonencrypt.png`} alt="Unencrypted state file - yikes"/>
 </picture>
 <p style={{ color: 'green' }}>Plain text state file - not great for security!</p>
 </Figure>

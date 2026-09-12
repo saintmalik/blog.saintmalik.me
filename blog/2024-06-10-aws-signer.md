@@ -22,9 +22,9 @@ Sure, you could set up your own private Rekor instance. But let's be real - that
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-signer.webp`} alt="AWS Signer workflow"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-signer.png`} alt="AWS Signer workflow"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-signer.png`} alt="AWS Signer workflow"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-signer.webp`} alt="AWS Signer workflow"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-signer.png`} alt="AWS Signer workflow"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-signer.png`} alt="AWS Signer workflow"/>
 </picture>
 <p style={{ color: 'green' }}>Credit: GitHub Blog</p>
 </Figure>

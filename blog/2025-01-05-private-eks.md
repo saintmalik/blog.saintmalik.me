@@ -22,9 +22,9 @@ Here is what it looks like if you enable public apiserver endpoint
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/public-apiserver.webp`} alt="EKS Public APIServer"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/public-apiserver.png`} alt="EKS Public APIServer"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/public-apiserver.png`} alt="EKS Public APIServer"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/public-apiserver.webp`} alt="EKS Public APIServer"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/public-apiserver.png`} alt="EKS Public APIServer"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/public-apiserver.png`} alt="EKS Public APIServer"/>
 </picture>
 <p style={{ color: 'green' }}>Credit: jaanhio.me Blog</p>
 </Figure>
@@ -34,9 +34,9 @@ And what it looks like when you have it disabled and enabled private apiserver e
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/private-apiserver.webp`} alt="EKS Private APIServer"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/private-apiserver.png`} alt="EKS Private APIServer"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/private-apiserver.png`} alt="EKS Private APIServer"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/private-apiserver.webp`} alt="EKS Private APIServer"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/private-apiserver.png`} alt="EKS Private APIServer"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/private-apiserver.png`} alt="EKS Private APIServer"/>
 </picture>
 <p style={{ color: 'green' }}>Credit: jaanhio.me Blog</p>
 </Figure>

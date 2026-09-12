@@ -50,9 +50,9 @@ This covers a very broad set of use cases, but if your workload requires more in
 ### One Load Balancer Per Environment, Not One Per Service
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-alb-cost-cut.webp`} alt="Multi ALB cost vs single ALB cost"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-alb-cost-cut.webp`} alt="Multi ALB cost vs single ALB cost"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/aws-alb-cost-cut.png`} alt="Multi ALB cost vs single ALB cost"/>
 </picture>
 
 Another place money quietly disappears is ALB sprawl. It is common to see staging environments running five, eight, sometimes ten Application Load Balancers

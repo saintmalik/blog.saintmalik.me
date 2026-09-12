@@ -5,7 +5,7 @@ description: "Here is my OSCA Africa Open Source Challenge 2021."
 author: Abdulmalik
 author_title: OSS Contributor
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/open-source-challenge-cover.webp
 tags: [open source, oss]
 ---
@@ -19,9 +19,9 @@ I joined the OSCA Africa Open Source Challenge 2021 which Started on the 16th of
 <!--truncate-->
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/open-source-challenge-2021.webp`} alt="open source challenge 2021"/>
-  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/open-source-challenge-2021.jpeg`} alt="open source challenge 2021"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/open-source-challenge-2021.jpeg`} alt="open source challenge 2021"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/open-source-challenge-2021.webp`} alt="open source challenge 2021"/>
+  <source type="image/jpeg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/open-source-challenge-2021.jpeg`} alt="open source challenge 2021"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/open-source-challenge-2021.jpeg`} alt="open source challenge 2021"/>
 </picture>
 
 
@@ -39,9 +39,9 @@ Although my PR was valid and it adds value, but it wasn't merged because the fix
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-broken.webp`} alt="Github broken"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-broken.jpg`} alt="Github broken"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-broken.jpg`} alt="Github broken"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-broken.webp`} alt="Github broken"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-broken.jpg`} alt="Github broken"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-broken.jpg`} alt="Github broken"/>
 </picture>
   <a href="https://github.com/github/docs/pull/637" target="_blank">https://github.com/github/docs/pull/637</a>
   </Figure>
@@ -49,9 +49,9 @@ Although my PR was valid and it adds value, but it wasn't merged because the fix
 Anyway, it was awarded the hackertofest-accepted label, so I moved on, before coming back again to the GitHub Docs in this Challenge and I finally got a merged PR into GitHub Docs.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-merged.webp`} alt="Github merged pull request"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-merged.jpg`} alt="Github merged pull request"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/github-merged.jpg`}alt="Github merged pull request"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-merged.webp`} alt="Github merged pull request"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/github-merged.jpg`} alt="Github merged pull request"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/github-merged.jpg`}alt="Github merged pull request"/>
 </picture>
 
 This time around I was making corrections to typos which I found in the GitHub Docs, and yeah it was accepted and it got merged.
@@ -61,42 +61,42 @@ Moving to the next OSS Project which is gohugo, I used Hugo Static Site Generato
 So you know how it feels like to contribute to a project used by yourself and many people, I looked for something to contribute, but it wasn't merged, so I left it then.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-notmerged.webp`} alt="Gohugo not merged pull request"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-notmerged.jpg`} alt="Gohugo not merged pull request"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-notmerged.jpg`} alt="Gohugo not merged pull request"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-notmerged.webp`} alt="Gohugo not merged pull request"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-notmerged.jpg`} alt="Gohugo not merged pull request"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-notmerged.jpg`} alt="Gohugo not merged pull request"/>
 </picture>
 
 I came back to the OSS project again in this Challenge and I finally got a merged PR into <a href="https://github.com/gohugoio/hugoDocs" target="_blank">gohugo docs</a>.
 
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-merged.webp`} alt="Gohugo merged pull request"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-merged.jpg`} alt="Gohugo merged pull request"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/gohugo-merged.jpg`} alt="Gohugo merged pull request"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-merged.webp`} alt="Gohugo merged pull request"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-merged.jpg`} alt="Gohugo merged pull request"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/gohugo-merged.jpg`} alt="Gohugo merged pull request"/>
 </picture>
 
 Something awesome also happened to me in this challenge, I got mentioned and thanked for contributing to two OSS projects.
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cli-mention.webp`} alt="Github Cli Mention Saintmalik"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cli-mention.jpg`} alt="Github Cli Mention Saintmalik"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cli-mention.jpg`} alt="Github Cli Mention Saintmalik"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cli-mention.webp`} alt="Github Cli Mention Saintmalik"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cli-mention.jpg`} alt="Github Cli Mention Saintmalik"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cli-mention.jpg`} alt="Github Cli Mention Saintmalik"/>
 </picture>
   <a href="https://github.com/cli/cli/discussions/4183" target="_blank">https://github.com/cli/cli/discussions/4183</a>
   </Figure>
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma-mention.webp`} alt="Prisma Mention Saintmalik"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma-mention.jpg`} alt="Prisma Mention Saintmalik"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma-mention.jpg`} alt="Prisma Mention Saintmalik"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma-mention.webp`} alt="Prisma Mention Saintmalik"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma-mention.jpg`} alt="Prisma Mention Saintmalik"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma-mention.jpg`} alt="Prisma Mention Saintmalik"/>
 </picture>
   <a href="https://github.com/prisma/prisma/discussions/8892" target="_blank">https://github.com/prisma/prisma/discussions/8892</a>
   </Figure>
   <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma.webp`} alt="Prisma 3.0.1"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma.jpg`} alt="Prisma 3.0.1"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/prisma.jpg`} alt="Prisma 3.0.1"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma.webp`} alt="Prisma 3.0.1"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma.jpg`} alt="Prisma 3.0.1"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/prisma.jpg`} alt="Prisma 3.0.1"/>
 </picture>
   <a href="https://github.com/prisma/prisma/discussions/9161" target="_blank">https://github.com/prisma/prisma/discussions/9161</a>
   </Figure>
@@ -121,9 +121,9 @@ Back to updating you all, that I am one of the 20 Successful Open Source Challen
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Open-Source-Challenge-2021-Finalist.webp`} alt="Open Source Challenge 2021 Finalist"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Open-Source-Challenge-2021-Finalist.jpg`} alt="Open Source Challenge 2021 Finalist"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/Open-Source-Challenge-2021-Finalist.jpg`} alt="Open Source Challenge 2021 Finalist"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Open-Source-Challenge-2021-Finalist.webp`} alt="Open Source Challenge 2021 Finalist"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/Open-Source-Challenge-2021-Finalist.jpg`} alt="Open Source Challenge 2021 Finalist"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/Open-Source-Challenge-2021-Finalist.jpg`} alt="Open Source Challenge 2021 Finalist"/>
 </picture>
 </Figure>
 

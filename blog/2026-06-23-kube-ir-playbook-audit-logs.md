@@ -17,9 +17,9 @@ If you stay in this space long enough, you'll one day face real incident before 
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
 </picture>
 <p style={{ color: 'green' }}>TSV slices in lnav: one timeline across exec, secrets, denials, and human-user activity.</p>
 </Figure>
@@ -319,9 +319,9 @@ lnav exec.tsv secrets.tsv denied.tsv human-users.tsv
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.webp`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-peace.png`} alt="lnav timeline with multiple audit TSV slices open"/>
 </picture>
 <p style={{ color: 'green' }}>TSV slices in lnav: one timeline across exec, secrets, denials, and human-user activity.</p>
 </Figure>
@@ -341,9 +341,9 @@ Commands I actually use once the TSV files exist. This is where regex habits pay
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.webp`} alt="lnav filter-in command narrowing audit log results"/>
-  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.webp`} alt="lnav filter-in command narrowing audit log results"/>
+  <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/lnav-incident-response-kubernetes-audit-filter-in.png`} alt="lnav filter-in command narrowing audit log results"/>
 </picture>
 <p style={{ color: 'green' }}>`:filter-in` on a TSV slice, same idea as `:filter-in forbid` on `denied.tsv` or `:filter-in` on a namespace.</p>
 </Figure>

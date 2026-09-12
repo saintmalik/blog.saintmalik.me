@@ -20,9 +20,9 @@ A better default is to put the app in a private subnet and access it through a t
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-trust-ec2.webp`} alt="Cloudflare Zero Trust"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-trust-ec2.png`} alt="Cloudflare Zero Trust"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-trust-ec2.png`} alt="Cloudflare Zero Trust"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-trust-ec2.webp`} alt="Cloudflare Zero Trust"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-trust-ec2.png`} alt="Cloudflare Zero Trust"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-trust-ec2.png`} alt="Cloudflare Zero Trust"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare Zero Trust</p>
 </Figure>
@@ -237,9 +237,9 @@ You get the chance to use IdP, SAML, OpenID Connect or One-time PIN, but in this
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/access-options.webp`} alt="Cloudflare Zero Trust Access"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/access-options.png`} alt="Cloudflare Zero Trust Access"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/access-options.png`} alt="Cloudflare Zero Trust Access"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/access-options.webp`} alt="Cloudflare Zero Trust Access"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/access-options.png`} alt="Cloudflare Zero Trust Access"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/access-options.png`} alt="Cloudflare Zero Trust Access"/>
 </picture>
 <p style={{ color: 'green' }}>Setting Warp Client Posture Check</p>
 </Figure>
@@ -321,9 +321,9 @@ Lets enable warp client first, head over to the settings section from the sideba
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-settings.webp`} alt="Cloudflare One Warp Client"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-settings.png`} alt="Cloudflare One Warp Client"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-zero-settings.png`} alt="Cloudflare One Warp Client"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-settings.webp`} alt="Cloudflare One Warp Client"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-settings.png`} alt="Cloudflare One Warp Client"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-zero-settings.png`} alt="Cloudflare One Warp Client"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare One Warp Client</p>
 </Figure>
@@ -332,9 +332,9 @@ Scroll down to the Device posture section, you will see warp client check settin
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp.webp`} alt="Cloudflare One Warp Client Settings"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp.png`} alt="Cloudflare One Warp Client Settings"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp.png`} alt="Cloudflare One Warp Client Settings"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp.webp`} alt="Cloudflare One Warp Client Settings"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp.png`} alt="Cloudflare One Warp Client Settings"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp.png`} alt="Cloudflare One Warp Client Settings"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare One Warp Client Settings</p>
 </Figure>
@@ -343,18 +343,18 @@ Select Warp from all the options and save it
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp-client.webp`} alt="Setting Warp Client Posture Check"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp-client.png`} alt="Setting Warp Client Posture Check"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enable-warp-client.png`} alt="Setting Warp Client Posture Check"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp-client.webp`} alt="Setting Warp Client Posture Check"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp-client.png`} alt="Setting Warp Client Posture Check"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/enable-warp-client.png`} alt="Setting Warp Client Posture Check"/>
 </picture>
 <p style={{ color: 'green' }}>Setting Warp Client Posture Check</p>
 </Figure>
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enabling-warp.webp`} alt="Setting Warp Client Posture Check"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enabling-warp.png`} alt="Setting Warp Client Posture Check"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/enabling-warp.png`} alt="Setting Warp Client Posture Check"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enabling-warp.webp`} alt="Setting Warp Client Posture Check"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/enabling-warp.png`} alt="Setting Warp Client Posture Check"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/enabling-warp.png`} alt="Setting Warp Client Posture Check"/>
 </picture>
 <p style={{ color: 'green' }}>Setting Warp Client Posture Check</p>
 </Figure>
@@ -363,9 +363,9 @@ After that, you can head over to the Access section on the sidebar and dropdown 
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.webp`} alt="Creating Access Groups on Cloudflare One"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.png`} alt="Creating Access Groups on Cloudflare One"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.png`} alt="Creating Access Groups on Cloudflare One"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.webp`} alt="Creating Access Groups on Cloudflare One"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.png`} alt="Creating Access Groups on Cloudflare One"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.png`} alt="Creating Access Groups on Cloudflare One"/>
 </picture>
 <p style={{ color: 'green' }}>Creating Access Groups on Cloudflare One</p>
 </Figure>
@@ -374,9 +374,9 @@ Add the group name and define the group criteria as inclusion of warp client, af
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.webp`} alt="Copy Access Groups ID on Cloudflare One"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.png`} alt="Copy Access Groups ID on Cloudflare One"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/creating-warp-group.png`} alt="Copy Access Groups ID on Cloudflare One"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.webp`} alt="Copy Access Groups ID on Cloudflare One"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.png`} alt="Copy Access Groups ID on Cloudflare One"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/creating-warp-group.png`} alt="Copy Access Groups ID on Cloudflare One"/>
 </picture>
 <p style={{ color: 'green' }}>Creating Access Groups on Cloudflare One</p>
 </Figure>
@@ -411,9 +411,9 @@ here is how your cloudflare tunnel should look if health
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-tunnel.webp`} alt="Cloudflare Tunnel"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-tunnel.png`} alt="Cloudflare Tunnel"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-tunnel.png`} alt="Cloudflare Tunnel"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-tunnel.webp`} alt="Cloudflare Tunnel"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-tunnel.png`} alt="Cloudflare Tunnel"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-tunnel.png`} alt="Cloudflare Tunnel"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare Tunnel</p>
 </Figure>
@@ -433,9 +433,9 @@ And lastly before you run ``tofu plan && tofu apply --auto-approve`` you need to
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.webp`} alt="Cloudflare API Token Creation"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-api-token.webp`} alt="Cloudflare API Token Creation"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflare-api-token.png`} alt="Cloudflare API Token Creation"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare API Token Creation</p>
 </Figure>
@@ -450,9 +450,9 @@ You can streamline your permission based on your usecase also, this is just a sn
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.webp`} alt="Cloudflare API Token Permission"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-permissions.webp`} alt="Cloudflare API Token Permission"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/cloudflared-permissions.png`} alt="Cloudflare API Token Permission"/>
 </picture>
 <p style={{ color: 'green' }}>Cloudflare API Token Permission</p>
 </Figure>
@@ -462,18 +462,18 @@ At the end of the day, here is what your final webapp should look like if you ha
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.webp`} alt="Enabled Warp Client on Your Devices"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/warp-client.webp`} alt="Enabled Warp Client on Your Devices"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/warp-client.png`} alt="Enabled Warp Client on Your Devices"/>
 </picture>
 <p style={{ color: 'green' }}>Enabled Warp Client on Your Devices</p>
 </Figure>
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/final-internalwebapp.webp`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/final-internalwebapp.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/final-internalwebapp.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/final-internalwebapp.webp`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/final-internalwebapp.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/final-internalwebapp.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust"/>
 </picture>
 <p style={{ color: 'green' }}>Final Look of the Internal Web App with Cloudflare Zero Trust</p>
 </Figure>
@@ -483,9 +483,9 @@ And since the use of warp client is made a requirement, if you dont have it turn
 
 <Figure>
 <picture>
-  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/not-meeting-requirement-look.webp`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
-  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/not-meeting-requirement-look.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
-  <img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/not-meeting-requirement-look.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
+  <source type="image/webp" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/not-meeting-requirement-look.webp`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
+  <source type="image/jpg" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/not-meeting-requirement-look.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/not-meeting-requirement-look.png`} alt="Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements"/>
 </picture>
 <p style={{ color: 'green' }}>Final Look of the Internal Web App with Cloudflare Zero Trust Without Meeting The Policy Requirements</p>
 </Figure>

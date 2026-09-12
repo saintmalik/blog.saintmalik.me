@@ -72,7 +72,7 @@ OFcourse if you are using a monolithic service, you are good to go with only ```
 
 Wondering why i didnt use the TCP health check also? that thing just get your logs spammed with unrelated logs.
 
-<img src={`${useDocusaurusContext().siteConfig.customFields.imgurl}/bgimg/chill.gif`} alt="Chill"/>
+<img src={`${useDocusaurusContext().siteConfig.url}/bgimg/chill.gif`} alt="Chill"/>
 
 Till next time 🤞🏽
 

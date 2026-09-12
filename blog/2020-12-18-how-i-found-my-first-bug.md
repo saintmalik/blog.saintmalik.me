@@ -4,7 +4,7 @@ title: Stored XSS on Private Bounty Program (My First Bug)
 author: Abdulmalik
 author_title: Pentester
 author_url: https://twitter.com/saintmalik_
-author_image_url: https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg
+author_image_url: /img/saintmalik.jpg
 image: /bgimg/first-bug-xss-cover.webp
 tags: [infosec, websec]
 ---
