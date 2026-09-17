@@ -32,6 +32,10 @@ As time goes on, you will notice this process isn't so healthy because you are b
 
 But you can always solve this issue using AWS SSM Parameter Store, and it makes more sense if your Infrastructure is on AWS already.
 
+:::tip Update (2026)
+Same pattern feeds Vault GitOps: config Jobs and AVP pull admin/OIDC material from SSM or Azure Key Vault via IRSA / Workload Identity, still never from git. See [Vault control plane via GitOps](/vault-gitops-control-plane/).
+:::
+
 So let's jump into it;
 
 ### 👉 Create Secrets in the Parameter Store

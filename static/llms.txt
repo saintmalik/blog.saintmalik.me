@@ -4228,6 +4228,182 @@ crossorigin="anonymous"
 
 ---
 
+// File: blog/2026-09-17-vault-gitops-control-plane
+
+import Giscus from "@giscus/react";
+
+I used to treat Vault like a snowflake appliance: click init, paste root token, `vault write` policies by hand, openssl for TLS, Terraform manifests for backups. That series still lives on this blog. Production taught a sharper split.
+
+<!--truncate-->
+
+**GitOps the control plane. Do not GitOps the secret values.**
+
+Most of what people call “Vault ops” is shape, not data: raft HA, auto-unseal, TLS, KV mounts, ACL policies, Kubernetes auth roles, Agent Injector, snapshot CronJobs, optional Argo CD Vault Plugin for a few Helm charts. That shape belongs in an operations repo under Argo CD. Cloud glue (KMS / Azure Key Vault seal, IRSA / Workload Identity, backup bucket IAM) stays in OpenTofu. The KV *contents* — `jwtkey`, Stripe, Redis password — never land in git.
+
+This post is the map. Deep how-tos stay in the earlier posts; links below say what changed.
+
+## The three layers
+
+| Layer | Owns | Lives in |
+|-------|------|----------|
+| **Cloud glue** | Seal key, Vault server identity, snapshotter identity, backup storage | OpenTofu / Terraform |
+| **Vault appliance + logical config** | Helm chart, cert-manager TLS, engines, policies, auth methods, backup CronJob, config Job | Operations repo → Argo CD |
+| **Secret values + first bootstrap** | `vault operator init`, root/admin token materialization, `vault kv put` | Humans + SSM / cloud secret store — **not** git |
+
+That boundary is the whole security story. If a policy path or K8s role is wrong, fix it in a PR. If a JWT signing key is wrong, rotate it in Vault (or via a Job that reads cloud secrets) — never commit the value so Argo can “sync” it.
+
+## What GitOps can own
+
+### 1. Server HA + injector
+
+Official HashiCorp Helm chart under something like `operations-repo/<cloud>/<env>/vault/`, pointed at by an Argo `Application`. Raft × 3, resources, affinity, Agent Injector with `failurePolicy: Fail` so pods do not start when injection is broken.
+
+Terraform does **not** `helm_release` Vault. Comment that loudly in `vault.tf` so the next engineer does not drag the chart back into state.
+
+### 2. TLS without openssl on a laptop
+
+The [end-to-end TLS post](/end-to-end-tls-vault-eks/) walks CSR + Kubernetes CA by hand. Day-2 path: cert-manager `Issuer` + `Certificate` templates next to the chart ([self-healing Vault post](/vault-self-healing-kubernetes/)). Same DNS SANs, no laptop key material, renewals automatic.
+
+### 3. Engines, policies, auth — config Job
+
+A Helm post-install / post-upgrade Job is the control-plane applicator. Values declare shape; the Job applies it idempotently:
+
+```yaml
+# values.yaml (shape only)
+vault:
+  config:
+    enabled: true
+    root_token: ""   # never commit; Job fetches from SSM / Azure KV
+    secrets_engines:
+      - path: secret
+        type: kv-v2
+    policies:
+      microsvc-pod-policy: |
+        path "secret/data/*-pod" {
+          capabilities = ["read"]
+        }
+    auth_methods:
+      kubernetes:
+        enabled: true
+        roles:
+          - name: microsvc-pod-role
+            bound_service_account_names: ["auth-pod", "books-pod"]
+            bound_service_account_namespaces: ["apps"]
+            policies: ["microsvc-pod-policy"]
+            ttl: "1h"
+```
+
+```sh
+# inside config-job (sketch)
+vault secrets enable -path=secret kv-v2   # if missing
+vault policy write microsvc-pod-policy ...
+vault auth enable kubernetes                  # if missing
+vault write auth/kubernetes/config \
+  kubernetes_host=... kubernetes_ca_cert=... issuer=...
+vault write auth/kubernetes/role/microsvc-pod-role ...
+```
+
+Root/admin token for that Job comes from **SSM Parameter Store** or **Azure Key Vault** via IRSA / Workload Identity. `root_token: ""` in git. Same pattern as [secrets in IaC](/secrets-in-iac-terraform/) — cloud store holds the bootstrap credential; automation assumes a role to read it.
+
+OIDC for humans (Google Workspace, etc.) fits the same Job: enable mount, pull client id/secret from SSM, write roles. Azure environments can leave human OIDC off until ready and keep port-forward + stored root for break-glass.
+
+### 4. Snapshots + optional auto-restore
+
+The [backup/restore post](/automate-vault-backup-restore-on-aws-eks/) is still valid for IRSA + S3. Prefer the CronJob and restore logic as **Helm templates** synced by Argo ([self-healing write-up](/vault-self-healing-kubernetes/)): schedule, snapshotter SA, S3/Blob path, and “empty raft → pull latest `.snap`” in the same config Job. Disaster recovery becomes a sync, not a runbook on someone’s laptop.
+
+Azure Blob + Azure Key Vault seal follows the same split: TF creates seal KV + backup identity; GitOps owns CronJob and restore flags. Do **not** raft-restore across clouds with different seals and JWT issuers — copy KV paths with a migration Job if you must move clouds.
+
+### 5. How apps consume secrets (still GitOps)
+
+Two delivery paths, both declared in git as **references**, not values:
+
+**Vault Agent Injector** (runtime — majority of microservices):
+
+```yaml
+# chart / values: path + role + key names only
+vault:
+  secretDataPath: secret/data/auth-pod
+  role: microsvc-pod-role
+envVars:
+  - name: JWT_KEY
+    key: jwtkey
+```
+
+```yaml
+# rendered pod annotations
+vault.hashicorp.com/agent-inject: "true"
+vault.hashicorp.com/agent-inject-secret-authenv: secret/data/auth-pod
+vault.hashicorp.com/role: microsvc-pod-role
+# template exports JWT_KEY from .Data.data.jwtkey
+```
+
+That is the production version of [Good Secrets Management in Kubernetes](/vault-in-kuberbetes/) — same injector idea, but path/role live in the GitOps values for each service, not a one-off `kubectl` demo.
+
+**Argo CD Vault Plugin** (sync-time — sparse use, e.g. Redis Helm password):
+
+```yaml
+password: <path:secret/data/redis-pod#password>
+```
+
+AVP credentials are K8s auth in-cluster or AppRole for cross-cluster. Creds Secret is created from SSM/KV by Terraform or an OOB runbook — never committed. Prefer Agent Inject for app pods; reserve AVP for charts that must see a rendered Secret at sync.
+
+## What stays human (on purpose)
+
+| Step | Why it is not “just Argo sync” |
+|------|--------------------------------|
+| First `vault operator init` | Creates root of trust; recovery shares / root go to Azure KV or SSM |
+| Placing admin token for config Job | Until the token exists in the cloud store, the Job cannot apply policies |
+| Writing KV **values** | GitOps maps key *names*; operators or a one-shot Job write the bytes |
+| AppRole `secret_id` lifecycle | Role definition can be GitOps; secret_id rotation is OOB / SSM |
+| Cross-cloud secret copy | Playbook + in-cluster Jobs; shred exports; no dumps in the repo |
+
+If you skip this list and try to put root tokens or KV payloads in git “temporarily,” you do not have GitOps Vault — you have a delayed breach.
+
+## How this maps to the older posts
+
+| Older post | Keep for | Today’s GitOps default |
+|------------|----------|-------------------------|
+| [Good Secrets Management in Kubernetes](/vault-in-kuberbetes/) | Injector + K8s auth mental model | Paths/roles in GitOps values; fail-closed injector |
+| [End-to-end TLS on EKS](/end-to-end-tls-vault-eks/) | SAN checklist, HA TLS requirements | cert-manager Certificate in the Vault Argo app |
+| [Automate backup/restore](/automate-vault-backup-restore-on-aws-eks/) | IRSA + S3 IAM shape | Snapshot CronJob + restore in Helm hooks |
+| [Self-healing Vault](/vault-self-healing-kubernetes/) | Full Helm + auto-restore walkthrough | Same; add engines/auth Job + Agent/AVP as above |
+| [Secrets in IaC](/secrets-in-iac-terraform/) | SSM as source for TF | Same stores feed Vault config Job / AVP, not the git tree |
+
+## Rollout order I would use again
+
+1. TF: seal key + Vault IRSA/WI + snapshotter identity + backup bucket.
+2. Argo app: Helm HA + cert-manager TLS + injector (`failurePolicy: Fail`).
+3. Human: init once; park root/admin token in SSM or seal KV.
+4. Values + config Job: engines, policies, K8s auth (and OIDC if ready).
+5. Snapshot CronJob; prove one restore on a scratch namespace.
+6. Wire one microservice via Agent inject annotations from GitOps values.
+7. Only then AVP for the odd Helm chart that cannot wait for a sidecar.
+
+## Bottom line
+
+Vault on Kubernetes is not “either Terraform or ClickOps.” The boring production shape is: **OpenTofu for crypto identity, Argo+Helm for the appliance and logical config, Agent (and sparingly AVP) for delivery, humans for init and secret bytes.** Update the control plane with a pull request. Rotate values out of band. That is how most of Vault becomes securely GitOps — without lying to yourself that git is a secret store.
+
+<br/>
+<h2>Comments</h2>
+<Giscus
+id="comments"
+repo="saintmalik/blog.saintmalik.me"
+repoId="MDEwOlJlcG9zaXRvcnkzOTE0MzQyOTI="
+category="General"
+categoryId="DIC_kwDOF1TQNM4CQ8lN"
+mapping="title"
+term="Comments"
+reactionsEnabled="1"
+emitMetadata="0"
+inputPosition="top"
+theme="preferred_color_scheme"
+lang="en"
+loading="lazy"
+crossorigin="anonymous"
+/>
+
+---
+
 // File: blog/2026-09-12-runtime-trace-process-attestation
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -14733,6 +14909,10 @@ So you've moved your organization's secret management process to <a href="/vault
 
 <!--truncate-->
 
+:::tip Update (2026)
+IRSA + S3 here is still the right cloud glue. Prefer shipping the snapshot CronJob and restore logic as **Helm templates under Argo** instead of one-off Terraform manifests — see [Self-healing Vault](/vault-self-healing-kubernetes/) and the control-plane split in [Vault via GitOps](/vault-gitops-control-plane/).
+:::
+
 That being said, how do you achieve this, since you have an HA(High Availability) Vault working in your cluster already, that brings us to Vault snapshots, periodically taking and storing the vault snapshots in storages like AWS s3 is the way.
 
 
@@ -16177,6 +16357,10 @@ import Giscus from "@giscus/react";
 When you are preparing your vault environment for production, you would want to implement the end-to-end tls setup as stated in the hashicorp vault production-ready documentation.
 
 <!--truncate-->
+
+:::tip Update (2026)
+This post walks the **manual openssl + Kubernetes CSR** path. For day-2 GitOps, put cert-manager `Issuer`/`Certificate` next to the Vault Helm app and sync with Argo — same SANs, no laptop keys. Control-plane map: [Vault control plane via GitOps](/vault-gitops-control-plane/). Full Helm TLS template: [Self-healing Vault](/vault-self-healing-kubernetes/).
+:::
 
 To make sure communications within your vault and its replicas are encrypted and secure if you have the HA(High Availability) on.
 
@@ -17639,6 +17823,10 @@ Hard-coding secrets in environment variables or mounting them as files has three
 3. They can end up committed to Git if the manifest is your source of truth.
 
 This guide replaces that pattern with HashiCorp Vault, the Kubernetes auth method, and the Vault Agent Injector.
+
+:::tip Update (2026)
+Same injector model in production — but path, role, and key *names* live in GitOps service values, not a one-off Helm install. Engines, policies, and K8s auth roles apply from a Vault config Job under Argo. Map: [Vault control plane via GitOps](/vault-gitops-control-plane/).
+:::
 
 ## What you will build
 

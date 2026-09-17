@@ -47,6 +47,10 @@ Hard-coding secrets in environment variables or mounting them as files has three
 
 This guide replaces that pattern with HashiCorp Vault, the Kubernetes auth method, and the Vault Agent Injector.
 
+:::tip Update (2026)
+Same injector model in production, but path, role, and key *names* live in GitOps service values, not a one off Helm install. Engines, policies, and K8s auth roles apply from a Vault config Job under Argo. Map: [Vault control plane via GitOps](/vault-gitops-control-plane/).
+:::
+
 ## What you will build
 
 1. Vault running in a namespace on your cluster.

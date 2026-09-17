@@ -13,6 +13,10 @@ If you've been following my journey with HashiCorp Vault on EKS, you've seen me 
 
 <!--truncate-->
 
+:::tip Companion
+This post is the self-healing Helm + S3 restore walkthrough. For the wider split, what belongs in GitOps vs OpenTofu vs human bootstrap (engines, policies, Agent inject, AVP), see [Vault control plane via GitOps](/vault-gitops-control-plane/).
+:::
+
 When you're running at scale, you want your infrastructure to be boring. Boring means if a PVC gets accidentally deleted or an EBS volume goes "poof", the system just... fixes itself.
 
 Today, I'm sharing how I "helmized" my Vault setup and implemented a fully automated **Auto-Restore** flow.

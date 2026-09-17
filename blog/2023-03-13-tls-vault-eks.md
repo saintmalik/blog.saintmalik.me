@@ -13,6 +13,10 @@ When you are preparing your vault environment for production, you would want to 
 
 <!--truncate-->
 
+:::tip Update (2026)
+This post walks the **manual openssl + Kubernetes CSR** path. For day-2 GitOps, put cert-manager `Issuer`/`Certificate` next to the Vault Helm app and sync with Argo, same SANs, no laptop keys. Control-plane map: [Vault control plane via GitOps](/vault-gitops-control-plane/). Full Helm TLS template: [Self-healing Vault](/vault-self-healing-kubernetes/).
+:::
+
 To make sure communications within your vault and its replicas are encrypted and secure if you have the HA(High Availability) on.
 
 In this guide, I will work you through the process for those using Vault on EKS,  let's jump into it

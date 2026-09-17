@@ -14,6 +14,10 @@ So you've moved your organization's secret management process to <a href="/vault
 
 <!--truncate-->
 
+:::tip Update (2026)
+IRSA + S3 here is still the right cloud glue. Prefer shipping the snapshot CronJob and restore logic as **Helm templates under Argo** instead of one off Terraform manifests, see [Self-healing Vault](/vault-self-healing-kubernetes/) and the control plane split in [Vault via GitOps](/vault-gitops-control-plane/).
+:::
+
 That being said, how do you achieve this, since you have an HA(High Availability) Vault working in your cluster already, that brings us to Vault snapshots, periodically taking and storing the vault snapshots in storages like AWS s3 is the way.
 
 
