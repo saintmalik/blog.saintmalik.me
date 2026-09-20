@@ -11,7 +11,7 @@ description: "Cursor Agent + filesystem MCP can read_file your .env. Walk cMCP: 
 import Figure from '../src/components/Figure';
 import Giscus from "@giscus/react";
 
-Your engineering, infra or security team are connecting agents to tools inside the within your environments, from GitHub, Stripe, Slack, cloud APIs, filesystem servers, whatever the agent needs to act. 
+Your engineering, infra or security team are connecting agents to tools inside your environments, from GitHub, Stripe, Slack, cloud APIs, filesystem servers, whatever the agent needs to act. 
 
 Same session. Fine. The part that kept bothering me is quieter: once those tools are reachable, who is actually allowed to say no before the upstream runs?
 
@@ -21,7 +21,7 @@ I poked at [agentrust-io/cmcp](https://github.com/agentrust-io/cmcp) and filed a
 
 ## Why this bothered me in the first place
 
-So MCP is really just how the agent reaches tools. It is not browsing your repo UI the way you do. It calls tools. And those calls can read a local `.env`, talk to a prod database, post into Slack, refund something on Stripe, or hit cloud APIs with credentials already sitting next to the workspace. A lot of that also never shows up the way a normal human login would in your SIEM.
+So MCP is really just how the agent reaches tools. It is not browsing your repo UI the way you do. It calls tools. And those calls can read a local `.env`, talk to your DB, post into Slack, refund something on Stripe, or hit cloud APIs with credentials already sitting next to the workspace. A lot of that also never shows up the way a normal human login would in your SIEM.
 
 So this is not only about secrets in a dotenv file. Once those MCP servers are in the session, the agent can reach databases, chat, PII's, cloud stuff, whatever the tools wire up. The filesystem `read_file` path I walk later is one concrete deny so you can feel the control. It is not the whole problem.
 
