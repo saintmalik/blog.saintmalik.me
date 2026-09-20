@@ -129,8 +129,9 @@ module.exports = {
     },
   },
   customFields: {
-    // Same-origin static assets so <picture> webp→png/jpeg fallback works.
-    // Prefer siteConfig.url in posts; imgurl kept as an alias for older snippets.
+    // Legacy alias for older snippets. Prefer root-relative /bgimg/... in posts
+    // (works on yarn start and production). siteConfig.url is the canonical host
+    // and breaks unpublished local assets.
     imgurl: 'https://blog.saintmalik.me',
   },
   presets: [

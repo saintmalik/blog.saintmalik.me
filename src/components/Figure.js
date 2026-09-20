@@ -3,7 +3,9 @@ import React from "react";
 /**
  * Blog figure wrapper. Prefer:
  *   <Figure><picture>...</picture><p>caption</p></Figure>
- * Use siteConfig.url for /bgimg/* so webp→png/jpeg fallback works.
+ * Use root-relative /bgimg/... (or siteConfig.baseUrl + "bgimg/...") so images
+ * load on yarn start and in production. Do not use siteConfig.url — that is the
+ * canonical https host and breaks unpublished local assets.
  * Legacy: <Figure src="...">caption</Figure>
  */
 export default function Figure({ children, src, alt = "" }) {
