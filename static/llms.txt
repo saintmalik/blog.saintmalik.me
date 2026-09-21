@@ -4233,33 +4233,31 @@ crossorigin="anonymous"
 import Figure from '../src/components/Figure';
 import Giscus from "@giscus/react";
 
-So you've been hearing MCP everywhere. Clients wire Snowflake, GitHub, Stripe, Slack, filesystem servers, and a dozen community tools into the same agent session. Fine. The part that kept bothering me is quieter: once the agent can call tools, who is actually allowed to say no before the upstream runs?
+Your engineering, infra or security team are connecting agents to tools inside your environments, from GitHub, Stripe, Slack, cloud APIs, filesystem servers, whatever the agent needs to act. 
+
+Same session. Fine. The part that kept bothering me is quieter: once those tools are reachable, who is actually allowed to say no before the upstream runs?
 
 <!--truncate-->
 
-I contribute to [cMCP](https://github.com/agentrust-io/cmcp) under [agentrust-io](https://github.com/agentrust-io), so this is not a drive-by product review. I have been poking at real config and policy bugs while using it, filed issues, and I still want a path you can reproduce without TEE hardware. Software mode (`CMCP_DEV_MODE=1`) is how I show the control. It is not the problem we are solving. So let's jump into it.
+I poked at [agentrust-io/cmcp](https://github.com/agentrust-io/cmcp) and filed a few issues along the way. I ran the deny/allow/verify loop in software mode (`CMCP_DEV_MODE=1`) so you can feel the control without TEE hardware. So let's jump into it.
 
 ## Why this bothered me in the first place
 
-MCP is just plumbing between agents and actions. The agent does not "browse" your repo UI. It calls tools. Those calls can read a local `.env`, hit a prod database, post to Slack, refund a payment, or pull cloud APIs with credentials sitting next to the workspace. They often skip the audit trails your SIEM already watches for human logins.
+So MCP is really just how the agent reaches tools. It is not browsing your repo UI the way you do. It calls tools. And those calls can post into Slack, refund something on Stripe, read your local envs, api keys and secrets keys, talk to your DB, or hit cloud APIs with credentials already sitting next to the workspace. A lot of that also never shows up the way a normal human login would in your SIEM.
 
-If the only control you have is "the human approved this MCP server once," you are trusting the tool descriptions that reach the model, the server's behavior after that approval, every other server in the same client session, and whatever credentials the agent can reach. That is not hype. That is how people use the protocol.
+And once those MCP servers are in the session, this agent can reach databases, chat, PII's, cloud stuff, whatever the tools wire up. The filesystem `read_file` path discussed here is one concrete deny logic to show you how controls works and how to use them with mcps.
 
-And the research trail is not empty either.
+Beyound "someone approved this MCP server once," and blindly trusting the mcp tool descriptions that reaches the model, whatever that server does after the approval, every other server in the same client session, and whatever credentials the agent can already reach.
 
-[Invariant Labs](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks) showed tool poisoning: malicious instructions buried in tool descriptions, easy for a human UI to miss, ugly when a poisoned server steers the agent toward data reachable through other trusted servers. [CVE-2025-54136](https://nvd.nist.gov/vuln/detail/CVE-2025-54136) (Cursor, CVSS 8.8 in public writeups) covered the rug-pull pattern where a benign MCP config gets approved, then swapped later without re-validation. The Cloud Security Alliance's [July 2026 research note](https://labs.cloudsecurityalliance.org/wp-content/uploads/2026/07/CSA_research_note_mcp_tool_poisoning_ai_agent_exfiltration_20260702-csa-styled.pdf) treats tool poisoning and rug pulls as confirmed capability-supply-chain problems, not lab curiosities.
-
-The arXiv paper [*Beyond the Protocol*](https://arxiv.org/pdf/2506.02040) walks upload → download → attack against MCP aggregator platforms, then local harm once someone installs the server. Implementation bugs showed up too: [CVE-2025-49596](https://securitylabs.datadoghq.com/articles/claude-mcp-cve-2025-52882/) (MCP Inspector RCE), [CVE-2025-6514](https://vulnerablemcp.info/) (`mcp-remote` OS command injection), [CVE-2025-52882](https://securitylabs.datadoghq.com/articles/claude-mcp-cve-2025-52882/) (Claude Code IDE extensions, unauthenticated local WebSocket reachable from a malicious site). [GhostSplice](https://asset-group.github.io/disclosures/ghostsplice/) (ASSET Research Group, 2026) splits one refused exfil instruction across tool description and tool results so no single fragment trips filters. Research PoC with seeded fake secrets, not a confirmed enterprise breach writeup, but it shows why "scan each tool description once" is not enough.
-
-Thick enough that "MCP security is fake news" is wrong. Thin enough that you should still separate protocol-shaped prompt/tool abuse, client or SDK CVEs, and vendor blog threat models. [vulnerablemcp.info](https://vulnerablemcp.info/) is a useful index, not a substitute for reading the advisory.
+This is not theoretical. [Invariant Labs](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks) showed tool poisoning: malicious instructions buried in tool descriptions that steer the agent toward data reachable through other trusted servers. [CVE-2025-54136](https://nvd.nist.gov/vuln/detail/CVE-2025-54136) covered the rug-pull pattern where a benign MCP config gets approved, then swapped later without re-validation. There are more client and SDK CVEs in the wild. [vulnerablemcp.info](https://vulnerablemcp.info/) is a decent index if you want the longer list.
 
 If you already think in layers of trust for CI and runtime, this rhyme is familiar. Artifact signatures do not prove process behavior ([Runtime Trace](/runtime-trace-process-attestation/)). Approving an MCP server once does not prove the next `tools/call` is safe.
 
-## How this actually leaks (the setups people install)
+## How teams use MCP and how they wire it
 
-So you've got Cursor Agent or Claude Desktop open. You install the MCPs that make the agent useful. That is the normal path. It is also where the credentials leave.
+Teams use MCP so the agent can actually act: read files, run shell, hit GitHub, drive a browser, talk to whatever else you plug in. Wiring it is the boring part. You add those MCP servers in Cursor or Claude Desktop, and the agent gets `tools/call` into the workspace and beyond.
 
-Here are the leak stories I keep coming back to. None of them need a fictional "secrets helper" server.
+Here are soome common setups i have seen around.
 
 **Filesystem MCP.** [`@modelcontextprotocol/server-filesystem`](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) (or Cursor's own filesystem server) exposes tools like `read_file` / `read_text_file`, `list_directory`, `search_files`. Point it at a project root and the agent can open `.env`, `~/.aws/credentials`, a kubeconfig, or a `.npmrc` with a registry token. Prompt injection, tool poisoning, or a confused "debug my auth" turn is enough to trigger the call. You usually find out after the keys are in the context window, or in a chat log, or pasted somewhere else.
 
@@ -4271,44 +4269,36 @@ Here are the leak stories I keep coming back to. None of them need a fictional "
 
 For example Cursor, the path I actually exercised for this post is the filesystem one: **Cursor Agent shaped traffic → filesystem-style `read_file` with `path: ".env"` → cMCP Cedar forbid → `403 POLICY_DENY` before any upstream reads the file.** Benign `list_directory` still goes through. Then TRACE verify.
 
-I have written about secrets in Kubernetes, Vault, and IaC enough times that `.env` exfil is not an abstract CRM story for me. It is the same class of mistake: credentials reachable by a process that should not be free to read them. Different transport.
+`.env` exfil is the same class of mistake you already fight in Kubernetes, Vault, and IaC: credentials reachable by a process that should not be free to read them. Different transport.
 
 What is missing in that setup is boring and important: tool-level deny (not only "this MCP server is approved"), and an attested audit trail that a verifier can check without trusting the operator's word.
 
 ## What people mean by "MCP gateway"
 
-Enterprise writeups converge on the same sentence: put a front door between agents and MCP servers.
-
-[Tigera's MCP gateway guide](https://www.tigera.io/learn/guides/llm-security/mcp-gateway/) frames it as reverse proxy plus registry: unified access, auth at one point, observability, version/policy handling, no direct exposure of backend MCP servers. [Linx](https://www.linx.security/blog/what-is-an-mcp-gateway-identity-security-for-ai-agents) pushes a sharper identity angle: auth is not authz, server-level allowlists are too coarse, every tool call needs attribution to a human owner.
-
-Strip the product names and the shared claim is reasonable. One enforcement point for `tools/call`. Tool-level policy, not only server-level. Audit before and after the action. Less credential sprawl on every developer agent host.
-
-Whether a given product delivers that is a separate question. The need for something in the path that can say no is not invented.
+Writeups from [Tigera](https://www.tigera.io/learn/guides/llm-security/mcp-gateway/) and [Linx](https://www.linx.security/blog/what-is-an-mcp-gateway-identity-security-for-ai-agents) land on the same shape: put a front door in front of MCP so the agent does not talk straight to every server. Auth at that door is not the same as authz. You still need something that can deny a specific `tools/call` and leave an audit trail. That is the shape. Who ships it well is a different argument.
 
 ## What cMCP is and how it comes into the picture
 
 [cMCP](https://github.com/agentrust-io/cmcp) (Confidential MCP Runtime) is open source, and yes it is different from "API gateway with MCP codecs."
 
-Every tool call is intercepted, evaluated against a [Cedar](https://github.com/agentrust-io/cmcp/blob/main/docs/spec/cedar-policy.md) policy bundle, and enforced inside a hardware Trusted Execution Environment when you run with real attestation (TPM, SEV-SNP, TDX). Software-only mode exists (`CMCP_DEV_MODE=1`). That is how you reproduce the deny/allow/verify loop locally. It is not hardware proof. [LIMITATIONS.md](https://github.com/agentrust-io/cmcp/blob/main/LIMITATIONS.md) says that plainly.
+It sits in front of the MCP servers, runs each `tools/call` through a [Cedar](https://github.com/agentrust-io/cmcp/blob/main/docs/spec/cedar-policy.md) policy, and either allows or denies. Software mode (`CMCP_DEV_MODE=1`) is enough to feel that. Hardware TEE is the attested version. [LIMITATIONS.md](https://github.com/agentrust-io/cmcp/blob/main/LIMITATIONS.md) is clear about the gap.
 
-Sessions produce a signed TRACE Claim (`GatewayClaim`): policy bundle hash, runtime measurement, hash-chained audit tip, Ed25519 signature. A verifier can check the claim without trusting the operator's word that "policy ran." Hardware-attested in TEE deployments. Signed-only in software mode.
+Sessions also mint a signed TRACE Claim (`GatewayClaim`): policy hash, runtime measurement, audit tip, Ed25519 signature. Software mode signs it. TEE attests it.
 
-Approved tools map to upstream identity. First-contact catalog drift detection is shipped. Continuous mid-session re-list is intentionally not. GhostSplice-style cross-channel fusion is called out as a residual gap in LIMITATIONS, not papered over.
-
-I have been poking at real config and policy-identity bugs while using it: documented-but-rejected `session_state_path` ([#653](https://github.com/agentrust-io/cmcp/issues/653)), TRACE claims that silently rewrite unknown enforcement modes ([#654](https://github.com/agentrust-io/cmcp/issues/654)), and Cedar action collisions across distinct catalog tools ([#655](https://github.com/agentrust-io/cmcp/issues/655)). That is the credibility bar I care about: read the code path, file the issue, do not market around it.
+Approved tools map to upstream identity. First-contact catalog drift detection is shipped. Continuous mid-session re-list is intentionally not. Cross-channel instruction splitting (tool description + tool results) is called out as a residual gap in LIMITATIONS.
 
 ## Walkthrough: deny `read_file`, allow `list_directory`, verify
 
-I ran this against `cmcp-runtime` `v0.5.0` in software mode. The client is **curl standing in for Cursor Agent**: same JSON-RPC `tools/call` shape, with `_cmcp.workflow_id` set to `cursor-agent` so Cedar can scope the session the way a Cursor→cMCP bridge would stamp it. Cursor does not invent that string for you today. You configure the gateway client path (or a thin adapter) to send it. Engineering teams already use Cursor Agent heavily, so `cursor-agent` is the workflow id Cedar matches here.
+I ran this against `cmcp-runtime` `v0.5.0` in software mode. The client is **curl standing in for Cursor Agent**: same JSON-RPC `tools/call` shape, with `_cmcp.workflow_id` set to `cursor-agent` so Cedar can scope the session the way a Cursor→cMCP bridge would stamp it. Cursor does not invent that string for you today. You configure the gateway client path (or a thin adapter) to send it.
 
-The upstream is a **filesystem MCP server**: catalog tools named `read_file` and `list_directory`, matching [`@modelcontextprotocol/server-filesystem`](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) (and the older `read_file` alias still registered next to `read_text_file`). It listens on `:9001` behind the gateway — the same place a security team would put a real filesystem MCP for engineering. No real `.env` on disk for the deny path. Cedar never lets that call leave the gateway.
+The upstream is a **filesystem MCP server**: catalog tools named `read_file` and `list_directory`, matching [`@modelcontextprotocol/server-filesystem`](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) (and the older `read_file` alias still registered next to `read_text_file`). It listens on `:9001` behind the gateway. No real `.env` on disk for the deny path. Cedar never lets that call leave the gateway.
 
 **Policy grain:** this path is **tool-level**. Cedar forbids `Resource::"read_file"` entirely. It does **not** match on `arguments.path == ".env"`. The curl still sends `path: ".env"` because that is the leak story. Path-level Cedar (deny only secret paths, allow README) needs call-argument context in the evaluation record. Tool-level is still enough to stop the filesystem read tool before upstream.
 
 ### Prerequisites
 
 - Python 3.11+ (I used 3.14.7), pip, curl
-- Three terminals: cMCP gateway, client (curl), and the upstream filesystem MCP (`list_directory` needs the upstream; deny-only does not)
+- Three terminals: cMCP gateway, client (curl), and the upstream filesystem MCP (`list_directory` needs the upstream, deny-only does not)
 
 ### Layout to create
 
@@ -4317,7 +4307,7 @@ cmcp-walk/
   cmcp-config.yaml
   catalog.json
   filesystem_mcp.py
-  record-approved-hashes.py
+  record_approved_hashes.py
   policies/
     manifest.json
     schema.cedarschema
@@ -4392,6 +4382,8 @@ forbid (
 ### Catalog (filesystem MCP tools)
 
 `catalog.json`:
+
+You only hand-write the `server` block and `approved_definition` (paste or adapt from the MCP server tool schema / `tools/list`). `definition_hash` is not something you invent; it is SHA-256 of the canonical JSON for that definition. The example hashes below are already computed so this file loads as-is. If you edit a definition, re-run the hash snippet already in this post.
 
 ```json
 [
@@ -4519,7 +4511,7 @@ if __name__ == "__main__":
     HTTPServer(("127.0.0.1", 9001), H).serve_forever()
 ```
 
-`record-approved-hashes.py`:
+`record_approved_hashes.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -4542,7 +4534,7 @@ print(json.dumps(approved, indent=2))
 cmcp validate-config --config cmcp-config.yaml
 # expect: ✓ Config valid: cmcp-config.yaml
 
-python3 record-approved-hashes.py
+python3 record_approved_hashes.py
 ```
 
 When I ran it with the files above:
@@ -4556,7 +4548,7 @@ When I ran it with the files above:
 
 Keep that `approved-hashes.json`. You will pin those values at verify time.
 
-Terminal 1 — start the gateway and leave it open:
+Terminal 1. Start the gateway and leave it open:
 
 ```bash
 CMCP_DEV_MODE=1 cmcp start --config cmcp-config.yaml
@@ -4605,7 +4597,7 @@ When you hit deny you should see `HTTP/1.1 403 Forbidden` and `POLICY_DENY`. Tha
 
 ### Allowed call: `list_directory` (upstream)
 
-Terminal 3 — start the filesystem MCP:
+Terminal 3. Start the filesystem MCP:
 
 ```bash
 python3 filesystem_mcp.py
@@ -4637,7 +4629,7 @@ You should get `HTTP/1.1 200 OK`, a directory listing, and a `_cmcp` audit block
   <source type="image/png" srcSet="/bgimg/cmcp-list-directory-allow.png" />
   <img src="/bgimg/cmcp-list-directory-allow.png" alt="curl tools/call list_directory returns HTTP 200 with directory listing and _cmcp audit block" />
 </picture>
-<p><code>list_directory</code> → <code>200 OK</code>. Upstream filesystem MCP answers; gateway attaches <code>_cmcp</code> audit metadata.</p>
+<p><code>list_directory</code> → <code>200 OK</code>. Upstream filesystem MCP answers. Gateway attaches <code>_cmcp</code> audit metadata.</p>
 </Figure>
 
 ### TRACE Claim and verify
@@ -4690,43 +4682,19 @@ cmcp verify claim.json \
   --catalog-hash "$(python3 -c "import json; print(json.load(open('approved-hashes.json'))['tool_catalog_hash'])")"
 ```
 
-Software checks still PASS. Hardware attestation still FAIL. `partially_verified` is the honest answer for software mode. Remember the split: this walkthrough proves the policy path (deny, allow, claim shape). Production trust still wants TEE (TPM / SEV-SNP / TDX): measure code + policy into hardware, seal the signing key in the enclave, hand auditors a claim they can verify without trusting you. If you skip independent attestation verification, you only have post-hoc evidence. STATUS and LIMITATIONS both say that.
+Software checks still PASS. Hardware attestation still FAIL. `partially_verified` is the honest answer for software mode. This walkthrough proves the policy path (deny, allow, claim shape).
 
-## Honest about what ships vs what people pitch
-
-Source of truth is [STATUS.md](https://github.com/agentrust-io/cmcp/blob/main/STATUS.md), not a slide.
-
-Front door that intercepts tool calls, Cedar allow / deny / redact, hash-chained audit, TRACE Claim per session: yes. Tool-level policy with enforcing / advisory / silent modes: yes. Prove the policy engine itself was not swapped: yes when TEE attestation is real and independently verified.
-
-Full IdP + SSO product, full IGA (JML, access reviews, human owner lifecycle), multi-cluster routing mesh, crawling your org for shadow MCP servers: no. Not claimed as shipped. Server-side (provider) attestation is Phase 2. Phase 1 is the gateway boundary.
-
-Software-only MCP gateways can log and block. They still run the PDP in an OS a privileged operator or supply-chain CVE can reach. cMCP's bet is the enclave + measurable policy hash. Different product. Call them by their real names.
-
-## Gaps and roadmap (only what is written)
-
-Do not invent items. Quote the repo.
-
-[ROADMAP.md](https://github.com/agentrust-io/cmcp/blob/main/ROADMAP.md): transparency-log anchoring for TRACE Claims (v0.2 track), NVIDIA `gpu-cc` via NRAS (planned), stable `GatewayClaim` versioning and fuller RATS/EAT conformance as v1.0 targets, SLSA Level 3 provenance for release artifacts.
-
-[STATUS.md](https://github.com/agentrust-io/cmcp/blob/main/STATUS.md): `opaque` provider is an explicit not-implemented placeholder; server-side attestation is "Not yet (Phase 2)"; AARM R3 intent alignment and R7 semantic distance are explicitly not implemented.
-
-[docs/SPEC.md](https://github.com/agentrust-io/cmcp/blob/main/docs/SPEC.md) Phase 2: attest the MCP server side (runtime measurement, tool surface, egress profile, multi-tenant isolation, cross-org chains). That is where typosquat residuals and transitive upstream trust are meant to close.
-
-[MCP 2026 impact backlog](https://github.com/agentrust-io/cmcp/blob/main/docs/spec/mcp-2026-roadmap-impact.md): session-independent correlation, Tasks evidence, delegated identity split, progressive discovery checkpoints. Design backlog, not GA features.
-
-Enterprise pitch items that are not named cMCP roadmap deliverables: a full IGA program, a multi-cluster routing mesh / estate discovery fabric. Those may still matter to you. Pretending cMCP already is that stack would be lying.
-
-Hard limits that stay operator work even when the gateway is healthy: bad Cedar (`permit` everything), TEE firmware trust, APM endpoints you allowlist yourself, catalog entries a compromised reviewer approved, model leaks that never become tool calls. LIMITATIONS is required reading, not appendix fluff.
+Software mode (`CMCP_DEV_MODE=1`) still denies and allows. Verify just lands on `partially_verified`: signed claim, no hardware provenance. TEE is when you need that claim to stand up to auditors without trusting the operator.
 
 ## Conclusion
 
-MCP noise is real. MCP risk is also real: poisoned tools, rug pulls, client CVEs, and research that keeps finding new ways to split instructions across channels.
+MCP noise is real. MCP risk is also real: poisoned tools, rug pulls, client CVEs.
 
 "MCP gateway" is the right shape when you need a front door, tool-level policy, and an attributable audit trail. Vendor essays from Tigera and Linx are useful for framing. They are not the definition of done.
 
-cMCP is the open project I work in when the question is: can you enforce Cedar on `tools/call` inside a TEE and emit a verifiable TRACE Claim? Today that core path exists. I walked deny `read_file` + allow `list_directory` + verify above in software mode so you can feel the control without buying hardware first. Full estate IGA and mesh routing do not. Phase 2 and the published backlog are where the next honesty checks belong.
+I walked deny `read_file` + allow `list_directory` + verify above in software mode so you can feel the Cedar control without buying hardware first. That core path exists today. Full estate IGA and mesh routing do not. Phase 2 server attestation and some transparency work are next.
 
-If you are wiring Cursor Agent (or Claude) to filesystem, shell, GitHub, or browser MCP tools, start with a deny-by-default catalog, treat every server as hostile until proven otherwise, and put something in the path that can say no before the upstream reads `.env`. Then decide whether your proof requirement is "we logged it" or "a verifier can check the enclave measurement without trusting us."
+If you are wiring Cursor Agent (or Claude) to filesystem, shell, GitHub, or browser MCP tools, start with a deny-by-default catalog, treat every server as hostile until proven otherwise, and put something in the path that can say no before the upstream reads your local envs, PII's and more. Then decide whether your proof requirement is "we logged it" or "a verifier can check the enclave measurement without trusting us."
 
 Those are different products. Call them by their real names.
 
@@ -4739,10 +4707,8 @@ Till next time, Peace be on you 🤞🏽
 - https://github.com/agentrust-io/cmcp/blob/main/docs/quickstart.md
 - https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem
 - https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks
-- https://labs.cloudsecurityalliance.org/wp-content/uploads/2026/07/CSA_research_note_mcp_tool_poisoning_ai_agent_exfiltration_20260702-csa-styled.pdf
-- https://arxiv.org/pdf/2506.02040
+- https://nvd.nist.gov/vuln/detail/CVE-2025-54136
 - https://vulnerablemcp.info/
-- https://asset-group.github.io/disclosures/ghostsplice/
 
 <br/>
 <h2>Comments</h2>

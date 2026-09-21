@@ -21,11 +21,11 @@ I poked at [agentrust-io/cmcp](https://github.com/agentrust-io/cmcp) and filed a
 
 ## Why this bothered me in the first place
 
-So MCP is really just how the agent reaches tools. It is not browsing your repo UI the way you do. It calls tools. And those calls can read a local `.env`, talk to your DB, post into Slack, refund something on Stripe, or hit cloud APIs with credentials already sitting next to the workspace. A lot of that also never shows up the way a normal human login would in your SIEM.
+So MCP is really just how the agent reaches tools. It is not browsing your repo UI the way you do. It calls tools. And those calls can post into Slack, refund something on Stripe, read your local envs, api keys and secrets keys, talk to your DB, or hit cloud APIs with credentials already sitting next to the workspace. A lot of that also never shows up the way a normal human login would in your SIEM.
 
-So this is not only about secrets in a dotenv file. Once those MCP servers are in the session, the agent can reach databases, chat, PII's, cloud stuff, whatever the tools wire up. The filesystem `read_file` path I walk later is one concrete deny so you can feel the control. It is not the whole problem.
+And once those MCP servers are in the session, this agent can reach databases, chat, PII's, cloud stuff, whatever the tools wire up. The filesystem `read_file` path discussed here is one concrete deny logic to show you how controls works and how to use them with mcps.
 
-And if the only control you have is "someone approved this MCP server once," then you are trusting the tool descriptions that reach the model, whatever that server does after the approval, every other server in the same client session, and whatever credentials the agent can already reach.
+Beyound "someone approved this MCP server once," and blindly trusting the mcp tool descriptions that reaches the model, whatever that server does after the approval, every other server in the same client session, and whatever credentials the agent can already reach.
 
 This is not theoretical. [Invariant Labs](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks) showed tool poisoning: malicious instructions buried in tool descriptions that steer the agent toward data reachable through other trusted servers. [CVE-2025-54136](https://nvd.nist.gov/vuln/detail/CVE-2025-54136) covered the rug-pull pattern where a benign MCP config gets approved, then swapped later without re-validation. There are more client and SDK CVEs in the wild. [vulnerablemcp.info](https://vulnerablemcp.info/) is a decent index if you want the longer list.
 
@@ -35,7 +35,7 @@ If you already think in layers of trust for CI and runtime, this rhyme is famili
 
 Teams use MCP so the agent can actually act: read files, run shell, hit GitHub, drive a browser, talk to whatever else you plug in. Wiring it is the boring part. You add those MCP servers in Cursor or Claude Desktop, and the agent gets `tools/call` into the workspace and beyond.
 
-Here are the setups I keep coming back to. None of them need a fictional "secrets helper" server.
+Here are soome common setups i have seen around.
 
 **Filesystem MCP.** [`@modelcontextprotocol/server-filesystem`](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) (or Cursor's own filesystem server) exposes tools like `read_file` / `read_text_file`, `list_directory`, `search_files`. Point it at a project root and the agent can open `.env`, `~/.aws/credentials`, a kubeconfig, or a `.npmrc` with a registry token. Prompt injection, tool poisoning, or a confused "debug my auth" turn is enough to trigger the call. You usually find out after the keys are in the context window, or in a chat log, or pasted somewhere else.
 
@@ -85,7 +85,7 @@ cmcp-walk/
   cmcp-config.yaml
   catalog.json
   filesystem_mcp.py
-  record-approved-hashes.py
+  record_approved_hashes.py
   policies/
     manifest.json
     schema.cedarschema
@@ -160,6 +160,8 @@ forbid (
 ### Catalog (filesystem MCP tools)
 
 `catalog.json`:
+
+You only hand-write the `server` block and `approved_definition` (paste or adapt from the MCP server tool schema / `tools/list`). `definition_hash` is not something you invent; it is SHA-256 of the canonical JSON for that definition. The example hashes below are already computed so this file loads as-is. If you edit a definition, re-run the hash snippet already in this post.
 
 ```json
 [
@@ -287,7 +289,7 @@ if __name__ == "__main__":
     HTTPServer(("127.0.0.1", 9001), H).serve_forever()
 ```
 
-`record-approved-hashes.py`:
+`record_approved_hashes.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -310,7 +312,7 @@ print(json.dumps(approved, indent=2))
 cmcp validate-config --config cmcp-config.yaml
 # expect: ✓ Config valid: cmcp-config.yaml
 
-python3 record-approved-hashes.py
+python3 record_approved_hashes.py
 ```
 
 When I ran it with the files above:
@@ -470,7 +472,7 @@ MCP noise is real. MCP risk is also real: poisoned tools, rug pulls, client CVEs
 
 I walked deny `read_file` + allow `list_directory` + verify above in software mode so you can feel the Cedar control without buying hardware first. That core path exists today. Full estate IGA and mesh routing do not. Phase 2 server attestation and some transparency work are next.
 
-If you are wiring Cursor Agent (or Claude) to filesystem, shell, GitHub, or browser MCP tools, start with a deny-by-default catalog, treat every server as hostile until proven otherwise, and put something in the path that can say no before the upstream reads `.env`. Then decide whether your proof requirement is "we logged it" or "a verifier can check the enclave measurement without trusting us."
+If you are wiring Cursor Agent (or Claude) to filesystem, shell, GitHub, or browser MCP tools, start with a deny-by-default catalog, treat every server as hostile until proven otherwise, and put something in the path that can say no before the upstream reads your local envs, PII's and more. Then decide whether your proof requirement is "we logged it" or "a verifier can check the enclave measurement without trusting us."
 
 Those are different products. Call them by their real names.
 
