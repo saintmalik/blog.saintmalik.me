@@ -5,7 +5,7 @@ authors: Abdulmalik
 date: 2026-09-06
 image: /bgimg/helm-gitops-supply-chain-checks-cover.webp
 tags: [devsecops, helm, gitops, argo-cd, supply-chain, sbom, grype, eks]
-description: Most teams scan app images in CI and ignore the Helm charts Argo syncs. That is a real supply-chain blind spot. Render what would land, Syft the images, Grype fixable High/Criticals, and push chart bumps instead of hand-editing containers.
+description: Most teams scan app images in CI and ignore the Helm charts GitOps syncs. That is a real supply-chain blind spot. Render what would land, inventory the images, Syft + Grype fixable High/Criticals, gate the ops repo.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -15,21 +15,21 @@ Do you even know the supply chain risk your Helm charts carry? I bet you don't.
 
 <!--truncate-->
 
-Your app images get SCA in CI. Your GitOps repo still pins `ingress-nginx@4.x` from the public chart repo. Argo syncs it. Whatever containers that chart renders land in the cluster. Nobody looked. That is not a tooling gap. That is risk you are shipping on every sync.
+Your app images get scanned in CI. Your GitOps repo still pins `ingress-nginx@4.x` from the public chart repo. Argo syncs it. Whatever containers that chart renders land in the cluster. Nobody looked. That is not a tooling gap. That is risk you are shipping on every sync.
 
-I already wrote about [SBOMs beyond generation](/sbom-supply-chain-beyond-generation/) and [hardening GitHub Actions](/github-actions-supply-chain-hardening/). This one is the missing middle: the ops repo. Argo Applications, Helm `targetRevision` pins, Kustomize bundles that yank GitHub release YAMLs. That tree is how third-party containers enter the cluster. If your scanners only run on application build pipelines, you are blind there.
+I already wrote about [SBOMs beyond generation](/sbom-supply-chain-beyond-generation/) and [hardening GitHub Actions](/github-actions-supply-chain-hardening/). This one is the missing middle: the ops repo. Argo Applications, Flux `HelmRelease`s, Helm `targetRevision` pins, Kustomize bundles that yank GitHub release YAMLs. That tree is how third-party containers enter the cluster. If your scanners only run on application build pipelines, you are blind there.
 
-So from that gap, this is what I did. Not chart cosign. Not a shiny product. A composite action that renders what Argo would sync, inventories the images, runs Syft + Grype, then tells you which chart pin to bump.
+So I open sourced the path I use: render what GitOps would sync, inventory the images, run Syft + Grype, gate on fixable High/Critical. That is **supply chain security on the images the ops repo would deploy**, not another app CI image scan.
 
 ## The gap
 
 App image CI and chart-render supply chain are not the same control. Confusing them is how infra teams sleep well while the cluster stays soft.
 
-App pipelines usually look like: build → SBOM → SCA → maybe sign → push to ECR. Fine for *your* code.
+App pipelines usually look like: build → SBOM → scan → maybe sign → push to ECR. Fine for *your* code.
 
 Platform charts are different:
 
-- The "source" is an Argo `Application` with `chart` + `repoURL` + `targetRevision`
+- The "source" is an Argo `Application` (or Flux `HelmRelease`) with `chart` + `repoURL` + `targetRevision`
 - Images come from upstream defaults, or from `helm.values` overrides you forgot about
 - Tags are often mutable (`:latest`, `:v1.2`) with no digest
 - CVEs show up months after you pinned the chart, and the fix is almost never "edit the Deployment image by hand"
@@ -38,15 +38,66 @@ If you only scan the generic chart folder with `helm lint`, you never see the re
 
 ## What I wired
 
-On PRs to the GitOps ops repo, matrix over environments (staging / production apps trees):
+Two repos, same job:
 
-1. **Render** every Argo `Application` (and nested apps inside Kustomize) the same way the cluster would see it
-2. **Inventory** deployments into a CycloneDX SBOM that maps app → chart/repo/revision → images
-3. **Syft** each unique image (prefer SBOM later for Grype)
-4. **Grype** with `--only-fixed`, High/Critical only for the gate noise
-5. **Enrich** findings (EPSS / KEV / match confidence where the shared SCA enrich step runs)
-6. **Warn** if image refs lack `@sha256:`
-7. **Recommend chart / upstream bumps** by comparing current pin vs latest upstream render
+- CLI: [`saintmalik/helm-sca`](https://github.com/saintmalik/helm-sca)
+- GitHub Action: [`saintmalik/helm-sca-action`](https://github.com/saintmalik/helm-sca-action) ([Marketplace](https://github.com/marketplace/actions/helm-sca))
+
+Modes: `argo`, `flux`, `gitops` (Argo + Flux), `manifests`, `chart`, `terraform`. `inventory` scopes what would deploy. `scan` is the gate (Syft → Grype, `--only-fixed` by default). `recommend` suggests chart / `targetRevision` bumps when a newer pin improves the Grype score.
+
+Minimal Action workflow (pin the commit SHA):
+
+```yaml
+name: ops supply chain
+
+on:
+  pull_request:
+    paths:
+      - "environments/**"
+
+jobs:
+  supply-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Scan Argo Application pins
+        uses: saintmalik/helm-sca-action@cccf5a6f266ad6be7ca18655ad66b860e386e293 # v0.0.4
+        with:
+          mode: argo
+          argo-apps: ./environments
+          command: scan
+          fail-on: high
+```
+
+Flux is the same shape with `mode: flux` and `flux: ./clusters/prod`. More examples live under the [action repo](https://github.com/saintmalik/helm-sca-action/tree/main/examples).
+
+CLI if you want it on a laptop or a non-Actions runner:
+
+```bash
+curl -sSfL \
+  "https://github.com/saintmalik/helm-sca/releases/download/v0.0.2/helm-sca_linux_amd64.tar.gz" \
+  | tar -xz -C /usr/local/bin helm-sca
+
+helm-sca inventory --argo-apps ./apps --repo-root .
+helm-sca scan --flux ./clusters --repo-root . --out-dir ./out --fail-on high
+helm-sca recommend --argo-apps ./apps --repo-root . --out-dir ./out
+```
+
+Needs `helm` on PATH for chart/GitOps/Terraform paths. `scan` / `recommend` need Syft and Grype (the Action installs those). Kustomize sources need `kubectl` or `kustomize`.
+
+## What the pipeline does
+
+Against the ops repo (PRs or a scheduled job over staging / production trees):
+
+1. **Render** Argo `Application`s / Flux releases (and nested apps inside Kustomize) the same way the cluster would see them
+2. **Inventory** into a CycloneDX SBOM that maps app → chart/repo/revision → images
+3. **Syft** each unique image
+4. **Grype** with `--only-fixed`, fail on High/Critical when you set `fail-on`
+5. **Warn** if image refs lack `@sha256:`
+6. **Recommend** chart pin bumps when a newer chart version templates to fewer fixable High/Critical findings
+
+Chart pin **recommend** is shipped: it resolves newer versions (`helm search repo` / `helm show chart`), re-templates current vs candidate, scores both image sets, and suggests a bump only when the Grype score improves. Private chart repos still need helm auth; version discovery is best-effort.
 
 ## Render first, or you are lying to yourself
 
@@ -72,38 +123,41 @@ If nothing renders, the job exits. Empty scan = false green is worse than a red 
 
 I generate:
 
-1. **Deploy inventory** (`inventory.cdx.json`): one component per Argo app, with properties for source file, chart, repo, revision, path. Child components are the container images that came out of render.
-2. **Per-image CycloneDX** under `images/`: Syft against the actual image (with ECR login when the runner already has AWS creds).
+1. **Deploy inventory** (`inventory.cdx.json`): one component per app, with properties for source file, chart, repo, revision, path. Child components are the container images that came out of render.
+2. **Per-image CycloneDX** under the scan out-dir: Syft against the actual image (with registry login when the runner already has creds).
 
 Grype prefers `grype sbom:$file`. If Syft could not pull a private image, fall back to scanning the image ref directly and warn. Private registry auth is the usual failure mode; understated CVE counts beat silent success.
 
-The inventory is what makes the Slack report useful. Finding is not "CVE in nginx." It is "this staging Application YAML, this chart pin, this image."
+The inventory is what makes the report useful. Finding is not "CVE in nginx." It is "this staging Application YAML, this chart pin, this image."
 
 ## What the gate actually fails on
 
-Fixable High/Critical from Grype (`--only-fixed`). If upstream has not published a fixed version, I do not pretend a PR block helps.
+Fixable High/Critical from Grype (`--only-fixed`). If upstream has not published a fixed version, a PR block does not magically create one. Tune `fail-on` (`none` / `low` / `medium` / `high` / `critical`) to how loud you want the check.
 
 Mutable tags get a warning, not a fail (yet). Digest pinning is the right end state. Most ops repos do not get there in one PR.
 
-Slack posts before the fail so people see the report even when the check is red.
+Upload the scan out-dir as an artifact. Fail closed on actionable findings after your team actually reads the report.
 
 ## Chart bumps, not image surgery
 
 This is the bit teams get wrong after the first Grype dump.
 
-For external charts, bump `targetRevision` (or the Kustomize GitHub release URL), not chase container tags inside rendered YAML. The recommend step:
+For external charts, bump `targetRevision` (or the Flux chart version / Kustomize GitHub release URL), not chase container tags inside rendered YAML. `helm-sca recommend` does that scoring:
 
-- Finds apps that showed up in the supply-chain summary (or remote Helm / trackable Kustomize pins)
-- Resolves "latest" via `helm search repo`, `helm show chart`, or Artifact Hub
-- Re-templates current pin and latest pin
-- Scores fixable High/Critical on both image sets
-- Says **bump** only when the newer chart actually improves the count
-- Calls out values that override `tag` / `repository` / `registry`, because a chart bump alone will not move those images
-- For vendored operator images in Kustomize (e.g. RabbitMQ operators), checks GitHub latest release tags instead of pretending there is a Helm chart
+- Find remote Helm pins (Argo `Application`, Flux `HelmRelease`, Terraform `helm_release`, …)
+- Resolve newer versions via `helm search repo` / `helm show chart`
+- Re-template current pin and candidate pin(s)
+- Score fixable High/Critical on both image sets (Syft → Grype `--only-fixed`)
+- Say **bump** only when the newer chart actually improves the count
+- Call out values that override `tag` / `repository` / `registry`, because a chart bump alone will not move those images
 
-Actions look like `bump-recommended`, `bump-may-not-fix`, `bump-available-unverified`, `upstream-image-bump`, `track-internally` for self-hosted ECR. That last one matters: your own base images are not fixed by bumping Bitnami.
+```bash
+helm-sca recommend --argo-apps ./environments --repo-root . --out-dir ./out
+```
 
-Cap how many apps you re-score per run. Full fleet Grype of every "maybe newer" chart on every PR will melt the runner.
+Artifacts: `upgrade-recommendations.md` + `.json`. Limits: private chart repos need helm auth; version discovery is best-effort.
+
+Also: your own base images in ECR are not fixed by bumping Bitnami. Track those internally.
 
 ## Adjacent layer: signing your own images
 
@@ -117,47 +171,34 @@ I am not verifying Helm chart signatures in this path today. If your threat mode
 
 **Pros**
 
-- Scans the same rendered surface Argo syncs
-- Maps CVEs back to Application files humans can edit
+- Scans the same rendered surface GitOps syncs
+- Maps CVEs back to Application / HelmRelease files humans can edit
 - Pushes remediation toward chart/release pins
 
 **Cons / sharp edges**
 
 - Needs network to chart repos and registries during CI
 - Private images without auth under-report
-- Chart "latest" lookup heuristics (Artifact Hub mapping) are imperfect
-- Upgrade recommend is expensive; keep it bounded
+- Chart "latest" lookup heuristics are imperfect (best-effort `helm search` / `helm show`)
 - Mutable tags are warned, not blocked
 - Render failures are skipped with warnings; a broken Application can disappear from the scan until you watch the logs
+- Private charts need helm repo/registry auth or recommend cannot resolve versions
 
-Also: this is PR-time on the ops repo. Runtime drift (someone `helm upgrade` outside GitOps) is out of scope. That is a different detector.
-
-## Minimal shape if you rebuild it
-
-You do not need my composite action names. The pattern is small:
-
-```text
-PR to ops repo
-  → render Applications (helm template / kustomize)
-  → extract image: lines
-  → syft → cyclonedx
-  → grype sbom:… --only-fixed
-  → gate on High/Critical fixable
-  → optional: compare targetRevision vs upstream and re-score
-```
-
-Pin tool versions. Upload the inventory SBOM as an artifact. Fail closed on actionable findings after Slack (or whatever your team actually reads).
+Also: this is CI-time on the ops repo. Runtime drift (someone `helm upgrade` outside GitOps) is out of scope. That is a different detector.
 
 ## Conclusion
 
 GitOps did not remove your Helm supply chain. It moved it into YAML that looks too boring to scan.
 
-Render it. Inventory it. Grype the images. Tell people which pin to bump. Then argue about digests and chart signatures once the boring path is green.
+Render it. Inventory it. Grype the images. Gate the ops repo. Then argue about digests, chart signatures, and auto pin-bumps once the boring path is green.
 
 Till next time, Peace be on you 🙏🏽
 
 #### References
 
+- https://github.com/saintmalik/helm-sca
+- https://github.com/saintmalik/helm-sca-action
+- https://github.com/marketplace/actions/helm-sca
 - https://github.com/anchore/syft
 - https://github.com/anchore/grype
 - https://blog.saintmalik.me/sbom-supply-chain-beyond-generation/
