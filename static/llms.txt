@@ -31,6 +31,7 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to Scale SAST Analysis](https://blog.saintmalik.me/sast-recommendations-with-llm/)
 - [RDS DB Passwordless Authentication on AWS EKS using IAM Role Service Account](https://blog.saintmalik.me/rds-db-passwordless-auth-eks/)
 - [Not enough pod IPs on EKS: secondary CIDR and prefix delegation](https://blog.saintmalik.me/eks-ip-outage/): Fix EKS pod IP exhaustion without tearing down the cluster. Add a secondary VPC CIDR, configure VPC CNI prefix delegation, and keep workloads scheduling when subnets run dry.
+- [Managing multiple EKS clusters access using Private EKS API Endpoint with OpenVPN](https://blog.saintmalik.me/eks-private-apiserver/)
 - [2024 In Review](https://blog.saintmalik.me/2024-in-review/)
 - [Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/)
 - [EKS Node Debug Nightmare, How to SSH into EKS Nodes](https://blog.saintmalik.me/eks-node-ssh/): Learn how to securely SSH into AWS EKS nodes for debugging using IAM roles and kubectl plugins. Perfect for DevOps engineers troubleshooting EKS node issues.
@@ -44,14 +45,15 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Leading Communities](https://blog.saintmalik.me/looking-back/)
 - [Cosign keyless signing with GitHub Actions OIDC](https://blog.saintmalik.me/keyless-signing-container-images-github-oidc/): Sign container images with Cosign keyless (Sigstore Fulcio + Rekor) using GitHub Actions OIDC. No long-lived cosign keys. For AWS Signer instead of public Rekor, see the sibling po
 - [Managing Secrets in Infrastructure As Code with Terraform](https://blog.saintmalik.me/secrets-in-iac-terraform/)
-- [How to automate HashiCorp Vault backup and restoration in AWS EKS with Terraform](https://blog.saintmalik.me/automate-vault-backup-restore-on-aws-eks/)
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)
 - [TEE stacks — short notes](https://blog.saintmalik.me/docs/tee-stacks/)
 - [Access internal assets access, aws](https://blog.saintmalik.me/docs/vpc/)
 - [AI Shell War - Locking Your .zshrc From Rogue Agents](https://blog.saintmalik.me/docs/locking-zshrc/): How AI coding assistants silently modify your shell config, why you should lock your .zshrc with chflags, and the importance of backing it up to a GitHub Gist.
+- [AMD64 vs ARM64: which EC2 architecture to pick](https://blog.saintmalik.me/docs/amd64-arm64/): Quick AMD64 vs ARM64 comparison for EC2: cost and power on ARM (Graviton) versus broader app compatibility on x86/amd64 when choosing instance architecture.
 - [Android Signing](https://blog.saintmalik.me/docs/android/)
+- [ArgoCD-related issues and solutions](https://blog.saintmalik.me/docs/argocd-related-issues/): Fixes for common ArgoCD errors: cache key is missing, server.secretkey missing, connection timeouts, cluster add failures, and argocd-k8s-auth problems.
 - [Arrays in GoLang](https://blog.saintmalik.me/docs/arrays-in-golang/)
 - [Automate FInding and Fixing typos in large scale documentation](https://blog.saintmalik.me/docs/bulk-typo-fixing/)
 - [Automate webp image github action](https://blog.saintmalik.me/docs/automate-webp-blog/)
@@ -68,6 +70,7 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Expose Socket.IO on EKS with Nginx Ingress (single ingress)](https://blog.saintmalik.me/docs/sockets-nginx/): Run Socket.IO and HTTP services on one Nginx Ingress in EKS with websocket annotations, instead of a separate ALB per socket endpoint.
 - [Exposing socket io and webservice on a service in EKS, ALB](https://blog.saintmalik.me/docs/sockets-service-alb/)
 - [Fix App Store Connect: images cant contain alpha channels or transparencies](https://blog.saintmalik.me/docs/alpha-channels/): Fix App Store Connect Images cant contain alpha channels or transparencies by stripping alpha with ImageMagick mogrify before uploading screenshots or icons.
+- [Fix docker-credential-desktop executable file not found in $PATH](https://blog.saintmalik.me/docs/docker-credential-desktop/): Resolve Docker error getting credentials - err: exec docker-credential-desktop executable file not found in $PATH by fixing ~/.docker/config.json credsStore on macOS.
 - [forcefully delete resources](https://blog.saintmalik.me/docs/delete-k8s-resource/)
 - [Hackthebox invite challenge](https://blog.saintmalik.me/docs/hackthebox-invite/)
 - [How i go about my Subdomain Gathering](https://blog.saintmalik.me/docs/subdomain-checks/)
@@ -84,9 +87,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Setting up free custom mails for your startup](https://blog.saintmalik.me/docs/custom-mails/)
 - [Signoz on Kubernetes Errors](https://blog.saintmalik.me/docs/signoz/)
 - [Solutions to Docusaurus Issues i experienced](https://blog.saintmalik.me/docs/fix-docusaurus-solutions/)
-- [Squeezing your node on EKS for the money of it!](https://blog.saintmalik.me/docs/squeeze-node/)
-- [Terraform Destroy](https://blog.saintmalik.me/docs/terraform-destroy/)
-- [Terraform Destroy Error](https://blog.saintmalik.me/docs/terraform-destroy-error/)
 
 ## Optional
 - Google Search does not require llms.txt for AI Overviews or AI Mode.

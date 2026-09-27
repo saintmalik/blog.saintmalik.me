@@ -1,6 +1,6 @@
 ---
 title: Fix docker-credential-desktop executable file not found in $PATH
-description: Resolve Docker "error getting credentials - err: exec docker-credential-desktop executable file not found in $PATH" by fixing ~/.docker/config.json credsStore on macOS.
+description: "Resolve Docker \"error getting credentials - err: exec docker-credential-desktop executable file not found in $PATH\" by fixing ~/.docker/config.json credsStore on macOS."
 ---
 
 import Giscus from "@giscus/react";

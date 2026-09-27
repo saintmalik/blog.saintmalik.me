@@ -1,6 +1,6 @@
 ---
 title: "AMD64 vs ARM64: which EC2 architecture to pick"
-description: Quick AMD64 vs ARM64 comparison for EC2: cost and power on ARM (Graviton) versus broader app compatibility on x86/amd64 when choosing instance architecture.
+description: "Quick AMD64 vs ARM64 comparison for EC2: cost and power on ARM (Graviton) versus broader app compatibility on x86/amd64 when choosing instance architecture."
 ---
 
 import Giscus from "@giscus/react";

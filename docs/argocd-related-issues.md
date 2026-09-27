@@ -1,6 +1,6 @@
 ---
 title: ArgoCD-related issues and solutions
-description: Fixes for common ArgoCD errors: cache key is missing, server.secretkey missing, connection timeouts, cluster add failures, and argocd-k8s-auth problems.
+description: "Fixes for common ArgoCD errors: cache key is missing, server.secretkey missing, connection timeouts, cluster add failures, and argocd-k8s-auth problems."
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

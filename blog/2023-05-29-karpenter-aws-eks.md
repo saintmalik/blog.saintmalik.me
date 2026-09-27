@@ -1,7 +1,7 @@
 ---
 slug: autoscaling-eks-karpenter
 title: Install Karpenter on EKS with Terraform
-description: Provision Karpenter on AWS EKS using Terraform: metrics-server, IRSA, instance profile, Helm release, and NodePool-style provisioning. Faster scale-up than Cluster Autoscaler in practice.
+description: "Provision Karpenter on AWS EKS using Terraform: metrics-server, IRSA, instance profile, Helm release, and NodePool-style provisioning. Faster scale-up than Cluster Autoscaler in practice."
 author: Abdulmalik
 author_title: DevSecOps
 author_url: https://twitter.com/saintmalik_
