@@ -1,5 +1,5 @@
 ---
-title: 📝 Playing with TF
+title: Playing with TF
 ---
 import Giscus from "@giscus/react";
 

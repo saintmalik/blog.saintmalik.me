@@ -1,10 +1,10 @@
 ---
 slug: cloudflare-access-workers-for-internal-apps
-title: "Protecting Your Internal Apps on Cloudflare Workers with Cloudflare Access"
+title: "Cloudflare Access for Workers: protect internal apps without a VPN"
 authors: Abdulmalik
 image: /bgimg/cloudflare-access-workers-cover.webp
 tags: [devops, devsecops, appsec, cloudflare, security]
-description: Internal dashboards should never be publicly accessible. Learn how to secure your Cloudflare Workers applications with Cloudflare Access - a simpler alternative to VPNs.
+description: Put Cloudflare Access in front of Workers so internal dashboards need login first. Terraform for Access apps, IdP, and policies without a VPN.
 ---
 
 import Giscus from "@giscus/react";

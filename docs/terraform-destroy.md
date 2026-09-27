@@ -1,5 +1,5 @@
 ---
-title: 📝 Terraform Destroy
+title: Terraform Destroy
 ---
 
 So just like every other new terraform users, haha, i made some mistakes early on too.

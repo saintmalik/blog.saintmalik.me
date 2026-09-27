@@ -1,3 +1,24 @@
+# AI search citability crawlers (explicit allow).
+# Training-only bots (GPTBot, ClaudeBot, Google-Extended, CCBot, Applebot-Extended)
+# are NOT listed here: they inherit User-agent: * below. Allow/block training as a
+# licensing choice; search citability is controlled by the agents below.
+# Ref: OpenAI/Anthropic crawler docs; Google AI optimization guide (GEO = still SEO).
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 User-agent: *
 
 Disallow: /images/
@@ -302,4 +323,4 @@ User-agent: megaIndex.ru
 
 Disallow: /
 
-Sitemap: https://saintmalik.me/sitemap.xml
+Sitemap: https://blog.saintmalik.me/sitemap.xml

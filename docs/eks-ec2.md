@@ -1,5 +1,5 @@
 ---
-title: 📝 EKS EC2 Difference
+title: EKS EC2 Difference
 ---
 import Giscus from "@giscus/react";
 

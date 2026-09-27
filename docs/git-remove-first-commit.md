@@ -1,5 +1,6 @@
 ---
-title: Removing the first commit on your repo can be tricky, here is how
+title: How to remove the first commit in Git (when reset and rebase fail)
+description: Remove the first Git commit when it holds a secret. Use git update-ref -d HEAD, recommit, then force-push when reset and rebase cannot reach commit zero.
 ---
 import Giscus from "@giscus/react";
 

@@ -3,7 +3,12 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 /**
- * Generates static/llms.txt from docs/ and blog/ (the stock npm plugin only walks docs/).
+ * Generates a curated /llms.txt index (title + URL + one-line description).
+ *
+ * Google Search does not use llms.txt for ranking or AI feature eligibility
+ * (AI optimization guide). This file is optional for non-Google assistants.
+ * Do NOT dump full markdown bodies here (previous generator did; 800KB+ of
+ * JSX noise). Keep it a short map of high-signal pages.
  */
 module.exports = function generateLlmsTxtPlugin(context, options = {}) {
   const isDev = process.env.NODE_ENV === 'development';
@@ -11,90 +16,68 @@ module.exports = function generateLlmsTxtPlugin(context, options = {}) {
   const docsDir = path.join(siteDir, 'docs');
   const blogDir = path.join(siteDir, 'blog');
   const staticDir = path.join(siteDir, 'static');
+  const siteUrl = (context.siteConfig && context.siteConfig.url) || 'https://blog.saintmalik.me';
   const outputFile = path.join(staticDir, options.outputFile || 'llms.txt');
+  const maxBlog = options.maxBlog || 40;
+  const maxDocs = options.maxDocs || 40;
 
-  function getCategoryPosition(dir) {
-    const categoryFile = path.join(dir, '_category_.yml');
-    if (fs.existsSync(categoryFile)) {
-      const categoryData = yaml.load(fs.readFileSync(categoryFile, 'utf8'));
-      return categoryData.position || null;
+  function parseFrontmatter(content) {
+    const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!match) return {};
+    try {
+      return yaml.load(match[1]) || {};
+    } catch {
+      return {};
     }
-    return null;
   }
 
-  function getSortedFiles(dir) {
-    if (!fs.existsSync(dir)) {
-      return [];
-    }
-    const files = fs.readdirSync(dir, {withFileTypes: true});
-    const items = [];
-
-    files.forEach((file) => {
-      const fullPath = path.join(dir, file.name);
-      if (file.name.startsWith('.')) {
-        return;
-      }
-
-      if (file.isDirectory()) {
-        items.push({
-          type: 'category',
-          path: fullPath,
-          position: getCategoryPosition(fullPath),
-        });
-      } else if (file.name.endsWith('.md') || file.name.endsWith('.mdx')) {
-        const content = fs.readFileSync(fullPath, 'utf8');
-        const sidebarPositionMatch = content.match(/sidebar_position:\s*(\d+)/);
-        const position = sidebarPositionMatch
-          ? parseInt(sidebarPositionMatch[1], 10)
-          : null;
-        items.push({type: 'file', path: fullPath, position, content});
-      }
-    });
-
-    return items.sort(
-      (a, b) => (a.position ?? Infinity) - (b.position ?? Infinity),
-    );
-  }
-
-  function shouldIncludePage(content) {
-    const metadataMatch = content.match(/^---([\s\S]*?)---/);
-    if (metadataMatch) {
-      const metadata = metadataMatch[1];
-      const isDraft = /draft:\s*true/.test(metadata);
-      const isHidden =
-        /hidden:\s*true/.test(metadata) || /unlisted:\s*true/.test(metadata);
-      if (isHidden) return false;
-      if (isDraft) return isDev;
-      return true;
-    }
+  function shouldInclude(fm) {
+    if (!fm || typeof fm !== 'object') return true;
+    if (fm.hidden === true || fm.unlisted === true) return false;
+    if (fm.draft === true) return isDev;
     return true;
   }
 
-  function cleanContent(content) {
-    return content.replace(/^---[\s\S]*?---\s*/, '').trim();
+  function oneLine(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/\s+/g, ' ')
+      .replace(/["']/g, '')
+      .trim()
+      .slice(0, 180);
   }
 
-  function processDir(dir, rootDir, labelPrefix, contentArray) {
-    const sortedItems = getSortedFiles(dir);
+  function blogUrl(fm, filePath) {
+    if (fm.slug) return `${siteUrl}/${String(fm.slug).replace(/^\/|\/$/g, '')}/`;
+    const base = path.basename(filePath).replace(/\.mdx?$/, '');
+    // 2026-09-20-foo -> foo (Docusaurus default when no slug)
+    const withoutDate = base.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+    return `${siteUrl}/${withoutDate}/`;
+  }
 
-    sortedItems.forEach((item) => {
-      if (item.type === 'file') {
-        const content = item.content ?? fs.readFileSync(item.path, 'utf8');
-        if (!shouldIncludePage(content)) {
-          return;
-        }
-        const relativePath = path.relative(rootDir, item.path);
-        const fileNameWithPath = relativePath.slice(
-          0,
-          -path.extname(relativePath).length,
-        );
-        contentArray.push(
-          `// File: ${labelPrefix}${fileNameWithPath}\n\n${cleanContent(content)}`,
-        );
-      } else if (item.type === 'category') {
-        processDir(item.path, rootDir, labelPrefix, contentArray);
-      }
-    });
+  function docsUrl(fm, filePath) {
+    if (fm.slug === '/') return `${siteUrl}/docs/`;
+    if (fm.slug) {
+      const s = String(fm.slug).replace(/^\/|\/$/g, '');
+      return `${siteUrl}/docs/${s}/`;
+    }
+    const base = path.basename(filePath).replace(/\.mdx?$/, '');
+    return `${siteUrl}/docs/${base}/`;
+  }
+
+  function collectMarkdown(dir) {
+    if (!fs.existsSync(dir)) return [];
+    return fs
+      .readdirSync(dir)
+      .filter((name) => name.endsWith('.md') || name.endsWith('.mdx'))
+      .map((name) => path.join(dir, name));
+  }
+
+  function entry(title, url, description) {
+    const desc = oneLine(description);
+    return desc
+      ? `- [${title}](${url}): ${desc}`
+      : `- [${title}](${url})`;
   }
 
   async function generateContent() {
@@ -102,37 +85,68 @@ module.exports = function generateLlmsTxtPlugin(context, options = {}) {
       fs.mkdirSync(staticDir, {recursive: true});
     }
 
-    const contentArray = [];
+    const lines = [
+      '# Abdulmalik / saintmalik blog',
+      '> AppSec, DevSecOps, Kubernetes, and supply-chain notes from lived infra work.',
+      '',
+      `Site: ${siteUrl}`,
+      'Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me',
+      '',
+      '## Priority posts',
+    ];
 
-    if (fs.existsSync(docsDir)) {
-      processDir(docsDir, docsDir, '', contentArray);
+    const blogFiles = collectMarkdown(blogDir)
+      .map((filePath) => {
+        const content = fs.readFileSync(filePath, 'utf8');
+        const fm = parseFrontmatter(content);
+        return {filePath, fm, content};
+      })
+      .filter((item) => shouldInclude(item.fm) && item.fm.title)
+      .sort((a, b) => path.basename(b.filePath).localeCompare(path.basename(a.filePath)))
+      .slice(0, maxBlog);
+
+    for (const item of blogFiles) {
+      const title = oneLine(item.fm.title);
+      lines.push(
+        entry(title, blogUrl(item.fm, item.filePath), item.fm.description || ''),
+      );
     }
 
-    if (fs.existsSync(blogDir)) {
-      // Newest blog posts first (filename date prefix YYYY-MM-DD-...)
-      const blogItems = getSortedFiles(blogDir)
-        .filter((item) => item.type === 'file')
-        .sort((a, b) => path.basename(b.path).localeCompare(path.basename(a.path)));
+    lines.push('', '## Notes / docs');
 
-      blogItems.forEach((item) => {
-        const content = item.content ?? fs.readFileSync(item.path, 'utf8');
-        if (!shouldIncludePage(content)) {
-          return;
-        }
-        const relativePath = path.relative(blogDir, item.path);
-        const fileNameWithPath = relativePath.slice(
-          0,
-          -path.extname(relativePath).length,
-        );
-        contentArray.push(
-          `// File: blog/${fileNameWithPath}\n\n${cleanContent(content)}`,
-        );
-      });
+    const docFiles = collectMarkdown(docsDir)
+      .map((filePath) => {
+        const content = fs.readFileSync(filePath, 'utf8');
+        const fm = parseFrontmatter(content);
+        return {filePath, fm};
+      })
+      .filter((item) => shouldInclude(item.fm) && item.fm.title)
+      .sort((a, b) => {
+        const pa = a.fm.sidebar_position ?? 999;
+        const pb = b.fm.sidebar_position ?? 999;
+        if (pa !== pb) return pa - pb;
+        return String(a.fm.title).localeCompare(String(b.fm.title));
+      })
+      .slice(0, maxDocs);
+
+    for (const item of docFiles) {
+      const title = oneLine(item.fm.title);
+      lines.push(
+        entry(title, docsUrl(item.fm, item.filePath), item.fm.description || ''),
+      );
     }
 
-    fs.writeFileSync(outputFile, contentArray.join('\n\n---\n\n'));
+    lines.push(
+      '',
+      '## Optional',
+      '- Google Search does not require llms.txt for AI Overviews or AI Mode.',
+      '- Prefer the live HTML pages above as the source of truth.',
+      '',
+    );
+
+    fs.writeFileSync(outputFile, lines.join('\n'));
     console.log(
-      `Generated: ${outputFile} (${isDev ? 'development' : 'production'} mode) — ${contentArray.length} pages`,
+      `Generated curated llms.txt: ${outputFile} (${blogFiles.length} posts, ${docFiles.length} docs)`,
     );
   }
 
@@ -146,7 +160,7 @@ module.exports = function generateLlmsTxtPlugin(context, options = {}) {
     extendCli(cli) {
       cli
         .command('generate-llms-txt')
-        .description('Generate the LLMs text file from docs/ and blog/')
+        .description('Generate a curated llms.txt index from docs/ and blog/')
         .action(async () => {
           await generateContent();
         });

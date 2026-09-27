@@ -1,5 +1,6 @@
 ---
-title: Exposing socket io and webservice on a service in EKS, Nginx Ingress
+title: Expose Socket.IO on EKS with Nginx Ingress (single ingress)
+description: Run Socket.IO and HTTP services on one Nginx Ingress in EKS with websocket annotations, instead of a separate ALB per socket endpoint.
 ---
 import Giscus from "@giscus/react";
 import Figure from '../src/components/Figure';

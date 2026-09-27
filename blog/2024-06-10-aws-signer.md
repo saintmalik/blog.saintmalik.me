@@ -1,6 +1,7 @@
 ---
 slug: iac-security-with-state-file-aws-signerion
-title: Ditching Rekor for AWS Signer - A Simpler Way to Sign Container Images
+title: Sign container images with AWS Signer and Notation (no public Rekor)
+description: Use AWS Signer with Notation in GitHub Actions to sign and verify ECR images without running your own Rekor. Sibling posts cover Cosign key-based and Cosign keyless OIDC.
 authors: Abdulmalik
 image: /bgimg/aws-signer-cover.webp
 tags: [IaC, opentofu, encryption, aws-signer, devops, containers]
@@ -10,7 +11,14 @@ import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Look, I get it. Everyone is using Cosign and Rekor for container signing these days. I've used it myself (check out my <a href="https://blog.saintmalik.me/signing-container-images-for-trust-assurance/" target="_blank">previous post</a> if you're curious). But when you're working on private projects, using Sigstore's public Rekor instance isn't really an option.
+This post is **AWS Signer + Notation** for private ECR signing. It is not Cosign, and it does not use Sigstore's public Rekor.
+
+- Cosign with your own keys: [Signing container images for trust assurance](/signing-container-images-for-trust-assurance/)
+- Cosign keyless via GitHub OIDC: [Cosign keyless signing with GitHub Actions OIDC](/keyless-signing-container-images-github-oidc/)
+
+(URL note: the live slug still has a historical typo, `aws-signerion`. The corrected path redirects here so old links and Search Console entries keep working.)
+
+Look, I get it. Everyone is using Cosign and Rekor for container signing these days. I've used it myself (check out my <a href="/signing-container-images-for-trust-assurance/">previous post</a> if you're curious). But when you're working on private projects, using Sigstore's public Rekor instance isn't really an option.
 
 <!--truncate-->
 

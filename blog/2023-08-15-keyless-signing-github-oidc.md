@@ -1,6 +1,7 @@
 ---
 slug: keyless-signing-container-images-github-oidc
-title: Keyless Signing of Container Images using GitHub Actions
+title: Cosign keyless signing with GitHub Actions OIDC
+description: Sign container images with Cosign keyless (Sigstore Fulcio + Rekor) using GitHub Actions OIDC. No long-lived cosign keys. For AWS Signer instead of public Rekor, see the sibling post.
 authors: Abdulmalik
 image: /bgimg/keyless-signing-github-oidc-cover.webp
 tags: [appsec, container security, devsecops]
@@ -9,7 +10,12 @@ tags: [appsec, container security, devsecops]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-In my past article about <a href="https://blog.saintmalik.me/signing-container-images-for-trust-assurance/" target="_blank">signing container images</a>, got some comments which led me to dig into the keyless signing of container images.
+This post is **Cosign keyless** via GitHub Actions OIDC (Sigstore Fulcio + Rekor). Not AWS Signer, and not the older key-based Cosign flow.
+
+- Key-based Cosign walkthrough: [Signing container images for trust assurance](/signing-container-images-for-trust-assurance/)
+- Private AWS path without public Rekor: [AWS Signer + Notation](/iac-security-with-state-file-aws-signerion/)
+
+In my past article about <a href="/signing-container-images-for-trust-assurance/">signing container images</a>, got some comments which led me to dig into the keyless signing of container images.
 
 <picture>
 <a href="https://x.com/1azunna">

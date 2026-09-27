@@ -1,6 +1,7 @@
 ---
 slug: eks-ip-outage
-title:  "How to Prevent EKS Outages: Solving Insufficient IP Address Issues in AWS EKS"
+title: "Not enough pod IPs on EKS: secondary CIDR and prefix delegation"
+description: Fix EKS pod IP exhaustion without tearing down the cluster. Add a secondary VPC CIDR, configure VPC CNI prefix delegation, and keep workloads scheduling when subnets run dry.
 authors: Abdulmalik
 image: /bgimg/eks-ip-outage-cover.webp
 tags: [devops, devsecops, appsec]
@@ -9,6 +10,8 @@ tags: [devops, devsecops, appsec]
 import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
+
+**Problem:** pods stuck Pending because the VPC CNI has no more IPs (`not enough addresses`, failed ENI/IP assignment). **Fix in this post:** secondary VPC CIDR + VPC CNI **prefix delegation**, without rebuilding the cluster for IPv6.
 
 Sooner or later, your Elastic Kubernetes Service (EKS) Cluster will run out of IP allocation for your workloads, pods and all.
 
@@ -121,6 +124,8 @@ By adding secondary subnets to your VPC and configuring the VPC CNI plugin, you 
 While IPv6 is a great long-term solution, it’s not always practical for existing clusters.
 
 Adding secondary subnets is a quick and effective way to prevent IP address exhaustion without disrupting your operations.
+
+Related: [Install Karpenter on EKS](/autoscaling-eks-karpenter/), [SSH into EKS nodes](/eks-node-ssh/), [AMD64 vs ARM64](/docs/amd64-arm64/).
 
 Take care, and happy scaling! 🤞🏽
 

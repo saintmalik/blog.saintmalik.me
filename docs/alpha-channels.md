@@ -1,5 +1,6 @@
 ---
-title: 📝 Images can’t contain alpha channels or transparencies.
+title: "Fix App Store Connect: images can't contain alpha channels or transparencies"
+description: Fix App Store Connect "Images can't contain alpha channels or transparencies" by stripping alpha with ImageMagick mogrify before uploading screenshots or icons.
 ---
 import Giscus from "@giscus/react";
 

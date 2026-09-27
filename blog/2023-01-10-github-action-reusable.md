@@ -1,9 +1,10 @@
 ---
 slug: github-reusable-workflow
-title: Reducing 900 lines of GitHub workflow to 200 lines 😌
+title: "GitHub reusable workflows: cut 900 lines of CI to 200 with workflow_call"
 authors: Saintmalik
 image: /bgimg/github-action-reusable-cover.webp
 tags: [appsec, docker file, ci/cd, devsecops]
+description: Build GitHub Actions reusable workflows with workflow_call, pass secrets and job outputs, and shrink a 900-line CI pipeline into shared build, scan, and deploy jobs.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

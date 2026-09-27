@@ -1,2 +1,14 @@
 /docs/webhook-alb/ /docs/sockets-service-alb/ 301
 /docs/webhook-alb /docs/sockets-service-alb/ 301
+
+# Typo slug (triple-m "commmit") → corrected docs path
+/docs/git-remove-first-commmit/ /docs/git-remove-first-commit/ 301
+/docs/git-remove-first-commmit /docs/git-remove-first-commit/ 301
+
+# AWS Signer slug typo in live URL (signerion). Corrected path → canonical typo URL (keeps GSC equity)
+/iac-security-with-state-file-aws-signer/ /iac-security-with-state-file-aws-signerion/ 301
+/iac-security-with-state-file-aws-signer /iac-security-with-state-file-aws-signerion/ 301
+
+# Trailing-slash canonicals (GSC still indexes non-slash duplicates)
+/cloudflare-access-workers-for-internal-apps /cloudflare-access-workers-for-internal-apps/ 301
+/helm-argocd-secret-management /helm-argocd-secret-management/ 301

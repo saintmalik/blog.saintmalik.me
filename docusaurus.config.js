@@ -8,6 +8,57 @@ module.exports = {
         'html{color-scheme:dark}html,body{background:#000508;color:#d4dbe3;margin:0;min-height:100%}body{font-family:ConfigRounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica Neue,Arial,sans-serif}h1,h2,h3,.navbar,.navbar__title,.navbar__link,footer.footer{font-family:"American Typewriter","Courier New",Courier,ui-monospace,monospace}.navbar{background:#000508}',
     },
     {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': 'https://blog.saintmalik.me/#organization',
+            name: 'Abdulmalik',
+            url: 'https://blog.saintmalik.me',
+            logo: 'https://blog.saintmalik.me/img/saintmalik.jpg',
+            sameAs: [
+              'https://twitter.com/saintmalik_',
+              'https://github.com/saintmalik',
+              'https://www.linkedin.com/in/saintmalik',
+              'https://saintmalik.me',
+            ],
+          },
+          {
+            '@type': 'Person',
+            '@id': 'https://blog.saintmalik.me/#person',
+            name: 'Abdulmalik',
+            jobTitle: 'AppSec Engineer',
+            url: 'https://saintmalik.me',
+            image: 'https://github.com/saintmalik.png',
+            sameAs: [
+              'https://twitter.com/saintmalik_',
+              'https://github.com/saintmalik',
+              'https://www.linkedin.com/in/saintmalik',
+            ],
+            worksFor: {'@id': 'https://blog.saintmalik.me/#organization'},
+            knowsAbout: [
+              'Application Security',
+              'DevSecOps',
+              'Kubernetes',
+              'Supply chain security',
+              'MCP security',
+            ],
+          },
+          {
+            '@type': 'WebSite',
+            '@id': 'https://blog.saintmalik.me/#website',
+            url: 'https://blog.saintmalik.me',
+            name: 'Saintmalik Security Blog',
+            publisher: {'@id': 'https://blog.saintmalik.me/#organization'},
+            author: {'@id': 'https://blog.saintmalik.me/#person'},
+          },
+        ],
+      }),
+    },
+    {
       tagName: 'link',
       attributes: {
         rel: 'preload',

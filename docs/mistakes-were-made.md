@@ -1,5 +1,5 @@
 ---
-title: 📝 Building a startup? here is my 🤞🏽
+title: Building a startup? here is my take
 ---
 
 import Giscus from "@giscus/react";

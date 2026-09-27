@@ -1,5 +1,5 @@
 ---
-title: 📝 Android Signing
+title: Android Signing
 ---
 
 import Giscus from "@giscus/react";

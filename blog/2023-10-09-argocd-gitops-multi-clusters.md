@@ -1,6 +1,7 @@
 ---
 slug: declarative-setup-clusters-gitops-and-argocd
-title: Declarative Setup of Multiple Kubernetes Clusters with GitOps and ArgoCD
+title: Add Kubernetes clusters to ArgoCD declaratively (multi-cluster GitOps)
+description: Register additional clusters on an existing ArgoCD instance with Terraform and declarative secrets. Companion to the ArgoCD Terraform install hub.
 authors: Abdulmalik
 image: /bgimg/argocd-gitops-multi-clusters-cover.webp
 tags: [gitops, devops]
@@ -17,7 +18,7 @@ So what's the bet? you would use your existing argocd instance to manage multipl
 
 ## Requirements
 
-- <a href="https://blog.saintmalik.me/argocd-on-kubernetes-cluster/" target="_blank">Existing ArgoCD instance on EKS Cluster</a>
+- <a href="/argocd-on-kubernetes-cluster/" target="_blank">Existing ArgoCD instance on EKS Cluster</a>
 - kubectl
 - A new cluster, created using Terraform
 - knowledge of terraform

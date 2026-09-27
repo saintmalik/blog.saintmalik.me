@@ -1,5 +1,5 @@
 ---
-title: 📝 Notes
+title: Notes
 sidebar_position: 1
 slug: /
 ---
@@ -111,7 +111,7 @@ A collection of quick notes, solutions, and learnings from my day-to-day work in
   <NoteCard title="Automate WebP Blog Images" href="automate-webp-blog" date="Jan 15, 2023" />
   <NoteCard title="Delete GitHub Action Workflows" href="delete-ran-workflow" date="Mar 3, 2023" />
   <NoteCard title="Confirm Sourced Files in Bash" href="confirm-sourced-files" date="Mar 15, 2023" />
-  <NoteCard title="Remove First Git Commit" href="git-remove-first-commmit" date="Mar 22, 2023" />
+  <NoteCard title="Remove First Git Commit" href="git-remove-first-commit" date="Mar 22, 2023" />
   <NoteCard title="Bash Set Options" href="bash-set-options" date="Mar 30, 2023" />
   <NoteCard title="Container Image Scanning" href="container-image-scan" date="Apr 16, 2023" />
   <NoteCard title="Force Delete K8s Resources" href="delete-k8s-resource" date="Jun 8, 2023" />

@@ -1,5 +1,5 @@
 ---
-title: 📝 Terraform with AWS
+title: Terraform with AWS
 ---
 import Giscus from "@giscus/react";
 

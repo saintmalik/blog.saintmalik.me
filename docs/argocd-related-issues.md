@@ -1,5 +1,6 @@
 ---
 title: ArgoCD-related issues and solutions
+description: Fixes for common ArgoCD errors: cache key is missing, server.secretkey missing, connection timeouts, cluster add failures, and argocd-k8s-auth problems.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -12,6 +13,8 @@ import Giscus from "@giscus/react";
 </picture>
 
 A quick reference for ArgoCD problems I have hit and the fix that worked.
+
+Install / hub post: [Install ArgoCD on Kubernetes with Terraform](/argocd-on-kubernetes-cluster/). Multi-cluster: [Declarative setup with GitOps and ArgoCD](/declarative-setup-clusters-gitops-and-argocd/). Helm secrets: [Dynamic secret management on Helm charts in ArgoCD](/helm-argocd-secret-management/).
 
 <!--truncate-->
 

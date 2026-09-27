@@ -1,6 +1,7 @@
 ---
 slug: signing-container-images-for-trust-assurance
-title: Signing Container Images for Trust Assurance
+title: Sign container images with Cosign (key-based)
+description: Cosign key-based container image signing for supply-chain trust. For keyless GitHub OIDC or AWS Signer without public Rekor, see the linked sibling posts.
 authors: Saintmalik
 image: /bgimg/container-images-sign-cover.webp
 tags: [appsec, container security, devsecops]
@@ -8,6 +9,11 @@ tags: [appsec, container security, devsecops]
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
+
+This is the **key-based Cosign** post (you manage signing keys). Related:
+
+- [Cosign keyless + GitHub Actions OIDC](/keyless-signing-container-images-github-oidc/)
+- [AWS Signer + Notation (no public Rekor)](/iac-security-with-state-file-aws-signerion/)
 
 Hii 👋, I am sure you want peace of mind too, haha
 

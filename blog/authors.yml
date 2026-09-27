@@ -1,21 +1,23 @@
 Abdulmalik:
   name: Abdulmalik
   title: AppSec Engineer
-  url: https://twitter.com/saintmalik_
+  url: https://saintmalik.me
   image_url: 'https://github.com/saintmalik.png'
   socials:
+    x: saintmalik_
     linkedin: saintmalik
     github: saintmalik
   page:
-   permalink: '/abdulmalik'
+    permalink: '/abdulmalik'
 
 Saintmalik:
   name: Abdulmalik
   title: AppSec Engineer
-  url: https://twitter.com/saintmalik_
+  url: https://saintmalik.me
   image_url: 'https://saintmalikme.mo.cloudinary.net/img/saintmalik.jpg'
   socials:
+    x: saintmalik_
     linkedin: saintmalik
     github: saintmalik
   page:
-   permalink: '/saintmalik'
+    permalink: '/saintmalik'

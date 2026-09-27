@@ -1,6 +1,7 @@
 ---
 slug: autoscaling-eks-karpenter
-title: Autoscaling EKS Cluster With Karpenter Using Terraform
+title: Install Karpenter on EKS with Terraform
+description: Provision Karpenter on AWS EKS using Terraform: metrics-server, IRSA, instance profile, Helm release, and NodePool-style provisioning. Faster scale-up than Cluster Autoscaler in practice.
 author: Abdulmalik
 author_title: DevSecOps
 author_url: https://twitter.com/saintmalik_
@@ -12,6 +13,8 @@ tags: [autocaling, cluster, kubernetes, eks, karpenter]
 import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
+
+**What this is:** Terraform to put **Karpenter** on an existing EKS cluster (policy, IRSA, instance profile, Helm), then provision nodes that match your workloads. If you want Cluster Autoscaler instead, this post is not that path.
 
 Struggling to pick the right autoscaler for your Kubernetes cluster? Trust me, I get it. With all the options out there, choosing between Cluster Autoscaler, Karpenter, and others can be overwhelming.
 
@@ -317,6 +320,8 @@ The results from my side are that, it helped us use our nodes to their maximum l
   </Figure>
 
 I hope you've learned something useful from this blog to take home for your cluster autoscaling and better deployment management using Karpenter.
+
+Related on EKS ops: [SSH into EKS nodes](/eks-node-ssh/), [pod IP exhaustion / prefix delegation](/eks-ip-outage/), and [AMD64 vs ARM64 for node arch](/docs/amd64-arm64/).
 
 Till next time 🤞🏽
 

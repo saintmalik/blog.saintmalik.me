@@ -1,6 +1,7 @@
 ---
 slug: argocd-on-kubernetes-cluster
-title: Installing ArgoCD on Kubernetes Cluster with Terraform
+title: Install ArgoCD on Kubernetes with Terraform
+description: Deploy ArgoCD with Terraform and Helm, connect a private Git repo, create an Application, and wire a GitHub webhook. Related posts cover multi-cluster, secrets, and common ArgoCD errors.
 author: Abdulmalik
 author_title: AppSec Engineer
 author_url: https://twitter.com/saintmalik_
@@ -12,8 +13,14 @@ tags: [argocd, gitops, terraform, kubernetes]
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-There are many tools for handling complex architecture of deploying changes of your applications from the build stage to your cluster, most times the term and process of archiving this is called GitOps only if GitHub is being used as the single source of truth in the scenario.
+**Install ArgoCD with Terraform:** deploy the argo-cd Helm chart to an existing Kubernetes cluster, connect a private Git repo over SSH, create an Application, and optionally wire a GitHub webhook so sync is not stuck on the 3-minute poll.
+
+This is the day-one install path. Already running ArgoCD? Jump to [More ArgoCD on this blog](#more-argocd-on-this-blog) for issues, multi-cluster, and Helm secrets.
+
 <!--truncate-->
+
+There are many tools for handling complex architecture of deploying changes of your applications from the build stage to your cluster, most times the term and process of archiving this is called GitOps only if GitHub is being used as the single source of truth in the scenario.
+
 And out of many of these tools, ArgoCD is one of the best that you can use, it's also open source, and that's what I am writing about here.
 
 ## Prerequisites:
@@ -373,6 +380,15 @@ resource "github_repository_webhook" "argocd" {
 }
 ```
 
+## More ArgoCD on this blog
+
+This install guide is the hub. Use the siblings when you are past day-one install:
+
+- [ArgoCD-related issues](/docs/argocd-related-issues/) - `cache: key is missing`, `server.secretkey is missing`, port-forward drops, and similar fixes
+- [Declarative multi-cluster GitOps](/declarative-setup-clusters-gitops-and-argocd/) - one ArgoCD instance managing more than one cluster
+- [Helm secrets in ArgoCD](/helm-argocd-secret-management/) - dynamic secrets for Helm charts without stuffing plaintext into Git
+- Stuck on cluster access while debugging nodes? [SSH into EKS nodes](/eks-node-ssh/)
+
 ## Completion criterion
 
 ArgoCD is fully set up when:
@@ -383,7 +399,7 @@ ArgoCD is fully set up when:
 4. If the repository is private, the SSH deploy key is added to the repo and the matching private key is stored as a Secret in the `argocd` namespace.
 5. Changing a manifest in Git and pushing it triggers a new sync (via webhook or the 3-minute poll).
 
-If you run into issues, see the [ArgoCD issues reference](https://blog.saintmalik.me/docs/argocd-related-issues/).
+If you run into issues, see the [ArgoCD issues reference](/docs/argocd-related-issues/).
 
 Till next time 🤞🏽
 

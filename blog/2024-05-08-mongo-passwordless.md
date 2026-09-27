@@ -1,6 +1,7 @@
 ---
 slug: mongodb-passwordless-auth-eks
-title: MongoDB Passwordless Authentication on AWS EKS using IAM Role
+title: MongoDB IAM authentication on EKS with IRSA (passwordless)
+description: Connect a Go or Node app on AWS EKS to MongoDB Atlas with MONGODB-AWS IAM auth via IRSA. No long-lived DB password. Azure AKS sibling linked below.
 authors: Abdulmalik
 image: /bgimg/mongo-passwordless-cover.webp
 tags: [aws, eks, containers]
@@ -9,6 +10,10 @@ tags: [aws, eks, containers]
 import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
+
+**Short answer:** use Atlas / MongoDB **IAM authentication** (`authMechanism=MONGODB-AWS`) with an EKS **IRSA** role on your pod's service account. The driver picks up the web identity token. No static DB password in the env.
+
+Azure twin (Workload Identity + `MONGODB-OIDC`): [MongoDB passwordless on AKS](/mongodb-passwordless-auth-aks/).
 
 best bet, you are not rotating your password and tokens across your infrastructure and deployment but if the software you use has the passwordless authentication option and it's stable why not go for it?
 
@@ -220,6 +225,8 @@ That's it, you have successfully connected your app to your MongoDB cluster usin
 also note in the nodejs example we used **aws-sdk/credential-providers**, which by default allows the driver to use any shared AWS credentials file or a config file in your environment, the driver will use those credentials by default.
 
 So it's better not to see any new aws variable in your env, to avoid conflicts of credentials.
+
+Related: [MongoDB passwordless on AKS](/mongodb-passwordless-auth-aks/), and if you are debugging the nodes themselves [SSH into EKS nodes](/eks-node-ssh/).
 
 Till next time, Peace be on you 🤞🏽
 

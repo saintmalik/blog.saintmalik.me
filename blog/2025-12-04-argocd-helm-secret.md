@@ -1,6 +1,7 @@
 ---
 slug: helm-argocd-secret-management
-title: Dynamic Secret Management On Helm Charts in ArgoCD App
+title: Manage Helm secrets in ArgoCD without plaintext in Git
+description: Dynamic secret injection for Helm charts deployed by ArgoCD. Companion to the ArgoCD Terraform install and multi-cluster posts.
 authors: Abdulmalik
 image: /bgimg/argocd-helm-secret-cover.webp
 tags: [DevSecOps, Helm, ArgoCD, Secrets]
@@ -9,6 +10,8 @@ tags: [DevSecOps, Helm, ArgoCD, Secrets]
 import Figure from '../src/components/Figure';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
+
+Part of the ArgoCD series: [install with Terraform](/argocd-on-kubernetes-cluster/), [multi-cluster](/declarative-setup-clusters-gitops-and-argocd/), [common issues](/docs/argocd-related-issues/).
 
 Yeah, the thought process must have crossed your mind too, deploying Helm charts via ArgoCD apps. That feeling when you can finally breathe without another long hour of `tofu apply` or `terraform apply` for a minimal change to your Helm chart values.
 

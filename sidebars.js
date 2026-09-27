@@ -31,7 +31,7 @@
           "automate-webp-blog",
           "delete-ran-workflow",
           "confirm-sourced-files",
-          "git-remove-first-commmit",
+          "git-remove-first-commit",
           "bash-set-options",
           "container-image-scan",
           "delete-k8s-resource",

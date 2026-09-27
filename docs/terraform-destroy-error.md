@@ -1,5 +1,5 @@
 ---
-title: 📝 Terraform Destroy Error
+title: Terraform Destroy Error
 ---
 
 import Giscus from "@giscus/react";

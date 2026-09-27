@@ -1,5 +1,5 @@
 ---
-title: 📝 Vault Hashicorp
+title: Vault Hashicorp
 ---
 
 import Giscus from "@giscus/react";
