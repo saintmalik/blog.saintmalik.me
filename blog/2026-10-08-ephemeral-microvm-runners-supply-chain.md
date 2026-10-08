@@ -10,7 +10,7 @@ description: "Ephemeral microVM runners isolate the host from the job. Most CI s
 
 import Giscus from "@giscus/react";
 
-Teams buy Firecracker or Kata runners and talk like the CI supply chain problem is closed. Hardware isolation. Fresh VM per job. Tear it down. The vendor deck lands. The budget conversation moves on.
+Teams buy Firecracker-/Kata-backed runners (or DIY) and talk like the CI supply chain problem is closed. Hardware isolation. Fresh VM per job. Tear it down. The vendor deck lands. The budget conversation moves on.
 
 A microVM protects your host from the job. You still have to protect the job from the supply chain.
 
@@ -23,6 +23,8 @@ I already wrote about [static and runtime hardening for GitHub Actions](/github-
 Vendor and explainer posts (firerunner, Fireactions, ephemerd, PandaStack, Kata/ARC writeups) are good on persistence and host escape. Several of them also admit egress and secrets matter. What they usually skip is a blunt control-to-attack map for the incidents you already saw in 2025 and 2026: poisoned marketplace actions, workflow injection, OIDC/secret exfil, cache poison, and the cases where runner migration is *not* the next dollar.
 
 ## What microVMs genuinely fix
+
+Production microVM GHA is mostly vendors: Blacksmith, Actuated, Namespace, Ubicloud, Hostinger Fireactions. DIY Firecracker is rare. Most orgs still run GitHub-hosted, ARC on Kubernetes containers, or ephemeral EC2. A full VM per job is not a microVM. If you already tear down an EC2 per job, you already bought much of the persistence win. MicroVM is denser multi-tenant isolation and a harder escape story.
 
 Put the praise in the right bucket. Ephemeral microVM runners are real engineering.
 
@@ -87,7 +89,7 @@ Enough to brief platform. Not a rebuild of firerunner / Fireactions / ephemerd.
 - **Egress:** default-deny at the per-VM network namespace or ARC NetworkPolicy. Allowlist package registries and git. Block metadata (`169.254.169.254`) from untrusted jobs.
 - **Host monitoring:** eBPF / audit on the *node* control plane (unexpected Firecracker children, jailer failures, unexpected host egress). Job-level monitoring still belongs inside the guest or via a CI sensor action.
 - **Patch cadence:** track Firecracker / Kata / guest kernel advisories the same way you track node AMIs. Microarchitectural side-channel research on shared cores is a separate conversation from guest-to-host memory corruption CVEs. Treat both as reasons to avoid dense co-tenancy for high-assurance pipelines, not as a reason to skip patching.
-- **EKS / AWS flavored sketch:** ARC on EKS, `runtimeClassName` for Kata or a Firecracker RuntimeClass if you run that stack, node IAM closed down, IRSA for deploy jobs only, NetworkPolicy + external egress gateway for allowlists. Reuse an existing orchestrator. Do not build a new one.
+- **Optional ARC + RuntimeClass path:** Vendors are the common way to get the primary win without owning the VMM. If you already run ARC on EKS, a Kata or Firecracker `runtimeClassName` is one optional DIY route on that stack: node IAM closed down, IRSA for deploy jobs only, NetworkPolicy + external egress gateway for allowlists. Reuse an existing orchestrator. Do not build a new one.
 
 ## Optional demo design (speculative)
 
