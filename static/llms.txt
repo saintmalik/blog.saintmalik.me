@@ -5,6 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
+- [MicroVM runners protect the host. Your supply chain still runs inside the job.](https://blog.saintmalik.me/ephemeral-microvm-runners-supply-chain/): Ephemeral microVM runners isolate the host from the job. Most CI supply-chain attacks still happen inside the job. What microVMs buy, what they miss, and where to spend first.
 - [MCP this, MCP that. Attack surface, gateways, and cMCP.](https://blog.saintmalik.me/mcp-security-gateways-cmcp/): An MCP security gateway sits between the agent and tools/call: policy deny, audit trail, optional TEE. Walk cMCP Cedar against Cursor shaped filesystem MCP.
 - [Vault control plane via GitOps. Secret values stay out of git.](https://blog.saintmalik.me/vault-gitops-control-plane/): Most of Vault on Kubernetes can be declared in git: HA, TLS, engines, policies, K8s auth, injector, snapshots. Terraform owns seal identity. Secret values and first init stay out o
 - [Runtime Trace attestation: signed image, dishonest process](https://blog.saintmalik.me/runtime-trace-process-attestation/): Artifact signatures prove who sealed the digests. They do not prove what the build did. Runtime Trace is process attestation: observe the job, attach the predicate, gate promote on
@@ -44,7 +45,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Applying Network Security using VPC Flow Logs with Terraform](https://blog.saintmalik.me/vpc-flow-logs-via-terraform/)
 - [Leading Communities](https://blog.saintmalik.me/looking-back/)
 - [Cosign keyless signing with GitHub Actions OIDC](https://blog.saintmalik.me/keyless-signing-container-images-github-oidc/): Sign container images with Cosign keyless (Sigstore Fulcio + Rekor) using GitHub Actions OIDC. No long-lived cosign keys. For AWS Signer instead of public Rekor, see the sibling po
-- [Managing Secrets in Infrastructure As Code with Terraform](https://blog.saintmalik.me/secrets-in-iac-terraform/)
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)
