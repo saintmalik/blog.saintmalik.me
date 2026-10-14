@@ -103,7 +103,7 @@ I have not run this three-lane demo end to end for this post. The design is stil
 
 If you build it later, reuse firerunner, Fireactions, or ephemerd. Do not write another runner orchestrator for a blog demo.
 
-## Bottom line
+## Conclusion
 
 Spend first on egress, scoped credentials, and pinned reviewed actions. Add in-job runtime visibility. Move to ephemeral microVMs when untrusted code, multi-tenancy, or compliance makes host isolation mandatory.
 

@@ -5,6 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
+- [Access requests belong where the team already works](https://blog.saintmalik.me/access-requests-belong-where-the-team-works/): Access request as a product where the team already works: Slack for SaaS catalogs, GitHub Issues for repo and org roles. Who, what role, why, who approves, audit trail. Not a DM.
 - [What GuardDuty AI Protection actually detects (and what it doesnt)](https://blog.saintmalik.me/guardduty-ai-protection/): GuardDuty AI Protection watches Bedrock, AgentCore, and SageMaker AI via CloudTrail. Three Low findings, how to enable, what Low means for response, and what it still misses.
 - [MicroVM runners protect the host. Your supply chain still runs inside the job.](https://blog.saintmalik.me/ephemeral-microvm-runners-supply-chain/): Ephemeral microVM runners isolate the host from the job. Most CI supply-chain attacks still happen inside the job. What microVMs buy, what they miss, and where to spend first.
 - [MCP this, MCP that. Attack surface, gateways, and cMCP.](https://blog.saintmalik.me/mcp-security-gateways-cmcp/): An MCP security gateway sits between the agent and tools/call: policy deny, audit trail, optional TEE. Walk cMCP Cedar against Cursor shaped filesystem MCP.
@@ -44,7 +45,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [2023 In Review](https://blog.saintmalik.me/2023-in-review/)
 - [Add Kubernetes clusters to ArgoCD declaratively (multi-cluster GitOps)](https://blog.saintmalik.me/declarative-setup-clusters-gitops-and-argocd/): Register additional clusters on an existing ArgoCD instance with Terraform and declarative secrets. Companion to the ArgoCD Terraform install hub.
 - [Applying Network Security using VPC Flow Logs with Terraform](https://blog.saintmalik.me/vpc-flow-logs-via-terraform/)
-- [Leading Communities](https://blog.saintmalik.me/looking-back/)
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)

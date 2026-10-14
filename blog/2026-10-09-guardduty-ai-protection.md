@@ -113,7 +113,7 @@ Say this out loud before someone puts "we have GuardDuty AI Protection" on a ris
 
 Same honesty bar as the [microVM runners post](/ephemeral-microvm-runners-supply-chain/): name the control, name the gap, spend on the gap that matches how you actually run models.
 
-## Bottom line
+## Conclusion
 
 Enable AI Protection wherever you use Bedrock, AgentCore, or SageMaker AI. Enforce Bedrock Guardrails prompt-attack filters if you want `PromptInjection.Direct`. Route all three Low findings to humans. Keep separate controls for self-hosted models, MCP tool paths, and plain old credential theft that shows up as spend and weird invocation baselines rather than a prompt-injection label.
 
