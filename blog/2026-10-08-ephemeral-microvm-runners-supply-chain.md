@@ -42,7 +42,7 @@ None of that is fake. None of it is the same as stopping a malicious `uses:` ste
 
 | Attack class | Does a microVM stop it? | What actually stops it |
 | --- | --- | --- |
-| Poisoned third-party action (tj-actions/changed-files style: tag retarget, memory dump of `Runner.Worker`, secrets in logs or outbound) | **No.** The action runs as a normal step inside the guest. Fresh VM does not change what the step can read in that job. | SHA-pin known-good commits (and re-review Dependabot bumps). Restrict which workflows get secrets. Default-deny egress. Short-lived scoped creds. Runtime monitoring that flags memory dumps / odd egress. Prefer first-party or audited actions for secret-bearing jobs. |
+| Poisoned third-party action (tj-actions/changed-files style: tag retarget, memory dump of `Runner.Worker`, secrets in logs or outbound) | **No.** The action runs as a normal step inside the guest. Fresh VM does not change what the step can read in that job. | Lock action deps with `.github/workflows/actions.lock` (or SHA-pin if you cannot lock yet), and re-review Dependabot bumps. Restrict which workflows get secrets. Default-deny egress. Short-lived scoped creds. Runtime monitoring that flags memory dumps / odd egress. Prefer first-party or audited actions for secret-bearing jobs. |
 | Workflow injection (untrusted PR title, branch name, issue body interpolated into `run:`) | **No.** Injection becomes shell inside the same job. The guest happily runs it. | Never interpolate untrusted `${{ github.event.* }}` into shell. Pass via `env:` with quoting discipline. zizmor / policy checks on PRs. Separate untrusted workflows from secret-bearing jobs. |
 | Secret / OIDC exfiltration | **No** for anything the job was given. Isolation does not revoke env, files, or `id-token: write` inside the guest. Blocks host metadata only if you also cut link-local egress. | Least privilege per job. No deploy tokens on install/test jobs. Short-lived OIDC with tight audience/sub claims. Split build vs deploy identity. Default-deny egress so a stolen token cannot leave. Block `169.254.169.254`. |
 | Cache / artifact poisoning (Cacheract-style: poison Actions cache, hit release job later) | **Partial.** Local guest disk dies with the VM. Shared Actions cache, remote artifact stores, and registry layers survive outside the guest. | Do not restore shared cache in release / `id-token: write` / publish jobs. Scope cache keys by trust boundary. Separate untrusted PR cache from protected-branch cache consumers. Prefer rebuild from scratch when publishing. |
@@ -54,9 +54,9 @@ If a slide says "hardware isolation closes the supply chain," point at the first
 
 Prioritize in this order unless you already have a compliance or multi-tenant mandate that forces the runner move first.
 
-1. **Default-deny egress on the job.** Most exfil is HTTPS out. Audit mode, then allowlist registries, git hosts, and the few APIs the job needs. Block RFC1918 and link-local from untrusted jobs. Harden-Runner, CargoWall, cicd-sensor-style response, or NetworkPolicy on ARC pods. Pick one and ship it.
+1. **Default-deny egress on the job.** Most exfil is HTTPS out. Audit mode, then allowlist registries, git hosts, and the few APIs the job needs. Block RFC1918 and link-local from untrusted jobs. Harden-Runner or CargoWall for firewall deny. cicd-sensor for rule-driven terminate (not an egress allowlist). Or NetworkPolicy on ARC pods. Pick what fits and ship it.
 2. **Short-lived, narrowly scoped credentials.** OIDC into cloud roles with job-level subjects. No long-lived cloud keys in org secrets for routine CI. Install/test jobs get no publish or deploy identity. Deploy jobs get deploy identity only.
-3. **SHA-pinned actions, then review the bumps.** Pinning stops silent tag moves. It does not bless a bad commit. Treat Dependabot action bumps like dependency PRs with blast radius, not chore merges.
+3. **Lock action dependencies, then review the bumps.** Prefer GitHub’s workflow dependency lockfile (`.github/workflows/actions.lock` via `gh actions-lock`). It pins commits under the hood, including transitive actions, while you can keep readable tags in YAML. SHA pins in the workflow remain the fallback. Neither blesses a bad commit. Treat Dependabot action + lockfile bumps like dependency PRs with blast radius, not chore merges.
 4. **Runtime monitoring inside the job.** Memory reads of `Runner.Worker`, unexpected process trees, DNS to weird destinations. Static YAML review will not see that. See the [cicd-sensor post](/cicd-sensor-github-actions/) and the Harden-Runner / Falco notes in the [hardening post](/github-actions-supply-chain-hardening/).
 5. **Separate build trust from deploy trust.** Different workflows, different permissions, different OIDC roles, different cache policy. A lint job that runs third-party actions should not be one `workflow_dispatch` away from production credentials.
 
@@ -99,13 +99,13 @@ I have not run this three-lane demo end to end for this post. The design is stil
 | --- | --- | --- |
 | A | Persistent self-hosted runner | Poisoned step plants host state or steals ambient creds that survive the job |
 | B | Ephemeral microVM, open egress, broad secrets | Same in-job exfil as A for secrets the job holds. Host plant fails. Supply chain still "works." |
-| C | B + default-deny egress + scoped short-lived creds + SHA pins | Exfil path dies or shrinks. Injection and bad pins still need the static controls. |
+| C | B + default-deny egress + scoped short-lived creds + locked (or SHA-pinned) actions | Exfil path dies or shrinks. Injection and bad locks still need the static controls. |
 
 If you build it later, reuse firerunner, Fireactions, or ephemerd. Do not write another runner orchestrator for a blog demo.
 
 ## Conclusion
 
-Spend first on egress, scoped credentials, and pinned reviewed actions. Add in-job runtime visibility. Move to ephemeral microVMs when untrusted code, multi-tenancy, or compliance makes host isolation mandatory.
+Spend first on egress, scoped credentials, and locked (or SHA-pinned) reviewed actions. Add in-job runtime visibility. Move to ephemeral microVMs when untrusted code, multi-tenancy, or compliance makes host isolation mandatory.
 
 A microVM is a strong wall between the job and the host. The supply chain you are actually fighting is usually already inside the room.
 
@@ -117,6 +117,7 @@ Till next time, Peace be on you 🤞🏽
 - [StepSecurity: Harden-Runner detection of tj-actions compromise](https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised)
 - [Adnan Khan: Cacheract](https://adnanthekhan.com/2024/12/21/cacheract-the-monster-in-your-build-cache/)
 - [CVE-2026-5747 (Firecracker virtio PCI)](https://nvd.nist.gov/vuln/detail/CVE-2026-5747) / [AWS bulletin 2026-015](https://aws.amazon.com/security/security-bulletins/2026-015-aws/)
+- [GitHub: Locking action dependencies](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies)
 - [GitHub Actions supply chain hardening (this blog)](/github-actions-supply-chain-hardening/)
 - [cicd-sensor on GitHub Actions (this blog)](/cicd-sensor-github-actions/)
 

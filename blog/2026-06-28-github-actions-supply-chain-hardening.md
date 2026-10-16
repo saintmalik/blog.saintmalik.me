@@ -4,30 +4,32 @@ title: "GitHub Actions Supply Chain Attacks: How to Actually Harden Your CI/CD P
 authors: Abdulmalik
 image: /bgimg/github-actions-supply-chain-hardening-cover.webp
 tags: [devsecops, github-actions, supply-chain, security, cicd, appsec, falco]
-description: Pinned SHAs and zizmor are not enough. After tj-actions and NX, here is how to phase static hardening, runtime egress control, and syscall visibility into a CI/CD supply chain program by repo type and budget.
+description: "Action lockfiles and zizmor are not enough. After tj-actions and NX, here is how to phase static hardening, runtime egress control, and syscall visibility into a CI/CD supply chain program by repo type and budget."
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Giscus from "@giscus/react";
 
-Your team has pinned every third-party action to an immutable SHA. Runners are GitHub-hosted, ephemeral, isolated. Someone ran zizmor once and filed a ticket. The posture feels done.
+Your team locked every third-party action (or pinned full commit SHAs the old way). Runners are GitHub-hosted, ephemeral, isolated. Someone ran zizmor once and filed a ticket. The posture feels done.
 
 <!--truncate-->
 
-Then **tj-actions/changed-files** (CVE-2025-30066) dumped environment variables from thousands of workflows. The NX build system compromise followed. CNCF Backstage and Microsoft's Azure Karpenter Provider pipelines got hit in the same supply chain wave. Pinned SHAs did not save teams who pinned a commit that was already malicious, or who trusted a tag before the hijack.
+Then **tj-actions/changed-files** (CVE-2025-30066) dumped environment variables from thousands of workflows. The NX build system compromise followed. CNCF Backstage and Microsoft's Azure Karpenter Provider pipelines got hit in the same supply chain wave. Locked or pinned commits did not save teams who locked a commit that was already malicious, or who trusted a floating tag before they had a lockfile.
 
 Static analysis of workflow YAML is necessary. It is not runtime security. Your CI runners handle cloud credentials, signing keys, and production build artifacts with less monitoring than most engineers give their laptops. That gap is where supply chain attacks live.
 
 This post is how I close that gap in practice: what to enforce before a job runs, what to constrain while it runs, and how to phase it in given repo visibility and budget.
 
-## What SHA Pinning and zizmor Actually Cover
+## What lockfiles, SHA pins, and zizmor actually cover
 
-**SHA pinning** (`uses: actions/checkout@abc123def...`) protects against tag hijacking. If an attacker retags `v4.2.0` to point at malicious code, your pinned commit does not move. Good control. Two gaps remain:
+**Workflow dependency lockfiles** are GitHub’s current primary answer (public preview as of October 2026). Generate `.github/workflows/actions.lock` with `gh actions-lock`. Onboarded workflows keep readable `uses:` tags or version refs in YAML. The runner executes the locked commit SHAs, including transitive action deps, and checks repository identity at runtime. Official docs call this stronger than pinning SHAs inside every workflow file. Dependabot regenerates matching lockfile entries when it bumps an onboarded action. See [Locking action dependencies](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies) and the [lockfile concept](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles).
 
-1. The SHA you pinned may already contain script injection, overpermissioned `GITHUB_TOKEN` usage, or unsafe `${{ }}` interpolation in shell steps.
-2. When Dependabot opens a bump PR, nobody reads 400 lines of action diff. You trust the new SHA is safe because the bot said so.
+**SHA pinning in the workflow** (`uses: actions/checkout@abc123def...`) is still the documented fallback when you cannot adopt a lockfile yet. Same core idea: a moved tag does not silently change what runs. Gaps remain either way:
 
-**zizmor** (and similar static scanners) catch dangerous workflow patterns before merge: unpinned actions, excessive permissions, known anti-patterns. That is build-time review of the YAML. It does not see what the runner actually does at execution time: outbound connections, process spawns, memory reads from sibling processes.
+1. The commit you locked or pinned may already contain script injection, overpermissioned `GITHUB_TOKEN` usage, or unsafe `${{ }}` interpolation in shell steps. Locking does not mean the dependency is safe. Review before you lock.
+2. When Dependabot opens a bump PR (workflow + lockfile together for onboarded workflows), nobody reads 400 lines of action diff. You trust the new commit because the bot said so.
+
+**zizmor** (and similar static scanners) catch dangerous workflow patterns before merge: unlocked floating refs, excessive permissions, known anti-patterns. That is build-time review of the YAML. It does not see what the runner actually does at execution time: outbound connections, process spawns, memory reads from sibling processes.
 
 You need both **static hardening of action code** and **runtime visibility on the runner**. Different layers.
 
@@ -111,6 +113,8 @@ Limitations:
 
 If budget or bandwidth forces a choice today, start with egress blocking. Prevention beats detection when credentials live on the runner for five minutes. Falco Actions is worth layering onto high-risk workflows, but I would not gate production deploys on it alone yet.
 
+For a fuller open source EDR for GitHub Actions (process/network sensor, detect or terminate, self-hosted Manager, GitLab too), not just Falco on a job, see [cicd-sensor on GitHub Actions](/cicd-sensor-github-actions/). Pre-release. Different tradeoffs than Harden-Runner’s egress product.
+
 ## CargoWall: Open-Source Egress, Early Maturity
 
 [CargoWall](https://github.com/code-cargo/cargowall) (CodeCargo) is the open-source answer to "I want Harden-Runner-style egress control without StepSecurity's cloud or paid private-repo tier."
@@ -141,7 +145,7 @@ Runtime monitoring does not fix vulnerable action **source code** at pin time. T
 
 Chainguard ingests widely used marketplace actions, evaluates them against a security ruleset, auto-remediates common failures, and publishes hardened builds. When upstream changes or the ruleset evolves, affected actions get re-hardened without you rewriting workflows by hand.
 
-What it catches that SHA pinning does not:
+What it catches that lockfiles / SHA pins do not:
 
 - Script injection via unsafe `${{ inputs.foo }}` in `run:` blocks
 - Secrets passed into shell strings instead of `env:`
@@ -153,7 +157,7 @@ Preview catalog: 100+ top marketplace actions, dozens of fixes applied. Each har
 
 Limitation: you are shifting trust from random maintainers to Chainguard's catalog and ruleset. Hardening improves the action as published; it does not fully eliminate risk in upstream dependencies of that action.
 
-Chainguard belongs in the **static layer**, same conversation as pinning and zizmor. It hardens what you invoke before the job runs; it does not replace egress control or syscall visibility on the runner.
+Chainguard belongs in the **static layer**, same conversation as lockfiles and zizmor. It hardens what you invoke before the job runs. It does not replace egress control or syscall visibility on the runner.
 
 None of that runs on the runner during job execution. A hardened `actions/checkout` can still end up in a workflow that exfiltrates secrets at runtime if something else in the job is malicious. Static controls fix **what you invoke**. Egress control and syscall visibility fix **what happens when it runs**. You need both layers.
 
@@ -163,22 +167,22 @@ I care less about feature matrices than about **what ships this week** given pub
 
 | Context | Recommendation |
 |---|---|
-| **Public repos, want it working today** | Harden-Runner free tier (audit → block). Add zizmor on PRs. Pin SHAs. |
+| **Public repos, want it working today** | Harden-Runner free tier (audit → block). Add zizmor on PRs. Adopt `.github/workflows/actions.lock` (`gh actions-lock`), or pin SHAs until you can. |
 | **Private repos, security budget** | Harden-Runner Enterprise for egress enforce **or** CargoWall (`offline: true`) + Falco Actions on critical workflows |
-| **Private repos, no budget, tolerate early-stage risk** | CargoWall (`offline: true`) + Falco Actions live mode. Accept maturity risk. Document it. |
-| **Any repo, long-term hygiene** | Watch Chainguard Actions catalog for actions you already use. Replace pinned third-party refs with hardened builds as they appear. |
+| **Private repos, no budget, tolerate early-stage risk** | CargoWall (`offline: true`) + Falco Actions live mode, or pilot [cicd-sensor](/cicd-sensor-github-actions/) as open-source EDR (detect / terminate). Accept maturity risk. Document it. |
+| **Any repo, long-term hygiene** | Watch Chainguard Actions catalog for actions you already use. Prefer hardened builds behind a lockfile as they appear. |
 
-For multi-product pipelines where cloud environment secrets flow through CI into EKS deploys, I would start here: pinned SHAs and zizmor on every workflow, Harden-Runner in audit mode everywhere, egress **block** on production deploy jobs only. Run Falco Actions analyze mode on a weekly schedule of those same workflows to build a syscall baseline before you trust live mode on PRs.
+For multi-product pipelines where cloud environment secrets flow through CI into EKS deploys, I would start here: workflow lockfiles (or SHA pins as fallback) and zizmor on every workflow, Harden-Runner in audit mode everywhere, egress **block** on production deploy jobs only. Run Falco Actions analyze mode on a weekly schedule of those same workflows to build a syscall baseline before you trust live mode on PRs.
 
 ## How the Layers Fit Together
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Static (pre-run)                                           │
-│  SHA pin · zizmor · Chainguard hardened actions · CODEOWNERS│
+│  actions.lock (or SHA pin) · zizmor · Chainguard · CODEOWNERS│
 ├─────────────────────────────────────────────────────────────┤
 │  Runtime (on runner)                                        │
-│  Harden-Runner or CargoWall egress · Falco Actions syscalls │
+│  Harden-Runner or CargoWall egress · Falco / cicd-sensor    │
 ├─────────────────────────────────────────────────────────────┤
 │  Post-incident                                              │
 │  Secret rotation · git history rewrite · GitHub PR diff scrub│
@@ -186,21 +190,25 @@ For multi-product pipelines where cloud environment secrets flow through CI into
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Pinned SHA stopped being sufficient the day maintainers got compromised **before** you pinned. zizmor catches the YAML mistakes. Neither one stops a malicious step from phoning home during the five minutes your job holds AWS credentials.
+A lockfile (or pinned SHA) stopped being sufficient the day maintainers got compromised **before** you locked. zizmor catches the YAML mistakes. Neither one stops a malicious step from phoning home during the five minutes your job holds AWS credentials.
 
 ## Conclusion
 
 Teams that treat GitHub Actions as "already safe because GitHub runs the VM" are one compromised marketplace action away from production keys in a stranger's S3 bucket. tj-actions proved the blast radius is org-wide, not theoretical.
 
-Revise the pipeline supply chain program around three beats: harden what you invoke before the job runs, constrain what the runner can reach while it runs, and keep forensic depth when something still looks wrong. Pinning alone was never the finish line.
+Revise the pipeline supply chain program around three beats: harden what you invoke before the job runs, constrain what the runner can reach while it runs, and keep forensic depth when something still looks wrong. Lockfiles alone were never the finish line.
 
 Till next time, Peace be on you 🤞🏽
 
 #### References
 
 - [CVE-2025-30066 (tj-actions/changed-files)](https://www.cve.org/CVERecord?id=CVE-2025-30066)
+- [GitHub: Locking action dependencies](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies)
+- [GitHub: Workflow dependency lockfiles](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles)
+- [Changelog: workflow lockfiles public preview](https://github.blog/changelog/2026-10-14-github-actions-workflow-lockfiles-in-public-preview/)
 - [StepSecurity Harden-Runner](https://github.com/step-security/harden-runner)
 - [Falco Actions](https://github.com/falcosecurity/falco-actions)
+- [cicd-sensor on GitHub Actions (this blog)](/cicd-sensor-github-actions/)
 - [CargoWall](https://github.com/code-cargo/cargowall)
 - [Chainguard Actions](https://www.chainguard.dev/unchained/introducing-chainguard-actions)
 - [zizmor](https://github.com/zizmorcore/zizmor)

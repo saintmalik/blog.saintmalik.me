@@ -45,7 +45,7 @@ Two repos, same job:
 
 Modes: `argo`, `flux`, `gitops` (Argo + Flux), `manifests`, `chart`, `terraform`. `inventory` scopes what would deploy. `scan` is the gate (Syft → Grype, `--only-fixed` by default). `recommend` suggests chart / `targetRevision` bumps when a newer pin improves the Grype score.
 
-Minimal Action workflow (pin the commit SHA):
+Minimal Action workflow (prefer a [workflow lockfile](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies). SHA pins shown here as the explicit fallback):
 
 ```yaml
 name: ops supply chain

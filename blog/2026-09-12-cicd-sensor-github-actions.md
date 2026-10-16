@@ -1,34 +1,44 @@
 ---
 slug: cicd-sensor-github-actions
-title: "Think EDR, but for CI/CD: cicd-sensor on GitHub Actions"
+title: "Think EDR, but for CI/CD: open source cicd-sensor on GitHub Actions"
 authors: Abdulmalik
 date: 2026-09-12
 image: /bgimg/cicd-sensor-github-actions-cover.webp
-tags: [devsecops, github-actions, supply-chain, runtime-security, cicd, ebpf, security, arc]
-description: "Artifact signing and pinned SHAs do not tell you what the job did. cicd-sensor is open-source runtime security for CI — EDR-shaped coverage for GitHub Actions and GitLab. This guide walks the three GitHub Actions runner shapes."
+tags: [devsecops, github-actions, supply-chain, runtime-security, cicd, ebpf, security, arc, edr]
+keywords:
+  - EDR for GitHub Actions
+  - EDR for GitHub Action
+  - open source EDR for GitHub Actions
+  - opensource EDR for GitHub Action
+  - cicd-sensor
+  - Harden-Runner alternative
+  - CI/CD runtime security
+description: "Locked Actions deps do not tell you what the job did. cicd-sensor is an open-source EDR for GitHub Actions (and GitLab): eBPF process/network visibility with detect or terminate. How it differs from Harden-Runner, and how to run it on hosted, self-hosted, and ARC."
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Figure from '../src/components/Figure';
 import Giscus from "@giscus/react";
 
-Ask an engineering or infrastructure team what is happening inside their CI/CD pipeline at runtime. The answer is usually a blank stare. Artifact signing, SBOMs, and pinned Actions SHAs matured. Runtime insight into the job itself lagged behind.
+Ask an engineering or infrastructure team what is happening inside their CI/CD pipeline at runtime. The answer is usually a blank stare. Artifact signing, SBOMs, and locked Actions deps matured. Runtime insight into the job itself lagged behind.
 
 <!--truncate-->
 
-I have cared about CI/CD runtime security for a long time. The first tool that looked like a real answer was [Harden-Runner](https://github.com/step-security/harden-runner) from StepSecurity: EDR-shaped coverage for GitHub Actions. Solid product. Free for public repos; private and fleet features sit behind paid tiers. Fair for a company shipping that depth.
+**Short answer:** an EDR for GitHub Actions is a runtime agent on the runner that watches what the job actually does (processes, network, often file activity) and can alert or stop bad behavior the way endpoint EDR does on laptops. [StepSecurity Harden-Runner](https://github.com/step-security/harden-runner) owns that framing for most teams. [cicd-sensor](https://github.com/cicd-sensor/cicd-sensor) is the open-source EDR for GitHub Actions (and GitLab CI) I wanted when private-repo and fleet features sat behind a paywall or half-finished repos.
+
+I have cared about CI/CD runtime security for a long time. The first tool that looked like a real answer was Harden-Runner: EDR-shaped coverage for GitHub Actions. Solid product. Free for public repos. Private and fleet features sit behind paid tiers. Fair for a company shipping that depth.
 
 Then I looked for open source alternatives. Most were littered: unmaintained, half-finished, or awkward enough that you had to glue two workflows together just to get a signal. I told myself that when I had time I would build or contribute to something better.
 
-Around June I found [falco-actions](https://github.com/falcosecurity/falco-actions) for runtime detection in CI. I joined the public Falco Slack and floated an enforcement idea: when an outbound-connection rule fires after secret access, do not only alert — drop the destination before exfil finishes (companion script / iptables DROP, or something better on the modern_ebpf path).
+Around June I found [falco-actions](https://github.com/falcosecurity/falco-actions) for runtime detection in CI. I joined the public Falco Slack and floated an enforcement idea: when an outbound-connection rule fires after secret access, do not only alert. Drop the destination before exfil finishes (companion script / iptables DROP, or something better on the modern_ebpf path).
 
 <Figure>
 <picture>
   <source type="image/webp" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.webp`} />
   <source type="image/png" srcSet={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.png`} />
-  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.png`} alt="Public Falco Slack thread: Saintmalik proposing falco-actions enforcement mode; leogr replies that Falco drivers are detection-only and falco-actions is lightly maintained" />
+  <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/falco-actions-enforcement-slack.png`} alt="Public Falco Slack thread: Saintmalik proposing falco-actions enforcement mode. leogr replies that Falco drivers are detection-only and falco-actions is lightly maintained" />
 </picture>
-<p>Public Falco Slack thread: proposing enforcement for falco-actions. Drivers stay detect-only; the Actions project needed maintainers more than a block path.</p>
+<p>Public Falco Slack thread: proposing enforcement for falco-actions. Drivers stay detect-only. The Actions project needed maintainers more than a block path.</p>
 </Figure>
 
 That matched what I already sensed. Falco’s probes are detection-shaped. Stop-the-exfil in CI was not the ready story there yet.
@@ -37,17 +47,17 @@ Recently I dug again and found someone with the same itch already shipping: [cic
 
 I started contributing: first PR open, and several issues filed (OIDC for Manager auth, Azure outputs, ARC Kubernetes-mode hook template overwrite, AKS node matrix).
 
-cicd-sensor covers **GitHub Actions and GitLab CI**. GitLab Runner Docker executor is a supported target; GitLab Kubernetes executor is in preview (same docs tree as ARC). This post is GitHub Actions only — the three runner shapes below. For GitLab, start from the [user guide overview](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/overview.md).
+cicd-sensor covers **GitHub Actions and GitLab CI**. GitLab Runner Docker executor is a supported target. GitLab Kubernetes executor is in preview (same docs tree as ARC). This post is GitHub Actions only: the three runner shapes below. For GitLab, start from the [user guide overview](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/overview.md).
 
 | This post covers | Notes |
 |------------------|--------|
-| GitHub-hosted | Action drop-in; standalone artifacts |
+| GitHub-hosted | Action drop-in, standalone artifacts |
 | Self-hosted on a machine | Agent + Docker proxy + Manager + job hooks |
-| ARC on Kubernetes | DaemonSet + hooks; preview in upstream docs |
+| ARC on Kubernetes | DaemonSet + hooks, preview in upstream docs |
 
-The project is still pre-release and moving fast. Pin SHAs. Treat Manager and ARC paths as ops work, not a one-line Action drop-in.
+The project is still pre-release and moving fast. Prefer a [workflow dependency lockfile](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies) (or pin the action SHA if you are not on lockfiles yet). Treat Manager and ARC paths as ops work, not a one-line Action drop-in.
 
-If you already read [Runtime Trace attestation](/runtime-trace-process-attestation/), this is the broader sensor story. That post is process attestation as a gate. This one is how you get continuous visibility (and optional terminate) on the runner fleet.
+If you already read [Runtime Trace attestation](/runtime-trace-process-attestation/), this is the broader sensor story. That post is process attestation as a gate. This one is how you get continuous visibility and optional terminate on the runner fleet.
 
 ## What cicd-sensor actually is
 
@@ -55,7 +65,11 @@ cicd-sensor is an eBPF agent aimed at CI runners, not at long-lived production n
 
 - HTML job reports and Runtime Trace attestation predicates (especially useful on GitHub-hosted)
 - Summary / Detection / Runtime Event Logs (when a [Manager](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/manager.md) is in the path)
-- Rule actions such as `detect` or `terminate` (start with detect / `monitor_mode`)
+- Rule actions: `detect`, `collect`, or `terminate`
+
+**What it can stop.** Rule `action: terminate` attempts to stop the job (kill the offending process / cut the run short). Start with detect, or keep `monitor_mode: true` so terminate rules behave as detect until you trust the noise floor.
+
+**What it is not.** It is not a network firewall. Upstream is explicit: cicd-sensor does not default-deny egress with an allowlist the way Harden-Runner or CargoWall do. On a bad network or process match it responds by terminating, not by filtering traffic. If you need “only these domains leave the runner,” keep an egress product. If you need “this process tree + credential read + weird connect should kill the job,” that is cicd-sensor’s lane.
 
 Kernel bar (from upstream docs):
 
@@ -67,14 +81,14 @@ Kernel bar (from upstream docs):
 
 Two usage models matter:
 
-1. **GitHub-hosted standalone** — add `cicd-sensor-action` to the job. Local `.cicd-sensor/` config optional. Artifacts out of the job. Manager optional for fleet logs.
-2. **Machine / Kubernetes + Manager** — Agent (and Docker proxy or DaemonSet) on the host/node. Config, rules, and log shipping go through Manager. Required for self-hosted machine and ARC.
+1. **GitHub-hosted standalone.** Add `cicd-sensor-action` to the job. Local `.cicd-sensor/` config optional. Artifacts out of the job. Manager optional for fleet logs.
+2. **Machine / Kubernetes + Manager.** Agent (and Docker proxy or DaemonSet) on the host/node. Config, rules, and log shipping go through Manager. Required for self-hosted machine and ARC.
 
 ## Path 1: GitHub-hosted runners
 
 This is the shortest path. Official guide: [GitHub-hosted runner](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/github-hosted.md).
 
-Pin the action (example from current docs — check the latest release tag before you copy):
+Lock the action (or pin a SHA). Example from current docs. Check the latest release before you copy:
 
 ```yaml
 jobs:
@@ -88,7 +102,7 @@ jobs:
 
 Put the action first so it covers the whole job. It is fine before `actions/checkout`.
 
-Supported labels include `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and the arm variants. Third-party hosts (Blacksmith, BuildJet, etc.) need a BTF check; Blacksmith x86_64 is called out as supported from `v0.0.38`, ARM64 Blacksmith without BTF is not.
+Supported labels include `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and the arm variants. Third-party hosts (Blacksmith, BuildJet, etc.) need a BTF check. Blacksmith x86_64 is called out as supported from `v0.0.38`. ARM64 Blacksmith without BTF is not.
 
 ### Standalone: what you get
 
@@ -124,6 +138,8 @@ rule_sets:
         condition: process.exec_path.endsWith("/curl")
         action: detect
 ```
+
+A terminate rule looks the same with `action: terminate`. Keep `monitor_mode: true` until you mean it.
 
 Validate rules before you rely on them:
 
@@ -208,7 +224,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now cicd-sensor-agent.service
 ```
 
-Docker needs a proxy in front of the socket so container creation is attributable. Real dockerd moves to `/run/docker-upstream.sock`; clients keep talking to `/run/docker.sock` served by `cicd-sensor proxy dockerd`. See the install doc for the `docker.socket` override and `cicd-sensor-docker-proxy.service`. The proxy is observation for attribution, not an authorization boundary: treat socket access like Docker root.
+Docker needs a proxy in front of the socket so container creation is attributable. Real dockerd moves to `/run/docker-upstream.sock`. Clients keep talking to `/run/docker.sock` served by `cicd-sensor proxy dockerd`. See the install doc for the `docker.socket` override and `cicd-sensor-docker-proxy.service`. The proxy is observation for attribution, not an authorization boundary. Treat socket access like Docker root.
 
 ### Job hooks
 
@@ -246,19 +262,19 @@ Verify with a test workflow, then:
 sudo journalctl -u cicd-sensor-agent.service -f
 ```
 
-You can still use `cicd-sensor-action` from workflows on a machine that already has host setup; the durable path is Agent + hooks + Manager.
+You can still use `cicd-sensor-action` from workflows on a machine that already has host setup. The durable path is Agent + hooks + Manager.
 
 ## Path 3: ARC on Kubernetes
 
 Actions Runner Controller scale sets are **preview** support. Do not treat this like GitHub-hosted maturity yet. Guide: [GitHub ARC runner scale sets](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/kubernetes/github-arc.md).
 
-You need Manager, node prerequisites (cgroup v2, containerd NRI, runc systemd cgroups — see [Kubernetes runner install](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/kubernetes/index.md)), and an existing ARC install. cicd-sensor runs as a privileged node DaemonSet. Job hooks are fail-closed: if the agent or GitHub Kubernetes runner socket is missing on a node, jobs on that node can fail before steps run.
+You need Manager, node prerequisites (cgroup v2, containerd NRI, runc systemd cgroups, documented in [Kubernetes runner install](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/kubernetes/index.md)), and an existing ARC install. cicd-sensor runs as a privileged node DaemonSet. Job hooks are fail-closed: if the agent or GitHub Kubernetes runner socket is missing on a node, jobs on that node can fail before steps run.
 
 Pick the mode that matches your scale set:
 
 | ARC mode | When | cicd-sensor pieces |
 |----------|------|--------------------|
-| Default | No `containerMode`; job runs in the runner container | DaemonSet + job hook + runner socket mount |
+| Default | No `containerMode`. Job runs in the runner container | DaemonSet + job hook + runner socket mount |
 | dind | `docker build` / Compose style | Same pattern + `containerMode.type: dind` |
 | Kubernetes | `container:` / services / container actions as Pods | DaemonSet + NRI + job hook + container hook wrapper |
 
@@ -277,7 +293,7 @@ Ensure the ARC runner namespace allows the hostPath used for the GitHub Kubernet
 
 ### Values merge rule (read this before Helm)
 
-Do **not** pass “existing ARC values” and “cicd-sensor example” as two `--values` files. Helm deep-merges maps; **lists are replaced**. Runner `env`, `volumeMounts`, and `volumes` are lists. A second file can silently drop either your settings or the sensor mounts.
+Do **not** pass “existing ARC values” and “cicd-sensor example” as two `--values` files. Helm deep-merges maps. **Lists are replaced.** Runner `env`, `volumeMounts`, and `volumes` are lists. A second file can silently drop either your settings or the sensor mounts.
 
 Copy the example for your mode from [`examples/kubernetes/github-arc/`](https://github.com/cicd-sensor/cicd-sensor/tree/main/examples/kubernetes/github-arc), merge into one file (`cicd-sensor-arc-values.yaml`), pin image tags (examples use `:latest` only as placeholders), set `CICD_SENSOR_MANAGER_URL` on the DaemonSet, then:
 
@@ -293,7 +309,7 @@ helm upgrade --install RUNNER_SCALE_SET_NAME \
   --values cicd-sensor-arc-values.yaml
 ```
 
-Default-mode runner env / mounts look like this (from upstream example — merge, do not paste blindly over a production values file):
+Default-mode runner env / mounts look like this (from upstream example. Merge. Do not paste blindly over a production values file):
 
 ```yaml
 template:
@@ -341,17 +357,53 @@ I have been pushing on AKS node image verification for this path (community docs
 
 ## How I would roll this out
 
-1. **Public or low-risk hosted job** — pin `cicd-sensor-action`, leave baseline on, `monitor_mode: true`, read the HTML report for a week.
+1. **Public or low-risk hosted job.** Lock or pin `cicd-sensor-action`, leave baseline on, `monitor_mode: true`, read the HTML report for a week.
 2. **Add one custom detect rule** that matches a known bad pattern you care about (unexpected curl/wget to odd destinations, unexpected crypto miners, etc.), still detect-only.
-3. **Private fleet** — stand up Manager (Lambda / ECS / Cloud Run / k8s Deployment — project ships images on GHCR). Point hosted jobs at Manager when you want SIEM delivery. For self-hosted and ARC, Manager is mandatory.
-4. **Terminate later** — turn off `monitor_mode` only after false positives are boring.
-5. **Attestation** — on hosted jobs, take the Runtime Trace predicate artifact and sign/verify it in promote gates the same way you would any other in-toto predicate ([related post](/runtime-trace-process-attestation/)).
+3. **Private fleet.** Stand up Manager (Lambda / ECS / Cloud Run / k8s Deployment. Project ships images on GHCR). Point hosted jobs at Manager when you want SIEM delivery. For self-hosted and ARC, Manager is mandatory.
+4. **Terminate later.** Turn off `monitor_mode` only after false positives are boring.
+5. **Attestation.** On hosted jobs, take the Runtime Trace predicate artifact and sign/verify it in promote gates the same way you would any other in-toto predicate ([related post](/runtime-trace-process-attestation/)).
 
-## What this is not
+## Harden-Runner vs cicd-sensor
 
-- Not a replacement for pinning Actions, least-privilege `GITHUB_TOKEN`, and static workflow lint ([hardening post](/github-actions-supply-chain-hardening/)).
-- Not Harden-Runner’s egress product. Different tradeoffs: cicd-sensor is open and self-hostable; Harden-Runner is polished and commercial for private enforcement.
-- Not production-node Falco/Tetragon with a CI sticker. The lifecycle hooks and Docker/NRI attribution are the CI-specific hard parts.
+Teams searching “EDR for GitHub Actions” land on Harden-Runner first, and for good reason. This table is the honest split, not a dunk.
+
+| | Harden-Runner (StepSecurity) | cicd-sensor |
+|--|------------------------------|-------------|
+| Framing | “Works like an EDR for GitHub Actions runners.” They coined the category language most SERPs repeat | “Think EDR, but for CI/CD.” Same job class, open-source first |
+| License / data path | Community agent open for public Linux. Enterprise / Windows / macOS / self-hosted agents are commercial. Events go to StepSecurity’s cloud for the polished dashboard | Fully open source. Self-host Manager. Your logs stay in your sinks (S3, GCS, Azure, Pub/Sub, etc.) |
+| Response | Egress allowlist / **block** at the network layer | Rule `detect` / `collect` / **`terminate`** (kill process / stop job). Not a default-deny firewall |
+| Best fit | Drop-in Action, egress UI, Windows + macOS, incident history (tj-actions, Shai Hulud, etc.) | Open-source EDR for GitHub Actions + GitLab. Custom rules. Runtime Trace attestation. Private fleets without a SaaS meter |
+| Maturity | Production-hardened, huge install base | Pre-release, moving fast. Lock or pin deps. Treat ARC/Manager as ops |
+| Not | A free private-fleet EDR with no commercial tier | A clone of Harden-Runner’s egress product or dashboard |
+
+Pick Harden-Runner when you want polished egress enforcement and a vendor dashboard tomorrow. Pick cicd-sensor when you need an open-source EDR for GitHub Actions you can self-host, extend with rules, and keep telemetry inside your boundary. Many programs will use both layers over time (static lock + egress + sensor), not one forever.
+
+Also not:
+
+- A replacement for locking Actions deps, least-privilege `GITHUB_TOKEN`, and static workflow lint ([hardening post](/github-actions-supply-chain-hardening/)).
+- Production-node Falco/Tetragon with a CI sticker. The lifecycle hooks and Docker/NRI attribution are the CI-specific hard parts.
+
+## FAQ
+
+### What is an EDR for GitHub Actions?
+
+Endpoint detection and response for CI: a runner agent that observes process, network, and related activity during a workflow job, correlates it to the run, and can detect or stop suspicious behavior. Classic laptop EDR does not understand ephemeral runners or workflow steps. CI-shaped tools do.
+
+### Is there an open source EDR for GitHub Actions?
+
+Yes. **cicd-sensor** is an open-source eBPF runtime security sensor for GitHub Actions and GitLab CI. Harden-Runner’s community Linux agent is also open for public repos, but private-repo enforcement, Windows/macOS, and the full fleet product sit on StepSecurity’s commercial path. Other open projects (CargoWall, Legion Runner, Falco Actions) cover parts of the space (egress firewall, syscall rules) without always matching the full “EDR for the job” brief.
+
+### Can cicd-sensor block or stop a job?
+
+Yes, via `action: terminate`. Upstream docs say terminate attempts to stop the job. That is process/job kill on a rule hit, not iptables-style egress deny. With `monitor_mode: true`, terminate is treated as detect so you can roll out safely.
+
+### Harden-Runner or cicd-sensor?
+
+Harden-Runner if you want the category-defining product, egress block, and multi-OS polish. cicd-sensor if you want fully open source, self-hosted Manager, GitLab coverage, Runtime Trace attestation, and rule-driven terminate. See the comparison table above.
+
+### Does cicd-sensor replace locking Actions and egress allowlists?
+
+No. It watches (and can terminate) what the job does after you already locked deps and tokens. Pair it with static hardening ([supply-chain hardening post](/github-actions-supply-chain-hardening/)) and, where you need default-deny egress, Harden-Runner or CargoWall.
 
 ## Contribute / follow
 
@@ -359,7 +411,7 @@ I have been pushing on AKS node image verification for this path (community docs
 - Action: [cicd-sensor/cicd-sensor-action](https://github.com/cicd-sensor/cicd-sensor-action)
 - Docs entry: [User guide overview](https://github.com/cicd-sensor/cicd-sensor/blob/main/docs/user-guide/overview.md)
 
-CI runtime should not stay a blank stare. cicd-sensor is the open sensor I wanted when I was staring at paid-only and abandoned options. Hosted is a one-step start. Machine and ARC need Manager and honest ops. That is the right shape for something that can detect, respond, and leave an audit trail of what the pipeline actually did.
+CI runtime should not stay a blank stare. cicd-sensor is the open sensor I wanted when I was staring at paid-only and abandoned options. Hosted is a one-step start. Machine and ARC need Manager and honest ops. That is the right shape for something that can detect, terminate, and leave an audit trail of what the pipeline actually did.
 
 <br/>
 <h2>Comments</h2>
