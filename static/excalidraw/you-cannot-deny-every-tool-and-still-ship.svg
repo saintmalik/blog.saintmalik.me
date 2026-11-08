@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Let the agent work. Stop what can break things.</title>
+  <desc id="desc">An agent sends everyday tasks through a gate. Safe work like reading files, searching code, and changing code is allowed. Run commands, secrets, and touching production are stopped by default. A dashed emergency override expires. A dotted path shows a quiet bypass around the gate where everything stays on.</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <!-- title -->
+  <text x="640" y="52" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="30" fill="#1e1e1e">Let the agent work. Stop what can break things.</text>
+  <text x="80" y="100" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">green = allow &#160;&#160; red = deny by default</text>
+
+  <!-- agent box -->
+  <rect x="60" y="170" width="200" height="220" rx="16" fill="#e9ecef" stroke="#495057" stroke-width="2.5"/>
+  <text x="160" y="235" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#343a40">Agent</text>
+  <text x="160" y="265" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#343a40">wants to</text>
+  <text x="160" y="295" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#343a40">work</text>
+  <text x="160" y="340" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#868e96">everyday</text>
+  <text x="160" y="362" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#868e96">tasks</text>
+
+  <!-- gate -->
+  <rect x="470" y="120" width="230" height="360" rx="14" fill="#fff9db" stroke="#1e1e1e" stroke-width="3.5"/>
+  <!-- light hatch -->
+  <defs>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#f0e6a8" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect x="470" y="120" width="230" height="360" rx="14" fill="url(#hatch)" opacity="0.55"/>
+  <text x="585" y="170" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="28" fill="#1e1e1e" font-weight="bold">THE GATE</text>
+  <text x="585" y="235" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#2f9e44">lets safe</text>
+  <text x="585" y="258" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#2f9e44">work through</text>
+  <line x1="495" y1="300" x2="675" y2="300" stroke="#e03131" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="585" y="350" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="20" fill="#c92a2a">STOPS</text>
+  <text x="585" y="378" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="20" fill="#c92a2a">dangerous</text>
+  <text x="585" y="406" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="20" fill="#c92a2a">tools</text>
+
+  <!-- allow arrows into gate -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f9e44"/>
+    </marker>
+    <marker id="arrowGreenOut" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f9e44"/>
+    </marker>
+    <marker id="barRed" markerWidth="8" markerHeight="12" refX="4" refY="6" orient="auto">
+      <path d="M2,0 L2,12 M6,0 L6,12" stroke="#e03131" stroke-width="2"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#e67700"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#868e96"/>
+    </marker>
+  </defs>
+
+  <line x1="270" y1="210" x2="460" y2="210" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <text x="365" y="198" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="17" fill="#2f9e44">read files</text>
+
+  <line x1="270" y1="275" x2="460" y2="275" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <text x="365" y="263" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="17" fill="#2f9e44">search code</text>
+
+  <line x1="270" y1="340" x2="460" y2="340" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <text x="365" y="328" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="17" fill="#2f9e44">change code</text>
+
+  <!-- ok outcome -->
+  <rect x="780" y="145" width="290" height="95" rx="14" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.5"/>
+  <text x="810" y="185" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="20" fill="#2b8a3e">&#10003;  Work continues</text>
+  <text x="835" y="215" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#2b8a3e">(still ships)</text>
+  <line x1="710" y1="190" x2="770" y2="190" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowGreenOut)"/>
+
+  <!-- deny outcome -->
+  <rect x="780" y="285" width="290" height="175" rx="14" fill="#ffe3e3" stroke="#e03131" stroke-width="2.5"/>
+  <text x="810" y="330" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#c92a2a">&#10007;  run commands</text>
+  <text x="810" y="370" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#c92a2a">&#10007;  secrets</text>
+  <text x="810" y="410" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#c92a2a">&#10007;  touch production</text>
+  <line x1="710" y1="325" x2="770" y2="325" stroke="#e03131" stroke-width="2.5" marker-end="url(#barRed)"/>
+  <line x1="710" y1="365" x2="770" y2="365" stroke="#e03131" stroke-width="2.5" marker-end="url(#barRed)"/>
+  <line x1="710" y1="405" x2="770" y2="405" stroke="#e03131" stroke-width="2.5" marker-end="url(#barRed)"/>
+
+  <!-- breakglass -->
+  <line x1="585" y1="490" x2="585" y2="520" stroke="#e67700" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrowAmber)"/>
+  <rect x="470" y="525" width="230" height="72" rx="12" fill="#fff3bf" stroke="#e67700" stroke-width="2.5" stroke-dasharray="8 5"/>
+  <text x="585" y="555" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#e67700">emergency override</text>
+  <text x="585" y="578" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#e67700">(expires)</text>
+
+  <!-- shadow bypass: around the gate, not through it -->
+  <path d="M160 410 C 220 520, 340 640, 640 640 C 900 640, 1120 600, 1160 545" fill="none" stroke="#868e96" stroke-width="2.2" stroke-dasharray="3 7" marker-end="url(#arrowGray)" opacity="0.85"/>
+  <rect x="1060" y="480" width="190" height="70" rx="12" fill="#f1f3f5" stroke="#868e96" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="1155" y="508" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">off the gate</text>
+  <text x="1155" y="532" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">everything still on</text>
+  <text x="640" y="690" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#868e96">quiet bypass: agent that never hits the gate</text>
+</svg>

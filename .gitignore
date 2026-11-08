@@ -5,6 +5,7 @@
 /build
 drafts/
 # Generated files
+linkedin/
 .docusaurus
 .cache-loader
 .agents/
