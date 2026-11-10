@@ -5,6 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
+- [From signing containers to signing models](https://blog.saintmalik.me/from-signing-containers-to-signing-models/): Hands-on lab: sign a real Hugging Face model (prajjwal1/bert-tiny) with OpenSSF/Sigstore model-signing, prove verify fails after a weight bitflip, and keep Cosign+OCI for teams that already sign containers.
 - [You cannot deny every tool and still ship](https://blog.saintmalik.me/you-cannot-deny-every-tool-and-still-ship/): Deny every agent tool and the work leaves the gateway. Fail closed on shell, creds, and prod write. Leave read and the scoped branch edit on, and let every breakglass grant die on 
 - [Agent-on-agent: when your bot becomes the payload](https://blog.saintmalik.me/agent-on-agent-when-your-bot-becomes-the-payload/): Confused deputy in nested agents: when your bot becomes the payload (prompt leak, tool schema leak, or the helper acting with authority the outer agent never had). Minimal harness,
 - [Access requests belong where the team already works](https://blog.saintmalik.me/access-requests-belong-where-the-team-works/): Access request as a product where the team already works: Slack for SaaS catalogs, GitHub Issues for repo and org roles. Who, what role, why, who approves, audit trail. Not a DM.
@@ -44,7 +45,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Enhanced IaC Security with State File Encryption Using OpenTofu](https://blog.saintmalik.me/iac-security-with-state-file-encryption/): Learn how to encrypt your OpenTofu state files using AWS KMS, GCP KMS, or PBKDF2. A practical guide for DevOps engineers looking to secure their infrastructure code.
 - [MongoDB IAM authentication on EKS with IRSA (passwordless)](https://blog.saintmalik.me/mongodb-passwordless-auth-eks/): Connect a Go or Node app on AWS EKS to MongoDB Atlas with MONGODB-AWS IAM auth via IRSA. No long-lived DB password. Azure AKS sibling linked below.
 - [Securing the Connection from NodeJS App on EKS to S3](https://blog.saintmalik.me/s3-eks-nodejs-app/)
-- [2023 In Review](https://blog.saintmalik.me/2023-in-review/)
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)
