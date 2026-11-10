@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Don't put the token in the agent</title>
+  <desc id="desc">Named agent (Cursor / Claude Code / Copilot) with no secret in env sends tools/call to a separate broker (remote MCP or tool gateway). The broker holds GITHUB_TOKEN or cloud creds and calls api.github.com or AWS. Response to the agent is data, never the token. OIDC may mint into the broker only.</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="640" y="48" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="28" fill="#1e1e1e">Don't put the token in the agent</text>
+  <text x="640" y="82" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">agent &#183; tools/call &#183; broker &#183; GitHub / AWS</text>
+
+  <!-- AGENT -->
+  <rect x="48" y="160" width="280" height="340" rx="16" fill="#e9ecef" stroke="#495057" stroke-width="2.5"/>
+  <text x="188" y="210" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="24" fill="#343a40">Agent</text>
+  <text x="188" y="242" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">Cursor / Claude Code</text>
+  <text x="188" y="264" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">Copilot / AppSec agent</text>
+  <rect x="78" y="290" width="220" height="100" rx="12" fill="#fff5f5" stroke="#e03131" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="188" y="330" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#c92a2a">NO GH_TOKEN</text>
+  <text x="188" y="358" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#c92a2a">NO AWS key in env</text>
+  <text x="188" y="430" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">decides / tool-calls</text>
+  <text x="188" y="456" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">never sees the secret</text>
+
+  <defs>
+    <marker id="arrowAsk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#495057"/>
+    </marker>
+    <marker id="arrowCall" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f9e44"/>
+    </marker>
+    <marker id="arrowOidc" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1971c2"/>
+    </marker>
+    <pattern id="hatchBroker" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#f0e6a8" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <line x1="338" y1="330" x2="430" y2="330" stroke="#495057" stroke-width="2.5" marker-end="url(#arrowAsk)"/>
+  <text x="384" y="312" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">tools/call</text>
+  <text x="384" y="356" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">args only</text>
+
+  <!-- BROKER -->
+  <rect x="440" y="140" width="340" height="380" rx="14" fill="#fff9db" stroke="#1e1e1e" stroke-width="3.5"/>
+  <rect x="440" y="140" width="340" height="380" rx="14" fill="url(#hatchBroker)" opacity="0.45"/>
+  <text x="610" y="188" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="24" fill="#1e1e1e">Broker</text>
+  <text x="610" y="218" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">separate hosted service</text>
+  <text x="610" y="242" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">remote MCP &#183; tool gateway</text>
+  <text x="610" y="262" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">ECS / Cloud Run / K8s</text>
+
+  <rect x="470" y="286" width="280" height="120" rx="12" fill="#e7f5ff" stroke="#1971c2" stroke-width="2.5"/>
+  <text x="610" y="322" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#1864ab">holds GITHUB_TOKEN</text>
+  <text x="610" y="348" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#1864ab">or cloud session</text>
+  <text x="610" y="380" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#868e96">runs Octokit / AWS SDK</text>
+
+  <text x="610" y="450" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">returns data to agent</text>
+  <text x="610" y="472" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#c92a2a">never returns the token</text>
+
+  <!-- optional OIDC into broker only -->
+  <rect x="470" y="560" width="280" height="70" rx="10" fill="#f8f9fa" stroke="#1971c2" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="610" y="590" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#1971c2">OIDC / IRSA (optional)</text>
+  <text x="610" y="612" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="12" fill="#868e96">mints INTO the broker only</text>
+  <line x1="610" y1="560" x2="610" y2="520" stroke="#1971c2" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrowOidc)"/>
+
+  <line x1="790" y1="300" x2="900" y2="230" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowCall)"/>
+  <line x1="790" y1="380" x2="900" y2="450" stroke="#2f9e44" stroke-width="2.5" marker-end="url(#arrowCall)"/>
+  <text x="845" y="252" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#2f9e44">Authorization:</text>
+  <text x="845" y="270" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#2f9e44">Bearer &#8230;</text>
+  <text x="845" y="430" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#2f9e44">SigV4 / session</text>
+
+  <!-- UPSTREAM -->
+  <rect x="910" y="160" width="310" height="140" rx="14" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.5"/>
+  <text x="1065" y="210" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#2b8a3e">api.github.com</text>
+  <text x="1065" y="242" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#2b8a3e">PRs, issues, checks</text>
+  <text x="1065" y="268" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">called by the broker</text>
+
+  <rect x="910" y="380" width="310" height="140" rx="14" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.5"/>
+  <text x="1065" y="430" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#2b8a3e">AWS API</text>
+  <text x="1065" y="462" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#2b8a3e">S3, STS, IAM calls</text>
+  <text x="1065" y="488" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">called by the broker</text>
+
+  <text x="610" y="650" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">Broker is not the workflow OIDC step. OIDC only feeds this box.</text>
+  <text x="1065" y="560" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">Upstream auth hop lives here.</text>
+  <text x="640" y="680" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#c92a2a">If the broker is compromised, that is still the blast radius.</text>
+</svg>
