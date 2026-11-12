@@ -5,6 +5,24 @@ description: Fix EKS pod IP exhaustion without tearing down the cluster. Add a s
 authors: Abdulmalik
 image: /bgimg/eks-ip-outage-cover.webp
 tags: [devops, devsecops, appsec]
+faq:
+  - question: "What causes not enough pod IPs on EKS?"
+    answer: >-
+      The VPC CNI ran out of secondary IPs or prefixes on node ENIs. Pods stay
+      Pending with IP assignment errors even when CPU and memory look fine.
+  - question: "How do I fix EKS pod IP exhaustion without rebuilding the cluster?"
+    answer: >-
+      Add a secondary VPC CIDR, enable VPC CNI prefix delegation, create
+      ENIConfigs for the new subnets, and roll nodes so they pick up more
+      address capacity.
+  - question: "What is VPC CNI prefix delegation?"
+    answer: >-
+      Instead of one IP at a time, the CNI allocates network prefixes to ENIs
+      so each node can run more pods before it runs out of addresses.
+  - question: "Do I need IPv6 to solve EKS IP exhaustion?"
+    answer: >-
+      Not for the path in this post. Secondary IPv4 CIDR plus prefix
+      delegation is the fix I document without an IPv6 cluster rebuild.
 ---
 
 import Figure from '../src/components/Figure';

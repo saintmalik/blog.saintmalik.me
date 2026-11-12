@@ -6,6 +6,21 @@ date: 2026-09-06
 image: /bgimg/helm-gitops-supply-chain-checks-cover.webp
 tags: [devsecops, helm, gitops, argo-cd, supply-chain, sbom, grype, eks]
 description: Most teams scan app images in CI and ignore the Helm charts GitOps syncs. That is a real supply-chain blind spot. Render what would land, inventory the images, Syft + Grype fixable High/Criticals, gate the ops repo.
+faq:
+  - question: "Why scan Helm charts in GitOps pipelines?"
+    answer: >-
+      App image CI does not see what ingress-nginx or other charts render into
+      the cluster. Render the release, inventory the images, and gate on that
+      SBOM before Argo syncs.
+  - question: "What should a Helm supply-chain gate fail on?"
+    answer: >-
+      Vulnerable or unexpected images in the rendered manifests, not only the
+      app image your Dockerfile built. Chart bumps are the change unit when
+      the chart is the risk.
+  - question: "Does signing my app image cover Helm chart risk?"
+    answer: >-
+      No. Signing your image does not attest third-party chart containers Argo
+      still deploys. Treat chart supply chain as its own check.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

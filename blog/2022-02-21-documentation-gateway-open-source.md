@@ -1,12 +1,25 @@
 ---
 slug: documentation-gateway-to-open-source
 title: Documentation as a gateway to Open Source
-author: Abdulmalik
-author_title: Open Sourcerer
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/documentation-gateway-oss-cover.webp
 tags: [Open Source, OSS]
+faq:
+  - question: "Why start open source with documentation?"
+    answer: >-
+      Docs are how users install and debug the project. Fixing unclear docs is
+      a high-impact first contribution that teaches the codebase without
+      requiring a feature merge on day one.
+  - question: "How do I pick a project for docs contributions?"
+    answer: >-
+      Choose something you already understand enough to explain. Read
+      CONTRIBUTING and the style guide, then fix a page you personally
+      stumbled on.
+  - question: "What tools help with open source docs?"
+    answer: >-
+      Whatever the project already uses (MkDocs, Docusaurus, Sphinx, plain
+      Markdown). Match the repo's toolkit instead of introducing a new one in
+      a first PR.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

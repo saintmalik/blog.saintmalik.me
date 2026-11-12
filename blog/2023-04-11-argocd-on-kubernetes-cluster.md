@@ -1,13 +1,38 @@
 ---
 slug: argocd-on-kubernetes-cluster
-title: Install ArgoCD on Kubernetes with Terraform
-description: Deploy ArgoCD with Terraform and Helm, connect a private Git repo, create an Application, and wire a GitHub webhook. Related posts cover multi-cluster, secrets, and common ArgoCD errors.
-author: Abdulmalik
-author_title: AppSec Engineer
-author_url: https://twitter.com/saintmalik_
-author_image_url: /bgimg/logo.gif
+title: How to install ArgoCD on Kubernetes with Terraform
+description: Install ArgoCD with Terraform and the argo-cd Helm chart, connect a private Git repo over SSH, create an Application, and optionally wire a GitHub webhook.
+authors: Abdulmalik
 image: /bgimg/argocd-on-kubernetes-cover.webp
 tags: [argocd, gitops, terraform, kubernetes]
+faq:
+  - question: "How do I install ArgoCD with Terraform?"
+    answer: >-
+      Create the argocd namespace, deploy the argo-cd Helm chart with
+      Terraform's helm_release, then point kubeconfig at the cluster. The post
+      walks through a day-one install with a LoadBalancer server service. Tune
+      HA replicas before production.
+  - question: "How do I install ArgoCD with Terraform and connect a private repo?"
+    answer: >-
+      After Helm install, generate an SSH keypair, add the public key to
+      GitHub, and create an ArgoCD repository Secret with the private key.
+      Then create an Application that points at that repo path.
+  - question: "What does ArgoCD server.secretkey is missing mean?"
+    answer: >-
+      The ArgoCD server cannot find its signing key in the argocd-secret.
+      Usually the install Secret was wiped, never created, or you are hitting
+      a broken Redis or cache path. Check argocd-secret and the server logs
+      before recreating credentials.
+  - question: "How do I deploy ArgoCD with Terraform for GitOps?"
+    answer: >-
+      Use Terraform only to install ArgoCD and bootstrap the first
+      Application. Keep app manifests in Git and let Argo sync them. That is
+      the split this post uses.
+  - question: "Is this ArgoCD install production HA?"
+    answer: >-
+      No. The sample values keep single replicas for controller, server, and
+      repoServer. For production, enable redis-ha and raise replicas per the
+      upstream ArgoCD HA docs linked in the post.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -384,7 +409,7 @@ resource "github_repository_webhook" "argocd" {
 
 This install guide is the hub. Use the siblings when you are past day-one install:
 
-- [ArgoCD-related issues](/docs/argocd-related-issues/) - `cache: key is missing`, `server.secretkey is missing`, port-forward drops, and similar fixes
+- [ArgoCD fixes: server.secretkey missing and cache key is missing](/docs/argocd-related-issues/) - port-forward drops and similar fixes too
 - [Declarative multi-cluster GitOps](/declarative-setup-clusters-gitops-and-argocd/) - one ArgoCD instance managing more than one cluster
 - [Helm secrets in ArgoCD](/helm-argocd-secret-management/) - dynamic secrets for Helm charts without stuffing plaintext into Git
 - Stuck on cluster access while debugging nodes? [SSH into EKS nodes](/eks-node-ssh/)

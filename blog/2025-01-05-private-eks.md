@@ -5,6 +5,20 @@ authors: Abdulmalik
 draft: true
 image: /bgimg/private-eks-cover.webp
 tags: [devops, devsecops, appsec]
+faq:
+  - question: "How do I manage private EKS API endpoints?"
+    answer: >-
+      Disable or avoid a public EKS API endpoint for production, then reach
+      the private endpoint through a controlled network path such as OpenVPN
+      as described in the post.
+  - question: "Why keep the EKS API private?"
+    answer: >-
+      A public kube-apiserver endpoint is a large attack surface. Private-only
+      access forces admins through VPN or similar before kubectl works.
+  - question: "Can one VPN setup cover multiple private EKS clusters?"
+    answer: >-
+      Yes. That is the multi-cluster access shape in the title: shared private
+      reachability instead of opening each API to the internet.
 ---
 
 import Figure from '../src/components/Figure';

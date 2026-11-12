@@ -37,7 +37,6 @@
           "delete-k8s-resource",
           "eks-alb-nodes-controller",
           "docker-credential-desktop",
-          "vpc",
           "android",
           "sockets-service-alb",
           "sockets-nginx",
@@ -72,7 +71,6 @@
         type: "category",
         label: "🚀 Infrastructure as Code using Terraform(IaC)",
         items: [
-          "terraform-kickstart",
           "eks-ec2",
           "terraform-destroy",
           "terraform-destroy-error",

@@ -4,6 +4,26 @@ title:  "Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel"
 authors: Abdulmalik
 image: /bgimg/cloudflare-zero-trust-aws-cover.webp
 tags: [devops, devsecops, appsec]
+faq:
+  - question: "How do I put Cloudflare Zero Trust in front of an AWS EC2 app?"
+    answer: >-
+      Run cloudflared on the instance or as a sidecar, create a Cloudflare
+      Tunnel to the private origin, then wrap the hostname with an Access
+      policy. Users authenticate at Cloudflare before traffic hits EC2.
+  - question: "Cloudflare Tunnel vs opening a security group to the world?"
+    answer: >-
+      The tunnel makes outbound connections from AWS to Cloudflare. You do not
+      need inbound 443 from the internet on the instance. Access then enforces
+      identity.
+  - question: "Do I still need a VPN with Cloudflare Zero Trust on EC2?"
+    answer: >-
+      Not for the HTTP apps you put behind Access and a Tunnel. You may still
+      want VPN or SSM for admin SSH. The post is about application access, not
+      replacing every network path.
+  - question: "Is this the same as Cloudflare Access on Workers?"
+    answer: >-
+      Same Access product, different origin. Workers keep the app on
+      Cloudflare. This post reaches a private EC2 origin through a Tunnel.
 ---
 
 import Figure from '../src/components/Figure';

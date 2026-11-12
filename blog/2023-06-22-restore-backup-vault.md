@@ -1,9 +1,31 @@
 ---
 slug: automate-vault-backup-restore-on-aws-eks
 title: How to automate HashiCorp Vault backup and restoration in AWS EKS with Terraform
-author: Abdulmalik
+authors: Abdulmalik
 image: /bgimg/restore-backup-vault-cover.webp
 tags: [vault, oss, eks, kubernetes]
+description: Automate HashiCorp Vault raft snapshot backup and restore on AWS EKS. CronJob to S3 with IRSA, wired with Terraform.
+faq:
+  - question: "How do I automate HashiCorp Vault backup on EKS?"
+    answer: >-
+      Use Vault raft snapshots on a CronJob, store them in S3, and
+      authenticate with IRSA instead of static AWS keys. The post wires the
+      IAM policy, IRSA role, and backup/restore Jobs with Terraform.
+  - question: "How do I restore a Vault raft snapshot from S3?"
+    answer: >-
+      Pull the snapshot object with the same IRSA identity, then run vault
+      operator raft snapshot restore against the leader. The post includes a
+      restore Job shape for that path.
+  - question: "Why use IRSA for Vault S3 backups?"
+    answer: >-
+      So the CronJob never holds long-lived AWS access keys. The Vault service
+      account assumes an IAM role that can PutObject and GetObject on the
+      backup bucket only.
+  - question: "Is Terraform still the best place for Vault backup CronJobs?"
+    answer: >-
+      IRSA and S3 glue still belong in cloud IAM. Prefer shipping the CronJob
+      and restore templates as Helm under Argo for day-2 ops. I link the
+      self-healing Vault and GitOps control plane posts for that split.
 ---
 
 

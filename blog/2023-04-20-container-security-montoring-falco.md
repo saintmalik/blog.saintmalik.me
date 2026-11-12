@@ -1,10 +1,25 @@
 ---
 slug: dockerfile-best
 title: Container Security Monitoring
-author: Abdulmalik
+authors: Abdulmalik
 draft: true
 image: /bgimg/container-security-falco-cover.webp
 tags: [appsec, container, monitoring, devsecops]
+faq:
+  - question: "Why monitor containers after hardening the Dockerfile?"
+    answer: >-
+      Build-time checks do not see a live shell in prod, a read of
+      /etc/passwd, or a surprise network listener. Runtime monitoring closes
+      that feedback loop.
+  - question: "What kinds of events should container runtime security catch?"
+    answer: >-
+      Unexpected process starts, sensitive file reads, container breakout
+      attempts, and odd outbound connections. Those are the questions the
+      intro frames.
+  - question: "Is Dockerfile hardening enough alone?"
+    answer: >-
+      No. Hardening reduces the default attack surface. Monitoring tells you
+      when something still went wrong at runtime.
 ---
 
 After the whole container hardening, dockerfile security practices implementation.

@@ -1,6 +1,9 @@
 ---
 title: Terraform with AWS
+unlisted: true
+description: Personal note on removing a Kubernetes namespace from Terraform state. Kept for direct links; not a Terraform kickstart guide.
 ---
+
 import Giscus from "@giscus/react";
 
 ```

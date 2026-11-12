@@ -6,6 +6,21 @@ date: 2026-10-09
 image: /bgimg/guardduty-ai-protection-cover.webp
 tags: [aws, guardduty, bedrock, sagemaker, ai-security, cloudtrail, security, devops]
 description: "GuardDuty AI Protection watches Bedrock, AgentCore, and SageMaker AI via CloudTrail. Three Low findings, how to enable, what Low means for response, and what it still misses."
+faq:
+  - question: "What does GuardDuty AI Protection detect?"
+    answer: >-
+      It watches Bedrock, AgentCore, and SageMaker AI via CloudTrail model
+      invocation data events. The post covers the three Low finding types
+      shipped at GA.
+  - question: "Is GuardDuty AI Protection full AI security?"
+    answer: >-
+      No. It is a CloudTrail-shaped detection plan for AWS AI services. It
+      does not replace model signing, prompt-injection controls, or app-layer
+      agent gateways.
+  - question: "How should leads treat Low severity AI Protection findings?"
+    answer: >-
+      Triage them as real signals with Low urgency defaults. Tune response so
+      they do not get ignored, and do not pretend Low means false.
 ---
 
 import Giscus from "@giscus/react";

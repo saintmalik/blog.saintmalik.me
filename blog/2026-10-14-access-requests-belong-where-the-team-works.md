@@ -6,6 +6,20 @@ date: 2026-10-14
 image: /bgimg/access-requests-belong-where-the-team-works-cover.webp
 tags: [platform-engineering, slack, github, access-control, identity, security, devops]
 description: "Access request as a product where the team already works: Slack for SaaS catalogs, GitHub Issues for repo and org roles. Who, what role, why, who approves, audit trail. Not a DM."
+faq:
+  - question: "Where should access requests live?"
+    answer: >-
+      Where the team already works: Slack workflows for SaaS catalogs, GitHub
+      Issues for repo and org roles. Not a scavenger hunt across portals and
+      DMs.
+  - question: "Why are Slack DMs a bad access-grant path?"
+    answer: >-
+      No durable catalog, weak audit, easy to forget, and easy to over-grant.
+      A form with who/what/why/approver beats a private yes.
+  - question: "Can GitHub Issues work as an access-request system?"
+    answer: >-
+      Yes for eng access: structured issue forms, CODEOWNERS or team reviewers
+      as approvers, and automation that grants after approval.
 ---
 
 import Figure from '../src/components/Figure';

@@ -13,6 +13,26 @@ keywords:
   - MCP secret injection
   - brokered egress
 description: "Keep GH_TOKEN and cloud keys out of Cursor, Claude Code, and Copilot-style agents. Agent sends tools/call. Remote MCP or a tool gateway holds the secret and calls GitHub or AWS."
+faq:
+  - question: "Why shouldn't agents hold GH_TOKEN or cloud keys?"
+    answer: >-
+      Agents dump env, log secrets, and get prompt-injected into tool calls.
+      If the token lives in the agent process, one bad step exfiltrates
+      forever access.
+  - question: "Where should the token live instead?"
+    answer: >-
+      In a remote MCP server or tool gateway that the agent calls. The agent
+      sends tools/call. The broker holds the secret and enforces policy.
+  - question: "Does this apply to CI agents too?"
+    answer: >-
+      Yes. Do not put cloud keys in the job env just because Claude Code or an
+      AppSec agent needs GitHub. Broker the call the same way you would for a
+      laptop agent.
+  - question: "Is remote MCP enough by itself?"
+    answer: >-
+      It removes the secret from the agent. You still need scoped credentials,
+      audit, and deny rules on the broker. Brokered egress is necessary, not
+      the whole program.
 ---
 
 import Giscus from "@giscus/react";

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="740" viewBox="0 0 1280 740" role="img" aria-labelledby="title desc">
+  <title id="title">Inventory, integrity, attestation</title>
+  <desc id="desc">Three controls. Inventory is Software SBOM plus ML-BOM plus AIBOM. Integrity is OpenSSF model-signing or Cosign plus KitOps on the pack. Attestation is SLSA or in-toto build provenance. Same system, different jobs and tools.</desc>
+  <rect width="1280" height="740" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrDown" markerWidth="10" markerHeight="10" refX="5" refY="8" orient="auto"><path d="M0,0 L5,8 L10,0 Z" fill="#868e96"/></marker>
+  </defs>
+
+  <text x="640" y="42" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="28" fill="#1e1e1e">Same system. Three jobs. Three tools.</text>
+  <text x="640" y="70" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">BOM answers what. Signature answers untampered. Attestation answers how it was built.</text>
+
+  <rect x="390" y="100" width="500" height="64" rx="14" fill="#f8f9fa" stroke="#495057" stroke-width="2.5"/>
+  <text x="640" y="128" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#212529">AI system in promote</text>
+  <text x="640" y="150" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">pack + serve env + runtime model calls</text>
+
+  <line x1="640" y1="164" x2="640" y2="190" stroke="#adb5bd" stroke-width="2"/>
+  <line x1="220" y1="190" x2="1060" y2="190" stroke="#adb5bd" stroke-width="2"/>
+  <line x1="220" y1="190" x2="220" y2="220" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrDown)"/>
+  <line x1="640" y1="190" x2="640" y2="220" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrDown)"/>
+  <line x1="1060" y1="190" x2="1060" y2="220" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrDown)"/>
+
+  <rect x="70" y="230" width="300" height="40" rx="12" fill="#e7f5ff" stroke="#1971c2" stroke-width="2.5"/>
+  <text x="220" y="257" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#1864ab">1. Inventory</text>
+
+  <rect x="70" y="286" width="300" height="280" rx="14" fill="#f8f9fa" stroke="#495057" stroke-width="2"/>
+  <text x="220" y="325" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">What am I running?</text>
+  <text x="220" y="360" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#212529">Software SBOM (env)</text>
+  <text x="220" y="385" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#212529">ML-BOM (pack hashes)</text>
+  <text x="220" y="410" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#212529">AIBOM (runtime calls)</text>
+  <text x="220" y="460" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#1971c2">CycloneDX + hand AIBOM</text>
+  <text x="220" y="484" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#1971c2">+ Grype on env</text>
+  <text x="220" y="530" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">Need it: every promote</text>
+  <text x="220" y="550" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">This post.</text>
+
+  <rect x="490" y="230" width="300" height="40" rx="12" fill="#ebfbee" stroke="#2f9e44" stroke-width="2.5"/>
+  <text x="640" y="257" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#2b8a3e">2. Integrity</text>
+
+  <rect x="490" y="286" width="300" height="280" rx="14" fill="#f8f9fa" stroke="#495057" stroke-width="2"/>
+  <text x="640" y="325" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">Are these the same bytes?</text>
+  <text x="640" y="365" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">known identity signed</text>
+  <text x="640" y="390" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">this exact tree / OCI</text>
+  <text x="640" y="460" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#2f9e44">OpenSSF model-signing</text>
+  <text x="640" y="484" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#2f9e44">or Cosign + KitOps</text>
+  <text x="640" y="520" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#e03131">NOT a signed sbom.json</text>
+  <text x="640" y="550" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">Need it: before serve</text>
+
+  <rect x="910" y="230" width="300" height="40" rx="12" fill="#fff4e6" stroke="#e67700" stroke-width="2.5"/>
+  <text x="1060" y="257" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="18" fill="#e67700">3. Attestation</text>
+
+  <rect x="910" y="286" width="300" height="280" rx="14" fill="#f8f9fa" stroke="#495057" stroke-width="2"/>
+  <text x="1060" y="325" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">Was the process trusted?</text>
+  <text x="1060" y="365" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">builder, source, inputs</text>
+  <text x="1060" y="390" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">job that exported it</text>
+  <text x="1060" y="460" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#e67700">SLSA / in-toto</text>
+  <text x="1060" y="484" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#e67700">actions/attest + gh verify</text>
+  <text x="1060" y="530" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">Need it: internal builds</text>
+  <text x="1060" y="550" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#495057">and audit trail</text>
+
+  <rect x="140" y="600" width="1000" height="90" rx="14" fill="#fff9db" stroke="#e67700" stroke-width="2.5"/>
+  <text x="640" y="635" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#e67700">Do not mash these into one JSON file</text>
+  <text x="640" y="662" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">BOM lineage fields are claims until a signed build record backs them.</text>
+  <text x="640" y="684" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">Sign the pack bytes. Attest the train/export job. Inventory all three docs.</text>
+</svg>

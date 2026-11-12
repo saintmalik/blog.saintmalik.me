@@ -1,12 +1,24 @@
 ---
 slug: resource-limits-requests-kubernetes
 title: Reduce Cloud Costs and Prevent Noisy Neighbors with Resource Quotas in Kubernetes
-author: Abdulmalik
-author_title: DevSecOps
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/kube-resource-limits-cover.webp
 tags: [appsec, container, Kubernetes, devsecops]
+faq:
+  - question: "What are Kubernetes resource requests and limits?"
+    answer: >-
+      Requests are what the scheduler reserves for the container. Limits are
+      the cap it may use. Together they reduce noisy-neighbor CPU/memory
+      fights and help control cloud spend.
+  - question: "How do I choose CPU and memory limits?"
+    answer: >-
+      Load test (the post uses Locust) and optionally use VPA recommendations,
+      then set requests near steady state and limits with headroom. Do not
+      guess forever from defaults.
+  - question: "What happens if a container exceeds its memory limit?"
+    answer: >-
+      The runtime OOM-kills it. That is why limits must match real usage
+      patterns, not wishful tiny numbers.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

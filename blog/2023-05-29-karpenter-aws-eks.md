@@ -2,12 +2,31 @@
 slug: autoscaling-eks-karpenter
 title: Install Karpenter on EKS with Terraform
 description: "Provision Karpenter on AWS EKS using Terraform: metrics-server, IRSA, instance profile, Helm release, and NodePool-style provisioning. Faster scale-up than Cluster Autoscaler in practice."
-author: Abdulmalik
-author_title: DevSecOps
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/karpenter-aws-eks-cover.webp
 tags: [autocaling, cluster, kubernetes, eks, karpenter]
+faq:
+  - question: "How do I install Karpenter on EKS with Terraform?"
+    answer: >-
+      Provision metrics-server, create the Karpenter controller IAM policy,
+      instance profile, IRSA role, then deploy the Karpenter Helm release.
+      After that, apply NodePool and NodeClass (or the older Provisioner)
+      objects.
+  - question: "What IAM does Karpenter need on EKS?"
+    answer: >-
+      A controller role via IRSA that can launch and terminate EC2 instances,
+      plus an instance profile for nodes Karpenter creates. The Terraform in
+      the post creates both.
+  - question: "Do I still need the Cluster Autoscaler with Karpenter?"
+    answer: >-
+      Not on the same node groups Karpenter owns. Karpenter replaces CAS for
+      the pools you hand it. Keep CAS only if you still have managed node
+      groups outside Karpenter.
+  - question: "What is a Karpenter NodePool?"
+    answer: >-
+      The CR that describes which pods Karpenter should consider and what
+      capacity constraints apply. Pair it with an EC2NodeClass (NodeClass)
+      that holds subnet, security group, and AMI settings.
 ---
 
 import Figure from '../src/components/Figure';

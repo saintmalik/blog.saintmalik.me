@@ -5,6 +5,25 @@ description: Connect a Go or Node app on AWS EKS to MongoDB Atlas with MONGODB-A
 authors: Abdulmalik
 image: /bgimg/mongo-passwordless-cover.webp
 tags: [aws, eks, containers]
+faq:
+  - question: "How does MongoDB IAM authentication work on EKS?"
+    answer: >-
+      The pod uses IRSA to get an AWS identity, then authenticates to MongoDB
+      Atlas (or MongoDB) with that IAM principal instead of a password in an
+      env var.
+  - question: "How do I connect a Node.js or Go app passwordlessly to MongoDB on EKS?"
+    answer: >-
+      Wire IRSA on the service account, configure the MongoDB IAM auth user to
+      trust that role, and use the driver's IAM/OIDC auth mechanism. The post
+      has both Go and Node.js connection shapes.
+  - question: "Why prefer IRSA over MongoDB passwords in Kubernetes?"
+    answer: >-
+      Passwords in Secrets get copied, logged, and forgotten. IRSA short-lived
+      credentials are scoped to the pod role and rotate with the AWS identity.
+  - question: "Does this work the same on AKS?"
+    answer: >-
+      Same idea, different identity fabric. On AKS use Workload Identity and
+      Entra. I wrote a separate AKS passwordless MongoDB post for that path.
 ---
 
 import Figure from '../src/components/Figure';

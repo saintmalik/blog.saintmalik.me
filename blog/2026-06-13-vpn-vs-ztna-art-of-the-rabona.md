@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/vpn-vs-ztna-rabona-cover.webp
 tags: [devops, devsecops, appsec, security, cloudflare, vpn, wireguard, zero-trust]
 description: WireGuard and OpenVPN get you inside the network. Zero Trust keeps you at the door of each app. Here is how I pick between them, and why teams under 50 often just reach for cloudflared.
+faq:
+  - question: "What is the difference between VPN and ZTNA?"
+    answer: >-
+      A VPN puts you on the network. ZTNA keeps you at the door of each app
+      and checks identity per request. I still use VPN for some admin paths,
+      and I want ZTNA in front of applications.
+  - question: "When should a small team pick Cloudflare Access over a full VPN?"
+    answer: >-
+      When you mainly need to protect HTTP apps and you are under the Access
+      seat limits that make it cheap. VPN still helps for broad network admin
+      access.
+  - question: "Can VPN and Zero Trust coexist?"
+    answer: >-
+      Yes. That is the rabona move in the title. VPN for network reach where
+      you need it, ZTNA for app identity gates so every tool is not implicitly
+      trusted once the tunnel is up.
 ---
 
 import Figure from '../src/components/Figure';
@@ -201,6 +217,7 @@ Till next time, Peace be on you 🤞🏽
 - [Cloudflare Zero Trust Documentation](https://developers.cloudflare.com/cloudflare-one/)
 - [Cloudflare Access Documentation](https://developers.cloudflare.com/cloudflare-one/policies/access/)
 - [Tailscale Documentation](https://tailscale.com/kb/101/what-is-tailscale)
+- Field notes when Warp fights OpenVPN on the same laptop: [VPN troubleshooting](/docs/vpn-issues/)
 - [Twingate Documentation](https://www.twingate.com/docs/)
 - [Cisco Secure Access Resource Connector (AWS Marketplace)](https://aws.amazon.com/marketplace/pp/prodview-oonzvpdnti7jm)
 - [Cisco Secure Access: Client-Based Zero Trust Access](https://securitydocs.cisco.com/docs/csa/olh/119971.dita)

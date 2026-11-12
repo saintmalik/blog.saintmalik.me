@@ -2,9 +2,30 @@
 slug: embedding-static-files-in-go-cli
 title: How to Use //go:embed to embed static files in CLI
 description: Here's how to use //go:embed to embed static files into Go programs or Go binaries
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/go-embed-cli-cover.webp
 tags: [golang, cli]
+faq:
+  - question: "What is //go:embed in Go?"
+    answer: >-
+      A compiler directive that packs files into the binary at build time.
+      Your CLI can ship templates, static assets, or config schemas without
+      reading them from disk next to the executable.
+  - question: "When should I use go:embed in a CLI?"
+    answer: >-
+      When the files are part of the release artifact and must exist even if
+      the working directory is empty. Skip it for user-edited config that
+      should stay outside the binary.
+  - question: "What does go embed no matching files found mean?"
+    answer: >-
+      The embed pattern matched nothing at compile time. Check the path
+      relative to the Go file that declares //go:embed, and confirm the files
+      are not excluded by build tags or .gitignore tricks that also hide them
+      from the compiler.
+  - question: "Can //go:embed embed a whole directory?"
+    answer: >-
+      Yes. Use a directory pattern and an embed.FS, then fs.ReadFile or
+      http.FS as needed. The post walks the CLI-shaped usage.
 ---
 
 import Giscus from "@giscus/react";

@@ -15,6 +15,31 @@ keywords:
   - TRACE claim
   - TEE
 description: "An MCP security gateway sits between the agent and tools/call: policy deny, audit trail, optional TEE. Walk cMCP Cedar against Cursor shaped filesystem MCP."
+faq:
+  - question: "What is an MCP security gateway?"
+    answer: >-
+      A policy and audit layer between the agent and tools/call. It can deny a
+      tool, log the attempt, and optionally run in a TEE before the upstream
+      MCP server executes.
+  - question: "Is an MCP gateway just an API gateway with MCP codecs?"
+    answer: >-
+      Usually no. TLS termination and route multiplexing help operations. MCP
+      gateway security is about evaluating tools/call (and often the approved
+      catalog) before upstream runs.
+  - question: "Is approving the MCP server in Cursor enough?"
+    answer: >-
+      No. That is server-level trust. Tool poisoning, rug pulls, and
+      cross-server exfil all sit past that checkbox.
+  - question: "Does CMCP_DEV_MODE=1 count as production proof?"
+    answer: >-
+      It counts for learning the deny/allow path and the claim shape. Hardware
+      attestation still fails in software mode on purpose. TEE is when you
+      need a verifier who does not have to trust the operator.
+  - question: "What is cMCP?"
+    answer: >-
+      A gateway approach using Cedar policy, TRACE claims, and optional TEE.
+      The post walks deny read_file, allow list_directory, and verify against
+      a filesystem MCP.
 ---
 
 import Figure from '../src/components/Figure';
@@ -499,14 +524,6 @@ I walked deny `read_file` + allow `list_directory` + verify above in software mo
 If you are wiring Cursor Agent (or Claude) to filesystem, shell, GitHub, or browser MCP tools, start with a deny-by-default catalog, treat every server as hostile until proven otherwise, and put something in the path that can say no before the upstream reads your local envs, PII, and more. Then decide whether your proof requirement is "we logged it" or "a verifier can check the enclave measurement without trusting us."
 
 Those are different products. Call them by their real names.
-
-### A few questions I keep getting
-
-**Is an MCP gateway just an API gateway with MCP codecs?** Usually no. TLS termination and route multiplexing help operations. MCP gateway security is about evaluating `tools/call` (and often the approved catalog) before upstream runs.
-
-**Is approving the MCP server in Cursor enough?** No. That is server-level trust. Tool poisoning, rug pulls, and cross-server exfil all sit past that checkbox.
-
-**Does `CMCP_DEV_MODE=1` count as production proof?** It counts for learning the deny/allow path and the claim shape. Hardware attestation still fails in software mode on purpose. TEE is when you need a verifier who does not have to trust the operator.
 
 Well, that's it. I hope you find this useful. Drop a comment if you hit a weird verify result or a Cedar quirk. I am curious what breaks for other setups.
 

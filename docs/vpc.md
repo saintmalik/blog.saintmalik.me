@@ -1,6 +1,9 @@
 ---
 title: Access internal assets access, aws
+unlisted: true
+description: Short personal note on keeping AWS internal assets private. Kept for direct links; not a full VPC guide.
 ---
+
 import Giscus from "@giscus/react";
 
 

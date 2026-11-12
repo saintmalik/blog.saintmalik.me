@@ -12,6 +12,23 @@ keywords:
   - breakglass expiry
   - shadow AI agents
 description: "Deny every agent tool and the work leaves the gateway. Fail closed on shell, creds, and prod write. Leave read and the scoped branch edit on, and let every breakglass grant die on a clock."
+faq:
+  - question: "Why not deny every agent tool?"
+    answer: >-
+      If the gateway blocks all work, engineers leave the gateway and ship
+      from the laptop with shell and kubeconfig still on. Fail closed on
+      shell, creds, and prod write. Leave scoped read and branch edit paths
+      that still ship.
+  - question: "What should always stay fail-closed for agents?"
+    answer: >-
+      Shell, long-lived credentials, and production write. Those are the
+      grants that should not quietly return because someone is late for
+      standup.
+  - question: "How do I keep product velocity without abandoning the gateway?"
+    answer: >-
+      Count what the team actually needs in a week, keep those scoped tools
+      on, and make every break-glass path audited. Absolute deny pushes the
+      real work off-platform.
 ---
 
 import Giscus from "@giscus/react";

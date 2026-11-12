@@ -1,9 +1,25 @@
 ---
 slug: leveraging-git-hook-hardcoded-secrets-codebase
 title: Leveraging git hook for hardcoded secrets scanning in a codebase
-author: Abdulmalik
+authors: Abdulmalik
 image: /bgimg/git-hook-secrets-cover.webp
 tags: [gitops, devsecops, appsec]
+faq:
+  - question: "Can a git hook stop hardcoded secrets?"
+    answer: >-
+      A pre-commit or pre-push hook can scan the diff for high-entropy strings
+      and known key patterns before the commit leaves your laptop. It
+      complements .gitignore. It does not replace server-side secret scanning.
+  - question: "pre-commit vs pre-push for secret scanning?"
+    answer: >-
+      pre-commit runs earlier and keeps bad blobs out of local history more
+      often. pre-push is a last gate before the remote. I cover pros and cons
+      of both in the post.
+  - question: "Is .gitignore enough to keep secrets out of git?"
+    answer: >-
+      No. .gitignore only skips untracked paths you name. Hardcoded API keys
+      inside source files still commit. That is why hooks and CI secret
+      scanners exist.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

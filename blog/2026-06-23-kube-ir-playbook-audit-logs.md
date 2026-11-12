@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/kubernetes-incident-response-cover.webp
 tags: [devsecops, kubernetes, eks, incident-response, aws, cloudwatch, appsec]
 description: Building a Kubernetes IR playbook from real EKS work. Why audit logs alone are not enough, why offline TSV sweeps beat ad-hoc jq at volume, and how lnav fits once the columns are flat.
+faq:
+  - question: "Are Kubernetes audit logs enough for incident response?"
+    answer: >-
+      No. Audit logs are necessary and incomplete. You still need host and
+      runtime context, and a playbook for how you slice the volume when the
+      page hits.
+  - question: "Why use TSV sweeps with lnav for kube IR?"
+    answer: >-
+      At volume, offline TSV slices beat ad-hoc jq one-liners. lnav lets you
+      keep one timeline across exec, secrets access, denials, and human-user
+      activity.
+  - question: "What belongs in a Kubernetes IR playbook?"
+    answer: >-
+      Where logs live, how you export them, which fields you always chart
+      first, who gets paged, and what you freeze before remediation. The post
+      is built from real EKS work, not a vendor checklist.
 ---
 
 import Figure from '../src/components/Figure';

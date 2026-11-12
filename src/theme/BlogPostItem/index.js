@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
 import {useDateTimeFormat} from '@docusaurus/theme-common/internal';
 import BlogPostItem from '@theme-original/BlogPostItem';
+import FaqJsonLd from '@site/src/components/FaqJsonLd';
 import styles from './styles.module.css';
 
 function SlimListItem({children}) {
@@ -47,6 +48,7 @@ export default function BlogPostItemWrapper(props) {
 
   return (
     <div style={{position: 'relative'}}>
+      <FaqJsonLd />
       <BlogPostItem {...props} />
     </div>
   );

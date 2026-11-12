@@ -5,6 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
+- [From software SBOM to ML-BOM and AIBOM](https://blog.saintmalik.me/sbom-for-models-not-just-containers/): Extend the SBOM you already run for packages and images to the model pack (ML-BOM) and the runtime call graph (AIBOM). Grype the serve env. Hash-check the pack. Gate stale model ID
 - [Dont put the token in the agent](https://blog.saintmalik.me/dont-put-the-token-in-the-agent/): Keep GH_TOKEN and cloud keys out of Cursor, Claude Code, and Copilot-style agents. Agent sends tools/call. Remote MCP or a tool gateway holds the secret and calls GitHub or AWS.
 - [From signing containers to signing models](https://blog.saintmalik.me/from-signing-containers-to-signing-models/): Sign model directories the way you sign containers: OpenSSF model-signing locally, then KitOps + Cosign keyless in GitHub Actions.
 - [You cannot deny every tool and still ship](https://blog.saintmalik.me/you-cannot-deny-every-tool-and-still-ship/): Deny every agent tool and the work leaves the gateway. Fail closed on shell, creds, and prod write. Leave read and the scoped branch edit on, and let every breakglass grant die on 
@@ -35,10 +36,9 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Self-Healing HashiCorp Vault on Kubernetes: Helmization & Auto-Restore](https://blog.saintmalik.me/vault-self-healing-kubernetes/): Moving Vault to a GitOps flow is great, but what happens when you lose your data? Learn how to build a self-healing Vault cluster that restores itself from S3.
 - [Ephemeral Resources and the End of Secrets in State Files](https://blog.saintmalik.me/opentofu-ephemeral-resources/): OpenTofu 1.11 introduces ephemeral resources that keep secrets out of state files forever. Learn about this game-changing feature.
 - [Manage Helm secrets in ArgoCD without plaintext in Git](https://blog.saintmalik.me/helm-argocd-secret-management/): Dynamic secret injection for Helm charts deployed by ArgoCD. Companion to the ArgoCD Terraform install and multi-cluster posts.
-- [Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to Scale SAST Analysis](https://blog.saintmalik.me/sast-recommendations-with-llm/)
+- [Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to Scale SAST Analysis](https://blog.saintmalik.me/sast-recommendations-with-llm/): Scale SAST remediation with an LLM writing guidance on top of deterministic scanner findings, plus caching so repeated rule hits do not burn tokens twice.
 - [RDS DB Passwordless Authentication on AWS EKS using IAM Role Service Account](https://blog.saintmalik.me/rds-db-passwordless-auth-eks/)
 - [Not enough pod IPs on EKS: secondary CIDR and prefix delegation](https://blog.saintmalik.me/eks-ip-outage/): Fix EKS pod IP exhaustion without tearing down the cluster. Add a secondary VPC CIDR, configure VPC CNI prefix delegation, and keep workloads scheduling when subnets run dry.
-- [Managing multiple EKS clusters access using Private EKS API Endpoint with OpenVPN](https://blog.saintmalik.me/eks-private-apiserver/)
 - [2024 In Review](https://blog.saintmalik.me/2024-in-review/)
 - [Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/)
 - [EKS Node Debug Nightmare, How to SSH into EKS Nodes](https://blog.saintmalik.me/eks-node-ssh/): Learn how to securely SSH into AWS EKS nodes for debugging using IAM roles and kubectl plugins. Perfect for DevOps engineers troubleshooting EKS node issues.
@@ -49,7 +49,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)
 - [TEE stacks — short notes](https://blog.saintmalik.me/docs/tee-stacks/)
-- [Access internal assets access, aws](https://blog.saintmalik.me/docs/vpc/)
 - [AI Shell War - Locking Your .zshrc From Rogue Agents](https://blog.saintmalik.me/docs/locking-zshrc/): How AI coding assistants silently modify your shell config, why you should lock your .zshrc with chflags, and the importance of backing it up to a GitHub Gist.
 - [AMD64 vs ARM64: which EC2 architecture to pick](https://blog.saintmalik.me/docs/amd64-arm64/): Quick AMD64 vs ARM64 comparison for EC2: cost and power on ARM (Graviton) versus broader app compatibility on x86/amd64 when choosing instance architecture.
 - [Android Signing](https://blog.saintmalik.me/docs/android/)
@@ -87,6 +86,7 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Setting up free custom mails for your startup](https://blog.saintmalik.me/docs/custom-mails/)
 - [Signoz on Kubernetes Errors](https://blog.saintmalik.me/docs/signoz/)
 - [Solutions to Docusaurus Issues i experienced](https://blog.saintmalik.me/docs/fix-docusaurus-solutions/)
+- [Squeezing your node on EKS for the money of it!](https://blog.saintmalik.me/docs/squeeze-node/)
 
 ## Optional
 - Google Search does not require llms.txt for AI Overviews or AI Mode.

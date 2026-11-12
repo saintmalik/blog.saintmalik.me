@@ -5,6 +5,21 @@ authors: Abdulmalik
 image: /bgimg/container-image-sbom-blind-spots-cover.webp
 tags: [containers, docker, devsecops, appsec, security, sbom, supply-chain, syft, grype, cosign, kubernetes]
 description: An SBOM of your container image is not the SBOM of your app. Knowing which part is which, whether the bad code can run, and proving the image is the one you built all get harder once layers, base images, and OS packages enter the picture - the container version of the three blind spots.
+faq:
+  - question: "What does a container image SBOM still miss?"
+    answer: >-
+      App-level identity vs base image, PURL/CPE mismatches, reachability
+      across the container boundary, and proof that the scanned digest is the
+      one you signed and deployed.
+  - question: "Is scanning with Trivy and signing with Cosign enough?"
+    answer: >-
+      It is the easy 20%. Useful, noisy, and incomplete. You still need to
+      know whose component failed, whether it can run, and that the digest
+      matches what you built.
+  - question: "Why do base images matter in SBOM programs?"
+    answer: >-
+      Most CVEs often live in the base. If you cannot separate base from app
+      layers, you either ignore real risk or file the wrong tickets.
 ---
 
 import Giscus from "@giscus/react";

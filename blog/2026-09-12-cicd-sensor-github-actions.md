@@ -14,6 +14,36 @@ keywords:
   - Harden-Runner alternative
   - CI/CD runtime security
 description: "Locked Actions deps do not tell you what the job did. cicd-sensor is an open-source EDR for GitHub Actions (and GitLab): eBPF process/network visibility with detect or terminate. How it differs from Harden-Runner, and how to run it on hosted, self-hosted, and ARC."
+faq:
+  - question: "What is an EDR for GitHub Actions?"
+    answer: >-
+      Endpoint detection and response for CI: a runner agent that observes
+      process, network, and related activity during a workflow job, correlates
+      it to the run, and can detect or stop suspicious behavior. Classic
+      laptop EDR does not understand ephemeral runners or workflow steps.
+  - question: "Is there an open source EDR for GitHub Actions?"
+    answer: >-
+      Yes. cicd-sensor is an open-source eBPF runtime security sensor for
+      GitHub Actions and GitLab CI. Harden-Runner's community Linux agent is
+      also open for public repos, but private-repo enforcement, Windows/macOS,
+      and the full fleet product sit on StepSecurity's commercial path.
+  - question: "Can cicd-sensor block or stop a job?"
+    answer: >-
+      Yes, via action: terminate. Upstream docs say terminate attempts to stop
+      the job. That is process/job kill on a rule hit, not iptables-style
+      egress deny. With monitor_mode: true, terminate is treated as detect so
+      you can roll out safely.
+  - question: "Harden-Runner or cicd-sensor?"
+    answer: >-
+      Harden-Runner if you want the category-defining product, egress block,
+      and multi-OS polish. cicd-sensor if you want fully open source,
+      self-hosted Manager, GitLab coverage, Runtime Trace attestation, and
+      rule-driven terminate.
+  - question: "Does cicd-sensor replace locking Actions and egress allowlists?"
+    answer: >-
+      No. It watches (and can terminate) what the job does after you already
+      locked deps and tokens. Pair it with static hardening and, where you
+      need default-deny egress, Harden-Runner or CargoWall.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -383,27 +413,6 @@ Also not:
 - A replacement for locking Actions deps, least-privilege `GITHUB_TOKEN`, and static workflow lint ([hardening post](/github-actions-supply-chain-hardening/)).
 - Production-node Falco/Tetragon with a CI sticker. The lifecycle hooks and Docker/NRI attribution are the CI-specific hard parts.
 
-## FAQ
-
-### What is an EDR for GitHub Actions?
-
-Endpoint detection and response for CI: a runner agent that observes process, network, and related activity during a workflow job, correlates it to the run, and can detect or stop suspicious behavior. Classic laptop EDR does not understand ephemeral runners or workflow steps. CI-shaped tools do.
-
-### Is there an open source EDR for GitHub Actions?
-
-Yes. **cicd-sensor** is an open-source eBPF runtime security sensor for GitHub Actions and GitLab CI. Harden-Runner’s community Linux agent is also open for public repos, but private-repo enforcement, Windows/macOS, and the full fleet product sit on StepSecurity’s commercial path. Other open projects (CargoWall, Legion Runner, Falco Actions) cover parts of the space (egress firewall, syscall rules) without always matching the full “EDR for the job” brief.
-
-### Can cicd-sensor block or stop a job?
-
-Yes, via `action: terminate`. Upstream docs say terminate attempts to stop the job. That is process/job kill on a rule hit, not iptables-style egress deny. With `monitor_mode: true`, terminate is treated as detect so you can roll out safely.
-
-### Harden-Runner or cicd-sensor?
-
-Harden-Runner if you want the category-defining product, egress block, and multi-OS polish. cicd-sensor if you want fully open source, self-hosted Manager, GitLab coverage, Runtime Trace attestation, and rule-driven terminate. See the comparison table above.
-
-### Does cicd-sensor replace locking Actions and egress allowlists?
-
-No. It watches (and can terminate) what the job does after you already locked deps and tokens. Pair it with static hardening ([supply-chain hardening post](/github-actions-supply-chain-hardening/)) and, where you need default-deny egress, Harden-Runner or CargoWall.
 
 ## Contribute / follow
 

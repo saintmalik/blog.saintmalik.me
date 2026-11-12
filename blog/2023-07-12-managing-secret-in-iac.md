@@ -1,9 +1,24 @@
 ---
 slug: secrets-in-iac-terraform
 title: Managing Secrets in Infrastructure As Code with Terraform
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/managing-secret-in-iac-cover.webp
 tags: [secrets, terraform, iac]
+faq:
+  - question: "How do I manage secrets in Terraform without putting them in git?"
+    answer: >-
+      Store values in a secret manager (the post uses Parameter Store), then
+      data-source them in Terraform and pass them into providers or resources.
+      Keep the raw values out of the repo.
+  - question: "Can Terraform providers use secrets from Parameter Store?"
+    answer: >-
+      Yes. Read the parameter in Terraform, then feed it into the provider or
+      resource argument that needs it. Watch what still lands in state.
+  - question: "Does Parameter Store alone encrypt Terraform state?"
+    answer: >-
+      No. It keeps the source secret out of git. State may still store the
+      resolved value unless you use encryption or ephemeral-style features
+      covered in later posts.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

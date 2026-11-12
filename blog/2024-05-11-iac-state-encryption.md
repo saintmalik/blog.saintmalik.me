@@ -5,6 +5,21 @@ authors: Abdulmalik
 image: /bgimg/iac-state-encryption-cover.webp
 tags: [IaC, opentofu, encryption, security, terraform, devops]
 description: Learn how to encrypt your OpenTofu state files using AWS KMS, GCP KMS, or PBKDF2. A practical guide for DevOps engineers looking to secure their infrastructure code.
+faq:
+  - question: "How do I encrypt OpenTofu state files?"
+    answer: >-
+      Enable state encryption with a key from AWS KMS, GCP KMS, or a PBKDF2
+      passphrase method as documented in the post. That protects state at rest
+      beyond hoping the backend bucket ACL is enough.
+  - question: "Does Terraform OSS have the same state encryption?"
+    answer: >-
+      This write-up is about OpenTofu adding state encryption that many teams
+      only had via Terraform Cloud before. Check current Terraform/OpenTofu
+      docs for what your version supports.
+  - question: "Is encrypted state enough to keep secrets out of state?"
+    answer: >-
+      Encryption protects the file at rest. Values can still exist inside
+      state. Later OpenTofu ephemeral resources attack that second problem.
 ---
 
 import Figure from '../src/components/Figure';

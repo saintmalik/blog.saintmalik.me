@@ -6,6 +6,20 @@ date: 2026-09-05
 image: /bgimg/aks-karpenter-kubectl-logs-401-cover.webp
 tags: [azure, aks, karpenter, kubernetes, debugging, incident]
 description: get/describe work, logs and exec return 401, but only on Karpenter nodes. RBAC-off AKS, kubelet anonymous-auth mismatch, and the DaemonSet that fixed it.
+faq:
+  - question: "Why does kubectl logs return 401 on AKS Karpenter nodes?"
+    answer: >-
+      get/describe work, but kubelet anonymous-auth on Karpenter-provisioned
+      nodes can disagree with how AKS expects log/exec proxying to work.
+      System-pool nodes may still succeed.
+  - question: "How did you fix kubectl logs 401 on Karpenter nodes?"
+    answer: >-
+      Patch live nodes immediately, then ship a DaemonSet so new Karpenter
+      nodes self-fix the kubelet auth settings before the next incident.
+  - question: "Is the 401 an RBAC RoleBinding miss?"
+    answer: >-
+      Often it looks like RBAC, but when only Karpenter nodes fail while
+      system nodes work, suspect kubelet config drift first.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

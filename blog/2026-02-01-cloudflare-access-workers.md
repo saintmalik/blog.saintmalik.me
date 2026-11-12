@@ -1,10 +1,32 @@
 ---
 slug: cloudflare-access-workers-for-internal-apps
-title: "Cloudflare Access for Workers: protect internal apps without a VPN"
+title: "Protect internal apps with Cloudflare Access on Workers"
 authors: Abdulmalik
 image: /bgimg/cloudflare-access-workers-cover.webp
 tags: [devops, devsecops, appsec, cloudflare, security]
-description: Put Cloudflare Access in front of Workers so internal dashboards need login first. Terraform for Access apps, IdP, and policies without a VPN.
+description: Put Cloudflare Access in front of Workers admin routes so internal dashboards need login first. Terraform for the Access app, IdP, and policies. No VPN when the app already runs on Workers.
+faq:
+  - question: "How do I protect a Cloudflare Worker admin route without a VPN?"
+    answer: >-
+      Put Cloudflare Access in front of the Worker routes. Configure an IdP,
+      create an Access application for the admin paths, and attach policies
+      for who can reach them. No cloudflared tunnel required when the app
+      already runs on Workers.
+  - question: "Is Cloudflare Access free for small teams?"
+    answer: >-
+      Cloudflare Access is free for teams under 50 members on the path
+      described in the post. Confirm current plan limits in Cloudflare Zero
+      Trust before you design around it.
+  - question: "Why not hide the admin subdomain instead of Access?"
+    answer: >-
+      Obscure hostnames get found by subdomain enumeration. Access checks
+      identity before the Worker serves the page. That is the control I want
+      on internal dashboards.
+  - question: "Do I need Cloudflare Tunnel for Workers Access?"
+    answer: >-
+      Not for apps that already live on Workers. Access policies attach to the
+      Worker routes on Cloudflare. Tunnels matter more when the origin is a
+      private VM or VPC service.
 ---
 
 import Giscus from "@giscus/react";

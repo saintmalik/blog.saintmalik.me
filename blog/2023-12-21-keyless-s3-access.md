@@ -4,6 +4,19 @@ title: Securing the Connection from NodeJS App on EKS to S3
 authors: Abdulmalik
 image: /bgimg/keyless-s3-access-cover.webp
 tags: [aws, eks, containers]
+faq:
+  - question: "How does a Node.js app on EKS access S3 without access keys?"
+    answer: >-
+      Attach an IAM role to the pod via IRSA. The AWS SDK picks up the web
+      identity credentials and calls S3. No static AKIA keys in Secrets.
+  - question: "Why avoid long-lived IAM user keys for S3 from EKS?"
+    answer: >-
+      Keys get copied into env files, CI logs, and laptop notes. IRSA issues
+      short-lived credentials scoped to the service account.
+  - question: "What do I configure on the IAM side?"
+    answer: >-
+      An IAM role trusted by the EKS OIDC provider for your service account,
+      with least-privilege S3 permissions on the target bucket.
 ---
 
 import Giscus from "@giscus/react";

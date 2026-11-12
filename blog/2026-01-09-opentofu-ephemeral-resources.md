@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/opentofu-ephemeral-resources-cover.webp
 tags: [opentofu, IaC, security, terraform, devops, devsecops]
 description: OpenTofu 1.11 introduces ephemeral resources that keep secrets out of state files forever. Learn about this game-changing feature.
+faq:
+  - question: "What are OpenTofu ephemeral resources?"
+    answer: >-
+      Resources whose values are used during the run but not written into
+      state. They target the classic problem of secrets lingering in
+      terraform.tfstate.
+  - question: "How do ephemeral resources differ from state encryption?"
+    answer: >-
+      Encryption protects the state file at rest. Ephemeral resources aim to
+      keep certain secret values out of state entirely. I cover both angles
+      across the IaC posts.
+  - question: "Which OpenTofu version introduced ephemeral resources?"
+    answer: >-
+      The post is written against the OpenTofu 1.11-era ephemeral resources
+      feature. Confirm the exact version in your toolchain before you rely on
+      it.
 ---
 
 import Giscus from "@giscus/react";

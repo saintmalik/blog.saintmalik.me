@@ -5,6 +5,21 @@ authors: Abdulmalik
 image: /bgimg/kubernetes-runtime-security-cover.webp
 tags: [kubernetes, devsecops, falco, runtime-security, appsec, ebpf, security]
 description: Two real assessments where attackers moved inside Kubernetes with zero alerts. A practical Falco setup with modern eBPF, custom rules, Falcosidekick, Talon, and EKS audit detection.
+faq:
+  - question: "Why does Kubernetes runtime security matter if images are scanned?"
+    answer: >-
+      Attackers can move inside a cluster after admit with zero image-scan
+      alerts. Runtime sensors catch the process and network behavior scans
+      never see.
+  - question: "What Falco setup does the post describe?"
+    answer: >-
+      Modern eBPF Falco, custom rules, Falcosidekick for routing, and Talon
+      for response wiring. It is a practical detection path from real
+      assessment silence.
+  - question: "Can runtime security replace admission controls?"
+    answer: >-
+      No. Admission and signing shrink what enters. Runtime watches what the
+      workload actually does after it is running.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -482,6 +497,7 @@ Till next time, Peace be on you 🤞🏽
 
 #### References
 
+- On this blog: [Building a Kubernetes IR playbook from audit logs](/kube-ir-playbook-audit-logs/)
 - [Falco project](https://falco.org/)
 - [Falco eBPF driver docs](https://falco.org/docs/concepts/event-sources/ebpf/)
 - [Falco Helm charts](https://github.com/falcosecurity/charts)

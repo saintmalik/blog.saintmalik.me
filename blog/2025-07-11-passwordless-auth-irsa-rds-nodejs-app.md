@@ -4,6 +4,19 @@ title: RDS DB Passwordless Authentication on AWS EKS using IAM Role Service Acco
 authors: Abdulmalik
 image: /bgimg/passwordless-auth-irsa-rds-cover.webp
 tags: [aws, eks, containers]
+faq:
+  - question: "How does RDS IAM authentication work from EKS?"
+    answer: >-
+      The pod uses IRSA to obtain AWS credentials, then the DB client requests
+      an IAM auth token for RDS instead of storing a password in a Secret.
+  - question: "How do I connect a Node.js app on EKS to RDS without a password?"
+    answer: >-
+      Enable IAM DB auth on RDS, grant the IAM role, wire IRSA to the service
+      account, and generate the auth token in the Node driver on connect.
+  - question: "Why prefer IAM auth over RDS passwords in Kubernetes?"
+    answer: >-
+      Static DB passwords linger in Secrets and CI. IAM tokens are short-lived
+      and tied to the pod identity.
 ---
 
 import Figure from '../src/components/Figure';

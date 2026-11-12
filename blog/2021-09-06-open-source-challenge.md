@@ -2,12 +2,24 @@
 slug: open-source-challenge
 title: My Open Source Challenge 2021 Experince
 description: "Here is my OSCA Africa Open Source Challenge 2021."
-author: Abdulmalik
-author_title: OSS Contributor
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/open-source-challenge-cover.webp
 tags: [open source, oss]
+faq:
+  - question: "What is the OSCA Africa Open Source Challenge?"
+    answer: >-
+      A time-boxed challenge from OSCA Africa to get people contributing to
+      open source. This post is my 2021 experience starting mid-August with
+      local OSCA Ado Ekiti collaborators.
+  - question: "Do I need a challenge to contribute to open source?"
+    answer: >-
+      No. Challenges help with structure and peers. You can open docs and
+      good-first-issue PRs any day without a cohort.
+  - question: "What did I get out of the 2021 challenge?"
+    answer: >-
+      Practice collaborating, shipping small contributions, and treating open
+      source as a learning loop rather than a resume checkbox. Details are in
+      the narrative.
 ---
 
 import Figure from '../src/components/Figure';

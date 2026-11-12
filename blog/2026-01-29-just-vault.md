@@ -5,6 +5,26 @@ authors: Abdulmalik
 image: /bgimg/just-vault-cover.webp
 tags: [vault, kubernetes, gitops, devops, security, terraform]
 description: Moving Vault to a GitOps flow is great, but what happens when you lose your data? Learn how to build a self-healing Vault cluster that restores itself from S3.
+faq:
+  - question: "What is a self-healing Vault on Kubernetes?"
+    answer: >-
+      A Helmized Vault install that can restore itself from an S3 raft
+      snapshot when data is lost, instead of waiting on a human to run one-off
+      Terraform restore jobs.
+  - question: "How does Vault auto-restore from S3 work?"
+    answer: >-
+      A snapshot CronJob writes raft snapshots to S3. A config/restore Job can
+      pull a snapshot and restore on the leader when you need the cluster
+      back. IRSA (or equivalent) authenticates to S3.
+  - question: "Why move Vault manifests from Terraform to Helm under Argo?"
+    answer: >-
+      Day-2 Vault ops change often. Helm templates synced by Argo are easier
+      to iterate than one-off Terraform Kubernetes manifests, while cloud
+      identity for seal and S3 can stay in Terraform.
+  - question: "Does this replace KMS auto-unseal?"
+    answer: >-
+      No. Auto-unseal still belongs with KMS/IRSA. Self-healing here is about
+      snapshot restore and GitOps packaging on top of that.
 ---
 
 import Giscus from "@giscus/react";

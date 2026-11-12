@@ -6,6 +6,25 @@ date: 2026-09-12
 image: /bgimg/runtime-trace-process-attestation-cover.webp
 tags: [devsecops, supply-chain, runtime-trace, in-toto, process-trust, attestation, cicd, security, cosign, slsa]
 description: "Artifact signatures prove who sealed the digests. They do not prove what the build did. Runtime Trace is process attestation: observe the job, attach the predicate, gate promote on behavior, including when the image signature is still green."
+faq:
+  - question: "What is Runtime Trace attestation?"
+    answer: >-
+      Process attestation for the build or job: observe what actually ran,
+      attach that predicate, and verify it at promote. Image signatures alone
+      do not prove process honesty.
+  - question: "Does Cosign signing prove the build behaved?"
+    answer: >-
+      No. Signing proves who sealed the digests. A signed image can still come
+      from a job that opened wrong sockets or ran an unnamed binary.
+  - question: "How does Tetragon fit Runtime Trace?"
+    answer: >-
+      Tetragon TracingPolicies capture process and network events. Those
+      events feed the Runtime Trace predicate you attest and verify before
+      promote.
+  - question: "Is provenance the same as Runtime Trace?"
+    answer: >-
+      No. Provenance is the build record of inputs and builder. Runtime Trace
+      is what the process did while producing the artifact.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

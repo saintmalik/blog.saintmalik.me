@@ -2,9 +2,29 @@
 slug: signing-container-images-for-trust-assurance
 title: Sign container images with Cosign (key-based)
 description: Cosign key-based container image signing for supply-chain trust. For keyless GitHub OIDC or AWS Signer without public Rekor, see the linked sibling posts.
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/container-images-sign-cover.webp
 tags: [appsec, container security, devsecops]
+faq:
+  - question: "How do I sign container images with Cosign?"
+    answer: >-
+      Generate a key pair, cosign sign the image digest with the private key,
+      store the public key for verifiers, and fail deploys when cosign verify
+      fails. Prefer signing digests, not mutable tags.
+  - question: "Why sign container images at all?"
+    answer: >-
+      A signature binds an identity to exact image bytes. Registries and tags
+      alone do not prove who published the digest you are about to run.
+  - question: "Key-based Cosign vs keyless?"
+    answer: >-
+      This post is key-based: you hold cosign.key. Keyless uses GitHub OIDC
+      and Fulcio instead. AWS Signer is the private-cloud path without public
+      Rekor.
+  - question: "How do I enforce signed images on Kubernetes?"
+    answer: >-
+      Use a policy engine or admission controller that runs cosign verify (or
+      equivalent) against a pinned public key or identity before the pod is
+      admitted.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

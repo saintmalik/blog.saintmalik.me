@@ -6,6 +6,19 @@ date: 2026-09-07
 image: /bgimg/eradicate-long-lived-tokens-cover.webp
 tags: [devsecops, github, github-apps, cicd, security, credentials, pats]
 description: Long-lived GitHub PATs are a culture failure, not a tooling miss. What a multi-environment PAT campaign illustrated, and the short-lived App token patterns I use in CI so classic PATs stop living in environment secrets.
+faq:
+  - question: "Why are long-lived GitHub PATs a problem?"
+    answer: >-
+      They are forever access treated as normal. A leaked classic PAT keeps
+      working across environments until someone remembers to revoke it.
+  - question: "What should replace classic PATs in CI?"
+    answer: >-
+      GitHub Apps and installation tokens minted in the pipeline, scoped to
+      what the job needs, and discarded when the job ends.
+  - question: "Is this a tooling gap or a culture gap?"
+    answer: >-
+      Culture first. Teams ask for a token that just works. Tooling only
+      sticks after you stop accepting forever tokens as the default.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

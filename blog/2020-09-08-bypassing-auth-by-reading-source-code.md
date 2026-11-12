@@ -1,12 +1,25 @@
 ---
 slug: bypassing-auth-by-reading-source-code
 title: Bypassing Auth By Reading Source Code(JS files)
-author: Abdulmalik
-author_title: Pentester
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/bypassing-auth-source-cover.webp
 tags: [websec, infosec]
+faq:
+  - question: "How can reading JavaScript source bypass auth?"
+    answer: >-
+      Client-side JS often embeds API routes, tokens, or role checks that the
+      UI hides. Reading the bundled source can reveal endpoints or parameters
+      the server still trusts. The write-up is a redacted bounty story about
+      that class of mistake.
+  - question: "Is auth logic in frontend JS enough?"
+    answer: >-
+      No. Anything in the browser is attacker-readable. Authorization has to
+      be enforced on the server for every sensitive request, not only in UI
+      conditionals.
+  - question: "What should teams check after shipping a SPA?"
+    answer: >-
+      Review shipped JS for secrets, internal URLs, and client-only gates.
+      Assume recon will read the bundle the same way this report did.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

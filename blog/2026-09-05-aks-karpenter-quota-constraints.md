@@ -6,6 +6,21 @@ date: 2026-09-05
 image: /bgimg/aks-karpenter-quota-constraints-cover.webp
 tags: [azure, aks, karpenter, kubernetes, autoscaling, cilium]
 description: Why you cannot just flip the NAP addon on a Calico + CAS cluster, what Cilium costs you, and how regional vCPU quota turns NodePool requirements into "filtered out all available instance types."
+faq:
+  - question: "Can I just enable the AKS NAP addon on a Calico + CAS cluster?"
+    answer: >-
+      Not as a flip switch. Microsoft’s path expects Cilium and careful CAS
+      handling. Self-hosted Karpenter has its own prerequisites on AKS.
+  - question: "What quietly blocks Karpenter NodePools on AKS?"
+    answer: >-
+      Regional vCPU quota. NodePools look fine until capacity is filtered out
+      because the subscription cannot place the instance types.
+  - question: "Self-hosted Karpenter vs AKS NAP?"
+    answer: >-
+      NAP is the managed addon path with platform constraints. Self-hosted
+      Azure Karpenter provider is what I chose when the addon path did not fit
+      the existing cluster. This post is the constraints map, not a full
+      install.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

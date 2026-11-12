@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/github-access-control-iac-cover.webp
 tags: [devsecops, github, iac, opentofu, rbac, security, platform-engineering]
 description: A practical guide to managing GitHub teams, repo access, and least-privilege onboarding with OpenTofu, responding to the r/devops thread on whether IaC for GitHub RBAC is even worth attempting.
+faq:
+  - question: "Should GitHub teams be managed with IaC?"
+    answer: >-
+      At scale, yes. OpenTofu/Terraform for teams, repo permissions, and
+      least-privilege onboarding beats spreadsheet grants and random org-owner
+      clicks.
+  - question: "Why not only Entra groups for GitHub access?"
+    answer: >-
+      IdP groups help identity sync. Repo-level least privilege and team
+      structure still need an explicit GitHub access model. IaC makes that
+      reviewable in PRs.
+  - question: "What problem was the r/devops thread describing?"
+    answer: >-
+      A large org with SCIM from Okta asking whether GitHub teams could
+      realistically be IaC-managed across thousands of repos. This post is my
+      practical answer to that split.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

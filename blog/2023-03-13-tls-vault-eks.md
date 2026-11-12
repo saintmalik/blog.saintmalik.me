@@ -1,9 +1,26 @@
 ---
 slug: end-to-end-tls-vault-eks
 title: Enabling End-to-End TLS for Vault HA with Integrated Storage on EKS
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/tls-vault-eks-cover.webp
 tags: [appsec, vault, eks, devsecops]
+faq:
+  - question: "How do I enable end-to-end TLS for Vault HA on EKS?"
+    answer: >-
+      Issue certificates the Vault nodes and clients trust, configure
+      integrated storage / HA to use those certs, and verify HTTPS on the
+      Vault API and cluster traffic. The post uses a manual openssl +
+      Kubernetes CSR path.
+  - question: "Is manual openssl still the preferred day-2 path?"
+    answer: >-
+      For GitOps day-2 I prefer cert-manager issuing the Vault TLS material.
+      This post is the older manual CSR walkthrough. See the Vault GitOps
+      posts for the newer split.
+  - question: "Why does Vault HA need TLS between nodes?"
+    answer: >-
+      Raft traffic and API calls carry secrets material. Production Vault
+      expects encrypted cluster and client connections, not plain HTTP inside
+      the mesh.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

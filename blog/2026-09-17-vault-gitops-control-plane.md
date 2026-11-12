@@ -6,6 +6,20 @@ date: 2026-09-17
 image: /bgimg/vault-gitops-control-plane-cover.webp
 tags: [vault, gitops, argocd, eks, helm, security, devops, aws, azure]
 description: "Most of Vault on Kubernetes can be declared in git: HA, TLS, engines, policies, K8s auth, injector, snapshots. Terraform owns seal identity. Secret values and first init stay out of the repo."
+faq:
+  - question: "What parts of Vault belong in GitOps?"
+    answer: >-
+      HA shape, TLS issuance, engines, policies, Kubernetes auth, injector,
+      and snapshot CronJobs. Secret values and root/init material stay out of
+      git.
+  - question: "What should Terraform still own for Vault?"
+    answer: >-
+      Seal identity and cloud IAM glue that Git should not casually rewrite.
+      The control plane manifests can live under Argo.
+  - question: "Can I put Vault secret values in the GitOps repo?"
+    answer: >-
+      No. That is the line in the title. Declare how Vault is configured. Do
+      not commit the values apps consume.
 ---
 
 import Giscus from "@giscus/react";

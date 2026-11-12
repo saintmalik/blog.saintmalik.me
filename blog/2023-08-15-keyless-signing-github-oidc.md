@@ -1,10 +1,37 @@
 ---
 slug: keyless-signing-container-images-github-oidc
-title: Cosign keyless signing with GitHub Actions OIDC
-description: Sign container images with Cosign keyless (Sigstore Fulcio + Rekor) using GitHub Actions OIDC. No long-lived cosign keys. For AWS Signer instead of public Rekor, see the sibling post.
+title: Cosign keyless signing in GitHub Actions with OIDC
+description: Sign container images in CI with Cosign keyless via GitHub OIDC. Fulcio issues a short-lived cert, Rekor records the event, no cosign.key in secrets. Verify with identity and issuer pins.
 authors: Abdulmalik
 image: /bgimg/keyless-signing-github-oidc-cover.webp
 tags: [appsec, container security, devsecops]
+faq:
+  - question: "What is Cosign keyless signing with GitHub Actions?"
+    answer: >-
+      The workflow requests an OIDC token from GitHub. Fulcio issues a
+      short-lived signing cert bound to that identity. Cosign signs the image,
+      records the event in Rekor, then the cert expires. No long-lived
+      cosign.key in secrets.
+  - question: "Do I need a cosign private key for keyless signing?"
+    answer: >-
+      No. Keyless uses Fulcio plus OIDC. You still need id-token: write on the
+      job. Key-based Cosign is a different post on this blog.
+  - question: "How do I verify a keyless Cosign signature?"
+    answer: >-
+      cosign verify with --certificate-identity and --certificate-oidc-issuer
+      pinned to the workflow URI and
+      https://token.actions.githubusercontent.com. Do not accept any signature
+      from the org.
+  - question: "Keyless Cosign vs AWS Signer?"
+    answer: >-
+      Keyless Cosign uses public Sigstore Fulcio and Rekor by default. AWS
+      Signer with Notation keeps signing inside AWS without a public Rekor.
+      Use AWS Signer when public transparency logs are a non-starter.
+  - question: "What permissions does the GitHub Actions job need?"
+    answer: >-
+      id-token: write for OIDC, plus whatever you need to push the image (for
+      example packages: write on GHCR). Without id-token: write, keyless sign
+      hangs or fails.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

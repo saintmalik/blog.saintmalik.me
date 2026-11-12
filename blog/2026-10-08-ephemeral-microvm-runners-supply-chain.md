@@ -6,6 +6,22 @@ date: 2026-10-08
 image: /bgimg/ephemeral-microvm-runners-supply-chain-cover.webp
 tags: [devsecops, github-actions, supply-chain, cicd, microvm, firecracker, runners, security]
 description: "Ephemeral microVM runners isolate the host from the job. Most CI supply-chain attacks still happen inside the job. What microVMs buy, what they miss, and where to spend first."
+faq:
+  - question: "Do microVM CI runners fix supply-chain attacks?"
+    answer: >-
+      They protect the host from the job. Most CI supply-chain attacks still
+      run inside the job. You still need pinning, least privilege, egress
+      control, and runtime sensors.
+  - question: "What do ephemeral microVMs actually buy?"
+    answer: >-
+      Stronger isolation and a fresh VM per job so a compromised job is less
+      likely to own the host or the next tenant. That is real. It is not a
+      full supply-chain program.
+  - question: "When is migrating to microVM runners worth it?"
+    answer: >-
+      When host isolation and noisy-neighbor risk justify the engineering
+      cost. Do not treat the migration as a substitute for dependency and
+      secret hygiene inside the workflow.
 ---
 
 import Giscus from "@giscus/react";

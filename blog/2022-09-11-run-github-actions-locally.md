@@ -1,9 +1,27 @@
 ---
 slug: running-github-actions-locally
 title: Run github action locally using act
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/run-github-actions-locally-cover.webp
 tags: [ci/cd, appsec, devsecops]
+faq:
+  - question: "How do I run GitHub Actions locally?"
+    answer: >-
+      Use nektos/act to execute workflow jobs in local Docker containers. You
+      iterate without pushing empty commits just to trigger CI.
+  - question: "How do I pass secrets to act?"
+    answer: >-
+      Feed them via act's secrets flags or a local secrets file that never
+      gets committed. Mirror the secret names your workflow expects.
+  - question: "Does act replace GitHub-hosted runners?"
+    answer: >-
+      No. It is a local feedback loop. Some Actions and GitHub-only contexts
+      still behave differently in the real service, so keep a final run on
+      GitHub.
+  - question: "Why is act useful for workflow debugging?"
+    answer: >-
+      You get faster failures on syntax and step order without burning Actions
+      minutes or polluting git history with trigger commits.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

@@ -2,12 +2,24 @@
 slug: open-source-internships-program
 title: Open Source Internships Program in 2024
 description: List Of Best Open Source Programs and Internships For Students to Participate in 2024
-author: Abdulmalik
-author_title: OSS Contributor
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/open-source-internships-cover.webp
 tags: [Open Source, OSS]
+faq:
+  - question: "What open source internships are listed in this post?"
+    answer: >-
+      A curated list aimed at students, including programs like Reinforcement
+      Learning Open Source Fest, MLH Fellowship, Google Season of Docs, and
+      others called out in the sections. Check each program's current dates on
+      the official site.
+  - question: "Do I need an internship to contribute to open source?"
+    answer: >-
+      No. The intro says contributions are not gated on getting selected.
+      Internships are one path. Direct issues and docs PRs are another.
+  - question: "Are the 2024 dates still accurate?"
+    answer: >-
+      Treat the post as a directory of program types and names. Always verify
+      eligibility windows on the upstream program pages before you apply.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

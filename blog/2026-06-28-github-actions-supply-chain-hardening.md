@@ -5,6 +5,26 @@ authors: Abdulmalik
 image: /bgimg/github-actions-supply-chain-hardening-cover.webp
 tags: [devsecops, github-actions, supply-chain, security, cicd, appsec, falco]
 description: "Action lockfiles and zizmor are not enough. After tj-actions and NX, here is how to phase static hardening, runtime egress control, and syscall visibility into a CI/CD supply chain program by repo type and budget."
+faq:
+  - question: "How do I harden GitHub Actions against supply-chain attacks?"
+    answer: >-
+      Pin Actions by commit SHA, drop workflow permissions to least privilege,
+      avoid wide secrets on untrusted events, and add runtime controls like
+      Harden-Runner or cicd-sensor. Static lint alone is not enough.
+  - question: "What does Harden-Runner do in GitHub Actions?"
+    answer: >-
+      It is a StepSecurity agent that monitors (and can block) egress and
+      suspicious activity on the runner during the job. Community agent covers
+      public Linux; fuller enforcement is commercial.
+  - question: "What are Falco Actions for CI?"
+    answer: >-
+      Falco-based rules you run around or inside the job to detect suspicious
+      syscalls and behavior. Useful as a detection layer. Not a full
+      replacement for dependency pinning.
+  - question: "Should I pin GitHub Actions to a tag or a SHA?"
+    answer: >-
+      Pin to a full commit SHA. Tags move. A compromised Action tag republish
+      will not rewrite your SHA pin without a pull request you review.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -209,6 +229,8 @@ Till next time, Peace be on you 🤞🏽
 - [StepSecurity Harden-Runner](https://github.com/step-security/harden-runner)
 - [Falco Actions](https://github.com/falcosecurity/falco-actions)
 - [cicd-sensor on GitHub Actions (this blog)](/cicd-sensor-github-actions/)
+- [Scaling SAST remediation with LLMs and caching](/sast-recommendations-with-llm/)
+- [Delete already-ran GitHub Actions workflow runs](/docs/delete-ran-workflow/)
 - [CargoWall](https://github.com/code-cargo/cargowall)
 - [Chainguard Actions](https://www.chainguard.dev/unchained/introducing-chainguard-actions)
 - [zizmor](https://github.com/zizmorcore/zizmor)

@@ -4,6 +4,23 @@ title: Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to 
 authors: Abdulmalik
 image: /bgimg/deepseek-sast-reporting-cover.webp
 tags: [DevSecOps, SAST, LLM, DeepSeek, Cloudflare D1, GitHub Actions]
+description: Scale SAST remediation with an LLM writing guidance on top of deterministic scanner findings, plus caching so repeated rule hits do not burn tokens twice.
+faq:
+  - question: "How can LLMs help scale SAST remediation?"
+    answer: >-
+      Use the scanner's deterministic finding as the source of truth, then ask
+      an LLM for remediation prose with caching so the same issue does not
+      burn tokens twice. Humans still own severity and merge decisions.
+  - question: "Does this replace SAST tools?"
+    answer: >-
+      No. SAST still finds the issue. The LLM layer drafts guidance so product
+      teams can move without a security engineer rewriting every ticket by
+      hand.
+  - question: "Why cache LLM SAST explanations?"
+    answer: >-
+      The same rule hit repeats across repos. Deterministic caching keeps
+      answers consistent and keeps token spend from growing linearly with
+      clone count.
 ---
 
 import Figure from '../src/components/Figure';

@@ -10,5 +10,25 @@ to = "https://blog.saintmalik.me"
 status = 301
 force = true
 
+# Duplicate author identity (legacy key Saintmalik) collapsed into Abdulmalik.
+[[redirects]]
+from = "/authors/saintmalik"
+to = "/authors/abdulmalik/"
+status = 301
+force = true
+
+[[redirects]]
+from = "/authors/saintmalik/"
+to = "/authors/abdulmalik/"
+status = 301
+force = true
+
+[[redirects]]
+from = "/authors/saintmalik/*"
+to = "/authors/abdulmalik/:splat"
+status = 301
+force = true
+
+
 [[plugins]]
 package = "./plugins/netlify-purge-cloudflare-on-deploy"

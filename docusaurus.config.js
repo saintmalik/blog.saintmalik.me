@@ -17,7 +17,7 @@ module.exports = {
             '@type': 'Organization',
             '@id': 'https://blog.saintmalik.me/#organization',
             name: 'Abdulmalik',
-            url: 'https://blog.saintmalik.me',
+            url: 'https://blog.saintmalik.me/',
             logo: 'https://blog.saintmalik.me/img/saintmalik.jpg',
             sameAs: [
               'https://twitter.com/saintmalik_',
@@ -50,7 +50,7 @@ module.exports = {
           {
             '@type': 'WebSite',
             '@id': 'https://blog.saintmalik.me/#website',
-            url: 'https://blog.saintmalik.me',
+            url: 'https://blog.saintmalik.me/',
             name: 'Saintmalik Security Blog',
             publisher: {'@id': 'https://blog.saintmalik.me/#organization'},
             author: {'@id': 'https://blog.saintmalik.me/#person'},
@@ -177,6 +177,12 @@ module.exports = {
               href: 'https://github.com/saintmalik',
             },
       ],
+    },
+    // prism-react-renderer v2 does not ship bash by default. Without this,
+    // ```bash / ```sh blocks render as plain text (no keyword colors).
+    // shell-session highlights `$ ` / `# ` prompts vs command output.
+    prism: {
+      additionalLanguages: ['bash', 'shell-session'],
     },
   },
   customFields: {

@@ -12,6 +12,21 @@ keywords:
   - tool schema leak
   - MCP agent isolation
 description: "Confused deputy in nested agents: when your bot becomes the payload (prompt leak, tool schema leak, or the helper acting with authority the outer agent never had). Minimal harness, proof, mitigations."
+faq:
+  - question: "What is agent-on-agent confused deputy?"
+    answer: >-
+      An outer agent spawns an inner helper that has broader tools or secrets
+      than the outer agent should expose. Untrusted content steers the helper,
+      and the helper acts with that authority.
+  - question: "How do I harden nested agents?"
+    answer: >-
+      Per-role tool allowlists, no shared privileged tools with
+      untrusted-context agents, separate verify budget so the hunter does not
+      grade itself, output filters, and deny-by-default MCP gateways.
+  - question: "Do I need an API key to reproduce the demo harness?"
+    answer: >-
+      The minimal nested-agents harness in the post is shaped to show the
+      trust bug without requiring a live key for the red/green contrast.
 ---
 
 import Giscus from "@giscus/react";

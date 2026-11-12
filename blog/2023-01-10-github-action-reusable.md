@@ -1,10 +1,31 @@
 ---
 slug: github-reusable-workflow
-title: "GitHub reusable workflows: cut 900 lines of CI to 200 with workflow_call"
-authors: Saintmalik
+title: "GitHub reusable workflows with workflow_call"
+authors: Abdulmalik
 image: /bgimg/github-action-reusable-cover.webp
 tags: [appsec, docker file, ci/cd, devsecops]
-description: Build GitHub Actions reusable workflows with workflow_call, pass secrets and job outputs, and shrink a 900-line CI pipeline into shared build, scan, and deploy jobs.
+description: Create GitHub Actions reusable workflows with on.workflow_call, pass secrets from the caller, and share build, scan, and deploy jobs across services instead of copying CI.
+faq:
+  - question: "What is a GitHub reusable workflow?"
+    answer: >-
+      A workflow triggered with on: workflow_call that other workflows call as
+      a job. You declare inputs and secrets once, then reuse build, scan, or
+      deploy jobs across services instead of copying hundreds of lines.
+  - question: "How do I cut a large GitHub Actions workflow with workflow_call?"
+    answer: >-
+      Split repeated jobs into called workflows (build/push, scan, GitOps
+      image bump), then have a thin caller per service that passes servicename
+      and secrets. That is how I took a 900-line pipeline down toward 200.
+  - question: "How do I pass secrets into a reusable workflow?"
+    answer: >-
+      Declare secrets under on.workflow_call.secrets in the called workflow,
+      then pass them from the caller with secrets: accessidaws: ${{
+      secrets.AWS_ACCESS_KEY_ID }} style mappings.
+  - question: "workflow_call vs workflow_dispatch?"
+    answer: >-
+      workflow_dispatch is for humans clicking Run workflow. workflow_call is
+      for other workflows to invoke the file as a job. Reusable workflows need
+      workflow_call.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

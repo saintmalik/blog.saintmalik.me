@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/kubernetes-memory-forensics-volatility-cover.webp
 tags: [devsecops, kubernetes, incident-response, volatility, memory-forensics, appsec, containers]
 description: Audit logs and Falco catch a lot. Fileless malware, process hollowing, and other in-memory artifacts often live only in RAM. How to capture worker-node memory with AVML and what Volatility 3 actually gives you in a Kubernetes IR.
+faq:
+  - question: "Why do Kubernetes IR teams need memory forensics?"
+    answer: >-
+      Fileless malware and process hollowing may never touch disk or trip
+      audit/Falco. RAM is where that evidence still lives when you freeze the
+      node.
+  - question: "How do I capture EKS or Kubernetes node memory?"
+    answer: >-
+      Cordon the evidence node, capture with AVML (or equivalent), freeze
+      runtime context with crictl, ship the dump off-box, then analyze with
+      Volatility once you have an ISF.
+  - question: "What is an ISF in Volatility for Kubernetes nodes?"
+    answer: >-
+      An Intermediate Symbol File that matches the node kernel so Volatility
+      plugins can walk structures correctly. Without a matching ISF, many
+      plugins will not give trustworthy output.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

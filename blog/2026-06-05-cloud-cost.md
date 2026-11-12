@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/aws-cloud-cost-cutting-cover.webp
 tags: [devops, aws, cloud-computing, finops, cost-optimization]
 description: Not generating revenue yet burning too much on cloud costs? Learn practical architectural and infrastructure strategies to cut your AWS bill and make that runway longer.
+faq:
+  - question: "How do early-stage startups cut AWS cloud costs?"
+    answer: >-
+      Revisit architecture that made sense when you were moving fast:
+      rightsizing, killing idle always-on stacks, trimming multi-AZ where you
+      do not need it yet, and putting budgets on the loud accounts. The post
+      is practical runway math, not a coupon list.
+  - question: "Why do startup AWS bills spiral?"
+    answer: >-
+      Usually not recklessness. The first architecture sticks, nobody has time
+      to revisit it, and usage grows under defaults that were fine for a
+      prototype.
+  - question: "Is cutting cost only about Reserved Instances?"
+    answer: >-
+      No. Architecture and idle resources often dwarf RI shopping. Fix what
+      you run every hour before you optimize commitment discounts.
 ---
 
 import Figure from '../src/components/Figure';

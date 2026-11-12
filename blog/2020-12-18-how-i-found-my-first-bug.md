@@ -1,12 +1,24 @@
 ---
 slug: how-i-found-my-first-bug
 title: Stored XSS on Private Bounty Program (My First Bug)
-author: Abdulmalik
-author_title: Pentester
-author_url: https://twitter.com/saintmalik_
-author_image_url: /img/saintmalik.jpg
+authors: Abdulmalik
 image: /bgimg/first-bug-xss-cover.webp
 tags: [infosec, websec]
+faq:
+  - question: "What was the first bug in this write-up?"
+    answer: >-
+      A stored XSS on a private HackerOne program for an education platform.
+      User-controlled content was stored and later rendered without proper
+      encoding.
+  - question: "What is stored XSS?"
+    answer: >-
+      The payload is saved by the app (profile, comment, lesson field) and
+      executes later in another user's browser when that content is viewed.
+  - question: "Is this a full methodology guide?"
+    answer: >-
+      No. It is a first-bug story: how I found the sink, reported it, and what
+      I learned early in bug bounty. Use it as motivation and context, not a
+      complete XSS course.
 ---
 
 import Giscus from "@giscus/react";

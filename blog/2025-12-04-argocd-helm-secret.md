@@ -5,6 +5,27 @@ description: Dynamic secret injection for Helm charts deployed by ArgoCD. Compan
 authors: Abdulmalik
 image: /bgimg/argocd-helm-secret-cover.webp
 tags: [DevSecOps, Helm, ArgoCD, Secrets]
+faq:
+  - question: "How do I manage Helm secrets in ArgoCD without plaintext in Git?"
+    answer: >-
+      Keep ciphertext or external references in Git, and let ArgoCD or a
+      secret manager plugin resolve values at sync time. The post shows
+      placeholder-style Helm values so the repo never holds raw passwords.
+  - question: "Can ArgoCD sync Helm charts that need secrets?"
+    answer: >-
+      Yes. Store non-secret chart structure in Git, inject secrets from a
+      sealed/SOPS/external source at sync, and keep the Application pointing
+      at that chart path. Do not commit the decoded values.
+  - question: "What are Helm secret placeholders in ArgoCD?"
+    answer: >-
+      Placeholders in values files that mark where a runtime secret belongs.
+      ArgoCD and your secret tooling replace them during sync so Git only sees
+      the placeholder or ciphertext.
+  - question: "Should Vault inject secrets instead of putting them in Helm values?"
+    answer: >-
+      Prefer the app or sidecar fetching from Vault (or a CSI driver) when you
+      can. Helm values are for chart config. Treat anything that looks like a
+      password as out of band from Git.
 ---
 
 import Figure from '../src/components/Figure';

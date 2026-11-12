@@ -1,9 +1,24 @@
 ---
 slug: vault-in-kuberbetes
 title: Good Secrets Management in Kubernetes
-authors: Saintmalik
+authors: Abdulmalik
 image: /bgimg/secret-management-kubernetes-cover.webp
 tags: [appsec, kube, devsecops]
+faq:
+  - question: "How should secrets be managed in Kubernetes?"
+    answer: >-
+      Do not leave long-lived passwords in plaintext env vars or etcd-backed
+      Secrets as your only control. Use Vault (or similar) with Kubernetes
+      auth so pods fetch short-lived credentials.
+  - question: "How do I install Vault on Kubernetes in this guide?"
+    answer: >-
+      Install Vault, initialize and unseal, enable Kubernetes auth, create a
+      policy and role bound to a service account, then have the app read a KV
+      secret through that path.
+  - question: "Why are plain Kubernetes Secrets not enough?"
+    answer: >-
+      They are base64 in etcd, show up in manifests, and get copied into logs
+      and crash dumps. Vault adds identity-based access and auditing on top.
 ---
 
 import Figure from '../src/components/Figure';

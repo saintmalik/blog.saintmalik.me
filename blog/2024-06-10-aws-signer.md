@@ -5,6 +5,25 @@ description: Use AWS Signer with Notation in GitHub Actions to sign and verify E
 authors: Abdulmalik
 image: /bgimg/aws-signer-cover.webp
 tags: [IaC, opentofu, encryption, aws-signer, devops, containers]
+faq:
+  - question: "How do I sign images with AWS Signer and Notation?"
+    answer: >-
+      Create a signing profile in AWS Signer, use Notation with the AWS Signer
+      plugin to sign the image in ECR, then verify with Notation before
+      deploy. No public Rekor required.
+  - question: "When should I use AWS Signer instead of Cosign keyless?"
+    answer: >-
+      When you cannot send signing metadata to the public Sigstore Rekor, or
+      your compliance story wants signing entirely inside AWS IAM boundaries.
+  - question: "Does AWS Signer need a long-lived cosign private key?"
+    answer: >-
+      No. Signer manages the signing material behind an AWS signing profile.
+      Your CI assumes an IAM role that is allowed to call Signer.
+  - question: "How do I verify an AWS Signer signature in the cluster?"
+    answer: >-
+      Install Notation (and the AWS plugin where needed), trust the signing
+      profile identity, and verify the image digest in the admit path before
+      the workload runs.
 ---
 
 import Figure from '../src/components/Figure';

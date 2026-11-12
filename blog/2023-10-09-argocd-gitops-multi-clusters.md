@@ -5,6 +5,27 @@ description: Register additional clusters on an existing ArgoCD instance with Te
 authors: Abdulmalik
 image: /bgimg/argocd-gitops-multi-clusters-cover.webp
 tags: [gitops, devops]
+faq:
+  - question: "How do I add a cluster to ArgoCD declaratively?"
+    answer: >-
+      Create a ServiceAccount, Role, and RoleBinding on the target cluster,
+      store the token, then create an ArgoCD cluster Secret on the management
+      cluster. Terraform in the post does that without relying on argocd
+      cluster add as the source of truth.
+  - question: "How does argocd-k8s-auth fit multi-cluster GitOps?"
+    answer: >-
+      For EKS targets you can wire IAM/IRSA so ArgoCD authenticates with AWS
+      instead of a static ServiceAccount token. The post covers both the token
+      Secret path and the IAM assumable role path.
+  - question: "Do I need a new ArgoCD install per cluster?"
+    answer: >-
+      No. Keep one ArgoCD instance and register additional clusters as
+      secrets. That is the whole point of the multi-cluster setup here.
+  - question: "What does ssh agent requested but ssh_auth_sock not-specified mean in ArgoCD?"
+    answer: >-
+      ArgoCD tried SSH for a repo but has no agent socket. Fix the repository
+      credential Secret (SSH private key or HTTPS token) rather than expecting
+      an ssh-agent inside the repo-server by default.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

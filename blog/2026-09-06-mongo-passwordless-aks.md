@@ -4,6 +4,25 @@ title: MongoDB Passwordless Authentication on Azure AKS using Workload Identity
 authors: Abdulmalik
 image: /bgimg/mongo-passwordless-auth-aks-cover.webp
 tags: [azure, aks, mongodb, containers, oidc, entra]
+faq:
+  - question: "How does MongoDB passwordless auth work on AKS?"
+    answer: >-
+      Use Azure Workload Identity: Entra app, user-assigned managed identity,
+      federated credential, Atlas/MongoDB OIDC federation, then MONGODB-OIDC
+      from the pod.
+  - question: "How is this different from the EKS MongoDB passwordless post?"
+    answer: >-
+      Same goal, different identity fabric. EKS uses IRSA and MONGODB-AWS. AKS
+      uses Workload Identity and Entra audiences.
+  - question: "What is the IMDS trap on AKS for MongoDB OIDC?"
+    answer: >-
+      Assuming the AWS-style metadata flow will just work. On AKS you need the
+      Entra/Workload Identity callback shape and the right Application ID URI
+      audience values.
+  - question: "Which identity becomes the MongoDB database user?"
+    answer: >-
+      The user-assigned managed identity object ID (as configured in the
+      post), not a shared password Secret.
 ---
 
 import Figure from '../src/components/Figure';

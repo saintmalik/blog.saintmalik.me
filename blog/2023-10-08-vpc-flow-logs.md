@@ -4,6 +4,27 @@ title: Applying Network Security using VPC Flow Logs with Terraform
 authors: Abdulmalik
 image: /bgimg/vpc-flow-logs-cover.webp
 tags: [appsec, devsecops]
+faq:
+  - question: "How do I enable VPC Flow Logs with Terraform?"
+    answer: >-
+      Create an S3 bucket (or CloudWatch log group), then an aws_flow_log
+      resource pointed at the VPC. The post stores logs in S3 and queries them
+      with Athena.
+  - question: "What do VPC Flow Logs capture?"
+    answer: >-
+      Accepted and rejected network flows at the ENI level: source,
+      destination, ports, protocol, and action. They do not capture packet
+      payloads.
+  - question: "How do I query VPC Flow Logs with Athena?"
+    answer: >-
+      Create an Athena database and table over the S3 prefix where Flow Logs
+      land, then SELECT on srcaddr, dstaddr, and action. The Terraform in the
+      post builds that table shape.
+  - question: "Why put Flow Logs in S3 instead of CloudWatch?"
+    answer: >-
+      S3 is cheaper for long retention and pairs cleanly with Athena for ad
+      hoc investigations. CloudWatch is fine for short-lived alarms and metric
+      filters.
 ---
 
 import Figure from '../src/components/Figure';

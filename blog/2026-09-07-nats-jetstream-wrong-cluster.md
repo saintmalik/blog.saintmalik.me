@@ -6,6 +6,20 @@ date: 2026-09-07
 image: /bgimg/nats-jetstream-wrong-cluster-cover.webp
 tags: [nats, jetstream, kubernetes, debugging, incident, ha]
 description: Publisher acks, consumer never sees the message. Restart flushes a stuck queue. Realtime fan-out works on one pod and vanishes on another. Two JetStream stores behind one Service named nats. HA done wrong vs one cluster with three members.
+faq:
+  - question: "Why does NATS JetStream ack but the consumer never sees the message?"
+    answer: >-
+      You may have two JetStream stores behind one Service DNS. Publisher and
+      consumer hit different clusters that both look healthy.
+  - question: "How do I detect a split JetStream?"
+    answer: >-
+      Fingerprint the store you actually hit from each pod. If replicas
+      disagree on stream state while sharing a name, you are not on one
+      cluster.
+  - question: "Does nats.js split a CSV of servers the way I expect?"
+    answer: >-
+      Do not assume client URL parsing matches ops intent. Confirm the client
+      connects to the servers you think it does, especially across replicas.
 ---
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

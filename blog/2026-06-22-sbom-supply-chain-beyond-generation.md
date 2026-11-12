@@ -5,6 +5,22 @@ authors: Abdulmalik
 image: /bgimg/sbom-beyond-generation-cover.webp
 tags: [devsecops, appsec, security, sbom, supply-chain, syft, grype, cve]
 description: Generating an SBOM is table stakes. The real question is what you do with it - querying for CVEs, license violations, and dependency age before they become incidents.
+faq:
+  - question: "Is generating an SBOM enough?"
+    answer: >-
+      No. Generation is table stakes. You still need to query it for CVEs,
+      license problems, and stale dependencies, then gate releases on those
+      results.
+  - question: "What should I do with an SBOM after I generate it?"
+    answer: >-
+      Store it, diff it across builds, scan it, and fail CI when known-bad
+      components appear. An unread SBOM in object storage does not reduce
+      risk.
+  - question: "How does SBOM relate to incidents like Log4Shell or XZ?"
+    answer: >-
+      Those hits punish teams that could not answer what they shipped. An SBOM
+      you actually query shortens that answer. It does not by itself block the
+      exploit.
 ---
 
 import Figure from '../src/components/Figure';

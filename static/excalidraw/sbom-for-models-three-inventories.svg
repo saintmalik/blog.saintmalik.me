@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Three inventories for one AI system</title>
+  <desc id="desc">Software SBOM covers train and serve packages via cyclonedx-py or Syft into Grype. ML-BOM covers the pack on disk with CycloneDX machine-learning-model hashes. AIBOM covers what the running system calls: local tags, Modelfiles, and cloud model IDs.</desc>
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="640" y="42" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="28" fill="#1e1e1e">One system. Three inventories.</text>
+  <text x="640" y="72" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#868e96">pip freeze never sees the model tag. The pack BOM never sees the cloud endpoint.</text>
+
+  <rect x="40" y="110" width="380" height="480" rx="16" fill="#e7f5ff" stroke="#1971c2" stroke-width="2.5"/>
+  <text x="230" y="155" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#1864ab">1. Software SBOM</text>
+  <text x="230" y="195" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">Train / serve packages</text>
+  <text x="230" y="250" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">torch, transformers,</text>
+  <text x="230" y="275" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">fastapi, serve image</text>
+  <text x="230" y="330" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#1971c2">cyclonedx-py / Syft</text>
+  <text x="230" y="360" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#1971c2">to Grype</text>
+  <text x="230" y="420" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">Answers: which CVEs</text>
+  <text x="230" y="445" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">sit next to the model?</text>
+  <text x="230" y="520" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">Generated from lock / venv</text>
+  <text x="230" y="545" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">or image digest</text>
+
+  <rect x="450" y="110" width="380" height="480" rx="16" fill="#ebfbee" stroke="#2f9e44" stroke-width="2.5"/>
+  <text x="640" y="155" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#2b8a3e">2. ML-BOM</text>
+  <text x="640" y="195" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">Pack on disk</text>
+  <text x="640" y="250" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">weights, config,</text>
+  <text x="640" y="275" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">tokenizer, adapters</text>
+  <text x="640" y="330" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#2f9e44">CycloneDX</text>
+  <text x="640" y="360" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#2f9e44">machine-learning-model</text>
+  <text x="640" y="420" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">Answers: which files</text>
+  <text x="640" y="445" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">and digests am I shipping?</text>
+  <text x="640" y="520" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">Hand-author + hash-check</text>
+  <text x="640" y="545" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">Then sign the pack</text>
+
+  <rect x="860" y="110" width="380" height="480" rx="16" fill="#fff4e6" stroke="#e67700" stroke-width="2.5"/>
+  <text x="1050" y="155" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="22" fill="#e67700">3. AIBOM</text>
+  <text x="1050" y="195" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#495057">What runtime actually calls</text>
+  <text x="1050" y="250" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">Ollama tags, Modelfiles,</text>
+  <text x="1050" y="275" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#212529">cloud model IDs in config</text>
+  <text x="1050" y="330" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#e67700">Hand-curated inventory</text>
+  <text x="1050" y="360" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="15" fill="#e67700">+ regen checklist</text>
+  <text x="1050" y="420" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">Answers: which models</text>
+  <text x="1050" y="445" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">does prod code invoke?</text>
+  <text x="1050" y="520" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">ollama list / show</text>
+  <text x="1050" y="545" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="13" fill="#868e96">+ hash system prompts</text>
+
+  <rect x="120" y="620" width="1040" height="70" rx="14" fill="#fff9db" stroke="#e67700" stroke-width="2.5"/>
+  <text x="640" y="650" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="16" fill="#e67700">All three, or you are blind somewhere</text>
+  <text x="640" y="675" text-anchor="middle" font-family="Comic Sans MS, Chalkboard SE, Segoe Print, cursive" font-size="14" fill="#495057">Software SBOM ` ML-BOM ` AIBOM. Do not mash them into one signed sbom.json.</text>
+</svg>
