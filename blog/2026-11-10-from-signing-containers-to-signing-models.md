@@ -106,8 +106,17 @@ Defense at load time is two questions: is this the artifact the publisher produc
 
 ```shell-session
 $ python3 -m venv /tmp/model-signing-venv
+```
+
+```shell-session
 $ source /tmp/model-signing-venv/bin/activate
+```
+
+```shell-session
 $ pip install 'model-signing==1.1.1' pyOpenSSL 'huggingface_hub'
+```
+
+```shell-session
 $ model_signing --version
 ```
 
@@ -131,13 +140,37 @@ Hub snapshots leave a `.cache/` under `--local-dir`. Copy only the model files i
 
 ```shell-session
 $ source /tmp/model-signing-venv/bin/activate
+```
+
+```shell-session
 $ mkdir -p /tmp/model-sign-lab
+```
+
+```shell-session
 $ cd /tmp/model-sign-lab
+```
+
+```shell-session
 $ hf download prajjwal1/bert-tiny --local-dir /tmp/model-sign-lab/bert-tiny-hub
+```
+
+```shell-session
 $ mkdir -p bert-tiny
+```
+
+```shell-session
 $ cp bert-tiny-hub/{config.json,pytorch_model.bin,vocab.txt,README.md} bert-tiny/
+```
+
+```shell-session
 $ chmod u+w bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ ls -la bert-tiny/
+```
+
+```shell-session
 $ du -h bert-tiny/pytorch_model.bin
 ```
 
@@ -167,9 +200,21 @@ CLI flags on `model-signing` 1.1.1 use underscores: `--private_key`, `--public_k
 
 ```shell-session
 $ cd /tmp/model-sign-lab
+```
+
+```shell-session
 $ source /tmp/model-signing-venv/bin/activate
+```
+
+```shell-session
 $ openssl ecparam -name prime256v1 -genkey -noout -out key.priv
+```
+
+```shell-session
 $ openssl ec -in key.priv -pubout -out key.pub
+```
+
+```shell-session
 $ model_signing sign key bert-tiny \
   --private_key key.priv \
   --signature bert-tiny.sig
@@ -200,10 +245,19 @@ Verification succeeded
 
 ```shell-session
 $ chmod u+w bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ printf X | dd of=bert-tiny/pytorch_model.bin bs=1 seek=0 conv=notrunc status=none
+```
+
+```shell-session
 $ model_signing verify key bert-tiny \
   --signature bert-tiny.sig \
   --public_key key.pub
+```
+
+```shell-session
 $ echo "exit=$?"
 exit=1
 ```
@@ -223,7 +277,13 @@ Restore before you continue:
 
 ```shell-session
 $ cp bert-tiny-hub/pytorch_model.bin bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ chmod u+w bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ model_signing verify key bert-tiny \
   --signature bert-tiny.sig \
   --public_key key.pub
@@ -235,22 +295,46 @@ Cosign already signs blobs. Hash the model files into `hashes.txt`, sign that bl
 
 ```shell-session
 $ cd /tmp/model-sign-lab
+```
+
+```shell-session
 $ cp bert-tiny-hub/pytorch_model.bin bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ chmod u+w bert-tiny/pytorch_model.bin
+```
+
+```shell-session
 $ (cd bert-tiny && find . -type f | sort | while read -r f; do
   shasum -a 256 "$f"
 done) > hashes.txt
+```
+
+```shell-session
 $ COSIGN_PASSWORD=demo cosign generate-key-pair --output-key-prefix labcosign
+```
+
+```shell-session
 $ COSIGN_PASSWORD=demo cosign sign-blob \
   --key labcosign.key \
   --bundle hashes.sigbundle \
   hashes.txt
+```
+
+```shell-session
 $ cosign verify-blob \
   --key labcosign.pub \
   --bundle hashes.sigbundle \
   hashes.txt
 Verified OK
+```
+
+```shell-session
 $ printf X >> hashes.txt
+```
+
+```shell-session
 $ cosign verify-blob \
   --key labcosign.pub \
   --bundle hashes.sigbundle \

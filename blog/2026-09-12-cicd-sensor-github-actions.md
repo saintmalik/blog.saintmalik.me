@@ -210,10 +210,16 @@ Unpack a [release](https://github.com/cicd-sensor/cicd-sensor/releases) into `/o
 
 Store the manager token:
 
-```sh
-sudo install -d -m 0750 /etc/cicd-sensor
-echo "MANAGER_TOKEN_HERE" | sudo tee /etc/cicd-sensor/manager-token >/dev/null
-sudo chmod 0600 /etc/cicd-sensor/manager-token
+```shell-session
+$ sudo install -d -m 0750 /etc/cicd-sensor
+```
+
+```shell-session
+$ echo "MANAGER_TOKEN_HERE" | sudo tee /etc/cicd-sensor/manager-token >/dev/null
+```
+
+```shell-session
+$ sudo chmod 0600 /etc/cicd-sensor/manager-token
 ```
 
 Agent systemd unit (GitHub machine runner):
@@ -249,9 +255,12 @@ TimeoutStopSec=5s
 WantedBy=multi-user.target
 ```
 
-```sh
-sudo systemctl daemon-reload
-sudo systemctl enable --now cicd-sensor-agent.service
+```shell-session
+$ sudo systemctl daemon-reload
+```
+
+```shell-session
+$ sudo systemctl enable --now cicd-sensor-agent.service
 ```
 
 Docker needs a proxy in front of the socket so container creation is attributable. Real dockerd moves to `/run/docker-upstream.sock`. Clients keep talking to `/run/docker.sock` served by `cicd-sensor proxy dockerd`. See the install doc for the `docker.socket` override and `cicd-sensor-docker-proxy.service`. The proxy is observation for attribution, not an authorization boundary. Treat socket access like Docker root.
@@ -267,29 +276,41 @@ GitHub runs scripts before/after each job when these env vars point at absolute 
 
 Create hooks under `/opt/cicd-sensor`:
 
-```sh
-sudo sh -c 'printf "%s\n" "#!/usr/bin/env sh" "/opt/cicd-sensor/cicd-sensor host start" > /opt/cicd-sensor/github-job-started.sh && chmod 0755 /opt/cicd-sensor/github-job-started.sh'
-sudo sh -c 'printf "%s\n" "#!/usr/bin/env sh" "/opt/cicd-sensor/cicd-sensor host end" > /opt/cicd-sensor/github-job-completed.sh && chmod 0755 /opt/cicd-sensor/github-job-completed.sh'
+```shell-session
+$ sudo sh -c 'printf "%s\n" "#!/usr/bin/env sh" "/opt/cicd-sensor/cicd-sensor host start" > /opt/cicd-sensor/github-job-started.sh && chmod 0755 /opt/cicd-sensor/github-job-started.sh'
+```
+
+```shell-session
+$ sudo sh -c 'printf "%s\n" "#!/usr/bin/env sh" "/opt/cicd-sensor/cicd-sensor host end" > /opt/cicd-sensor/github-job-completed.sh && chmod 0755 /opt/cicd-sensor/github-job-completed.sh'
 ```
 
 Scope them per runner via the runner directory `.env` (example install path `/opt/actions-runner`):
 
-```sh
-cd /opt/actions-runner
-cat >> .env <<'EOF'
+```shell-session
+$ cd /opt/actions-runner
+```
+
+```shell-session
+$ cat >> .env <<'EOF'
 ACTIONS_RUNNER_HOOK_JOB_STARTED=/opt/cicd-sensor/github-job-started.sh
 ACTIONS_RUNNER_HOOK_JOB_COMPLETED=/opt/cicd-sensor/github-job-completed.sh
 EOF
-sudo ./svc.sh stop
-sudo ./svc.sh start
+```
+
+```shell-session
+$ sudo ./svc.sh stop
+```
+
+```shell-session
+$ sudo ./svc.sh start
 ```
 
 If the start hook exits non-zero, the job never runs. The completed hook’s health check is also a tamper signal: if something inside the job called `host end` early to cut monitoring short, finalize fails and the job does not look clean.
 
 Verify with a test workflow, then:
 
-```sh
-sudo journalctl -u cicd-sensor-agent.service -f
+```shell-session
+$ sudo journalctl -u cicd-sensor-agent.service -f
 ```
 
 You can still use `cicd-sensor-action` from workflows on a machine that already has host setup. The durable path is Agent + hooks + Manager.
@@ -310,11 +331,16 @@ Pick the mode that matches your scale set:
 
 ### Shared bootstrap
 
-```sh
-kubectl create namespace cicd-sensor-system --dry-run=client -o yaml | kubectl apply -f -
-kubectl create namespace arc-runners --dry-run=client -o yaml | kubectl apply -f -
+```shell-session
+$ kubectl create namespace cicd-sensor-system --dry-run=client -o yaml | kubectl apply -f -
+```
 
-kubectl -n cicd-sensor-system create secret generic cicd-sensor-manager \
+```shell-session
+$ kubectl create namespace arc-runners --dry-run=client -o yaml | kubectl apply -f -
+```
+
+```shell-session
+$ kubectl -n cicd-sensor-system create secret generic cicd-sensor-manager \
   --from-literal=token="${CICD_SENSOR_MANAGER_TOKEN}" \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
@@ -327,12 +353,18 @@ Do **not** pass “existing ARC values” and “cicd-sensor example” as two `
 
 Copy the example for your mode from [`examples/kubernetes/github-arc/`](https://github.com/cicd-sensor/cicd-sensor/tree/main/examples/kubernetes/github-arc), merge into one file (`cicd-sensor-arc-values.yaml`), pin image tags (examples use `:latest` only as placeholders), set `CICD_SENSOR_MANAGER_URL` on the DaemonSet, then:
 
-```sh
-kubectl apply -f cicd-sensor-daemonset.yaml
-kubectl apply -f cicd-sensor-job-hook.yaml
-# kubernetes mode also: cicd-sensor-container-hook-wrapper.yaml
+```shell-session
+$ kubectl apply -f cicd-sensor-daemonset.yaml
+```
 
-helm upgrade --install RUNNER_SCALE_SET_NAME \
+```shell-session
+$ kubectl apply -f cicd-sensor-job-hook.yaml
+```
+
+Kubernetes mode also: `cicd-sensor-container-hook-wrapper.yaml`.
+
+```shell-session
+$ helm upgrade --install RUNNER_SCALE_SET_NAME \
   oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set \
   --namespace arc-runners \
   --version ARC_CHART_VERSION \
@@ -375,11 +407,15 @@ Do not mount host `containerd.sock`, CRI/NRI sockets, or `/run/cicd-sensor` inte
 
 ### Verify
 
-```sh
-kubectl -n cicd-sensor-system rollout status daemonset/cicd-sensor
-kubectl -n cicd-sensor-system logs daemonset/cicd-sensor -c agent
-# kubernetes mode: also -c nri → look for nri_observer_starting / nri_staging_put
+```shell-session
+$ kubectl -n cicd-sensor-system rollout status daemonset/cicd-sensor
 ```
+
+```shell-session
+$ kubectl -n cicd-sensor-system logs daemonset/cicd-sensor -c agent
+```
+
+Kubernetes mode: also `-c nri` → look for `nri_observer_starting` / `nri_staging_put`.
 
 After a job starts you want `github_k8s_start_accepted` in agent logs. Confirm the runner Pod has the hook env and `/run/cicd-sensor/github-k8s` mount, then run a workflow with `runs-on` set to your scale set name and watch Manager.
 

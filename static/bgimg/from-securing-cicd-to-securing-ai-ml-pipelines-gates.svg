@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="880" viewBox="0 0 1400 880">
+  <defs>
+    <style>
+      .bg { fill: #f3efe6; }
+      .panel { fill: #faf8f3; stroke: #2c2c2c; stroke-width: 2; }
+      .box { fill: #ffffff; stroke: #2c2c2c; stroke-width: 2; }
+      .box-accent { fill: #e8f0e9; stroke: #2c2c2c; stroke-width: 2; }
+      .title { font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; font-size: 24px; font-weight: 700; fill: #1a1a1a; }
+      .label { font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; font-size: 16px; fill: #1a1a1a; }
+      .label-sm { font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; fill: #1a1a1a; }
+      .bridge { font-family: "IBM Plex Mono", "SF Mono", Menlo, monospace; font-size: 17px; fill: #1a1a1a; }
+      .caption { font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; fill: #444; }
+      .arrow { stroke: #2c2c2c; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2c2c2c" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1400" height="880" rx="0" />
+  <text x="700" y="42" text-anchor="middle" class="title">Same gates. New artifacts.</text>
+  <text x="700" y="68" text-anchor="middle" class="caption">DevSecOps on the app pipeline maps onto AI security on the AI/ML pipeline</text>
+
+  <!-- Left panel -->
+  <rect class="panel" x="80" y="92" width="480" height="760" rx="8" />
+  <text x="320" y="126" text-anchor="middle" class="title">App / software pipeline</text>
+  <text x="320" y="148" text-anchor="middle" class="caption">DevSecOps</text>
+
+  <rect class="box" x="150" y="168" width="340" height="48" rx="6" />
+  <text x="320" y="198" text-anchor="middle" class="label">secret scan (Gitleaks)</text>
+  <path class="arrow" d="M320 216 L320 236" />
+
+  <rect class="box" x="150" y="238" width="340" height="48" rx="6" />
+  <text x="320" y="268" text-anchor="middle" class="label">identity (OIDC)</text>
+  <path class="arrow" d="M320 286 L320 306" />
+
+  <rect class="box" x="150" y="308" width="340" height="48" rx="6" />
+  <text x="320" y="338" text-anchor="middle" class="label">dep lock / artifact pin</text>
+  <path class="arrow" d="M320 356 L320 376" />
+
+  <rect class="box" x="150" y="378" width="340" height="48" rx="6" />
+  <text x="320" y="408" text-anchor="middle" class="label">SAST</text>
+  <path class="arrow" d="M320 426 L320 446" />
+
+  <rect class="box" x="150" y="448" width="340" height="48" rx="6" />
+  <text x="320" y="478" text-anchor="middle" class="label">DAST</text>
+  <path class="arrow" d="M320 496 L320 516" />
+
+  <rect class="box" x="150" y="518" width="340" height="48" rx="6" />
+  <text x="320" y="548" text-anchor="middle" class="label">SCA</text>
+  <path class="arrow" d="M320 566 L320 586" />
+
+  <rect class="box" x="150" y="588" width="340" height="48" rx="6" />
+  <text x="320" y="618" text-anchor="middle" class="label">sign</text>
+  <path class="arrow" d="M320 636 L320 656" />
+
+  <rect class="box" x="150" y="658" width="340" height="48" rx="6" />
+  <text x="320" y="688" text-anchor="middle" class="label">approval gate</text>
+  <path class="arrow" d="M320 706 L320 726" />
+
+  <rect class="box-accent" x="150" y="728" width="340" height="48" rx="6" />
+  <text x="320" y="758" text-anchor="middle" class="label">deploy</text>
+
+  <text x="320" y="820" text-anchor="middle" class="caption">plus egress allowlist on the runner</text>
+
+  <!-- Right panel -->
+  <rect class="panel" x="840" y="92" width="480" height="760" rx="8" />
+  <text x="1080" y="126" text-anchor="middle" class="title">AI/ML pipeline</text>
+  <text x="1080" y="148" text-anchor="middle" class="caption">AI security</text>
+
+  <rect class="box" x="870" y="168" width="420" height="48" rx="6" />
+  <text x="1080" y="198" text-anchor="middle" class="label-sm">secret scan (train / notebooks / agents)</text>
+  <path class="arrow" d="M1080 216 L1080 236" />
+
+  <rect class="box" x="870" y="238" width="420" height="48" rx="6" />
+  <text x="1080" y="268" text-anchor="middle" class="label-sm">identity (OIDC / IRSA)</text>
+  <path class="arrow" d="M1080 286 L1080 306" />
+
+  <rect class="box" x="870" y="308" width="420" height="48" rx="6" />
+  <text x="1080" y="338" text-anchor="middle" class="label">dataset digest pin</text>
+  <path class="arrow" d="M1080 356 L1080 376" />
+
+  <rect class="box" x="870" y="378" width="420" height="48" rx="6" />
+  <text x="1080" y="408" text-anchor="middle" class="label-sm">SAST on train + pipeline YAML</text>
+  <path class="arrow" d="M1080 426 L1080 446" />
+
+  <rect class="box" x="870" y="448" width="420" height="48" rx="6" />
+  <text x="1080" y="478" text-anchor="middle" class="label-sm">staging endpoint / authZ</text>
+  <path class="arrow" d="M1080 496 L1080 516" />
+
+  <rect class="box" x="870" y="518" width="420" height="48" rx="6" />
+  <text x="1080" y="548" text-anchor="middle" class="label-sm">SCA: SBOM + ML-BOM + AIBOM</text>
+  <path class="arrow" d="M1080 566 L1080 586" />
+
+  <rect class="box" x="870" y="588" width="420" height="48" rx="6" />
+  <text x="1080" y="618" text-anchor="middle" class="label-sm">attest image + model</text>
+  <path class="arrow" d="M1080 636 L1080 656" />
+
+  <rect class="box" x="870" y="658" width="420" height="48" rx="6" />
+  <text x="1080" y="688" text-anchor="middle" class="label-sm">eval canary + promote</text>
+  <path class="arrow" d="M1080 706 L1080 726" />
+
+  <rect class="box-accent" x="870" y="728" width="420" height="48" rx="6" />
+  <text x="1080" y="758" text-anchor="middle" class="label">registry promote / endpoint</text>
+
+  <text x="1080" y="820" text-anchor="middle" class="caption">plus egress allowlist on train jobs</text>
+
+  <!-- Center bridge -->
+  <rect class="box" x="600" y="508" width="200" height="48" rx="6" />
+  <text x="700" y="538" text-anchor="middle" class="bridge">same gates</text>
+  <path class="arrow" d="M560 532 L598 532" />
+  <path class="arrow" d="M800 532 L838 532" />
+</svg>

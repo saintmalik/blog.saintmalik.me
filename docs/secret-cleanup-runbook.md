@@ -86,10 +86,20 @@ repos:
 
 Install and enable:
 
-```bash
-brew install gitleaks pre-commit   # or pip install pre-commit
-pre-commit install
-pre-commit run --all-files         # baseline scan once
+```shell-session
+$ brew install gitleaks pre-commit
+```
+
+Or `pip install pre-commit`.
+
+```shell-session
+$ pre-commit install
+```
+
+Baseline scan once:
+
+```shell-session
+$ pre-commit run --all-files
 ```
 
 [TruffleHog](https://github.com/trufflesecurity/trufflehog) is a valid alternative. Same idea: block the commit locally if a secret pattern matches.

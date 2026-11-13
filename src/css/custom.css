@@ -276,14 +276,24 @@ code {
   font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
 }
 
-/* Code blocks container */
+/* Code blocks container: stay inside the content column; scroll inside, not the page */
+.theme-code-block,
 [class*='codeBlockContainer'] {
   background: #0d1117 !important;
   border: 1px solid #30363d !important;
   border-radius: 12px !important;
   overflow: hidden !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
   margin: 1.5rem 0 !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+[class*='codeBlockContent'] {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Code block title/language label */
@@ -299,6 +309,8 @@ code {
 }
 
 /* The actual code block */
+.theme-code-block pre,
+[class*='codeBlockContainer'] pre,
 pre {
   background: #0d1117 !important;
   border-radius: 0 !important;
@@ -307,6 +319,13 @@ pre {
   font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace !important;
   font-size: 14px !important;
   line-height: 1.6 !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
 pre code {
@@ -314,6 +333,28 @@ pre code {
   padding: 0 !important;
   font-size: inherit !important;
   color: #e6edf3 !important;
+  white-space: inherit !important;
+}
+
+/* Mobile: keep fences in the padded column; slightly tighter type */
+@media screen and (max-width: 996px) {
+  .theme-code-block,
+  [class*='codeBlockContainer'] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .theme-code-block pre,
+  [class*='codeBlockContainer'] pre,
+  pre {
+    font-size: 12.5px !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .markdown,
+  article {
+    overflow-x: clip;
+  }
 }
 
 /* Line numbers */

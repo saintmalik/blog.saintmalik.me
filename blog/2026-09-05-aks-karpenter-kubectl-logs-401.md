@@ -108,10 +108,14 @@ grep anonymous-auth /etc/default/kubelet
 
 Flip the flag on existing Karpenter nodes and restart kubelet:
 
-```bash
-# on the node
-sed -i 's/--anonymous-auth=false/--anonymous-auth=true/g' /etc/default/kubelet
-systemctl restart kubelet
+On the node:
+
+```shell-session
+$ sed -i 's/--anonymous-auth=false/--anonymous-auth=true/g' /etc/default/kubelet
+```
+
+```shell-session
+$ systemctl restart kubelet
 ```
 
 I did that via Azure Run Command across the Karpenter nodes. Logs/exec came back. (If you saw a pause / cooldown screenshot elsewhere in this weekend's notes, that's not the same thing as this DaemonSet fix.)

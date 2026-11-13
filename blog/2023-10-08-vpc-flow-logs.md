@@ -164,10 +164,16 @@ Replace the bucket name, account ID, and region in the `LOCATION` string.
 
 Run:
 
-```bash
-terraform init
-terraform plan
-terraform apply -auto-approve
+```shell-session
+$ terraform init
+```
+
+```shell-session
+$ terraform plan
+```
+
+```shell-session
+$ terraform apply -auto-approve
 ```
 
 After a few minutes, open the Athena console, run the saved query to create the table, then query the logs:

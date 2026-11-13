@@ -89,14 +89,22 @@ Flux is the same shape with `mode: flux` and `flux: ./clusters/prod`. More examp
 
 CLI if you want it on a laptop or a non-Actions runner:
 
-```bash
-curl -sSfL \
+```shell-session
+$ curl -sSfL \
   "https://github.com/saintmalik/helm-sca/releases/download/v0.0.2/helm-sca_linux_amd64.tar.gz" \
   | tar -xz -C /usr/local/bin helm-sca
+```
 
-helm-sca inventory --argo-apps ./apps --repo-root .
-helm-sca scan --flux ./clusters --repo-root . --out-dir ./out --fail-on high
-helm-sca recommend --argo-apps ./apps --repo-root . --out-dir ./out
+```shell-session
+$ helm-sca inventory --argo-apps ./apps --repo-root .
+```
+
+```shell-session
+$ helm-sca scan --flux ./clusters --repo-root . --out-dir ./out --fail-on high
+```
+
+```shell-session
+$ helm-sca recommend --argo-apps ./apps --repo-root . --out-dir ./out
 ```
 
 Needs `helm` on PATH for chart/GitOps/Terraform paths. `scan` / `recommend` need Syft and Grype (the Action installs those). Kustomize sources need `kubectl` or `kustomize`.
@@ -120,8 +128,8 @@ The interesting part is not "run Grype." It is forcing the scan target to match 
 
 For remote Helm Applications the helper does the boring thing Argo does:
 
-```bash
-helm template "$release" "$chart" \
+```shell-session
+$ helm template "$release" "$chart" \
   --repo "$repo_url" \
   --version "$target_revision" \
   -f <inline-values> \

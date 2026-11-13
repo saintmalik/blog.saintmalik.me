@@ -143,11 +143,20 @@ cmcp-walk/
 
 ### Install
 
-```bash
-python3 -m venv cmcp-env
-source cmcp-env/bin/activate
-python3 -m pip install cmcp-runtime==0.5.0
-cd cmcp-walk   # your working directory with the files below
+```shell-session
+$ python3 -m venv cmcp-env
+```
+
+```shell-session
+$ source cmcp-env/bin/activate
+```
+
+```shell-session
+$ python3 -m pip install cmcp-runtime==0.5.0
+```
+
+```shell-session
+$ cd cmcp-walk
 ```
 
 ### Config
@@ -287,8 +296,8 @@ You only hand-write the `server` block and `approved_definition` (paste or adapt
 
 If you edit an `approved_definition`, recompute its `definition_hash` or the runtime rejects the entry at startup:
 
-```bash
-python3 -c "
+```shell-session
+$ python3 -c "
 import json, hashlib
 d = {
   'description': 'YOUR DESCRIPTION',
@@ -357,11 +366,14 @@ print(json.dumps(approved, indent=2))
 
 ### Validate, pin hashes, start
 
-```bash
-cmcp validate-config --config cmcp-config.yaml
-# expect: ✓ Config valid: cmcp-config.yaml
+```shell-session
+$ cmcp validate-config --config cmcp-config.yaml
+```
 
-python3 record_approved_hashes.py
+Expect: `✓ Config valid: cmcp-config.yaml`
+
+```shell-session
+$ python3 record_approved_hashes.py
 ```
 
 When I ran it with the files above:
@@ -377,8 +389,8 @@ Keep that `approved-hashes.json`. You will pin those values at verify time.
 
 Terminal 1. Start the gateway and leave it open:
 
-```bash
-CMCP_DEV_MODE=1 cmcp start --config cmcp-config.yaml
+```shell-session
+$ CMCP_DEV_MODE=1 cmcp start --config cmcp-config.yaml
 ```
 
 You will see the "no hardware TEE / software-only" warnings. Expected. Then uvicorn on `127.0.0.1:8443`:
@@ -396,8 +408,8 @@ You will see the "no hardware TEE / software-only" warnings. Expected. Then uvic
 
 In terminal 2. This is the Cursor Agent / filesystem MCP leak call, as JSON-RPC:
 
-```bash
-curl -i -X POST http://localhost:8443/mcp \
+```shell-session
+$ curl -i -X POST http://localhost:8443/mcp \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc": "2.0",
@@ -426,15 +438,16 @@ When you hit deny you should see `HTTP/1.1 403 Forbidden` and `POLICY_DENY`. Tha
 
 Terminal 3. Start the filesystem MCP:
 
-```bash
-python3 filesystem_mcp.py
-# filesystem MCP listening on :9001
+```shell-session
+$ python3 filesystem_mcp.py
 ```
+
+Expect: filesystem MCP listening on `:9001`.
 
 Back in terminal 2:
 
-```bash
-curl -i -X POST http://localhost:8443/mcp \
+```shell-session
+$ curl -i -X POST http://localhost:8443/mcp \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc": "2.0",
@@ -463,11 +476,13 @@ You should get `HTTP/1.1 200 OK`, a directory listing, and a `_cmcp` audit block
 
 Closing takes the session's internal UUID, not the label `cursor-session-001`:
 
-```bash
-SESSION_UUID=$(curl -s "http://localhost:8443/audit/export?session_id=cursor-session-001" \
+```shell-session
+$ SESSION_UUID=$(curl -s "http://localhost:8443/audit/export?session_id=cursor-session-001" \
   | python3 -c "import sys, json; print(json.load(sys.stdin)['entries'][0]['session_id'])")
+```
 
-curl -s -X POST "http://localhost:8443/sessions/$SESSION_UUID/close" \
+```shell-session
+$ curl -s -X POST "http://localhost:8443/sessions/$SESSION_UUID/close" \
   | python3 -m json.tool > claim.json
 ```
 
@@ -486,8 +501,8 @@ My `gateway.call_summary`:
 }
 ```
 
-```bash
-cmcp verify claim.json
+```shell-session
+$ cmcp verify claim.json
 ```
 
 Software checks PASS. Hardware attestation FAIL. Overall `RESULT: FAIL (partially_verified)`. That is the honest software-mode answer:
@@ -503,8 +518,8 @@ Software checks PASS. Hardware attestation FAIL. Overall `RESULT: FAIL (partiall
 
 Pin the hashes you recorded before startup:
 
-```bash
-cmcp verify claim.json \
+```shell-session
+$ cmcp verify claim.json \
   --policy-hash "$(python3 -c "import json; print(json.load(open('approved-hashes.json'))['policy_bundle_hash'])")" \
   --catalog-hash "$(python3 -c "import json; print(json.load(open('approved-hashes.json'))['tool_catalog_hash'])")"
 ```

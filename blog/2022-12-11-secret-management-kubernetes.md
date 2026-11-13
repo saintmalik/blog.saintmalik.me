@@ -83,9 +83,12 @@ Same injector model in production, but path, role, and key *names* live in GitOp
 
 Create a namespace and install Vault:
 
-```bash
-kubectl create ns vault
-helm install vault hashicorp/vault --namespace vault
+```shell-session
+$ kubectl create ns vault
+```
+
+```shell-session
+$ helm install vault hashicorp/vault --namespace vault
 ```
 
 :::note
@@ -96,11 +99,20 @@ After install, the `vault-0` pod will not be ready because Vault is sealed.
 
 ## Initialize and unseal Vault
 
-```bash
-kubectl exec -it vault-0 -n vault -- vault operator init
-kubectl exec -it vault-0 -n vault -- vault operator unseal KEY1
-kubectl exec -it vault-0 -n vault -- vault operator unseal KEY2
-kubectl exec -it vault-0 -n vault -- vault operator unseal KEY3
+```shell-session
+$ kubectl exec -it vault-0 -n vault -- vault operator init
+```
+
+```shell-session
+$ kubectl exec -it vault-0 -n vault -- vault operator unseal KEY1
+```
+
+```shell-session
+$ kubectl exec -it vault-0 -n vault -- vault operator unseal KEY2
+```
+
+```shell-session
+$ kubectl exec -it vault-0 -n vault -- vault operator unseal KEY3
 ```
 
 Save the root token and unseal keys somewhere safe. If you lose them, you lose Vault and its data.

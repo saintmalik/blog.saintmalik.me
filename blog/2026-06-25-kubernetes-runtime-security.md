@@ -437,33 +437,64 @@ After deploy, do not trust the Helm release status. Prove detection end-to-end.
 
 **1. Sensor health**
 
-```bash
-kubectl get pods -n falco -l app.kubernetes.io/name=falco
-kubectl logs -n falco -l app.kubernetes.io/name=falco --tail=20 | grep -i ebpf
-# Expect: modern eBPF probe loaded
+```shell-session
+$ kubectl get pods -n falco -l app.kubernetes.io/name=falco
+```
 
-kubectl port-forward -n falco svc/falco-metrics 8765:8765 &
-curl -s localhost:8765/metrics | grep falco_kernel_drops_total
+```shell-session
+$ kubectl logs -n falco -l app.kubernetes.io/name=falco --tail=20 | grep -i ebpf
+```
+
+Expect: modern eBPF probe loaded.
+
+```shell-session
+$ kubectl port-forward -n falco svc/falco-metrics 8765:8765 &
+```
+
+```shell-session
+$ curl -s localhost:8765/metrics | grep falco_kernel_drops_total
 ```
 
 **2. Syscall detection (in a throwaway pod in `app-services`)**
 
-```bash
-kubectl run falco-test -n app-services --rm -it --restart=Never \
+```shell-session
+$ kubectl run falco-test -n app-services --rm -it --restart=Never \
   --image=ubuntu:22.04 -- bash
-
-# Inside the pod:
-cat /etc/shadow          # → CRITICAL: Runtime sensitive file read → Slack + Talon kill
-curl http://169.254.169.254/latest/meta-data/  # → CRITICAL: Runtime IMDS
-bash -i                  # → WARNING: Runtime interactive shell → label only
 ```
+
+Inside the pod:
+
+```shell-session
+$ cat /etc/shadow
+```
+
+`CRITICAL: Runtime sensitive file read` → Slack + Talon kill.
+
+```shell-session
+$ curl http://169.254.169.254/latest/meta-data/
+```
+
+`CRITICAL: Runtime IMDS`.
+
+```shell-session
+$ bash -i
+```
+
+`WARNING: Runtime interactive shell` → label only.
 
 **3. Audit detection**
 
-```bash
-kubectl exec -n app-services deploy/api -- ls   # → WARNING: Runtime K8s exec rule
-kubectl logs -n falco falco-audit-0 --tail=10          # confirm plugin polling CloudWatch
+```shell-session
+$ kubectl exec -n app-services deploy/api -- ls
 ```
+
+`WARNING: Runtime K8s exec rule`.
+
+```shell-session
+$ kubectl logs -n falco falco-audit-0 --tail=10
+```
+
+Confirm plugin polling CloudWatch.
 
 **4. Slack path**
 

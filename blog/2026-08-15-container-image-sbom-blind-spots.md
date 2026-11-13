@@ -56,12 +56,16 @@ If your image is multi-arch, `myorg/api:latest` is an *index*. Each platform man
 
 The fix is simple, and you cannot skip it: turn the tag into a digest first, scan each platform, and key everything by digest.
 
-```bash
-# resolve the tag once, then pin everything to the digest
-docker buildx imagetools inspect myorg/api:latest | grep Digest
+Resolve the tag once, then pin everything to the digest:
 
-# scan the pushed artifact per platform, not the repo, not the tag
-syft registry:myorg/api@sha256:<digest> --platform linux/arm64 -o cyclonedx-json > api.cdx.json
+```shell-session
+$ docker buildx imagetools inspect myorg/api:latest | grep Digest
+```
+
+Scan the pushed artifact per platform, not the repo, not the tag:
+
+```shell-session
+$ syft registry:myorg/api@sha256:<digest> --platform linux/arm64 -o cyclonedx-json > api.cdx.json
 ```
 
 ### Gap 2: PURL vs CPE, the Linux package problem

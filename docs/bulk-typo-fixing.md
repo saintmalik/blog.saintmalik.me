@@ -18,9 +18,12 @@ git clone https://gist.github.com/b194aa4aba5bdaab8b74011fe9379ad3.git bulk-typo
 
 Now navigate into the folder "bulk-typo"
 
-```bash
-cd bulk-typo
-ls
+```shell-session
+$ cd bulk-typo
+```
+
+```shell-session
+$ ls
 ```
 
 Next give the scriopt an executing right using the below command

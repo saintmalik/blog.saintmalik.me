@@ -306,10 +306,16 @@ echo "  lnav $OUT_DIR/*.tsv"
 
 Run it:
 
-```bash
-chmod +x kube-audit.sh
-./kube-audit.sh /path/to/cloudwatch-export /path/to/results
-lnav /path/to/results/*.tsv
+```shell-session
+$ chmod +x kube-audit.sh
+```
+
+```shell-session
+$ ./kube-audit.sh /path/to/cloudwatch-export /path/to/results
+```
+
+```shell-session
+$ lnav /path/to/results/*.tsv
 ```
 
 | Output file | What it hunts |
@@ -329,8 +335,8 @@ This script is **chapter one** of the playbook, not the whole book.
 
 Open the slices together so timestamps line up across hypotheses:
 
-```bash
-lnav exec.tsv secrets.tsv denied.tsv human-users.tsv
+```shell-session
+$ lnav exec.tsv secrets.tsv denied.tsv human-users.tsv
 ```
 
 <Figure>

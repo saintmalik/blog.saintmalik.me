@@ -101,11 +101,15 @@ I ran this on a shared preprod managed cluster (cordon only, no drain, disposabl
 
 ### 1. Cordon the evidence node
 
-```bash
-kubectl cordon <evidence-node>
-kubectl get nodes
-# one node shows Ready,SchedulingDisabled
+```shell-session
+$ kubectl cordon <evidence-node>
 ```
+
+```shell-session
+$ kubectl get nodes
+```
+
+One node shows `Ready,SchedulingDisabled`.
 
 <picture>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-01-cordon.png`} alt="kubectl get nodes with one worker SchedulingDisabled after cordon"/>
@@ -116,10 +120,12 @@ kubectl get nodes
 
 Same image the guide already uses. Marker in env **and** cmdline so it is unambiguously in process memory:
 
-```bash
-kubectl create namespace ir-mem-lab
+```shell-session
+$ kubectl create namespace ir-mem-lab
+```
 
-cat <<'EOF' | kubectl apply -f -
+```shell-session
+$ cat <<'EOF' | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -136,8 +142,10 @@ spec:
       value: "MEMFORENSICS_LAB_MARKER_20260831"
     command: ["sh", "-c", "echo MEMFORENSICS_LAB_MARKER_20260831; sleep 3600"]
 EOF
+```
 
-kubectl -n ir-mem-lab get pod
+```shell-session
+$ kubectl -n ir-mem-lab get pod
 ```
 
 <picture>
@@ -147,8 +155,8 @@ kubectl -n ir-mem-lab get pod
 
 Prove it is live in the process before you image anything:
 
-```bash
-kubectl -n ir-mem-lab exec mem-marker -- sh -c 'printenv IR_MEM_LAB_MARKER; ps w'
+```shell-session
+$ kubectl -n ir-mem-lab exec mem-marker -- sh -c 'printenv IR_MEM_LAB_MARKER; ps w'
 ```
 
 <picture>
@@ -164,12 +172,19 @@ That string is the stand-in for "attacker secret only in RAM." Cleanup later is 
 
 Get onto the cordoned node with your usual break-glass path (SSM session, or `kubectl debug node/<node>`).
 
-```bash
-# on the compromised worker
-curl -fsSL -o avml \
+On the compromised worker:
+
+```shell-session
+$ curl -fsSL -o avml \
   https://github.com/microsoft/avml/releases/download/v0.20.0/avml
-chmod +x avml
-./avml --help
+```
+
+```shell-session
+$ chmod +x avml
+```
+
+```shell-session
+$ ./avml --help
 ```
 
 AVML 0.20+ uses subcommands. Bare `./avml outfile.lime` fails with "unrecognized subcommand". Use `acquire`:
@@ -179,12 +194,17 @@ AVML 0.20+ uses subcommands. Bare `./avml outfile.lime` fails with "unrecognized
   <img src={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-04-avml-help.png`} alt="avml --help showing acquire convert upload stream subcommands"/>
 </picture>
 
-```bash
-# Prefer writing OFF the compromised root disk if you can (extra volume / IR share).
-sudo ./avml acquire /var/tmp/ir-case/memory.lime
-ls -lh /var/tmp/ir-case/memory.lime
-# size should be roughly host RAM
+Prefer writing OFF the compromised root disk if you can (extra volume / IR share).
+
+```shell-session
+$ sudo ./avml acquire /var/tmp/ir-case/memory.lime
 ```
+
+```shell-session
+$ ls -lh /var/tmp/ir-case/memory.lime
+```
+
+Size should be roughly host RAM.
 
 <picture>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-05-avml-acquire.png`} alt="avml acquire finished with LiME file sized like host RAM"/>
@@ -199,18 +219,37 @@ Volatility will show host PIDs. You need the map from PID → container → pod.
 
 On many worker AMIs `crictl` is missing. Install a cri-tools release binary and point it at containerd:
 
-```bash
-curl -fsSL -o /tmp/crictl.tgz \
+```shell-session
+$ curl -fsSL -o /tmp/crictl.tgz \
   https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.33.0/crictl-v1.33.0-linux-amd64.tar.gz
-sudo tar -C /usr/local/bin -xzf /tmp/crictl.tgz crictl
+```
 
-export CONTAINER_RUNTIME_ENDPOINT=unix:///run/containerd/containerd.sock
-crictl ps -a > /var/tmp/ir-case/crictl-ps.txt
-crictl pods > /var/tmp/ir-case/crictl-pods.txt
+```shell-session
+$ sudo tar -C /usr/local/bin -xzf /tmp/crictl.tgz crictl
+```
 
-CID=$(crictl ps --name lab -q | head -1)
-crictl inspect "$CID" | jq '{pid: .info.pid, name: .status.metadata.name}'
-pgrep -af MEMFORENSICS_LAB_MARKER_20260831
+```shell-session
+$ export CONTAINER_RUNTIME_ENDPOINT=unix:///run/containerd/containerd.sock
+```
+
+```shell-session
+$ crictl ps -a > /var/tmp/ir-case/crictl-ps.txt
+```
+
+```shell-session
+$ crictl pods > /var/tmp/ir-case/crictl-pods.txt
+```
+
+```shell-session
+$ CID=$(crictl ps --name lab -q | head -1)
+```
+
+```shell-session
+$ crictl inspect "$CID" | jq '{pid: .info.pid, name: .status.metadata.name}'
+```
+
+```shell-session
+$ pgrep -af MEMFORENSICS_LAB_MARKER_20260831
 ```
 
 <picture>
@@ -224,10 +263,11 @@ Without that inventory, a Volatility `pslist` is a phone book with no street nam
 
 A multi-GB `kubectl cp` over a flaky VPN will time out or leave you with a partial file. I hit that. A short-lived private object (presigned PUT from the node, then pull to the analysis host) was more reliable. Compress first if you can.
 
-```bash
-gzip -c /var/tmp/ir-case/memory.lime > /var/tmp/ir-case/memory.lime.gz
-# upload via short-lived URL or IR role; download on analysis host
+```shell-session
+$ gzip -c /var/tmp/ir-case/memory.lime > /var/tmp/ir-case/memory.lime.gz
 ```
+
+Upload via short-lived URL or IR role, then download on the analysis host.
 
 <picture>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-07-transfer.png`} alt="gzipped LiME shipped off-box via redacted object store hop"/>
@@ -240,13 +280,14 @@ Do not try to run Volatility on a small evidence node that is already full of ap
 
 Volatility is a Python framework for extracting structured artifacts from a memory image. Volatility 3 uses symbol tables (ISF) instead of the old profile model. Linux still needs the right symbols for your kernel. Budget time for ISF generation against your worker AMI. That is the part people skip in demos and regret in incidents.
 
-```bash
-pipx install volatility3
+```shell-session
+$ pipx install volatility3
+```
 
-# sanity check: usable LiME image (no ISF required)
-vol -f memory.lime banners
-# On Volatility 3.2.x the plugin is banners (banners.Banners).
-# Older docs say linux.banner; that name is gone.
+Sanity check: usable LiME image (no ISF required). On Volatility 3.2.x the plugin is `banners` (`banners.Banners`). Older docs say `linux.banner`; that name is gone.
+
+```shell-session
+$ vol -f memory.lime banners
 ```
 
 <picture>
@@ -260,10 +301,11 @@ If `banners` fails, stop and fix the image before you trust deep plugin output. 
 
 This is the whole point of the lab. The marker never needed a durable file in the container rootfs. It was in process memory. After AVML, it is in the LiME:
 
-```bash
-strings memory.lime | grep -F 'MEMFORENSICS_LAB_MARKER_20260831' | head
-# also works: grep -a -F -m 5 MEMFORENSICS_LAB_MARKER_20260831 memory.lime
+```shell-session
+$ strings memory.lime | grep -F 'MEMFORENSICS_LAB_MARKER_20260831' | head
 ```
+
+Also works: `grep -a -F -m 5 MEMFORENSICS_LAB_MARKER_20260831 memory.lime`.
 
 <picture>
   <source type="image/png" srcset={`${useDocusaurusContext().siteConfig.url}/bgimg/k8s-mem-forensics-09-strings-marker.png`} alt="strings grep recovering the planted MEMFORENSICS_LAB_MARKER from the memory dump"/>
@@ -278,13 +320,26 @@ I did not get `linux.pslist` (or the other deep Linux plugins) working on this d
 
 ### Plugins that earn their keep once you have an ISF
 
-```bash
-vol -f memory.lime linux.pslist
-vol -f memory.lime linux.pstree
-vol -f memory.lime linux.sockstat
-vol -f memory.lime linux.malfind
-# string / regex plugins: check `vol --help` (names drift across vol3 releases)
-vol -f memory.lime linux.vmaregexscan --help
+```shell-session
+$ vol -f memory.lime linux.pslist
+```
+
+```shell-session
+$ vol -f memory.lime linux.pstree
+```
+
+```shell-session
+$ vol -f memory.lime linux.sockstat
+```
+
+```shell-session
+$ vol -f memory.lime linux.malfind
+```
+
+String / regex plugins: check `vol --help` (names drift across vol3 releases).
+
+```shell-session
+$ vol -f memory.lime linux.vmaregexscan --help
 ```
 
 What you are hunting for, mapped to Kubernetes reality:

@@ -41,12 +41,16 @@ My AWS profile wasn't loaded. My alias was gone. My `.zshrc` had been silently m
 
 macOS ships with a file-level immutability flag via `chflags`. Once set, **nothing** — not even root-level processes from AI editors — can modify the file without explicitly removing the flag first.
 
-```bash
-# Lock it down — no process can modify .zshrc
-sudo chflags uchg ~/.zshrc
+Lock it down. No process can modify `.zshrc`:
 
-# Unlock when YOU need to edit
-sudo chflags nouchg ~/.zshrc
+```shell-session
+$ sudo chflags uchg ~/.zshrc
+```
+
+Unlock when you need to edit:
+
+```shell-session
+$ sudo chflags nouchg ~/.zshrc
 ```
 
 I wrapped these into aliases (added before the lock, obviously):

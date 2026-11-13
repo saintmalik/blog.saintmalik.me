@@ -110,14 +110,27 @@ vault:
             ttl: "1h"
 ```
 
-```sh
-# what the config Job does (sketch; full YAML in self-healing post)
-vault secrets enable -path=secret kv-v2   # if missing
-vault policy write app-pod-policy ...
-vault auth enable kubernetes                  # if missing
-vault write auth/kubernetes/config \
+What the config Job does (sketch; full YAML in self-healing post):
+
+```shell-session
+$ vault secrets enable -path=secret kv-v2
+```
+
+```shell-session
+$ vault policy write app-pod-policy ...
+```
+
+```shell-session
+$ vault auth enable kubernetes
+```
+
+```shell-session
+$ vault write auth/kubernetes/config \
   kubernetes_host=... kubernetes_ca_cert=... issuer=...
-vault write auth/kubernetes/role/app-pod-role ...
+```
+
+```shell-session
+$ vault write auth/kubernetes/role/app-pod-role ...
 ```
 
 Root/admin token for that Job comes from **SSM Parameter Store** or **Azure Key Vault** via IRSA / Workload Identity. Empty placeholder in git. Same pattern as [secrets in IaC](/secrets-in-iac-terraform/): cloud store holds the bootstrap credential; automation assumes a role to read it.

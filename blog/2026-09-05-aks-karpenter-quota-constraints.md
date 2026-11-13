@@ -75,10 +75,14 @@ Two scalers fighting for pending pods is how you get surprise VMs.
 
 Clean path:
 
-```bash
-az aks update -g <rg> -n <cluster> --disable-cluster-autoscaler
-# and/or per nodepool:
-az aks nodepool update -g <rg> --cluster-name <cluster> -n <pool> --disable-cluster-autoscaler
+```shell-session
+$ az aks update -g <rg> -n <cluster> --disable-cluster-autoscaler
+```
+
+And/or per nodepool:
+
+```shell-session
+$ az aks nodepool update -g <rg> --cluster-name <cluster> -n <pool> --disable-cluster-autoscaler
 ```
 
 Disabling CAS does **not** delete nodes. Then enable NAP, or install self-hosted, then apply NodePools.

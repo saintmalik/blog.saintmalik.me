@@ -283,10 +283,14 @@ if __name__ == "__main__":
 
 Run:
 
-```bash
-mkdir -p agent-on-agent/fixtures
-# write the two files above, then:
-python3 harness.py
+```shell-session
+$ mkdir -p agent-on-agent/fixtures
+```
+
+Write the two files above, then:
+
+```shell-session
+$ python3 harness.py
 ```
 
 I ran that exact command from `agent-on-agent/`. One process, two proves: insecure first, hardened second. Screenshots below are from that run (demo canaries only: no real secrets, no paid model).

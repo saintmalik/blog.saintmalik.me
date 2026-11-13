@@ -5,6 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
+- [From securing conventional product CI/CD to securing AI/ML product pipelines](https://blog.saintmalik.me/from-securing-cicd-to-securing-ai-ml-pipelines/): You already gate PRs with secrets hygiene, SAST, DAST, SCA, signing, and approval. Training jobs and model promote paths are pipelines too. Map the same CI/CD controls onto Kubeflo
 - [From software SBOM to ML-BOM and AIBOM](https://blog.saintmalik.me/sbom-for-models-not-just-containers/): Extend the SBOM you already run for packages and images to the model pack (ML-BOM) and the runtime call graph (AIBOM). Grype the serve env. Hash-check the pack. Gate stale model ID
 - [Dont put the token in the agent](https://blog.saintmalik.me/dont-put-the-token-in-the-agent/): Keep GH_TOKEN and cloud keys out of Cursor, Claude Code, and Copilot-style agents. Agent sends tools/call. Remote MCP or a tool gateway holds the secret and calls GitHub or AWS.
 - [From signing containers to signing models](https://blog.saintmalik.me/from-signing-containers-to-signing-models/): Sign model directories the way you sign containers: OpenSSF model-signing locally, then KitOps + Cosign keyless in GitHub Actions.
@@ -44,7 +45,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/)
 - [EKS Node Debug Nightmare, How to SSH into EKS Nodes](https://blog.saintmalik.me/eks-node-ssh/): SSH into AWS EKS nodes for debugging with Systems Manager and IAM. Terraform for the node role policy, plus a kubectl plugin path when you need it.
 - [Sign container images with AWS Signer and Notation (no public Rekor)](https://blog.saintmalik.me/iac-security-with-state-file-aws-signerion/): Use AWS Signer with Notation in GitHub Actions to sign and verify ECR images without running your own Rekor. Sibling posts cover Cosign key-based and Cosign keyless OIDC.
-- [Enhanced IaC Security with State File Encryption Using OpenTofu](https://blog.saintmalik.me/iac-security-with-state-file-encryption/): Learn how to encrypt your OpenTofu state files using AWS KMS, GCP KMS, or PBKDF2. A practical guide for DevOps engineers looking to secure their infrastructure code.
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)

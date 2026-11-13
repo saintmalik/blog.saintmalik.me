@@ -28,9 +28,12 @@ sudo env -i /path/to/your/script.sh
 
 A better default is to make the script executable and call it directly:
 
-```bash
-chmod +x /path/to/your/script.sh
-env -i /path/to/your/script.sh
+```shell-session
+$ chmod +x /path/to/your/script.sh
+```
+
+```shell-session
+$ env -i /path/to/your/script.sh
 ```
 
 ### 2. Harden the script

@@ -79,25 +79,32 @@ Because your code already sits in GitHub, GitHub Actions is the natural control 
 
 [Syft](https://github.com/anchore/syft) from Anchore is purpose-built for SBOM generation. It supports container images, directories, and individual binaries. It outputs CycloneDX, SPDX, and its own native format.
 
-```bash
-# Install
-curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+```shell-session
+$ curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+```
 
-# Generate from a container image
-syft your-image:latest -o cyclonedx-json > sbom.json
+Generate from a container image:
 
-# Generate from a local Go or Node project directory
-syft dir:. -o cyclonedx-json > sbom.json
+```shell-session
+$ syft your-image:latest -o cyclonedx-json > sbom.json
+```
 
-# Generate SPDX format instead
-syft your-image:latest -o spdx-json > sbom.spdx.json
+Generate from a local Go or Node project directory:
+
+```shell-session
+$ syft dir:. -o cyclonedx-json > sbom.json
+```
+
+Generate SPDX format instead:
+
+```shell-session
+$ syft your-image:latest -o spdx-json > sbom.spdx.json
 ```
 
 Syft picks up packages from package managers (go.sum, package-lock.json, requirements.txt, pom.xml, Gemfile.lock, Cargo.lock) and from installed packages inside container images (dpkg, rpm, apk).
 
-```bash
-# See what ecosystems it detected
-syft your-image:latest -o table
+```shell-session
+$ syft your-image:latest -o table
 ```
 
 You will get output like:
@@ -120,18 +127,26 @@ Once you have an SBOM, do not sit on it. Query it.
 
 [Grype](https://github.com/anchore/grype) from Anchore reads Syft SBOMs directly and matches packages against the Grype vulnerability database (NVD, GitHub Advisories, OSV, and ecosystem-specific sources).
 
-```bash
-# Install Grype
-curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+```shell-session
+$ curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+```
 
-# Scan the SBOM you generated
-grype sbom:./sbom.json
+Scan the SBOM you generated:
 
-# Filter to only HIGH and CRITICAL
-grype sbom:./sbom.json --fail-on high
+```shell-session
+$ grype sbom:./sbom.json
+```
 
-# Output as JSON for parsing
-grype sbom:./sbom.json -o json > vuln-report.json
+Filter to only HIGH and CRITICAL:
+
+```shell-session
+$ grype sbom:./sbom.json --fail-on high
+```
+
+Output as JSON for parsing:
+
+```shell-session
+$ grype sbom:./sbom.json -o json > vuln-report.json
 ```
 
 The output tells you the package, installed version, fixed version, CVE ID, and severity. The `--fail-on` flag is the gate: set it in CI and the build fails if a HIGH or CRITICAL exists without a fix.
@@ -152,15 +167,19 @@ SBOM-based license checking is one of the most underused capabilities teams slee
 
 A Syft CycloneDX JSON SBOM includes license info per component. You can query it directly with jq:
 
-```bash
-# List all unique licenses found
-cat sbom.json | jq -r '
+List all unique licenses found:
+
+```shell-session
+$ cat sbom.json | jq -r '
   .components[]
   | .licenses[]?.license.id // .licenses[]?.license.name
 ' | sort -u
+```
 
-# Find any GPL variants
-cat sbom.json | jq '
+Find any GPL variants:
+
+```shell-session
+$ cat sbom.json | jq '
   .components[]
   | select(
       .licenses[]?.license.id
@@ -189,9 +208,8 @@ A Syft SBOM gives you package names, versions, and PURLs. The PURL is the key to
 
 For a Go module:
 
-```bash
-# Extract all Go module PURLs from the SBOM
-cat sbom.json | jq -r '
+```shell-session
+$ cat sbom.json | jq -r '
   .components[]
   | select(.purl | startswith("pkg:golang"))
   | .purl
@@ -200,9 +218,8 @@ cat sbom.json | jq -r '
 
 For an npm package named `lodash` at version `4.17.21`, the PURL is `pkg:npm/lodash@4.17.21`. You can hit the npm registry:
 
-```bash
-# Get latest version and release dates for a package
-curl -s https://registry.npmjs.org/lodash | jq '{
+```shell-session
+$ curl -s https://registry.npmjs.org/lodash | jq '{
   latest: .["dist-tags"].latest,
   modified: .time.modified,
   created: .time.created
@@ -211,8 +228,8 @@ curl -s https://registry.npmjs.org/lodash | jq '{
 
 For PyPI:
 
-```bash
-curl -s https://pypi.org/pypi/requests/json | jq '{
+```shell-session
+$ curl -s https://pypi.org/pypi/requests/json | jq '{
   latest: .info.version,
   release_date: .urls[0].upload_time
 }'
@@ -262,9 +279,12 @@ done
 
 Run it:
 
-```bash
-chmod +x check-dep-age.sh
-./check-dep-age.sh sbom.json
+```shell-session
+$ chmod +x check-dep-age.sh
+```
+
+```shell-session
+$ ./check-dep-age.sh sbom.json
 ```
 
 Output:
@@ -370,9 +390,8 @@ Generating and querying the SBOM is half the battle. The other half is ensuring 
 
 This ties naturally into container signing. By using tools like [Cosign](https://github.com/sigstore/cosign), you can cryptographically sign your container image and attach the SBOM as an in-toto attestation.
 
-```bash
-# Attach and sign the SBOM to the image
-cosign attest --predicate sbom.json --type cyclonedx your-image:latest
+```shell-session
+$ cosign attest --predicate sbom.json --type cyclonedx your-image:latest
 ```
 
 When you do this, your Kubernetes admission controller can verify the signature before the container ever runs, guaranteeing that the image was built by your CI pipeline and that the SBOM exactly matches what was deployed.
@@ -540,12 +559,16 @@ You can then use the `workflow_dispatch` trigger to manually kick a scan the mom
 
 Beyond re-scanning the same SBOM, there is value in comparing SBOMs between releases to catch dependency drift - cases where a dependency version changed quietly between two builds.
 
-```bash
-# Extract package list from two SBOMs and diff them
-jq -r '.components[] | "\(.name) \(.version)"' sbom-v1.json | sort > deps-v1.txt
-jq -r '.components[] | "\(.name) \(.version)"' sbom-v2.json | sort > deps-v2.txt
+```shell-session
+$ jq -r '.components[] | "\(.name) \(.version)"' sbom-v1.json | sort > deps-v1.txt
+```
 
-diff deps-v1.txt deps-v2.txt
+```shell-session
+$ jq -r '.components[] | "\(.name) \(.version)"' sbom-v2.json | sort > deps-v2.txt
+```
+
+```shell-session
+$ diff deps-v1.txt deps-v2.txt
 ```
 
 Output:

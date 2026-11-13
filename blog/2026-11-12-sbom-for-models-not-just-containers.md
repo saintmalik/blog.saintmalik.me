@@ -126,6 +126,9 @@ Inventory does not stop those. It makes the pack, the serve env, and the runtime
 
 ```shell-session
 $ export PROMOTE_ROOT="${PROMOTE_ROOT:-$PWD/artifacts/promote}"
+```
+
+```shell-session
 $ mkdir -p "$PROMOTE_ROOT/models" "$PROMOTE_ROOT/bom" "$PROMOTE_ROOT/aibom"
 ```
 
@@ -133,9 +136,21 @@ Serve venv for the Software SBOM path. Install `syft` / `grype` once on the runn
 
 ```shell-session
 $ python3 -m venv "$PROMOTE_ROOT/serve-venv"
+```
+
+```shell-session
 $ source "$PROMOTE_ROOT/serve-venv/bin/activate"
+```
+
+```shell-session
 $ pip install 'cyclonedx-bom' 'huggingface_hub'
+```
+
+```shell-session
 $ syft version
+```
+
+```shell-session
 $ grype version
 ```
 
@@ -147,9 +162,18 @@ Use the real train/serve venv or image. Sample installs torch so Grype has a pac
 
 ```shell-session
 $ source "$PROMOTE_ROOT/serve-venv/bin/activate"
+```
+
+```shell-session
 $ pip install 'torch==2.9.0' --index-url https://download.pytorch.org/whl/cpu
+```
+
+```shell-session
 $ cyclonedx-py environment --sv 1.6 --of JSON \
   -o "$PROMOTE_ROOT/bom/serve-env.cdx.json"
+```
+
+```shell-session
 $ jq -r '.components[] | select(.name=="torch") | "\(.name)@\(.version) \(.purl)"' \
   "$PROMOTE_ROOT/bom/serve-env.cdx.json"
 torch@2.9.0 pkg:pypi/torch@2.9.0
@@ -201,9 +225,21 @@ Sample pack: [`prajjwal1/bert-tiny`](https://huggingface.co/prajjwal1/bert-tiny)
 
 ```shell-session
 $ source "$PROMOTE_ROOT/serve-venv/bin/activate"
+```
+
+```shell-session
 $ MODEL_DIR="$PROMOTE_ROOT/models/bert-tiny"
+```
+
+```shell-session
 $ mkdir -p "$MODEL_DIR"
+```
+
+```shell-session
 $ hf download prajjwal1/bert-tiny --local-dir "$PROMOTE_ROOT/models/bert-tiny-hub"
+```
+
+```shell-session
 $ cp "$PROMOTE_ROOT/models/bert-tiny-hub/config.json" \
   "$PROMOTE_ROOT/models/bert-tiny-hub/pytorch_model.bin" \
   "$PROMOTE_ROOT/models/bert-tiny-hub/vocab.txt" \
@@ -233,8 +269,17 @@ Minimum useful set:
 
 ```shell-session
 $ WEIGHT=$(shasum -a 256 "$MODEL_DIR/pytorch_model.bin" | awk '{print $1}')
+```
+
+```shell-session
 $ CONFIG=$(shasum -a 256 "$MODEL_DIR/config.json" | awk '{print $1}')
+```
+
+```shell-session
 $ VOCAB=$(shasum -a 256 "$MODEL_DIR/vocab.txt" | awk '{print $1}')
+```
+
+```shell-session
 $ BOM="$PROMOTE_ROOT/bom/bert-tiny.mlbom.cdx.json"
 ```
 
@@ -350,6 +395,9 @@ There is no mature marketplace Action that hash-checks a hand-authored CycloneDX
 
 ```shell-session
 $ ok=0
+```
+
+```shell-session
 $ while IFS=$'\t' read -r name expected; do
     path="$MODEL_DIR/$name"
     if [ ! -f "$path" ]; then
@@ -362,10 +410,13 @@ $ while IFS=$'\t' read -r name expected; do
       echo "$name: MISMATCH"; ok=1
     fi
   done < <(jq -r '.components[] | select(.type=="file") | [.name, .hashes[0].content] | @tsv' "$BOM")
-$ exit "$ok"
 pytorch_model.bin: OK
 config.json: OK
 vocab.txt: OK
+```
+
+```shell-session
+$ exit "$ok"
 ```
 
 ### Tamper / fail case
@@ -380,17 +431,26 @@ b = bytearray(p.read_bytes()); b[0] ^= 0x01; p.write_bytes(b)
 print("flipped first byte of pytorch_model.bin")
 PY
 flipped first byte of pytorch_model.bin
+```
+
+```shell-session
 $ ok=0
+```
+
+```shell-session
 $ while IFS=$'\t' read -r name expected; do
     path="$MODEL_DIR/$name"
     actual=$(shasum -a 256 "$path" | awk '{print $1}')
     if [ "$actual" = "$expected" ]; then echo "$name: OK"
     else echo "$name: MISMATCH"; ok=1; fi
   done < <(jq -r '.components[] | select(.type=="file") | [.name, .hashes[0].content] | @tsv' "$BOM")
-$ echo "exit=$ok"
 pytorch_model.bin: MISMATCH
 config.json: OK
 vocab.txt: OK
+```
+
+```shell-session
+$ echo "exit=$ok"
 exit=1
 ```
 
@@ -456,10 +516,25 @@ When prod picks up a new Ollama tag, Modelfile or SYSTEM prompt, cloud model ID,
 
 ```shell-session
 $ AIBOM="$PROMOTE_ROOT/aibom/support-agent.aibom.yaml"
+```
+
+```shell-session
 $ ollama list
+```
+
+```shell-session
 $ ollama show support-bot
+```
+
+```shell-session
 $ ollama show qwen2.5:14b
+```
+
+```shell-session
 $ shasum -a 256 prompts/support-bot.system.txt
+```
+
+```shell-session
 $ rg -n -e 'MODEL[_A-Z]*\s*=' -e 'model\s*=' -e 'openai|anthropic|ollama\.chat|ChatCompletion' \
   services/ evals/ config/ || true
 ```
@@ -470,11 +545,27 @@ Gate digests with the CLIs you already have. No custom Python.
 
 ```shell-session
 $ EXPECTED=$(jq -r '.models[] | select(.id=="support-bot") | .prompt_sha256' "$AIBOM")
+```
+
+```shell-session
 $ ACTUAL=$(shasum -a 256 prompts/support-bot.system.txt | awk '{print $1}')
+```
+
+```shell-session
 $ echo "prompt expected=$EXPECTED actual=$ACTUAL"
+```
+
+```shell-session
 $ [ "$ACTUAL" = "$EXPECTED" ] || { echo "prompt MISMATCH"; exit 1; }
+```
+
+```shell-session
 $ echo "prompt OK"
-$ # Optional: confirm a local tag still exists
+```
+
+Optional: confirm a local tag still exists.
+
+```shell-session
 $ ollama list | grep -F "qwen2.5:14b" >/dev/null
 ```
 
