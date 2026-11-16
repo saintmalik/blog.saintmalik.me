@@ -5,7 +5,7 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
-- [From STRIDE and ATT&CK to ATLAS, OWASP LLM, and MAESTRO](https://blog.saintmalik.me/from-stride-attack-to-atlas-owasp-llm-maestro/): DevSecOps to AI security: same threat modeling session, new lenses. STRIDE, DREAD, and ATT&CK on the cloud path. ATLAS, OWASP LLM Top 10, and MAESTRO on the model and agent path. P
+- [From STRIDE and ATT&CK to ATLAS, OWASP LLM, and MAESTRO](https://blog.saintmalik.me/from-stride-attack-to-atlas-owasp-llm-maestro/): Same threat modeling session you already run for apps. STRIDE, DREAD, and ATT&CK on cloud and IAM. ATLAS, OWASP LLM Top 10, and MAESTRO when the board has a model pack, RAG, or age
 - [From securing conventional product CI/CD to securing AI/ML product pipelines](https://blog.saintmalik.me/from-securing-cicd-to-securing-ai-ml-pipelines/): DevSecOps to AI security: same gates on AI/ML product pipelines. Secret scan, dataset pin, SAST, SBOM plus ML-BOM plus AIBOM, model registry promote, attested API image. You do not
 - [From software SBOM to ML-BOM and AIBOM](https://blog.saintmalik.me/sbom-for-models-not-just-containers/): Extend the SBOM you already run for packages and images to the model pack (ML-BOM) and the runtime call graph (AIBOM). Grype the serve env. Hash-check the pack. Gate stale model ID
 - [Dont put the token in the agent](https://blog.saintmalik.me/dont-put-the-token-in-the-agent/): Keep GH_TOKEN and cloud keys out of Cursor, Claude Code, and Copilot-style agents. Agent sends tools/call. Remote MCP or a tool gateway holds the secret and calls GitHub or AWS.
@@ -41,10 +41,10 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Optimizing Semantic Remediation, Using LLMs and Deterministic Caching to Scale SAST Analysis](https://blog.saintmalik.me/sast-recommendations-with-llm/): Scale SAST remediation with an LLM writing guidance on top of deterministic scanner findings, plus caching so repeated rule hits do not burn tokens twice.
 - [RDS DB Passwordless Authentication on AWS EKS using IAM Role Service Account](https://blog.saintmalik.me/rds-db-passwordless-auth-eks/)
 - [Not enough pod IPs on EKS: secondary CIDR and prefix delegation](https://blog.saintmalik.me/eks-ip-outage/): Fix EKS pod IP exhaustion without tearing down the cluster. Add a secondary VPC CIDR, configure VPC CNI prefix delegation, and keep workloads scheduling when subnets run dry.
-- [Managing multiple EKS clusters access using Private EKS API Endpoint with OpenVPN](https://blog.saintmalik.me/eks-private-apiserver/)
 - [2024 In Review](https://blog.saintmalik.me/2024-in-review/)
 - [Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/)
 - [EKS Node Debug Nightmare, How to SSH into EKS Nodes](https://blog.saintmalik.me/eks-node-ssh/): SSH into AWS EKS nodes for debugging with Systems Manager and IAM. Terraform for the node role policy, plus a kubectl plugin path when you need it.
+- [Sign container images with AWS Signer and Notation (no public Rekor)](https://blog.saintmalik.me/iac-security-with-state-file-aws-signerion/): Use AWS Signer with Notation in GitHub Actions to sign and verify ECR images without running your own Rekor. Sibling posts cover Cosign key-based and Cosign keyless OIDC.
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)

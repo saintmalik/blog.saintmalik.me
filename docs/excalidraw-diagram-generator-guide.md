@@ -6,7 +6,7 @@ import Giscus from "@giscus/react";
 
 How blog diagrams should look: thin-stroke Excalidraw, regular Virgil weight, **quiet gray / soft pastel hachure fills**, generous whitespace — spicy but **light**, not loud. Canonical stroke/type weight: the three-inventories figure (“One system. Three inventories.”) — keep its thin borders and regular text, but **always** use Excalidraw **hachure** (or cross-hatch) fills, not flat solid washes. Use that figure as **stroke / type weight** inspiration, not a layout to clone, and not as a license to drop hatches.
 
-This is the Excalidraw style guide. Not the [OWASP GenAI generator guides](/docs/owasp-genai-generator-guides).
+This is the Excalidraw style guide.
 
 ## Target look (lock this)
 
