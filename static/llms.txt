@@ -5,7 +5,8 @@ Site: https://blog.saintmalik.me
 Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 
 ## Priority posts
-- [From securing conventional product CI/CD to securing AI/ML product pipelines](https://blog.saintmalik.me/from-securing-cicd-to-securing-ai-ml-pipelines/): You already gate PRs with secrets hygiene, SAST, DAST, SCA, signing, and approval. Training jobs and model promote paths are pipelines too. Map the same CI/CD controls onto Kubeflo
+- [From STRIDE and ATT&CK to ATLAS, OWASP LLM, and MAESTRO](https://blog.saintmalik.me/from-stride-attack-to-atlas-owasp-llm-maestro/): DevSecOps to AI security: same threat modeling session, new lenses. STRIDE, DREAD, and ATT&CK on the cloud path. ATLAS, OWASP LLM Top 10, and MAESTRO on the model and agent path. P
+- [From securing conventional product CI/CD to securing AI/ML product pipelines](https://blog.saintmalik.me/from-securing-cicd-to-securing-ai-ml-pipelines/): DevSecOps to AI security: same gates on AI/ML product pipelines. Secret scan, dataset pin, SAST, SBOM plus ML-BOM plus AIBOM, model registry promote, attested API image. You do not
 - [From software SBOM to ML-BOM and AIBOM](https://blog.saintmalik.me/sbom-for-models-not-just-containers/): Extend the SBOM you already run for packages and images to the model pack (ML-BOM) and the runtime call graph (AIBOM). Grype the serve env. Hash-check the pack. Gate stale model ID
 - [Dont put the token in the agent](https://blog.saintmalik.me/dont-put-the-token-in-the-agent/): Keep GH_TOKEN and cloud keys out of Cursor, Claude Code, and Copilot-style agents. Agent sends tools/call. Remote MCP or a tool gateway holds the secret and calls GitHub or AWS.
 - [From signing containers to signing models](https://blog.saintmalik.me/from-signing-containers-to-signing-models/): Sign model directories the way you sign containers: OpenSSF model-signing locally, then KitOps + Cosign keyless in GitHub Actions.
@@ -44,7 +45,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [2024 In Review](https://blog.saintmalik.me/2024-in-review/)
 - [Zero Trust Security: Securing Web App on EC2 with Cloudflare Tunnel](https://blog.saintmalik.me/cloudflare-zero-trust-security-ec2/)
 - [EKS Node Debug Nightmare, How to SSH into EKS Nodes](https://blog.saintmalik.me/eks-node-ssh/): SSH into AWS EKS nodes for debugging with Systems Manager and IAM. Terraform for the node role policy, plus a kubectl plugin path when you need it.
-- [Sign container images with AWS Signer and Notation (no public Rekor)](https://blog.saintmalik.me/iac-security-with-state-file-aws-signerion/): Use AWS Signer with Notation in GitHub Actions to sign and verify ECR images without running your own Rekor. Sibling posts cover Cosign key-based and Cosign keyless OIDC.
 
 ## Notes / docs
 - [Notes](https://blog.saintmalik.me/docs/)
@@ -66,6 +66,7 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Delete recent commits from any git branch locally and remotely](https://blog.saintmalik.me/docs/delete-recent-commits-from-any-git-branch-locally-and-remotely/)
 - [Easy Access to Pentesting VPS with via VS Code](https://blog.saintmalik.me/docs/vps-workspace-accessibility/)
 - [EKS EC2 Difference](https://blog.saintmalik.me/docs/eks-ec2/)
+- [Excalidraw style recipe (spicy hand-drawn)](https://blog.saintmalik.me/docs/excalidraw-diagram-generator-guide/)
 - [Expose Socket.IO on EKS with Nginx Ingress (single ingress)](https://blog.saintmalik.me/docs/sockets-nginx/): Run Socket.IO and HTTP services on one Nginx Ingress in EKS with websocket annotations, instead of a separate ALB per socket endpoint.
 - [Exposing socket io and webservice on a service in EKS, ALB](https://blog.saintmalik.me/docs/sockets-service-alb/)
 - [Fix App Store Connect: images cant contain alpha channels or transparencies](https://blog.saintmalik.me/docs/alpha-channels/): Fix App Store Connect Images cant contain alpha channels or transparencies by stripping alpha with ImageMagick mogrify before uploading screenshots or icons.
@@ -86,7 +87,6 @@ Author: Abdulmalik (AppSec Engineer) - https://saintmalik.me
 - [Setting up free custom mails for your startup](https://blog.saintmalik.me/docs/custom-mails/)
 - [Signoz on Kubernetes Errors](https://blog.saintmalik.me/docs/signoz/)
 - [Solutions to Docusaurus Issues i experienced](https://blog.saintmalik.me/docs/fix-docusaurus-solutions/)
-- [Squeezing your node on EKS for the money of it!](https://blog.saintmalik.me/docs/squeeze-node/)
 
 ## Optional
 - Google Search does not require llms.txt for AI Overviews or AI Mode.

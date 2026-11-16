@@ -63,13 +63,13 @@ Related:
 
 ## Signing vs provenance vs lineage
 
-Same separation in one table. Do not mash them into one JSON file.
+Same separation. Do not mash them into one JSON file.
 
-| Control | Question it answers | Format | Tooling | What it does **not** prove |
-| --- | --- | --- | --- | --- |
-| **Model signing** | Who published these exact files? | Sigstore bundle over a manifest of per-file hashes (or Cosign on an OCI ModelKit) | OpenSSF [`model-signing`](https://github.com/sigstore/model-transparency), Cosign + [KitOps](https://kitops.org/docs/security/) | That the model is benign |
-| **Build provenance** | Which source, inputs, and builder produced it? | in-toto statement, predicate `https://slsa.dev/provenance/v1` | `actions/attest`, `gh attestation verify` | That the training data or code was trustworthy |
-| **Lineage metadata** | Which base model was it derived from? | Model card YAML (`base_model`, `datasets`), or a pedigree claim in inventory | Hub model card, optional BOM pedigree | That the claim is true. The uploader declares it until digests appear in a signed attestation |
+**Model signing** answers who published these exact files. Format is a Sigstore bundle over a manifest of per-file hashes (or Cosign on an OCI ModelKit). Tooling is OpenSSF [`model-signing`](https://github.com/sigstore/model-transparency), or Cosign + [KitOps](https://kitops.org/docs/security/). It does not prove the model is benign.
+
+**Build provenance** answers which source, inputs, and builder produced it. Format is an in-toto statement with predicate `https://slsa.dev/provenance/v1`. Tooling is `actions/attest` to produce and `gh attestation verify` to consume. It does not prove the training data or code was trustworthy.
+
+**Lineage metadata** answers which base model it was derived from. Format is model card YAML (`base_model`, `datasets`), or a pedigree claim in inventory. Tooling is the Hub model card or optional BOM pedigree. The claim is not proven true. The uploader declares it until digests appear in a signed attestation.
 
 Signing and provenance compose: the signature covers a manifest of file digests, and the SLSA attestation lists the same files as subjects. Check both and you know the bytes are what a trusted identity published and the output of a build you can inspect. Lineage without digests is a claim.
 
@@ -174,12 +174,12 @@ $ ls -la bert-tiny/
 $ du -h bert-tiny/pytorch_model.bin
 ```
 
-| File | Role | Size |
-| --- | --- | --- |
-| `config.json` | architecture / hyperparams | 285 B |
-| `pytorch_model.bin` | weight checkpoint | ~17 MB |
-| `vocab.txt` | tokenizer vocab | ~226 KB |
-| `README.md` | model card | 2.5 KB |
+What you should see under the tree:
+
+- `config.json`: architecture / hyperparams (285 B)
+- `pytorch_model.bin`: weight checkpoint (~17 MB)
+- `vocab.txt`: tokenizer vocab (~226 KB)
+- `README.md`: model card (2.5 KB)
 
 No Hub CLI: `python -c 'from huggingface_hub import snapshot_download; snapshot_download("prajjwal1/bert-tiny", local_dir="...")'`.
 
@@ -368,13 +368,13 @@ Local key signing is the hash check. Production still needs what you already do 
 
 Training often lives on a GPU cluster. Actions should own **package + sign + promote**. Swap the stage step for "fetch the checkpoint your trainer just wrote" when you wire this for real.
 
-| Need | Marketplace / official | What still needs shell |
-| --- | --- | --- |
-| KitOps CLI | [`jozu-ai/gh-kit-setup`](https://github.com/jozu-ai/gh-kit-setup) | `kit pack` / `kit push` |
-| Cosign keyless | [`sigstore/cosign-installer`](https://github.com/sigstore/cosign-installer) `@v4.1.3` | `cosign sign` / `cosign verify` with pinned identity |
-| Registry login | `docker/login-action` (GHCR) | none for auth |
-| Stage checkpoint | No official Hub-snapshot Action for this shape | `hf download`, or copy from your trainer |
-| OpenSSF `model-signing` | **No official Action yet.** CLI-first | pinned `pip install model-signing==…` + CLI |
+Marketplace pieces you can install, then shell for the rest:
+
+- **KitOps CLI:** [`jozu-ai/gh-kit-setup`](https://github.com/jozu-ai/gh-kit-setup). Still shell `kit pack` / `kit push`.
+- **Cosign keyless:** [`sigstore/cosign-installer`](https://github.com/sigstore/cosign-installer) `@v4.1.3`. Still shell `cosign sign` / `cosign verify` with a pinned identity.
+- **Registry login:** `docker/login-action` (GHCR). Auth needs no extra shell.
+- **Stage checkpoint:** no official Hub-snapshot Action for this shape. Shell `hf download`, or copy from your trainer.
+- **OpenSSF `model-signing`:** no official Action yet. CLI-first. Pin `pip install model-signing==…` and run the CLI.
 
 Permissions match the [Cosign keyless post](/keyless-signing-container-images-github-oidc/): `id-token: write` for Fulcio, `contents: read` for checkout, `packages: write` when you push to GHCR.
 
@@ -577,17 +577,15 @@ Inventory (SBOM / ML-BOM) is optional and adjacent if you want a bill of materia
 
 ## Troubleshooting
 
-| Symptom | Fix |
-| --- | --- |
-| `No module named 'OpenSSL'` | `pip install pyOpenSSL` inside the venv |
-| `No such option '--private-key'` | Use `--private_key` / `--public_key` (underscores) on 1.1.1 |
-| `dd: ... Permission denied` on weights | Hub files can be `444`; `chmod u+w` first |
-| Verify fails after you “only” edited docs | If the file is under the model path, it is in the manifest |
-| Signature polluted by Hub `.cache/` | Copy model files into a clean dir before `sign` |
-| Sigstore keyless wants a browser | Use `sign key` / `verify key` locally; save OIDC for CI |
-| GHA sign hangs on OIDC | Missing `permissions.id-token: write`, or omit `--use_ambient_credentials` / Cosign keyless OIDC perm |
-| Verify fails on identity mismatch | Pin the exact workflow URI (file path + `@refs/...`) |
-| Kit / Cosign unpack fails | Verify the **same** tag/digest you pushed |
+- **`No module named 'OpenSSL'`:** `pip install pyOpenSSL` inside the venv.
+- **`No such option '--private-key'`:** use `--private_key` / `--public_key` (underscores) on 1.1.1.
+- **`dd: ... Permission denied` on weights:** Hub files can be `444`; `chmod u+w` first.
+- **Verify fails after you "only" edited docs:** if the file is under the model path, it is in the manifest.
+- **Signature polluted by Hub `.cache/`:** copy model files into a clean dir before `sign`.
+- **Sigstore keyless wants a browser:** use `sign key` / `verify key` locally; save OIDC for CI.
+- **GHA sign hangs on OIDC:** missing `permissions.id-token: write`, or omit `--use_ambient_credentials` / Cosign keyless OIDC perm.
+- **Verify fails on identity mismatch:** pin the exact workflow URI (file path + `@refs/...`).
+- **Kit / Cosign unpack fails:** verify the **same** tag/digest you pushed.
 
 When the next model ships, what actually refuses to run if the signed digests are wrong: the slide, or the gate?
 

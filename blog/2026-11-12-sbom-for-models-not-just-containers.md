@@ -67,13 +67,13 @@ Related:
 
 ## Three inventories, not one BOM
 
-| Inventory | Question | What you put in it | How you produce it | Gate |
-| --- | --- | --- | --- | --- |
-| **Software SBOM** | Which packages sit next to the model? | PyPI / OS / image deps in the train or serve env | `cyclonedx-py` or Syft | Grype (`--fail-on high`) |
-| **ML-BOM** | Which files am I shipping? | Weights, config, tokenizer, adapters, pedigree claims | Hand-authored CycloneDX `machine-learning-model` + file SHA-256 | `jq` + `shasum` vs disk |
-| **AIBOM** | Which models does prod code actually call? | Ollama tags, Modelfile base + prompt hash, cloud endpoint / model IDs | Hand-curated YAML + `jq` / `shasum` / `ollama show` when calls change | Stale digest / missing local tag |
+**Software SBOM** answers which packages sit next to the model. Put PyPI / OS / image deps from the train or serve env in it. Produce with `cyclonedx-py` or Syft. Gate with Grype (`--fail-on high`).
 
-`pip freeze` covers the first row. A weight-directory scan covers the second if you write the hashes. Neither sees `MODEL_ID=gpt-4o-mini` in config, a custom Ollama Modelfile, or a cloud tag your agent loops on. That is the AIBOM row.
+**ML-BOM** answers which files you are shipping. Put weights, config, tokenizer, adapters, and pedigree claims in it. Hand-author CycloneDX `machine-learning-model` entries with file SHA-256. Gate with `jq` + `shasum` against disk.
+
+**AIBOM** answers which models prod code actually calls. Put Ollama tags, Modelfile base + prompt hash, and cloud endpoint / model IDs in it. Hand-curate YAML and check with `jq` / `shasum` / `ollama show` when calls change. Gate on stale digest or a missing local tag.
+
+`pip freeze` covers the software inventory. A weight-directory scan covers the ML-BOM if you write the hashes. Neither sees `MODEL_ID=gpt-4o-mini` in config, a custom Ollama Modelfile, or a cloud tag your agent loops on. That is the AIBOM.
 
 <Figure>
 <picture>
@@ -86,14 +86,15 @@ Related:
 
 ## Signing vs provenance vs lineage vs inventory
 
-Same table as the [signing post](/from-signing-containers-to-signing-models/). This article only executes the inventory row end to end (all three docs).
+Same separation as the [signing post](/from-signing-containers-to-signing-models/). This article only executes inventory end to end (all three docs).
 
-| Control | Question it answers | Format | Tooling | What it does **not** prove |
-| --- | --- | --- | --- | --- |
-| **Model signing** | Who published these exact files? | Sigstore bundle over per-file hashes (or Cosign on an OCI ModelKit) | OpenSSF `model-signing`, Cosign + KitOps. [Signing post](/from-signing-containers-to-signing-models/) | That the model is benign |
-| **Build provenance** | Which source, inputs, and builder produced it? | in-toto / SLSA provenance | `actions/attest@v4` (produce), `gh attestation verify` (consume) | That the training data or code was trustworthy |
-| **Lineage metadata** | Which base model was it derived from? | Model card `base_model` / `datasets`, or CycloneDX `pedigree.ancestors` | Hub model card, ML-BOM pedigree | That the claim is true until digests appear in a signed attestation |
-| **Inventory** | Which packages, pack files, and runtime model calls make up the system? | Software SBOM + ML-BOM + AIBOM | `cyclonedx-py` / Syft + Grype, hand ML-BOM + `jq`/`shasum`, hand AIBOM YAML + CLI digests. **This post.** | File integrity. Do **not** sign `sbom.json` as the integrity control. Sign the pack |
+**Model signing** answers who published these exact files. Format is a Sigstore bundle over per-file hashes (or Cosign on an OCI ModelKit). Tooling is OpenSSF `model-signing`, or Cosign + KitOps. See the [signing post](/from-signing-containers-to-signing-models/). It does not prove the model is benign.
+
+**Build provenance** answers which source, inputs, and builder produced it. Format is in-toto / SLSA provenance. Produce with `actions/attest@v4`, consume with `gh attestation verify`. It does not prove the training data or code was trustworthy.
+
+**Lineage metadata** answers which base model it was derived from. Format is model card `base_model` / `datasets`, or CycloneDX `pedigree.ancestors`. Tooling is the Hub model card or ML-BOM pedigree. The claim is not proven true until digests appear in a signed attestation.
+
+**Inventory** answers which packages, pack files, and runtime model calls make up the system. Format is Software SBOM + ML-BOM + AIBOM. Tooling is `cyclonedx-py` / Syft + Grype, hand ML-BOM + `jq`/`shasum`, and hand AIBOM YAML + CLI digests. That is this post. Inventory does not prove file integrity. Do not sign `sbom.json` as the integrity control. Sign the pack.
 
 Inventory answers "what am I looking at." Signing answers "untampered since publish." Provenance answers "built how." Lineage without digests is a claim. A production promote path needs all of them at different points.
 
@@ -581,14 +582,11 @@ There is no mature `cyclonedx-py`-for-Ollama that emits a complete AIBOM either.
 
 ### AIBOM vs ML-BOM (do not collapse them)
 
-| | **ML-BOM** | **AIBOM** |
-| --- | --- | --- |
-| Object | Files on disk you are about to promote | Names / endpoints the process invokes |
-| Hash story | SHA-256 of weights / config | Digest of local tag or Modelfile prompt; cloud often unpinned |
-| Generator | Hand CycloneDX (generators still thin) | Hand YAML + `ollama` / `shasum` / `jq` |
-| Missed by | Empty Syft on a `.bin` tree | Entirely invisible to Software SBOM |
+**ML-BOM** is the files on disk you are about to promote. Hash story is SHA-256 of weights / config. You hand-author CycloneDX (generators are still thin). Syft on a `.bin` tree often comes back empty, so this inventory exists.
 
-A fine-tune you export as safetensors is an ML-BOM row. The same weights pulled into Ollama and wrapped with a system prompt become an AIBOM Modelfile row on top. Both can be true for one product.
+**AIBOM** is the names / endpoints the process invokes. Hash story is the digest of a local tag or Modelfile prompt; cloud IDs are often unpinned. You hand-curate YAML and check with `ollama` / `shasum` / `jq`. Software SBOM never sees this layer.
+
+A fine-tune you export as safetensors is an ML-BOM entry. The same weights pulled into Ollama and wrapped with a system prompt become an AIBOM Modelfile entry on top. Both can be true for one product.
 
 ## Promote, then sign the pack (not `sbom.json`)
 
@@ -635,12 +633,10 @@ Model-file attestation via GitHub Attestations is usable when the export runs in
 
 Reuse the Anchore Actions you already trust for software SBOM. Do not curl-install Syft and Grype in every workflow when the maintained Actions cover that path.
 
-| Gate | Tooling | What exists today |
-| --- | --- | --- |
-| Software SBOM → Grype | [`anchore/sbom-action`](https://github.com/anchore/sbom-action) (Syft) + [`anchore/scan-action`](https://github.com/anchore/scan-action) (Grype) | Official, company-usable. Prefer image digest or serve path. |
-| ML-BOM hash-check | Hand CycloneDX + `jq` + `shasum` | No mature marketplace Action that hash-checks a hand-authored `machine-learning-model` BOM against a pack tree. `cyclonedx-cli validate` is schema only. |
-| AIBOM evidence | Committed YAML + `jq` / `shasum` / `ollama show` | No mature marketplace Action for call-site / Modelfile / cloud-ID gates. Hub-metadata Actions are a different job. |
-| Pack provenance | [`actions/attest@v4`](https://github.com/actions/attest) produce; `gh attestation verify` consume | Official GitHub path. Verify is CLI-first. |
+1. **Software SBOM → Grype.** [`anchore/sbom-action`](https://github.com/anchore/sbom-action) (Syft) + [`anchore/scan-action`](https://github.com/anchore/scan-action) (Grype). Official, company-usable. Prefer image digest or serve path.
+2. **ML-BOM hash-check.** Hand CycloneDX + `jq` + `shasum`. No mature marketplace Action hash-checks a hand-authored `machine-learning-model` BOM against a pack tree. `cyclonedx-cli validate` is schema only.
+3. **AIBOM evidence.** Committed YAML + `jq` / `shasum` / `ollama show`. No mature marketplace Action for call-site / Modelfile / cloud-ID gates. Hub-metadata Actions are a different job.
+4. **Pack provenance.** Produce with [`actions/attest@v4`](https://github.com/actions/attest). Consume with `gh attestation verify`. Official GitHub path. Verify is CLI-first.
 
 Optional: wrap the `jq` / `shasum` / `ollama` checks behind one thin org composite (`.github/actions/ml-inventory-gates`) so promote workflows call one step. The composite is yours until a vendor ships the gate. Do not grow a folder of one-off Python checkers.
 

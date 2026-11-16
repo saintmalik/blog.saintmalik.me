@@ -99,9 +99,9 @@ Gates in order: secret scan → identity (OIDC) → dep / dataset pin → SAST �
 
 <Figure>
 <picture>
-  <source type="image/webp" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gates.webp" />
-  <source type="image/png" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gates.png" />
-  <img src="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gates.png" alt="Side by side: conventional product CI/CD pipeline (DevSecOps) of secret scan Gitleaks, identity OIDC, dep lock, SAST, DAST, SCA, sign, approval, deploy; AI/ML product pipeline (AI security) of secret scan on train notebooks agents, identity OIDC or IRSA, dataset digest pin, SAST on train and YAML, staging endpoint authZ, SCA with SBOM plus ML-BOM plus AIBOM, attest image and model, eval canary, model registry promote, API deploy. Center label: same gates. Caption notes egress allowlist." />
+  <source type="image/webp" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gate-compare.webp" />
+  <source type="image/png" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gate-compare.png" />
+  <img src="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-gate-compare.png" alt="Two-column spicy Excalidraw compare: left App / software pipeline (DevSecOps) secret scan Gitleaks, identity OIDC, dep lock, SAST, DAST, SCA, sign, approval gate, deploy; right AI/ML pipeline (AI security) secret scan on train notebooks agents, identity OIDC or IRSA, dataset digest pin, SAST on train and YAML, staging endpoint authZ, SCA with SBOM plus ML-BOM plus AIBOM, attest image and model, eval canary plus promote, registry promote / endpoint. Center badge: same gates. Footers note egress allowlist." />
 </picture>
 <p>Left is the conventional product CI/CD pipeline (DevSecOps). Right is the AI/ML product pipeline (AI security). Secret scan is Gitleaks. Identity is OIDC / IRSA. Dataset digest pin is the data-poisoning lock. Inventory on the right is SBOM + ML-BOM + AIBOM. Promote lands in a Model Registry, not only a container tag.</p>
 </Figure>
@@ -109,6 +109,15 @@ Gates in order: secret scan → identity (OIDC) → dep / dataset pin → SAST �
 ## What an AI security engineer owns vs what platform owns
 
 You will not be serving ChatGPT. You usually will not own the GPU fleet either.
+
+<Figure>
+<picture>
+  <source type="image/webp" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-ownership.webp" />
+  <source type="image/png" srcSet="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-ownership.png" />
+  <img src="/bgimg/from-securing-cicd-to-securing-ai-ml-pipelines-ownership.png" alt="Swimlane spicy Excalidraw split across train, registry promote, and endpoint. Top lane AI security: threat model and fail-closed gates, admit policy with SBOM ML-BOM AIBOM and attest, authZ egress and incident response. Bottom lane Platform / MLOps: GPU train clusters, registry ops, serve fleet. Dashed red boundary labeled controls vs runtime." />
+</picture>
+<p>Top lane is the control plane you drive. Bottom lane is the runtime Platform / MLOps runs. Same promote path. Different ownership.</p>
+</Figure>
 
 **AI security owns (or drives) the controls:**
 
@@ -130,13 +139,11 @@ Frontier labs run custom GPU fleets and global API gateways. That is not the AI 
 
 The companion repo is not "the only prod stack." It is a CPU stand-in so you can fail closed without a GPU fleet.
 
-| Plane | This lab | goto for work |
-| --- | --- | --- |
-| Gates (+ kick train) | GitHub Actions | Actions / GitLab CI / Buildkite |
-| Heavy train | Actions CPU sklearn | SageMaker Pipelines; Kubeflow (GPU K8s DAGs) |
-| Model registry | HF Hub | MLflow (closest twin); SageMaker Model Registry |
-| API image | GHCR | GHCR / ECR |
-| Serve | optional local Docker | platform endpoint (SageMaker endpoint, k8s, hosted inference) |
+- **Gates (+ kick train):** GitHub Actions here. At work: Actions, GitLab CI, or Buildkite.
+- **Heavy train:** Actions CPU sklearn here. At work: SageMaker Pipelines, or Kubeflow on GPU K8s DAGs.
+- **Model registry:** HF Hub here. Closest twin at work is MLflow; SageMaker Model Registry if you are already on AWS.
+- **API image:** GHCR here. At work: GHCR or ECR.
+- **Serve:** optional local Docker here. At work: a platform endpoint (SageMaker endpoint, k8s, or hosted inference).
 
 SageMaker covers AWS train, pipelines, model registry, and optional endpoints. Kubeflow is GPU K8s train DAGs. MLflow is registry + tracking. Same gates. Different knobs.
 
