@@ -144,6 +144,7 @@ Make that slightly louder than box borders — not a thick red bar. Skip it if t
 - **Style preview (canonical thin + quiet hatch look):** `static/bgimg/spicy-excalidraw-style-preview.png` — thin borders, regular Virgil, **visible gray/pastel hachure**. Use for **stroke / fill / type weight only** — **not** a layout to copy. Prefer three-column / compare / swimlane layouts over chunky stacks when either fits.
 - Layout/type-weight reference (may lack hatch): `static/bgimg/sbom-for-models-three-inventories.png` — borrow thin strokes and regular text; **add hachure** when regenerating peers.
 - There is **no** shared four-layer stack product template — draw per post, keep thin strokes + quiet hatches, vary the composition
+- LinkedIn covers / post eye-catch (minimal Swiss, not hatch): [LinkedIn image design guide](/docs/linkedin-image-design-guide) — preview `static/bgimg/linkedin-image-style-preview.png`
 
 <br/>
 <h2>Comments</h2>

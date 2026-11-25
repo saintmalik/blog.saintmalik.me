@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#FFFCF5"/>
+
+  <!-- Caption rule + text -->
+  <line x1="72" y1="640" x2="1208" y2="640" stroke="#111111" stroke-width="1.5"/>
+  <text x="72" y="672" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="0.02em">scoped access, not one shared mount</text>
+
+  <!-- ========== BUCKET (left) ========== -->
+  <!-- Wide cylinder; agent-workspace inside with side padding -->
+  <g transform="translate(96, 245)">
+    <text x="104" y="-24" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="0.14em">BUCKET</text>
+    <ellipse cx="104" cy="18" rx="96" ry="20" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <path d="M8 18 V152" stroke="#111111" stroke-width="2.25"/>
+    <path d="M200 18 V152" stroke="#111111" stroke-width="2.25"/>
+    <ellipse cx="104" cy="152" rx="96" ry="20" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <text x="104" y="96" text-anchor="middle" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="12">agent-workspace</text>
+  </g>
+
+  <!-- Fan lines from bucket to three access points -->
+  <path d="M304 325 C360 325, 400 185, 480 185" stroke="#111111" stroke-width="1.75" fill="none"/>
+  <path d="M304 345 H480" stroke="#111111" stroke-width="1.75" fill="none"/>
+  <path d="M304 365 C360 365, 400 485, 480 485" stroke="#111111" stroke-width="1.75" fill="none"/>
+
+  <text x="380" y="220" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="14">/a</text>
+  <text x="380" y="333" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="14">/b</text>
+  <text x="380" y="450" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="14">/c</text>
+
+  <!-- ========== ACCESS POINTS (center) ========== -->
+  <g transform="translate(480, 130)">
+    <text x="55" y="-12" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.12em">ACCESS POINT</text>
+    <rect x="0" y="0" width="110" height="110" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <path d="M18 18 H78 V92 H18 Z" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <path d="M78 18 L100 10 V100 L78 92" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <text x="55" y="62" text-anchor="middle" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="12">AP-A</text>
+  </g>
+
+  <g transform="translate(480, 285)">
+    <text x="55" y="-12" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.12em">ACCESS POINT</text>
+    <rect x="0" y="0" width="110" height="110" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <path d="M18 18 H78 V92 H18 Z" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <path d="M78 18 L100 10 V100 L78 92" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <text x="48" y="54" text-anchor="middle" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="12">AP-B</text>
+    <g transform="translate(58, 68)">
+      <circle cx="0" cy="0" r="7" stroke="#C45C26" stroke-width="2" fill="none"/>
+      <line x1="7" y1="0" x2="22" y2="0" stroke="#C45C26" stroke-width="2"/>
+      <line x1="16" y1="0" x2="16" y2="6" stroke="#C45C26" stroke-width="2"/>
+      <line x1="20" y1="0" x2="20" y2="5" stroke="#C45C26" stroke-width="2"/>
+    </g>
+  </g>
+
+  <g transform="translate(480, 430)">
+    <text x="55" y="-12" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.12em">ACCESS POINT</text>
+    <rect x="0" y="0" width="110" height="110" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <path d="M18 18 H78 V92 H18 Z" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <path d="M78 18 L100 10 V100 L78 92" stroke="#111111" stroke-width="1.75" fill="#FFFCF5"/>
+    <text x="55" y="62" text-anchor="middle" fill="#111111" font-family="Menlo, Consolas, monospace" font-size="12">AP-C</text>
+  </g>
+
+  <!-- Lines access point -> agents -->
+  <line x1="590" y1="185" x2="800" y2="185" stroke="#111111" stroke-width="1.75"/>
+  <line x1="590" y1="340" x2="800" y2="340" stroke="#111111" stroke-width="1.75"/>
+  <line x1="590" y1="485" x2="800" y2="485" stroke="#111111" stroke-width="1.75"/>
+
+  <text x="695" y="326" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="0.14em">SCOPED STS</text>
+
+  <!-- ========== AGENTS (right) ========== -->
+  <!-- Labels UNDER feet; columns spaced so labels do not hit next robot -->
+  <g transform="translate(840, 118)">
+    <rect x="28" y="0" width="44" height="34" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="38" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="54" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="22" y="38" width="56" height="44" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="10" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="78" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="18" y="86" width="64" height="12" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <text x="50" y="132" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="0.1em">AGENT A</text>
+  </g>
+
+  <g transform="translate(840, 278)">
+    <rect x="28" y="0" width="44" height="34" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="38" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="54" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="22" y="38" width="56" height="44" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="10" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="78" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="18" y="86" width="64" height="12" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <text x="50" y="132" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="0.1em">AGENT B</text>
+  </g>
+
+  <g transform="translate(840, 438)">
+    <rect x="28" y="0" width="44" height="34" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="38" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="54" y="10" width="8" height="8" fill="#111111"/>
+    <rect x="22" y="38" width="56" height="44" stroke="#111111" stroke-width="2.25" fill="#FFFCF5"/>
+    <rect x="10" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="78" y="42" width="12" height="26" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <rect x="18" y="86" width="64" height="12" stroke="#111111" stroke-width="2" fill="#FFFCF5"/>
+    <text x="50" y="132" text-anchor="middle" fill="#111111" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="0.1em">AGENT C</text>
+  </g>
+</svg>
